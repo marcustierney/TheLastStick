@@ -38,8 +38,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEditor.dll::UnityEditor.ContainerWindow
   m_PixelRect:
     serializedVersion: 2
-    x: 1529
-    y: 754
+    x: 1111
+    y: 604
     width: 801
     height: 428
   m_ShowMode: 0
@@ -62,8 +62,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PixelRect:
     serializedVersion: 2
-    x: 453
-    y: 210
+    x: 223
+    y: 74
     width: 1689
     height: 958
   m_ShowMode: 4
@@ -1134,7 +1134,7 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: -4.0455956, y: -0.242833, z: 0.0059540933}
+    m_Target: {x: 0, y: 0, z: 0}
     speed: 2
     m_Value: {x: -4.0455956, y: -0.242833, z: 0.0059540933}
   m_RenderMode: 0
@@ -1186,7 +1186,7 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 9.404566
+    m_Target: 10
     speed: 2
     m_Value: 9.404566
   m_Ortho:
@@ -1507,7 +1507,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 7cd40000
     m_LastClickedID: 54396
-    m_ExpandedIDs: 00000000feb6000000b7000002b70000
+    m_ExpandedIDs: 0000000012b7000014b70000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1536,7 +1536,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000feb6000000b7000002b70000
+    m_ExpandedIDs: 0000000012b7000014b70000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
