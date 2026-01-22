@@ -65,17 +65,4 @@ public class SwordAttack : MonoBehaviour
         swordHitbox.SetActive(false);
         isAttacking = false;
     }
-
-
-    public class SwordHitbox : MonoBehaviour
-    {
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            if (collision.CompareTag("Enemy"))
-            {
-                Debug.Log("hit");
-                //collision.GetComponent<Enemy>().TakeDamage(1);
-            }
-        }
-    }
 }
