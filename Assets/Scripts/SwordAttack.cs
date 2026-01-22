@@ -7,6 +7,7 @@ public class SwordAttack : MonoBehaviour
     private float attackDuration = 0.2f;
     private Vector2 rightOffset = new Vector2(0.8f, 0f);
     private Vector2 leftOffset = new Vector2(-0.8f, 0f);
+    private Vector2 downOffset = new Vector2(0f, -1.2f);
     private bool isAttacking;
     private Movement movement;
 
@@ -19,6 +20,11 @@ public class SwordAttack : MonoBehaviour
     {
         if (isAttacking) return;
 
+        if (!movement.IsGrounded() && Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            StartCoroutine(SwordStand());
+            return;
+        }
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             StartCoroutine(Attack(true));
@@ -29,13 +35,27 @@ public class SwordAttack : MonoBehaviour
         }
     }
 
+    private IEnumerator SwordStand()
+    {
+        isAttacking = true;
+        //move sword below player
+        swordHitbox.transform.localPosition = downOffset;
+        swordHitbox.transform.localEulerAngles = new Vector3(0, 0, 90);
+        //make sword standable
+        swordHitbox.SetActive(true);
+        swordHitbox.GetComponent<SwordHitbox>().EnablePlatform();
+        yield return new WaitForSeconds(0.5f);
+        //remove sword platform
+        swordHitbox.GetComponent<SwordHitbox>().Disable();
+        swordHitbox.SetActive(false);
+        swordHitbox.transform.localEulerAngles = Vector3.zero;
+        isAttacking = false;
+    }
     private IEnumerator Attack(bool attackRight)
     {
         isAttacking = true;
-
         bool facingRight = movement.FacingRight;
-
-        if (attackRight) 
+        if (attackRight)
         {
             if (facingRight)
             {
@@ -57,11 +77,12 @@ public class SwordAttack : MonoBehaviour
                 swordHitbox.transform.localPosition = rightOffset;
             }
         }
-
         swordHitbox.SetActive(true);
+        swordHitbox.GetComponent<SwordHitbox>().EnableAttack();
 
         yield return new WaitForSeconds(attackDuration);
 
+        swordHitbox.GetComponent<SwordHitbox>().Disable();
         swordHitbox.SetActive(false);
         isAttacking = false;
     }

@@ -64,4 +64,9 @@ public class Movement : MonoBehaviour
             isFacingRight = value; 
         }
     }
+
+    public bool IsGrounded()
+    {
+        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+    }
 }
