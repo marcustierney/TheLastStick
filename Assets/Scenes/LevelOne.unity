@@ -520,6 +520,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SwordAttack
   swordHitbox: {fileID: 1183832628}
+  swordStandTouchGround: 0
 --- !u!114 &365664721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -535,6 +536,9 @@ MonoBehaviour:
   Health: 100
   MaxHealth: 100
   healthBar: {fileID: 778605269}
+  iFrameDuration: 1
+  knockbackForce: 20
+  knockbackUpForce: 20
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -705,6 +709,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   maxHealth: 3
+  damageToPlayer: 10
 --- !u!50 &532487170
 Rigidbody2D:
   serializedVersion: 5
@@ -1440,7 +1445,7 @@ GameObject:
   - component: {fileID: 2095163553}
   m_Layer: 6
   m_Name: Floor1
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
