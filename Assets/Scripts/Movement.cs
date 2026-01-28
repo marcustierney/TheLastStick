@@ -31,6 +31,17 @@ public class Movement : MonoBehaviour
         }
     }
 
+    public bool IsFacingRight
+    {
+        get { return isFacingRight; }
+    }
+
+    private float knockbackTimer = 0f;
+    public void ApplyKnockback(float duration)
+    {
+        knockbackTimer = duration;
+    }
+
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
@@ -39,6 +50,14 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Decrement knockback timer
+        if (knockbackTimer > 0f)
+        {
+            knockbackTimer -= Time.deltaTime;
+            horizontal = 0f; // No horizontal input during knockback
+            return; // Block all other inputs during knockback
+        }
+
         if (CanMoveHorizontally)
         {
             horizontal = Input.GetAxisRaw("Horizontal");
@@ -88,8 +107,14 @@ public class Movement : MonoBehaviour
         Flip();
     }
 
+        
+
     private void FixedUpdate()
     {
+        // Don't override velocity during knockback
+        if (knockbackTimer > 0f)
+            return;
+
         if (isDashing)
         {
             float dir = isFacingRight ? 1f : -1f;

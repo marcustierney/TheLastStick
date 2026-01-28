@@ -11,6 +11,7 @@ public class SwordAttack : MonoBehaviour
     private bool isAttacking;
     private Movement movement;
     private bool isSwordStanding;
+    private bool usedSwordStand;
 
     private void Awake()
     {
@@ -21,7 +22,7 @@ public class SwordAttack : MonoBehaviour
     {
         if (isAttacking) return;
 
-        if (!movement.IsGrounded() && Input.GetKeyDown(KeyCode.DownArrow))
+        if (!movement.IsGrounded() && Input.GetKeyDown(KeyCode.DownArrow) && !usedSwordStand)
         {
             StartCoroutine(SwordStand());
             return;
@@ -34,10 +35,16 @@ public class SwordAttack : MonoBehaviour
         {
             StartCoroutine(Attack(false));
         }
+
+        if (movement.IsGrounded())
+        {
+            usedSwordStand = false;
+        }
     }
 
     private IEnumerator SwordStand()
     {
+        usedSwordStand = true;
         isAttacking = true;
         isSwordStanding = true;
         movement.CanMoveHorizontally = false;
