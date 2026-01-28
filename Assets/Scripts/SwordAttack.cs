@@ -7,9 +7,10 @@ public class SwordAttack : MonoBehaviour
     private float attackDuration = 0.2f;
     private Vector2 rightOffset = new Vector2(0.8f, 0f);
     private Vector2 leftOffset = new Vector2(-0.8f, 0f);
-    private Vector2 downOffset = new Vector2(0f, -1.2f);
+    private Vector2 downOffset = new Vector2(0f, -.9f);
     private bool isAttacking;
     private Movement movement;
+    private bool isSwordStanding;
 
     private void Awake()
     {
@@ -38,19 +39,42 @@ public class SwordAttack : MonoBehaviour
     private IEnumerator SwordStand()
     {
         isAttacking = true;
+        isSwordStanding = true;
+        movement.CanMoveHorizontally = false;
         //move sword below player
         swordHitbox.transform.localPosition = downOffset;
         swordHitbox.transform.localEulerAngles = new Vector3(0, 0, 90);
         //make sword standable
         swordHitbox.SetActive(true);
         swordHitbox.GetComponent<SwordHitbox>().EnablePlatform();
-        yield return new WaitForSeconds(0.5f);
+
+        while (isSwordStanding)
+        {
+            if (Input.GetKeyDown(KeyCode.Space)) 
+            {
+                ExitSwordStand();
+            }
+
+            yield return null;
+        }
         //remove sword platform
         swordHitbox.GetComponent<SwordHitbox>().Disable();
         swordHitbox.SetActive(false);
         swordHitbox.transform.localEulerAngles = Vector3.zero;
         isAttacking = false;
     }
+
+    private void ExitSwordStand()
+    {
+        isSwordStanding = false;
+        movement.SwordJump();
+        swordHitbox.GetComponent<SwordHitbox>().Disable();
+        swordHitbox.SetActive(false);
+        swordHitbox.transform.localEulerAngles = Vector3.zero;
+        movement.CanMoveHorizontally = true;
+        isAttacking = false;
+    }
+
     private IEnumerator Attack(bool attackRight)
     {
         isAttacking = true;
@@ -85,5 +109,11 @@ public class SwordAttack : MonoBehaviour
         swordHitbox.GetComponent<SwordHitbox>().Disable();
         swordHitbox.SetActive(false);
         isAttacking = false;
+    }
+    public void ForceExitSwordStand()
+    {
+        if (!isSwordStanding) return;
+
+        ExitSwordStand();
     }
 }

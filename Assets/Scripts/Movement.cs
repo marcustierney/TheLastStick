@@ -17,7 +17,20 @@ public class Movement : MonoBehaviour
     private float dashCooldownTimer = 0f;
     private Collider2D playerCollider;
     private List<Collider2D> ignoredEnemyColliders = new List<Collider2D>();
-    
+
+    private bool canMoveHorizontally = true;
+    public bool CanMoveHorizontally
+    {
+        get
+        {
+            return canMoveHorizontally;
+        }
+        set
+        {
+            canMoveHorizontally = value;
+        }
+    }
+
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
@@ -26,10 +39,17 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
+        if (CanMoveHorizontally)
+        {
+            horizontal = Input.GetAxisRaw("Horizontal");
+        }
+        else
+        {
+            horizontal = 0f;
+        }
 
         // dash input (Shift) - only if cooldown expired
-        if ((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)) && dashCooldownTimer <= 0f)
+        if (CanMoveHorizontally && (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)) && dashCooldownTimer <= 0f)
         {
             isDashing = true;
             dashTimeLeft = dashTime;
@@ -157,5 +177,10 @@ public class Movement : MonoBehaviour
     public bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+    }
+
+    public void SwordJump()
+    {
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpHeight);
     }
 }

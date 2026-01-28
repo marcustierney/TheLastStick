@@ -4,9 +4,10 @@ public class SwordHitbox : MonoBehaviour
 {
     public int damage = 1;
     private BoxCollider2D boxCollider;
-
+    private SwordAttack swordAttack;
     private void Awake()
     {
+        swordAttack = GetComponentInParent<SwordAttack>();
         boxCollider = GetComponent<BoxCollider2D>();
         boxCollider.enabled = false;
     }
@@ -39,6 +40,16 @@ public class SwordHitbox : MonoBehaviour
             {
                 enemy.TakeDamage(damage);
             }
+            swordAttack.ForceExitSwordStand();
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Enemy"))
+        {
+            Enemy enemy = collision.collider.GetComponent<Enemy>();
+            enemy.TakeDamage(damage);
+            swordAttack.ForceExitSwordStand();
         }
     }
 }
