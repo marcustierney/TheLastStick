@@ -15,6 +15,12 @@ public class UpdateHealth : MonoBehaviour
     private float iFrameCounter = 0f; // Tracks remaining I-frame time... Again Obv
 
     [SerializeField]
+    private float regenDelay = 5f; // Seconds without damage before regen starts
+    [SerializeField]
+    private float regenRate = 2f; // HP per second
+    private float lastDamageTime = 0f;
+
+    [SerializeField]
     private float knockbackForce = 10f; // Horizontal force to knock player back
     [SerializeField]
     private float knockbackUpForce = 10f; // Upward force to knock player up
@@ -27,6 +33,7 @@ public class UpdateHealth : MonoBehaviour
         healthBar.SetMaxHealth(MaxHealth);
         rb = GetComponent<Rigidbody2D>();
         movement = GetComponent<Movement>();
+        lastDamageTime = Time.time;
         
         if (rb == null)
             Debug.LogError("Rigidbody2D not found on player!");
@@ -41,6 +48,12 @@ public class UpdateHealth : MonoBehaviour
         if (iFrameCounter > 0f)
         {
             iFrameCounter -= Time.deltaTime;
+        }
+
+        // Passive regeneration after delay without taking damage
+        if (Time.time - lastDamageTime >= regenDelay && Health < MaxHealth)
+        {
+            SetHealth(regenRate * Time.deltaTime);
         }
 
         // if (input.GetKeyDown("d"))
@@ -66,6 +79,7 @@ public class UpdateHealth : MonoBehaviour
             return;
 
         SetHealth(-damage);
+        lastDamageTime = Time.time;
         
         if (rb != null && movement != null)
         {

@@ -14,6 +14,9 @@ public class SwordAttack : MonoBehaviour
     public bool swordStandTouchGround;
     private bool usedSwordStand;
 
+    public bool IsAttacking => isAttacking;
+    public bool IsSwordStanding => isSwordStanding;
+
 
     private void Awake()
     {

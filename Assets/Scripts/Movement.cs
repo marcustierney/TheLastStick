@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    private bool isWalking = false;
+    private Animator animator;
     private float horizontal;
     private float speed = 5f;
     private float jumpHeight = 15f;
@@ -61,10 +63,18 @@ public class Movement : MonoBehaviour
         if (CanMoveHorizontally)
         {
             horizontal = Input.GetAxisRaw("Horizontal");
+            isWalking = (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D));
         }
         else
         {
             horizontal = 0f;
+            isWalking = false;
+        }
+
+        // Update animator
+        if (animator != null)
+        {
+            animator.SetBool("isWalking", isWalking);
         }
 
         // dash input (Shift) - only if cooldown expired
@@ -131,6 +141,7 @@ public class Movement : MonoBehaviour
     {
         if (rb == null) rb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<Collider2D>();
+        animator = GetComponent<Animator>();
     }
 
     // bool for dashing checks
