@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    private bool isGrounded = false;
     private bool isWalking = false;
+    private bool spacebarPressed = false;
     private Animator animator;
     private float horizontal;
     private float speed = 5f;
@@ -72,9 +74,20 @@ public class Movement : MonoBehaviour
         }
 
         // Update animator
+        isGrounded = Grounded();
         if (animator != null)
         {
             animator.SetBool("isWalking", isWalking);
+            animator.SetBool("isGrounded", isGrounded);
+            if (spacebarPressed)
+            {
+                animator.SetBool("spacebarPressed", true);
+                spacebarPressed = false;
+            }
+            else
+            {
+                animator.SetBool("spacebarPressed", false);
+            }
         }
 
         // dash input (Shift) - only if cooldown expired
@@ -88,9 +101,13 @@ public class Movement : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f); // maintain vertical velocity
         }
 
-        if (Input.GetButtonDown("Jump") && Grounded())
+        if (Input.GetButtonDown("Jump"))
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpHeight);
+            spacebarPressed = true;
+            if (Grounded())
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpHeight);
+            }
         }
 
         // when player lets go of jump before max height is reached you start going back down
