@@ -327,7 +327,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 79
+    y: 24
     width: 1481
     height: 634
   m_SerializedDataModeController:
@@ -884,7 +884,7 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 8.636187, y: 14.001879, z: -0.21921836}
+    m_Target: {x: -20.444073, y: -3.2692127, z: -0.1361438}
     speed: 2
     m_Value: {x: 8.636187, y: 14.001879, z: -0.21921836}
   m_RenderMode: 0
@@ -936,7 +936,7 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 24.650936
+    m_Target: 16.342691
     speed: 2
     m_Value: 24.650936
   m_Ortho:
@@ -1066,7 +1066,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 739
+    y: 684
     width: 1481
     height: 655
   m_SerializedDataModeController:
@@ -1166,8 +1166,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Hierarchy\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1482
-    y: 79
+    x: 1
+    y: 24
     width: 453
     height: 753
   m_SerializedDataModeController:
@@ -1184,8 +1184,8 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 60b90000
-      m_LastClickedID: 47456
+      m_SelectedIDs: 
+      m_LastClickedID: 0
       m_ExpandedIDs: aaefffffbaefffff8ef3ffffe8f6fffff2faffff1eb90000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
@@ -1232,8 +1232,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Project\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1482
-    y: 858
+    x: 1
+    y: 803
     width: 453
     height: 536
   m_SerializedDataModeController:
@@ -1276,7 +1276,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 7cd40000
     m_LastClickedID: 54396
-    m_ExpandedIDs: 000000008cb700008eb7000090b7000092b7000094b7000096b70000
+    m_ExpandedIDs: 00000000bab70000bcb70000beb70000c0b70000c2b70000c4b70000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1305,21 +1305,21 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: ffffffff000000008cb700008eb7000090b7000092b7000094b7000096b70000
+    m_ExpandedIDs: 00000000bab70000bcb70000beb70000c0b70000c2b70000c4b70000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: HealthBarUI
-      m_OriginalName: HealthBarUI
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 47740
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_TrimLeadingAndTrailingWhitespace: 0
       m_ClientGUIView: {fileID: 11}
@@ -1384,8 +1384,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Inspector\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1937
-    y: 79
+    x: 1938
+    y: 24
     width: 622
     height: 1315
   m_SerializedDataModeController:

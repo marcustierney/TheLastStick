@@ -11,13 +11,13 @@ public class UpdateHealth : MonoBehaviour
     private HealthBarUI healthBar;
 
     [SerializeField]
-    private float iFrameDuration = 1f; // Duration of invulnerability frames in seconds... Obv
+    private float iFrameDuration = 0.5f; // Duration of invulnerability frames in seconds... Obv
     private float iFrameCounter = 0f; // Tracks remaining I-frame time... Again Obv
 
     [SerializeField]
-    private float knockbackForce = 20f; // Horizontal force to knock player back
+    private float knockbackForce = 10f; // Horizontal force to knock player back
     [SerializeField]
-    private float knockbackUpForce = 20f; // Upward force to knock player up
+    private float knockbackUpForce = 10f; // Upward force to knock player up
     private Rigidbody2D rb;
     private Movement movement;
 
@@ -77,7 +77,7 @@ public class UpdateHealth : MonoBehaviour
             rb.linearVelocity = knockback; // Directly set velocity for immediate effect
             
             // Tell movement to ignore input during knockback
-            movement.ApplyKnockback(0.2f);
+            movement.ApplyKnockback(0.1f);
         }
 
         iFrameCounter = iFrameDuration;
