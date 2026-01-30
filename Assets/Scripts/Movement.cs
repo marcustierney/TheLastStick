@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    private bool isGrounded = false;
+    private bool areGrounded = false;
     private bool isWalking = false;
     private bool spacebarPressed = false;
     private Animator animator;
@@ -21,6 +21,7 @@ public class Movement : MonoBehaviour
     private float dashCooldownTimer = 0f;
     private Collider2D playerCollider;
     private List<Collider2D> ignoredEnemyColliders = new List<Collider2D>();
+    private bool isJumping = false;
 
     private bool canMoveHorizontally = true;
     public bool CanMoveHorizontally
@@ -74,11 +75,11 @@ public class Movement : MonoBehaviour
         }
 
         // Update animator
-        isGrounded = Grounded();
+        areGrounded = Grounded();
         if (animator != null)
         {
             animator.SetBool("isWalking", isWalking);
-            animator.SetBool("isGrounded", isGrounded);
+            animator.SetBool("areGrounded", areGrounded);
             if (spacebarPressed)
             {
                 animator.SetBool("spacebarPressed", true);
@@ -104,9 +105,9 @@ public class Movement : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             spacebarPressed = true;
-            if (Grounded())
+            if (Grounded() && !isJumping)
             {
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpHeight);
+                StartCoroutine(JumpWithDelay());
             }
         }
 
@@ -235,5 +236,13 @@ public class Movement : MonoBehaviour
     public void SwordJump()
     {
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpHeight);
+    }
+
+    private IEnumerator JumpWithDelay()
+    {
+        isJumping = true;
+        yield return new WaitForSeconds(0.2f);
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpHeight);
+        isJumping = false;
     }
 }
