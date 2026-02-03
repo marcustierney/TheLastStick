@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    private bool shiftHit = false;
     private bool areGrounded = false;
     private bool isWalking = false;
     private bool spacebarPressed = false;
@@ -80,6 +81,7 @@ public class Movement : MonoBehaviour
         {
             animator.SetBool("isWalking", isWalking);
             animator.SetBool("areGrounded", areGrounded);
+            animator.SetBool("shiftHit", shiftHit);
             if (spacebarPressed)
             {
                 animator.SetBool("spacebarPressed", true);
@@ -95,6 +97,7 @@ public class Movement : MonoBehaviour
         if (CanMoveHorizontally && (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)) && dashCooldownTimer <= 0f)
         {
             isDashing = true;
+            shiftHit = true;
             dashTimeLeft = dashTime;
             dashCooldownTimer = dashCooldown;
             StartDashIgnoreCollisions();
@@ -120,10 +123,12 @@ public class Movement : MonoBehaviour
         // update dash timers
         if (isDashing)
         {
+            
             dashTimeLeft -= Time.deltaTime;
             if (dashTimeLeft <= 0f)
             {
                 isDashing = false;
+                shiftHit = false;
                 EndDashIgnoreCollisions();
                 rb.gravityScale = 5f;
             }
