@@ -95,8 +95,8 @@ public class Enemy : MonoBehaviour
 /* 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Deal damage to player on contact
-        if (collision.gameObject.CompareTag("Player"))
+        // Deal damage to player on contact - but NOT if it's the sword hitbox
+        if (collision.gameObject.CompareTag("Player") && collision.gameObject.name != "SwordHitbox")
         {
             DealDamageToPlayer(collision.gameObject);
         }
@@ -104,8 +104,8 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Deal damage to player if touching trigger
-        if (collision.CompareTag("Player"))
+        // Deal damage to player if touching trigger - but NOT if it's the sword hitbox
+        if (collision.CompareTag("Player") && collision.gameObject.name != "SwordHitbox")
         {
             DealDamageToPlayer(collision.gameObject);
         }
@@ -113,8 +113,8 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        // Continue dealing damage while touching, respecting I-frames
-        if (collision.CompareTag("Player"))
+        // Continue dealing damage while touching, respecting I-frames - but NOT if it's the sword hitbox
+        if (collision.CompareTag("Player") && collision.gameObject.name != "SwordHitbox")
         {
             DealDamageToPlayer(collision.gameObject);
         }
@@ -122,6 +122,12 @@ public class Enemy : MonoBehaviour
 
     private void DealDamageToPlayer(GameObject player)
     {
+        SwordAttack swordAttack = player.GetComponent<SwordAttack>();
+        if (swordAttack != null && swordAttack.IsAttacking)
+        {
+            return;
+        }
+
         UpdateHealth playerHealth = player.GetComponent<UpdateHealth>();
         if (playerHealth != null)
         {

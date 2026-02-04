@@ -11,13 +11,19 @@ public class UpdateHealth : MonoBehaviour
     private HealthBarUI healthBar;
 
     [SerializeField]
-    private float iFrameDuration = 1f; // Duration of invulnerability frames in seconds... Obv
+    private float iFrameDuration = 0.5f; // Duration of invulnerability frames in seconds... Obv
     private float iFrameCounter = 0f; // Tracks remaining I-frame time... Again Obv
 
     [SerializeField]
-    private float knockbackForce = 20f; // Horizontal force to knock player back
+    private float regenDelay = 5f; // Seconds without damage before regen starts
     [SerializeField]
-    private float knockbackUpForce = 20f; // Upward force to knock player up
+    private float regenRate = 2f; // HP per second
+    private float lastDamageTime = 0f;
+
+    [SerializeField]
+    private float knockbackForce = 10f; // Horizontal force to knock player back
+    [SerializeField]
+    private float knockbackUpForce = 10f; // Upward force to knock player up
     private Rigidbody2D rb;
     private Movement movement;
 
@@ -27,6 +33,7 @@ public class UpdateHealth : MonoBehaviour
         healthBar.SetMaxHealth(MaxHealth);
         rb = GetComponent<Rigidbody2D>();
         movement = GetComponent<Movement>();
+        lastDamageTime = Time.time;
         
         if (rb == null)
             Debug.LogError("Rigidbody2D not found on player!");
@@ -41,6 +48,12 @@ public class UpdateHealth : MonoBehaviour
         if (iFrameCounter > 0f)
         {
             iFrameCounter -= Time.deltaTime;
+        }
+
+        // Passive regeneration after delay without taking damage
+        if (Time.time - lastDamageTime >= regenDelay && Health < MaxHealth)
+        {
+            SetHealth(regenRate * Time.deltaTime);
         }
 
         // if (input.GetKeyDown("d"))
@@ -66,6 +79,7 @@ public class UpdateHealth : MonoBehaviour
             return;
 
         SetHealth(-damage);
+        lastDamageTime = Time.time;
         
         if (rb != null && movement != null)
         {
@@ -77,7 +91,7 @@ public class UpdateHealth : MonoBehaviour
             rb.linearVelocity = knockback; // Directly set velocity for immediate effect
             
             // Tell movement to ignore input during knockback
-            movement.ApplyKnockback(0.2f);
+            movement.ApplyKnockback(0.1f);
         }
 
         iFrameCounter = iFrameDuration;
