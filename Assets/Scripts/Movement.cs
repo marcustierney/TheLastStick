@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    private bool shiftHit = false;
+    private bool areGrounded = false;
+    private bool isWalking = false;
+    private bool spacebarPressed = false;
+    private Animator animator;
     private float horizontal;
     private float speed = 5f;
     private float jumpHeight = 15f;
@@ -17,6 +22,7 @@ public class Movement : MonoBehaviour
     private float dashCooldownTimer = 0f;
     private Collider2D playerCollider;
     private List<Collider2D> ignoredEnemyColliders = new List<Collider2D>();
+    private bool isJumping = false;
 
     private bool canMoveHorizontally = true;
     public bool CanMoveHorizontally
@@ -61,16 +67,37 @@ public class Movement : MonoBehaviour
         if (CanMoveHorizontally)
         {
             horizontal = Input.GetAxisRaw("Horizontal");
+            isWalking = (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D));
         }
         else
         {
             horizontal = 0f;
+            isWalking = false;
+        }
+
+        // Update animator
+        areGrounded = Grounded();
+        if (animator != null)
+        {
+            animator.SetBool("isWalking", isWalking);
+            animator.SetBool("areGrounded", areGrounded);
+            animator.SetBool("shiftHit", shiftHit);
+            if (spacebarPressed)
+            {
+                animator.SetBool("spacebarPressed", true);
+                spacebarPressed = false;
+            }
+            else
+            {
+                animator.SetBool("spacebarPressed", false);
+            }
         }
 
         // dash input (Shift) - only if cooldown expired
         if (CanMoveHorizontally && (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)) && dashCooldownTimer <= 0f)
         {
             isDashing = true;
+            shiftHit = true;
             dashTimeLeft = dashTime;
             dashCooldownTimer = dashCooldown;
             StartDashIgnoreCollisions();
@@ -78,9 +105,13 @@ public class Movement : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f); // maintain vertical velocity
         }
 
-        if (Input.GetButtonDown("Jump") && Grounded())
+        if (Input.GetButtonDown("Jump"))
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpHeight);
+            spacebarPressed = true;
+            if (Grounded() && !isJumping)
+            {
+                StartCoroutine(JumpWithDelay());
+            }
         }
 
         // when player lets go of jump before max height is reached you start going back down
@@ -92,10 +123,12 @@ public class Movement : MonoBehaviour
         // update dash timers
         if (isDashing)
         {
+            
             dashTimeLeft -= Time.deltaTime;
             if (dashTimeLeft <= 0f)
             {
                 isDashing = false;
+                shiftHit = false;
                 EndDashIgnoreCollisions();
                 rb.gravityScale = 5f;
             }
@@ -131,6 +164,7 @@ public class Movement : MonoBehaviour
     {
         if (rb == null) rb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<Collider2D>();
+        animator = GetComponent<Animator>();
     }
 
     // bool for dashing checks
@@ -207,5 +241,13 @@ public class Movement : MonoBehaviour
     public void SwordJump()
     {
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpHeight);
+    }
+
+    private IEnumerator JumpWithDelay()
+    {
+        isJumping = true;
+        yield return new WaitForSeconds(0.2f);
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpHeight);
+        isJumping = false;
     }
 }
