@@ -3,7 +3,7 @@ using System.Collections;
 public class BossSword : MonoBehaviour
 {
     public float speed = 4f;
-    public int damage = 10;
+    public int damage = 30;
     public bool isFlying = false;
     public bool isStuck = false;
     private Vector2 direction;
@@ -39,7 +39,7 @@ public class BossSword : MonoBehaviour
 
     private IEnumerator EnableCollisionWithBoss()
     {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(1f);
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), boss.GetComponent<Collider2D>(), false);
     }
 
@@ -87,7 +87,8 @@ public class BossSword : MonoBehaviour
     {
         if (isFlying && collision.CompareTag("Player"))
         {
-            print("Player damage");
+            UpdateHealth health = collision.GetComponent<UpdateHealth>();
+            health.TakeDamage(damage);
         }
         if (isStuck && collision.CompareTag("Boss"))
         {

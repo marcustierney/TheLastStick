@@ -36,7 +36,7 @@ public class BossController : MonoBehaviour
     {
         float distance = Vector2.Distance(transform.position, player.position);
 
-        if (distance < 15f)
+        if (distance > 8 && distance < 15f)
         {
             ThrowSword();
         }
