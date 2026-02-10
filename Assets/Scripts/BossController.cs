@@ -3,14 +3,14 @@ using UnityEngine;
 public class BossController : MonoBehaviour
 {
     public Transform player;
-    public Transform handPosition;
+    public Transform handPosition;      
     public BossSword sword;
     public float moveSpeed = 2f;
     public Collider2D bossCollider;
     private Rigidbody2D rb;
     private bool hasSword = true;
     private bool retrievingSword = false;
-
+            
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();

@@ -3,19 +3,20 @@ using System.Collections;
 public class BossSword : MonoBehaviour
 {
     public float speed = 4f;
+    public int damage = 10;
     public bool isFlying = false;
     public bool isStuck = false;
     private Vector2 direction;
     private Rigidbody2D rb;
     public BossController boss;
-
+    public Collider2D physicsCollider;
+    public Collider2D playerTrigger;
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
     }
     void Update()
     {
-        // Only spin if the sword is flying
         if (isFlying)
         {
             transform.Rotate(0, 0, 60 * Time.deltaTime); //spin 60 deg/sec
@@ -25,17 +26,20 @@ public class BossSword : MonoBehaviour
     public void Throw(Vector2 dir, BossController owner)
     {
         boss = owner;
-        direction = dir.normalized;
-        StartCoroutine(EnableCollisionWithBoss());
+        //direction = dir.normalized;
+        direction = new Vector2(Mathf.Sign(dir.x), 0f).normalized; //Mathf.Sign(dir.x) = right left
         isFlying = true;
         isStuck = false;
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.linearVelocity = direction * speed;
+        physicsCollider.enabled = true;
+        playerTrigger.enabled = true;
+        StartCoroutine(EnableCollisionWithBoss());
     }
 
     private IEnumerator EnableCollisionWithBoss()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(4f);
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), boss.GetComponent<Collider2D>(), false);
     }
 
@@ -75,12 +79,16 @@ public class BossSword : MonoBehaviour
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), boss.GetComponent<Collider2D>(), true);
         transform.position = handPosition.position;
         transform.parent = handPosition;
-
+        playerTrigger.enabled = false;
         boss.OnSwordRetrieved();
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
+        if (isFlying && collision.CompareTag("Player"))
+        {
+            print("Player damage");
+        }
         if (isStuck && collision.CompareTag("Boss"))
         {
             print("Boss collision sword");
