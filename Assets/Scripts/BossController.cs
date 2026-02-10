@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class BossController : MonoBehaviour
 {
@@ -10,7 +11,9 @@ public class BossController : MonoBehaviour
     private Rigidbody2D rb;
     private bool hasSword = true;
     private bool retrievingSword = false;
-            
+    private bool slamming = false;
+    public float slamRange = 4f;
+    public int slamDamage = 15;
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -18,7 +21,20 @@ public class BossController : MonoBehaviour
     }
     void Update()
     {
-        if (hasSword)
+        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+        if (hasSword && distanceToPlayer < 12f)
+        {
+            FacePlayer();
+            if (distanceToPlayer < 4f)
+            {
+                StartCoroutine(GroundSlam());
+            }
+            else
+            {
+                MoveTowardsPlayer();
+            }
+        }
+        else if (hasSword)
         {
             TryThrowSword();
         }
@@ -26,10 +42,28 @@ public class BossController : MonoBehaviour
         {
             MoveToSword();
         }
-        else
+        else if (!slamming)
         {
             MoveTowardsPlayer();
         }
+    }
+
+    public IEnumerator GroundSlam()
+    {
+        hasSword = false;
+        slamming = true;
+        sword.transform.parent = null;
+        sword.transform.position = handPosition.position; 
+        sword.Slam(); 
+        //Deal damage to player within radius
+        if (Vector2.Distance(transform.position, player.position) <= slamRange)
+        {
+            UpdateHealth health = player.GetComponent<UpdateHealth>();
+            health.TakeDamage(slamDamage);
+        }
+        yield return new WaitForSeconds(3f);
+        retrievingSword = true;
+        slamming = false; 
     }
 
     void TryThrowSword()
@@ -92,5 +126,13 @@ public class BossController : MonoBehaviour
     public void OnSwordRetrieved()
     {
         hasSword = true;
+    }
+
+    private void FacePlayer()
+    {
+        if (player.position.x > transform.position.x)
+            transform.localScale = new Vector3(2, 2, 2);
+        else
+            transform.localScale = new Vector3(-2, 2, 2);
     }
 }
