@@ -57,6 +57,21 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Update dash timers even if knockback is active
+        if (isDashing)
+        {
+            dashTimeLeft -= Time.deltaTime;
+            if (dashTimeLeft <= 0f)
+            {
+                isDashing = false;
+                EndDashIgnoreCollisions();
+                rb.gravityScale = 5f;
+            }
+        }
+
+        if (dashCooldownTimer > 0f)
+            dashCooldownTimer -= Time.deltaTime;
+
         // Decrement knockback timer
         if (knockbackTimer > 0f)
         {
@@ -119,21 +134,6 @@ public class Movement : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
         }
-
-        // update dash timers
-        if (isDashing)
-        {
-            dashTimeLeft -= Time.deltaTime;
-            if (dashTimeLeft <= 0f)
-            {
-                isDashing = false;
-                EndDashIgnoreCollisions();
-                rb.gravityScale = 5f;
-            }
-        }
-
-        if (dashCooldownTimer > 0f)
-            dashCooldownTimer -= Time.deltaTime;
 
         Flip();
     }
