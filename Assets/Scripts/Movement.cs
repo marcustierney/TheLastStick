@@ -52,7 +52,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private List<string> dashIgnoreTags = new List<string> { "Enemy", "Enemy Attack" }; // Tags of objects to ignore during dash 
+    [SerializeField] private List<string> dashIgnoreTags = new List<string> { "Enemy", "Enemy Attack" , "Boss"}; // Tags of objects to ignore during dash 
 
     // Update is called once per frame
     void Update()
