@@ -48,6 +48,10 @@ public class UpdateHealth : MonoBehaviour
         if (iFrameCounter > 0f)
         {
             iFrameCounter -= Time.deltaTime;
+            if (iFrameCounter <= 0f && movement != null)
+            {
+                movement.EndIFrameIgnoreCollisions();
+            }
         }
 
         // Passive regeneration after delay without taking damage
@@ -66,14 +70,14 @@ public class UpdateHealth : MonoBehaviour
         // }
     }
 
-    public void SetHealth(float healthChange)
+    public void SetHealth(float healthChange) // Adjust health by a specified amount and update the health bar
     {
         Health += healthChange;
         Health = Mathf.Clamp(Health, 0, MaxHealth);
         healthBar.SetHealth(Health);
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, Vector2 hitSourcePosition) // Apply damage to the player, trigger knockback, and start I-frames
     {
         if (IsInvulnerable())
             return;
@@ -85,8 +89,12 @@ public class UpdateHealth : MonoBehaviour
         {
             // Reset velocity first to ensure knockback isn't affected by current movement
             rb.linearVelocity = Vector2.zero;
-            
-            float knockbackDirection = movement.IsFacingRight ? -1f : 1f;
+
+            float knockbackDirection = Mathf.Sign(transform.position.x - hitSourcePosition.x);
+            if (knockbackDirection == 0f)
+            {
+                knockbackDirection = movement.IsFacingRight ? -1f : 1f;
+            }
             Vector2 knockback = new Vector2(knockbackDirection * knockbackForce, knockbackUpForce);
             rb.linearVelocity = knockback; // Directly set velocity for immediate effect
             
@@ -95,6 +103,10 @@ public class UpdateHealth : MonoBehaviour
         }
 
         iFrameCounter = iFrameDuration;
+        if (movement != null)
+        {
+            movement.StartIFrameIgnoreCollisions();
+        }
 
         // TODO: Add visual feedback here (player flash, damage popup, etc.)
 
@@ -104,12 +116,17 @@ public class UpdateHealth : MonoBehaviour
         }
     }
 
-    public bool IsInvulnerable()
+    public bool IsInvulnerable() // Check if player is currently invulnerable due to I-frames
     {
         return iFrameCounter > 0f;
     }
 
-    private void Die()
+    public void TakeDamage(float damage)
+    {
+        TakeDamage(damage, transform.position);
+    }
+
+    private void Die() // Placeholder for player death logic
     {
         Debug.Log("Player died");
         // TODO: Handle game over logic here

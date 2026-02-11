@@ -11,7 +11,7 @@ public class EnemySwordHitbox : MonoBehaviour
             UpdateHealth playerHealth = collision.GetComponent<UpdateHealth>();
             if (playerHealth != null)
             {
-                playerHealth.TakeDamage(damage);
+                playerHealth.TakeDamage(damage, transform.position); // Pass the position of the hit for knockback direction
             }
         }
     }

@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    private bool shiftHit = false;
-    private bool areGrounded = false;
-    private bool isWalking = false;
+    private bool areGrounded = false; 
+    private bool isWalking = false;  
     private bool spacebarPressed = false;
     private Animator animator;
     private float horizontal;
@@ -14,15 +13,16 @@ public class Movement : MonoBehaviour
     private float jumpHeight = 15f;
     private bool isFacingRight = true;
 
-    private float dashTime = 0.2f;
+    private float dashTime = 0.2f; 
     private float dashSpeed = 20f;
     private float dashCooldown = 0.5f;
     private float dashTimeLeft;
     private bool isDashing;
-    private float dashCooldownTimer = 0f;
-    private Collider2D playerCollider;
-    private List<Collider2D> ignoredEnemyColliders = new List<Collider2D>();
-    private bool isJumping = false;
+    private float dashCooldownTimer = 0f; 
+    private Collider2D playerCollider; 
+    private List<Collider2D> ignoredEnemyColliders = new List<Collider2D>(); // Colliders ignored during dash
+    private List<Collider2D> ignoredIFrameColliders = new List<Collider2D>(); // Colliders ignored during I-frames (e.g. after taking damage)
+    private bool isJumping = false; 
 
     private bool canMoveHorizontally = true;
     public bool CanMoveHorizontally
@@ -52,6 +52,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private List<string> dashIgnoreTags = new List<string> { "Enemy", "Enemy Attack" }; // Tags of objects to ignore during dash 
 
     // Update is called once per frame
     void Update()
@@ -79,9 +80,9 @@ public class Movement : MonoBehaviour
         areGrounded = Grounded();
         if (animator != null)
         {
+            animator.SetBool("isDashing", isDashing);
             animator.SetBool("isWalking", isWalking);
             animator.SetBool("areGrounded", areGrounded);
-            animator.SetBool("shiftHit", shiftHit);
             if (spacebarPressed)
             {
                 animator.SetBool("spacebarPressed", true);
@@ -97,7 +98,6 @@ public class Movement : MonoBehaviour
         if (CanMoveHorizontally && (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)) && dashCooldownTimer <= 0f)
         {
             isDashing = true;
-            shiftHit = true;
             dashTimeLeft = dashTime;
             dashCooldownTimer = dashCooldown;
             StartDashIgnoreCollisions();
@@ -123,12 +123,10 @@ public class Movement : MonoBehaviour
         // update dash timers
         if (isDashing)
         {
-            
             dashTimeLeft -= Time.deltaTime;
             if (dashTimeLeft <= 0f)
             {
                 isDashing = false;
-                shiftHit = false;
                 EndDashIgnoreCollisions();
                 rb.gravityScale = 5f;
             }
@@ -173,6 +171,24 @@ public class Movement : MonoBehaviour
         get { return isDashing; }
     }
 
+    public void StartIFrameIgnoreCollisions()
+    {
+        if (playerCollider == null) return;
+        ignoredIFrameColliders.Clear();
+        ApplyIgnoreForTags(ignoredIFrameColliders);
+    }
+
+    public void EndIFrameIgnoreCollisions()
+    {
+        if (playerCollider == null) return;
+        foreach (Collider2D ec in ignoredIFrameColliders)
+        {
+            if (ec != null && !ignoredEnemyColliders.Contains(ec))
+                Physics2D.IgnoreCollision(playerCollider, ec, false);
+        }
+        ignoredIFrameColliders.Clear();
+    }
+
     // beginning of dash so that player can pass through enemies and hopefully attacks
     // recheck once enemies are able to hit the player
 
@@ -180,37 +196,72 @@ public class Movement : MonoBehaviour
     {
         if (playerCollider == null) return;
         ignoredEnemyColliders.Clear();
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        foreach (GameObject e in enemies)
-        {
-            Collider2D ec = e.GetComponent<Collider2D>();
-            if (ec != null)
-            {
-                Physics2D.IgnoreCollision(playerCollider, ec, true);
-                ignoredEnemyColliders.Add(ec);
-            }
-        }
+        ApplyIgnoreForTags(ignoredEnemyColliders);
     }
 
     // once this ends the collisions are re-enabled hopefully.
     // recheck once enemies are able to hit the player
-    private void EndDashIgnoreCollisions()
+    private void EndDashIgnoreCollisions() 
     {
         if (playerCollider == null) return;
         foreach (Collider2D ec in ignoredEnemyColliders)
         {
-            if (ec != null)
+            if (ec != null && !ignoredIFrameColliders.Contains(ec))
                 Physics2D.IgnoreCollision(playerCollider, ec, false);
         }
         ignoredEnemyColliders.Clear();
     }
 
-    private bool Grounded()
+    private void ApplyIgnoreForTags(List<Collider2D> ignoredColliders) // helper function to apply collision ignores for a list of tags and store the ignored colliders in the provided list
+    {
+        foreach (string tag in dashIgnoreTags)
+        {
+            if (string.IsNullOrWhiteSpace(tag))
+                continue;
+
+            GameObject[] targets;
+            try
+            {
+                targets = GameObject.FindGameObjectsWithTag(tag);
+            }
+            catch
+            {
+                Debug.LogWarning($"Dash ignore tag not defined: {tag}");
+                continue;
+            }
+
+            foreach (GameObject target in targets)
+            {
+                Collider2D targetCollider = target.GetComponent<Collider2D>();
+                AddIgnoredCollider(ignoredColliders, targetCollider);
+
+                if (tag == "Enemy")
+                {
+                    EnemySwordHitbox esh = target.GetComponentInChildren<EnemySwordHitbox>(true);
+                    if (esh != null)
+                    {
+                        Collider2D eshc = esh.GetComponent<Collider2D>();
+                        AddIgnoredCollider(ignoredColliders, eshc);
+                    }
+                }
+            }
+        }
+    }
+
+    private void AddIgnoredCollider(List<Collider2D> ignoredColliders, Collider2D targetCollider) // helper function to add colliders to ignore list and set physics ignore
+    {
+        if (targetCollider == null) return;
+        if (ignoredColliders.Contains(targetCollider)) return;
+        Physics2D.IgnoreCollision(playerCollider, targetCollider, true);
+        ignoredColliders.Add(targetCollider);
+    }
+
+    private bool Grounded() // check if player is on the ground by checking for overlap with ground layer at the position of the groundCheck transform
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
     }
 
-    private void Flip()
+    private void Flip() // flip player sprite based on movement direction
     {
         if (FacingRight && horizontal < 0f || !FacingRight && horizontal > 0f)
         {
@@ -233,7 +284,7 @@ public class Movement : MonoBehaviour
         }
     }
 
-    public bool IsGrounded()
+    public bool IsGrounded() 
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
     }
