@@ -7,17 +7,20 @@ TagManager:
   - Enemy
   - Ground
   - SwordHitBox
+  - BossDoor
+  - Wall
+  - Boss
   - Enemy Attack
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - Ground
-  - 
-  - 
+  - Wall
+  - Sword
   - 
   - 
   - 

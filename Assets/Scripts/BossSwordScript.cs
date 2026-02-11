@@ -1,0 +1,140 @@
+using UnityEngine;
+using System.Collections;
+public class BossSword : MonoBehaviour
+{
+    public float speed = 4f;
+    public int damage = 30;
+    public bool isFlying = false;
+    public bool isStuck = false;
+    private Vector2 direction;
+    private Rigidbody2D rb;
+    public BossController boss;
+    public Collider2D physicsCollider;
+    public Collider2D playerTrigger;
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+    void Update()
+    {
+        if (isFlying)
+        {
+            transform.Rotate(0, 0, 60 * Time.deltaTime); //spin 60 deg/sec
+        }
+    }
+
+    public void Throw(Vector2 dir, BossController owner)
+    {
+        boss = owner;
+        //direction = dir.normalized;
+        direction = new Vector2(Mathf.Sign(dir.x), 0f).normalized; //Mathf.Sign(dir.x) = right left
+        isFlying = true;
+        isStuck = false;
+        rb.bodyType = RigidbodyType2D.Dynamic;
+        rb.linearVelocity = direction * speed;
+        physicsCollider.enabled = true;
+        playerTrigger.enabled = true;
+        StartCoroutine(EnableCollisionWithBoss());
+    }
+
+    private IEnumerator EnableCollisionWithBoss()
+    {
+        yield return new WaitForSeconds(1f);
+        Physics2D.IgnoreCollision(GetComponent<Collider2D>(), boss.GetComponent<Collider2D>(), false);
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("Sword hit: " + collision.gameObject.name);
+        //if (!isFlying) return;
+        if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Ground"))
+        {
+            Debug.Log("Sword stuck wall");
+            StickIntoWall();
+        }
+        if (collision.gameObject.CompareTag("Boss"))
+        {
+            print("Boss collision sword");
+            Retrieve(boss.handPosition);
+        }
+    }
+
+    void StickIntoWall()
+    {
+        isFlying = false;
+        isStuck = true;
+        rb.angularVelocity = 0f;
+        rb.linearVelocity = Vector2.zero;
+        rb.bodyType = RigidbodyType2D.Kinematic;
+        boss.OnSwordStuck(this);
+    }
+
+    public void Retrieve(Transform handPosition)
+    {
+        isStuck = false;
+        isFlying = false;
+
+        rb.linearVelocity = Vector2.zero;
+        rb.bodyType = RigidbodyType2D.Kinematic;
+        Physics2D.IgnoreCollision(GetComponent<Collider2D>(), boss.GetComponent<Collider2D>(), true);
+        transform.position = handPosition.position;
+        transform.parent = handPosition;
+        playerTrigger.enabled = false;
+        boss.OnSwordRetrieved();
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (isFlying && collision.CompareTag("Player"))
+        {
+            UpdateHealth health = collision.GetComponent<UpdateHealth>();
+            health.TakeDamage(damage);
+        }
+        if (isStuck && collision.CompareTag("Boss"))
+        {
+            print("Boss collision sword");
+            Retrieve(boss.handPosition);
+        }
+    }
+
+    public void Slam()
+    {
+        isFlying = false;
+        isStuck = true;
+        rb.linearVelocity = Vector2.zero;
+        rb.angularVelocity = 0f;
+        rb.bodyType = RigidbodyType2D.Kinematic;
+        float directionX = Mathf.Sign(boss.transform.localScale.x);
+        Vector3 groundPosition = boss.transform.position;
+        groundPosition.x += directionX * 2.5f;
+        RaycastHit2D hit = Physics2D.Raycast(boss.transform.position, Vector2.down, 10f, LayerMask.GetMask("Ground")); //find ground with raycast
+        if (hit.collider != null)
+        {
+            groundPosition.y = hit.point.y; //place sword exactly on the ground
+        }
+        else
+        {
+            groundPosition.y -= 1f;
+        }
+        transform.position = groundPosition;
+        StartCoroutine(RotateSwordTo(-directionX * 55f, 0.5f));
+        physicsCollider.enabled = true;
+        playerTrigger.enabled = true;
+        isStuck = true;
+    }
+
+    public IEnumerator RotateSwordTo(float targetZ, float duration) //Sword spin for ground slam
+    {
+        float startZ = transform.eulerAngles.z;
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float z = Mathf.LerpAngle(startZ, targetZ, elapsed / duration);
+            transform.rotation = Quaternion.Euler(0f, 0f, z);
+            yield return null;
+        }
+        transform.rotation = Quaternion.Euler(0f, 0f, targetZ);
+    }
+
+}
