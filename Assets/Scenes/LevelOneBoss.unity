@@ -552,7 +552,7 @@ GameObject:
   - component: {fileID: 365664720}
   - component: {fileID: 365664721}
   - component: {fileID: 365664722}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -812,7 +812,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -1273,7 +1273,7 @@ Transform:
   m_GameObject: {fileID: 907780436}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.02, y: 0.4, z: 0}
+  m_LocalPosition: {x: -0.02, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1429,8 +1429,7 @@ GameObject:
   - component: {fileID: 1001318508}
   - component: {fileID: 1001318510}
   - component: {fileID: 1001318509}
-  - component: {fileID: 1001318513}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: BossSword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1450,12 +1449,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossSword
   speed: 4
-  damage: 10
   isFlying: 0
   isStuck: 0
   boss: {fileID: 1724356090}
-  physicsCollider: {fileID: 1001318509}
-  playerTrigger: {fileID: 1001318513}
 --- !u!61 &1001318509
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1472,7 +1468,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -1602,52 +1598,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1724356094}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &1001318513
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1001318507}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
 --- !u!1 &1183832628
 GameObject:
   m_ObjectHideFlags: 0
@@ -1660,7 +1610,7 @@ GameObject:
   - component: {fileID: 1183832629}
   - component: {fileID: 1183832631}
   - component: {fileID: 1183832632}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: SwordHitbox
   m_TagString: SwordHitBox
   m_Icon: {fileID: 0}
@@ -2071,7 +2021,7 @@ GameObject:
   - component: {fileID: 1724356090}
   - component: {fileID: 1724356096}
   - component: {fileID: 1724356095}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Boss
   m_TagString: Boss
   m_Icon: {fileID: 0}
@@ -2095,8 +2045,6 @@ MonoBehaviour:
   sword: {fileID: 1001318508}
   moveSpeed: 2
   bossCollider: {fileID: 0}
-  slamRange: 4
-  slamDamage: 15
 --- !u!23 &1724356092
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2243,7 +2191,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1833125426}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Ground Check
   m_TagString: Untagged
   m_Icon: {fileID: 0}

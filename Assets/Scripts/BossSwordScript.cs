@@ -96,45 +96,4 @@ public class BossSword : MonoBehaviour
             Retrieve(boss.handPosition);
         }
     }
-
-    public void Slam()
-    {
-        isFlying = false;
-        isStuck = true;
-        rb.linearVelocity = Vector2.zero;
-        rb.angularVelocity = 0f;
-        rb.bodyType = RigidbodyType2D.Kinematic;
-        float directionX = Mathf.Sign(boss.transform.localScale.x);
-        Vector3 groundPosition = boss.transform.position;
-        groundPosition.x += directionX * 2.5f;
-        RaycastHit2D hit = Physics2D.Raycast(boss.transform.position, Vector2.down, 10f, LayerMask.GetMask("Ground")); //find ground with raycast
-        if (hit.collider != null)
-        {
-            groundPosition.y = hit.point.y; //place sword exactly on the ground
-        }
-        else
-        {
-            groundPosition.y -= 1f;
-        }
-        transform.position = groundPosition;
-        StartCoroutine(RotateSwordTo(-directionX * 55f, 0.5f));
-        physicsCollider.enabled = true;
-        playerTrigger.enabled = true;
-        isStuck = true;
-    }
-
-    public IEnumerator RotateSwordTo(float targetZ, float duration) //Sword spin for ground slam
-    {
-        float startZ = transform.eulerAngles.z;
-        float elapsed = 0f;
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            float z = Mathf.LerpAngle(startZ, targetZ, elapsed / duration);
-            transform.rotation = Quaternion.Euler(0f, 0f, z);
-            yield return null;
-        }
-        transform.rotation = Quaternion.Euler(0f, 0f, targetZ);
-    }
-
 }
