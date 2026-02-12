@@ -12,7 +12,7 @@ public class BossController : MonoBehaviour
     private bool hasSword = true;
     private bool retrievingSword = false;
     private bool slamming = false;
-    public float slamRange = 4f;
+    public float slamRange = 6f;
     public int slamDamage = 15;
     void Awake()
     {
@@ -25,7 +25,7 @@ public class BossController : MonoBehaviour
         if (hasSword && distanceToPlayer < 12f)
         {
             FacePlayer();
-            if (distanceToPlayer < 4f)
+            if (distanceToPlayer < 6f)
             {
                 StartCoroutine(GroundSlam());
             }
@@ -56,7 +56,7 @@ public class BossController : MonoBehaviour
         sword.transform.position = handPosition.position; 
         sword.Slam(); 
         //Deal damage to player within radius
-        if (Vector2.Distance(transform.position, player.position) <= slamRange)
+        if (Vector2.Distance(transform.position, player.position) <= 7f)
         {
             UpdateHealth health = player.GetComponent<UpdateHealth>();
             health.TakeDamage(slamDamage);
@@ -73,6 +73,10 @@ public class BossController : MonoBehaviour
         if (distance > 8 && distance < 15f)
         {
             ThrowSword();
+        }
+        else
+        {
+            MoveTowardsPlayer();
         }
     }
 

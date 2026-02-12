@@ -22,12 +22,12 @@ public class BossSword : MonoBehaviour
     {
         if (isFlying)
         {
-            transform.Rotate(0, 0, 180 * Time.deltaTime); //spin 60 deg/sec
+            transform.Rotate(0, 0, 200 * Time.deltaTime); //spin 200 deg/sec
             if (!returning)
             {
                 float horizontalTravel = Mathf.Abs(transform.position.x - startPosition.x);
                 print(horizontalTravel);
-                if (horizontalTravel >= 25)
+                if (horizontalTravel >= 20)
                 {
                     returning = true;
                 }
