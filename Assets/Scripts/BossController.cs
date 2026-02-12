@@ -13,11 +13,15 @@ public class BossController : MonoBehaviour
     private bool retrievingSword = false;
     private bool slamming = false;
     public float slamRange = 6f;
-    public int slamDamage = 15;
+    public int slamDamage = 30;
+    private int currentHealth = 5;
+    public int maxHealth = 5;
+    public GameObject bossSword;
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         bossCollider = GetComponent<Collider2D>();
+        currentHealth = maxHealth;
     }
     void Update()
     {
@@ -59,7 +63,7 @@ public class BossController : MonoBehaviour
         if (Vector2.Distance(transform.position, player.position) <= 7f)
         {
             UpdateHealth health = player.GetComponent<UpdateHealth>();
-            health.TakeDamage(slamDamage);
+            health.TakeDamage(30); //slamDamage
         }
         yield return new WaitForSeconds(3f);
         retrievingSword = true;
@@ -103,7 +107,7 @@ public class BossController : MonoBehaviour
         transform.position = Vector2.MoveTowards(
             transform.position,
             sword.transform.position,
-            moveSpeed * Time.deltaTime
+            4 * Time.deltaTime //moveSpeed * Time
         );
 
         float distance = Vector2.Distance(transform.position, sword.transform.position);
@@ -118,7 +122,7 @@ public class BossController : MonoBehaviour
     private void MoveTowardsPlayer()
     {
         Vector2 direction = (player.position - transform.position).normalized;
-        rb.linearVelocity = new Vector2(direction.x * moveSpeed, rb.linearVelocity.y);
+        rb.linearVelocity = new Vector2(direction.x * 4, rb.linearVelocity.y); //dir * moveSpeed, linearvelocity.y
 
         //flip sprite
         if (direction.x > 0)
@@ -138,5 +142,26 @@ public class BossController : MonoBehaviour
             transform.localScale = new Vector3(2, 2, 2);
         else
             transform.localScale = new Vector3(-2, 2, 2);
+    }
+
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        Debug.Log("damage " + damage + " cCurrent hp " + currentHealth);
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        if (bossSword != null)
+        {
+            Destroy(bossSword.gameObject);
+        }
+        Debug.Log("killed");
+        Destroy(gameObject);
     }
 }
