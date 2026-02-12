@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 public class BossSword : MonoBehaviour
 {
-    public float speed = 4f;
+    public float speed = 10f;
     public int damage = 30;
     public bool isFlying = false;
     public bool isStuck = false;
@@ -11,6 +11,9 @@ public class BossSword : MonoBehaviour
     public BossController boss;
     public Collider2D physicsCollider;
     public Collider2D playerTrigger;
+    private Vector2 startPosition;
+    public int boomerangDistance = 25;
+    private bool returning = false;
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -19,7 +22,26 @@ public class BossSword : MonoBehaviour
     {
         if (isFlying)
         {
-            transform.Rotate(0, 0, 60 * Time.deltaTime); //spin 60 deg/sec
+            transform.Rotate(0, 0, 180 * Time.deltaTime); //spin 60 deg/sec
+            if (!returning)
+            {
+                float horizontalTravel = Mathf.Abs(transform.position.x - startPosition.x);
+                print(horizontalTravel);
+                if (horizontalTravel >= 25)
+                {
+                    returning = true;
+                }
+            }
+
+            if (returning)
+            {
+                Vector2 toBoss = (Vector2)boss.handPosition.position - rb.position;
+                rb.linearVelocity = -direction * speed;
+                if (toBoss.magnitude < 1f)
+                {
+                    Retrieve(boss.handPosition);
+                }
+            }
         }
     }
 
@@ -27,7 +49,9 @@ public class BossSword : MonoBehaviour
     {
         boss = owner;
         //direction = dir.normalized;
-        direction = new Vector2(Mathf.Sign(dir.x), 0f).normalized; //Mathf.Sign(dir.x) = right left
+        direction = new Vector2(Mathf.Sign(dir.x), 0f).normalized; //Mathf.Sign(dir.x) = right left'
+        startPosition = transform.position;
+        returning = false;
         isFlying = true;
         isStuck = false;
         rb.bodyType = RigidbodyType2D.Dynamic;
