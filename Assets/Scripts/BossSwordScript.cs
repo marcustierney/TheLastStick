@@ -22,7 +22,7 @@ public class BossSword : MonoBehaviour
     {
         if (isFlying)
         {
-            transform.Rotate(0, 0, 200 * Time.deltaTime); //spin 200 deg/sec
+            transform.Rotate(0, 0, 400 * Time.deltaTime); //spin 400 deg/sec
             if (!returning)
             {
                 float horizontalTravel = Mathf.Abs(transform.position.x - startPosition.x);
@@ -36,7 +36,7 @@ public class BossSword : MonoBehaviour
             if (returning)
             {
                 Vector2 toBoss = (Vector2)boss.handPosition.position - rb.position;
-                rb.linearVelocity = -direction * speed;
+                rb.linearVelocity = -direction * 10f; //-dir * speed
                 if (toBoss.magnitude < 1f)
                 {
                     Retrieve(boss.handPosition);
@@ -55,7 +55,7 @@ public class BossSword : MonoBehaviour
         isFlying = true;
         isStuck = false;
         rb.bodyType = RigidbodyType2D.Dynamic;
-        rb.linearVelocity = direction * speed;
+        rb.linearVelocity = direction * 10f; //dir * speed
         physicsCollider.enabled = true;
         playerTrigger.enabled = true;
         StartCoroutine(EnableCollisionWithBoss());
@@ -101,6 +101,7 @@ public class BossSword : MonoBehaviour
         rb.linearVelocity = Vector2.zero;
         rb.bodyType = RigidbodyType2D.Kinematic;
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), boss.GetComponent<Collider2D>(), true);
+        transform.rotation = Quaternion.Euler(0f, 0f, 130f);
         transform.position = handPosition.position;
         transform.parent = handPosition;
         playerTrigger.enabled = false;
