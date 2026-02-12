@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 83659210}
   - component: {fileID: 83659209}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: HealthCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2371,6 +2371,8 @@ MonoBehaviour:
   bossCollider: {fileID: 0}
   slamRange: 4
   slamDamage: 15
+  maxHealth: 3
+  bossSword: {fileID: 1001318507}
 --- !u!23 &1724356092
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2520,7 +2522,7 @@ GameObject:
   - component: {fileID: 1764949630}
   - component: {fileID: 1764949629}
   m_Layer: 0
-  m_Name: tempRoof1 (1)
+  m_Name: tempFloor1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -44,6 +44,16 @@ public class SwordHitbox : MonoBehaviour
             }
             swordAttack.ForceExitSwordStand();
         }
+        if (collision.CompareTag("Boss"))
+        {
+            Debug.Log("hit");
+            BossController boss = collision.GetComponent<BossController>();
+            if (boss != null)
+            {
+                boss.TakeDamage(damage);
+            }
+            swordAttack.ForceExitSwordStand();
+        }
         if (collision.CompareTag("Ground"))
         {
             Debug.Log("Sword ground trigger");
