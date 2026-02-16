@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class BossController : MonoBehaviour
 {
@@ -14,14 +15,17 @@ public class BossController : MonoBehaviour
     private bool slamming = false;
     public float slamRange = 6f;
     public int slamDamage = 30;
-    private int currentHealth = 5;
-    public int maxHealth = 5;
+    private int currentHealth = 15;
+    public int maxHealth = 15;
     public GameObject bossSword;
+    private BossHealth health;
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         bossCollider = GetComponent<Collider2D>();
+        maxHealth = 15;
         currentHealth = maxHealth;
+        health = GetComponent<BossHealth>();
     }
     void Update()
     {
@@ -147,8 +151,8 @@ public class BossController : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
+        health.TakeDamage(damage);
         Debug.Log("damage " + damage + " cCurrent hp " + currentHealth);
-
         if (currentHealth <= 0)
         {
             Die();
