@@ -10,6 +10,7 @@ public class Movement : MonoBehaviour
     private Animator animator;
     private float horizontal;
     private float speed = 5f;
+    private float runSpeed = 15f;
     private float jumpHeight = 15f;
     private bool isFacingRight = true;
 
@@ -23,6 +24,7 @@ public class Movement : MonoBehaviour
     private List<Collider2D> ignoredEnemyColliders = new List<Collider2D>(); // Colliders ignored during dash
     private List<Collider2D> ignoredIFrameColliders = new List<Collider2D>(); // Colliders ignored during I-frames (e.g. after taking damage)
     private bool isJumping = false; 
+    private bool shiftHold = false;
 
     private bool canMoveHorizontally = true;
     public bool CanMoveHorizontally
@@ -91,6 +93,9 @@ public class Movement : MonoBehaviour
             isWalking = false;
         }
 
+        bool shiftHeld = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+        shiftHold = !isDashing && shiftHeld && Mathf.Abs(horizontal) > 0f;
+
         // Update animator
         areGrounded = Grounded();
         if (animator != null)
@@ -98,6 +103,7 @@ public class Movement : MonoBehaviour
             animator.SetBool("isDashing", isDashing);
             animator.SetBool("isWalking", isWalking);
             animator.SetBool("areGrounded", areGrounded);
+            animator.SetBool("shiftHold", shiftHold);
             if (spacebarPressed)
             {
                 animator.SetBool("spacebarPressed", true);
@@ -153,7 +159,8 @@ public class Movement : MonoBehaviour
         }
         else
         {
-            rb.linearVelocity = new Vector2(horizontal * speed, rb.linearVelocity.y);
+            float moveSpeed = shiftHold ? runSpeed : speed;
+            rb.linearVelocity = new Vector2(horizontal * moveSpeed, rb.linearVelocity.y);
         }
     }
 
