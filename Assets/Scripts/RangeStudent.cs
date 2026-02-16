@@ -13,7 +13,7 @@ public class ThrowEnemy : MonoBehaviour
     private Rigidbody2D rb;
     public int maxHealth = 3;
     private int currentHealth;
-    private float chaseRange = 9f;
+    private float chaseRange = 15f;
     private float attackRange = 8f;
     private bool isAttacking;
     private float lastThrowTime;
