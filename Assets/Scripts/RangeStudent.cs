@@ -24,6 +24,7 @@ public class ThrowEnemy : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         lastThrowTime = -throwCooldown;
+        currentHealth = maxHealth;
     }
 
     public void TakeDamage(int damage)
@@ -102,5 +103,14 @@ public class ThrowEnemy : MonoBehaviour
         Vector2 force = new Vector2(throwForceX * horizontalDirection, verticalForce);
 
         rb.AddForce(force, ForceMode2D.Impulse);
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("SwordHitBox"))
+        {
+            TakeDamage(1);
+        }
+
     }
 }
