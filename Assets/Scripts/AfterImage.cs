@@ -14,6 +14,7 @@ public class AfterImage : MonoBehaviour
     [SerializeField] private float afterImageDuration = 0.2f; // How long each after image lasts
     [SerializeField] private float afterImageFadeSpeed = 3f; // How fast they fade out
     [SerializeField] private bool onlyDuringDash = true; // Only show after images while dashing
+    [SerializeField] private int sortingOrderOffset = 0; // Adjust if background covers the afterimages
     
     private float afterImageTimer = 0f;
     private Queue<GameObject> afterImagePool = new Queue<GameObject>();
@@ -70,7 +71,10 @@ public class AfterImage : MonoBehaviour
         afterImageRenderer.color = spriteRenderer.color;
         afterImageRenderer.flipX = spriteRenderer.flipX;
         afterImageRenderer.flipY = spriteRenderer.flipY;
-        afterImageRenderer.sortingOrder = spriteRenderer.sortingOrder - 1;
+        afterImageRenderer.sharedMaterial = spriteRenderer.sharedMaterial;
+        afterImageRenderer.renderingLayerMask = spriteRenderer.renderingLayerMask;
+        afterImageRenderer.sortingLayerID = spriteRenderer.sortingLayerID;
+        afterImageRenderer.sortingOrder = spriteRenderer.sortingOrder + sortingOrderOffset;
 
         // Add a component to handle fading
         AfterImageFade fade = afterImageObj.AddComponent<AfterImageFade>();
