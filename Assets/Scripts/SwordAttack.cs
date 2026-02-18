@@ -23,26 +23,11 @@ public class SwordAttack : MonoBehaviour
     {
         movement = GetComponent<Movement>();
         animator = GetComponent<Animator>();
-        
-        // Ensure sword starts at proper position
-        if (swordHitbox != null)
-        {
-            swordHitbox.transform.localPosition = Vector3.zero;
-            swordHitbox.transform.localRotation = Quaternion.identity;
-            swordHitbox.SetActive(false);
-        }
     }
 
     void Update()
     {
         if (isAttacking) return;
-        
-        // Keep sword at idle position when not attacking
-        if (!isAttacking && swordHitbox != null && !swordHitbox.activeInHierarchy)
-        {
-            swordHitbox.transform.localPosition = Vector3.zero;
-            swordHitbox.transform.localRotation = Quaternion.identity;
-        }
 
         if (!movement.IsGrounded() && Input.GetKeyDown(KeyCode.DownArrow))
         {
@@ -153,7 +138,7 @@ public class SwordAttack : MonoBehaviour
 
         swordHitbox.GetComponent<SwordHitbox>().Disable();
         swordHitbox.SetActive(false);
-        swordHitbox.transform.localPosition = Vector3.zero;
+        
         // End attack animation
         if (animator != null)
         {
