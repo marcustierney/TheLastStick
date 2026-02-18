@@ -13,6 +13,7 @@ public class SwordAttack : MonoBehaviour
     private bool isSwordStanding;
     public bool swordStandTouchGround;
     private bool usedSwordStand;
+    private Animator animator;
 
     public bool IsAttacking => isAttacking;
     public bool IsSwordStanding => isSwordStanding;
@@ -21,6 +22,7 @@ public class SwordAttack : MonoBehaviour
     private void Awake()
     {
         movement = GetComponent<Movement>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -99,6 +101,13 @@ public class SwordAttack : MonoBehaviour
     private IEnumerator Attack(bool attackRight)
     {
         isAttacking = true;
+        
+        // Trigger attack animation
+        if (animator != null)
+        {
+            animator.SetBool("isAttacking", true);
+        }
+        
         bool facingRight = movement.FacingRight;
         if (attackRight)
         {
@@ -129,6 +138,13 @@ public class SwordAttack : MonoBehaviour
 
         swordHitbox.GetComponent<SwordHitbox>().Disable();
         swordHitbox.SetActive(false);
+        
+        // End attack animation
+        if (animator != null)
+        {
+            animator.SetBool("isAttacking", false);
+        }
+        
         isAttacking = false;
     }
     public void ForceExitSwordStand()
