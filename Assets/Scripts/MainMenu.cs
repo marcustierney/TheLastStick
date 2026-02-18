@@ -5,7 +5,17 @@ public class MainMenu : MonoBehaviour
 {
     public void PlayGame()
     {
-        SceneManager.LoadScene("Tutorial");
+        if (!PlayerPrefs.HasKey("HasPlayed"))
+        {
+            SceneManager.LoadScene("Tutorial");
+            PlayerPrefs.SetInt("HasPlayed", 1);
+            PlayerPrefs.Save();
+        } 
+        else
+        {
+            SceneManager.LoadScene("LevelOne");
+        }
+
     }
 
     public void OpenOptions()

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UpdateHealth : MonoBehaviour
 {
@@ -129,6 +130,6 @@ public class UpdateHealth : MonoBehaviour
     private void Die() // Placeholder for player death logic
     {
         Debug.Log("Player died");
-        // TODO: Handle game over logic here
+        SceneManager.LoadScene("DeathScreen");
     }
 }
