@@ -101,7 +101,7 @@ public class BossSword : MonoBehaviour
         rb.linearVelocity = Vector2.zero;
         rb.bodyType = RigidbodyType2D.Kinematic;
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), boss.GetComponent<Collider2D>(), true);
-        transform.rotation = Quaternion.Euler(0f, 0f, 130f);
+        transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         transform.position = handPosition.position;
         transform.parent = handPosition;
         playerTrigger.enabled = false;
