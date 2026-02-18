@@ -11,6 +11,8 @@ TagManager:
   - Wall
   - Boss
   - Enemy Attack
+  - TutorialEnemy
+  - LevelOneDoor
   layers:
   - Default
   - TransparentFX

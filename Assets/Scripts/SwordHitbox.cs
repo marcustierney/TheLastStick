@@ -59,6 +59,13 @@ public class SwordHitbox : MonoBehaviour
             Debug.Log("Sword ground trigger");
             swordAttack.swordStandTouchGround = true;
         }
+        if (collision.CompareTag("TutorialEnemy"))
+        {
+            TutorialEnemy enemy = collision.GetComponent<TutorialEnemy>();
+            print("tutorialhit");
+            enemy.TutorialTakeDamage(damage);
+            swordAttack.ForceExitSwordStand();
+        }
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -74,6 +81,13 @@ public class SwordHitbox : MonoBehaviour
         {
             Debug.Log("Sword landed on ground");
             swordAttack.swordStandTouchGround = true;
+        }
+        if (collision.collider.CompareTag("TutorialEnemy"))
+        {
+            TutorialEnemy enemy = collision.collider.GetComponent<TutorialEnemy>();
+            print("tutorialhit");
+            enemy.TutorialTakeDamage(damage);
+            swordAttack.ForceExitSwordStand();
         }
     }
 }
