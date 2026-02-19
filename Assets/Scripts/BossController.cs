@@ -185,4 +185,31 @@ public class BossController : MonoBehaviour
         Debug.Log("killed");
         Destroy(gameObject);
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            if (collision.otherCollider.gameObject.layer == LayerMask.NameToLayer("BossHead"))
+                return;
+            DamageAndKnockbackPlayer(collision);
+        }
+    }
+
+    private void DamageAndKnockbackPlayer(Collision2D collision)
+    {
+        UpdateHealth health = collision.gameObject.GetComponent<UpdateHealth>();
+        if (health != null)
+        {
+            health.TakeDamage(10); 
+        }
+        Rigidbody2D playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
+        if (playerRb != null)
+        {
+            Vector2 knockDir = (collision.transform.position - transform.position).normalized;
+            float knockbackForce = 20f;
+            playerRb.linearVelocity = Vector2.zero; 
+            playerRb.AddForce(knockDir * knockbackForce, ForceMode2D.Impulse);
+        }
+    }
 }
