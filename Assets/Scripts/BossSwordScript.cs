@@ -101,9 +101,9 @@ public class BossSword : MonoBehaviour
         rb.linearVelocity = Vector2.zero;
         rb.bodyType = RigidbodyType2D.Kinematic;
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), boss.GetComponent<Collider2D>(), true);
-        transform.rotation = Quaternion.Euler(0f, 0f, 130f);
-        transform.position = handPosition.position;
         transform.parent = handPosition;
+        transform.position = handPosition.position;
+        transform.localRotation = Quaternion.Euler(0f, 0f, 230f);
         playerTrigger.enabled = false;
         boss.OnSwordRetrieved();
     }
@@ -142,7 +142,7 @@ public class BossSword : MonoBehaviour
             groundPosition.y -= 1f;
         }
         transform.position = groundPosition;
-        StartCoroutine(RotateSwordTo(-directionX * 55f, 0.5f));
+        StartCoroutine(RotateSwordTo(directionX * -200f, 0.5f));
         physicsCollider.enabled = true;
         playerTrigger.enabled = true;
         isStuck = true;

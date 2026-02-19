@@ -19,6 +19,7 @@ public class BossController : MonoBehaviour
     public int maxHealth = 15;
     public GameObject bossSword;
     private BossHealth health;
+    private Animator animator;
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -130,9 +131,9 @@ public class BossController : MonoBehaviour
 
         //flip sprite
         if (direction.x > 0)
-            transform.localScale = new Vector3(2, 2, 2);
+            transform.localScale = new Vector3(5, 5, 5);
         else
-            transform.localScale = new Vector3(-2, 2, 2);
+            transform.localScale = new Vector3(-5, 5, 5);
     }
 
     public void OnSwordRetrieved()
@@ -143,9 +144,9 @@ public class BossController : MonoBehaviour
     private void FacePlayer()
     {
         if (player.position.x > transform.position.x)
-            transform.localScale = new Vector3(2, 2, 2);
+            transform.localScale = new Vector3(5, 5, 5);
         else
-            transform.localScale = new Vector3(-2, 2, 2);
+            transform.localScale = new Vector3(-5, 5, 5);
     }
 
     public void TakeDamage(int damage)
