@@ -5,7 +5,7 @@ public class ThrowEnemy : MonoBehaviour
 {
     public GameObject ballPrefab;
     public Transform throwPoint;
-    public float throwCooldown = 3f;
+    public float throwCooldown = 1.6f;
     public float throwForceX = 8f;
     public float throwForceY = 6f;
     private Transform player;
@@ -17,6 +17,8 @@ public class ThrowEnemy : MonoBehaviour
     private float attackRange = 8f;
     private bool isAttacking;
     private float lastThrowTime;
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
 
     private void Awake()
     {
@@ -25,6 +27,11 @@ public class ThrowEnemy : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         lastThrowTime = -throwCooldown;
         currentHealth = maxHealth;
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        
+        // Prevent player from pushing the enemy - set to Kinematic
+        rb.bodyType = RigidbodyType2D.Kinematic;
     }
 
     public void TakeDamage(int damage)
@@ -40,22 +47,47 @@ public class ThrowEnemy : MonoBehaviour
 
     private void Update()
     {
-        if (player == null || isAttacking) return;
+        if (player == null) return;
 
         float distance = Vector2.Distance(transform.position, player.position);
 
-        if (distance <= chaseRange && distance > attackRange)
+        // Always face the player direction when in range
+        if (distance <= chaseRange)
         {
-            MoveTowardsPlayer();
-        }
-        else if (distance <= attackRange)
-        {
-            //check cooldown
-            if (Time.time >= lastThrowTime + throwCooldown)
+            animator.SetBool("canSeePlayer", true);
+            
+            // Update facing direction - only flip when not attacking
+            if (!isAttacking)
             {
-                ThrowBall();
-                lastThrowTime = Time.time;  //reset cooldown
+                Vector2 direction = (player.position - transform.position).normalized;
+                if (direction.x > 0)
+                    spriteRenderer.flipX = true;
+                else
+                    spriteRenderer.flipX = false;
             }
+            
+            if (!isAttacking && distance > attackRange)
+            {
+                MoveTowardsPlayer();
+            }
+            else if (!isAttacking && distance <= attackRange)
+            {
+                //check cooldown
+                if (Time.time >= lastThrowTime + throwCooldown)
+                {
+                    StartCoroutine(ThrowBall());
+                    lastThrowTime = Time.time;  //reset cooldown
+                }
+            }
+        }
+        else
+        {
+            animator.SetBool("canSeePlayer", false);
+            animator.SetBool("isMoving", false);
+            // Stop movement when out of range (idle)
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            // Maintain flip when out of range
+            spriteRenderer.flipX = false;
         }
     }
 
@@ -64,23 +96,25 @@ public class ThrowEnemy : MonoBehaviour
         Vector2 direction = (player.position - transform.position).normalized;
         rb.linearVelocity = new Vector2(direction.x * moveSpeed, rb.linearVelocity.y);
 
-        //flip sprite
-        if (direction.x > 0)
-            transform.localScale = new Vector3(1, 1, 1);
-        else
-            transform.localScale = new Vector3(-1, 1, 1);
+        //trigger walking animation
+        animator.SetBool("isMoving", true);
     }
 
     private void Die()
     {
         Debug.Log("killed");
-        Destroy(gameObject);
+        Destroy(gameObject); 
     }
 
-    void ThrowBall()
+    IEnumerator ThrowBall()
     {
+        isAttacking = true;
+        animator.SetBool("isMoving", false);
+        animator.SetBool("isThrowing", true);
+        rb.linearVelocity = Vector2.zero;
+        
         GameObject ball = Instantiate(ballPrefab, throwPoint.position, Quaternion.identity);
-        Rigidbody2D rb = ball.GetComponent<Rigidbody2D>();
+        Rigidbody2D ballRb = ball.GetComponent<Rigidbody2D>();
 
         float horizontalDirection;
         if (player.position.x > transform.position.x)
@@ -91,7 +125,6 @@ public class ThrowEnemy : MonoBehaviour
         {
             horizontalDirection = -1f; //player is to the left
         }
-        transform.localScale = new Vector3(horizontalDirection, 1, 1); //flip enemy to player
 
         float verticalForce = throwForceY;
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
@@ -101,8 +134,11 @@ public class ThrowEnemy : MonoBehaviour
         }
 
         Vector2 force = new Vector2(throwForceX * horizontalDirection, verticalForce);
-
-        rb.AddForce(force, ForceMode2D.Impulse);
+        ballRb.AddForce(force, ForceMode2D.Impulse);
+        
+        yield return new WaitForSeconds(0.5f); // Animation duration
+        isAttacking = false;
+        animator.SetBool("isThrowing", false);
     }
 
     void OnTriggerEnter2D(Collider2D collision)

@@ -130,8 +130,7 @@ public class Enemy : MonoBehaviour
     private void Die()
     {
         Debug.Log("killed");
-        animator.SetTrigger("Death");
-        Destroy(gameObject, 0.5f);
+        Destroy(gameObject); 
     }
 
 ///THIS TABBED OUT CODE IS FOR IF WE WANT TO PLAYER TOUCHING THE ENEMEY TO DO DAMAGE OR ONLY THE ENEMY WEAPON
