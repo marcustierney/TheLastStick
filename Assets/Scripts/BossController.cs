@@ -20,6 +20,8 @@ public class BossController : MonoBehaviour
     public GameObject bossSword;
     private BossHealth health;
     private Animator animator;
+    private bool isThrowingAnim = false;
+    private bool isSlamAnim = false;
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -27,6 +29,7 @@ public class BossController : MonoBehaviour
         maxHealth = 15;
         currentHealth = maxHealth;
         health = GetComponent<BossHealth>();
+        animator = GetComponent<Animator>();
     }
     void Update()
     {
@@ -34,7 +37,7 @@ public class BossController : MonoBehaviour
         if (hasSword && distanceToPlayer < 12f)
         {
             FacePlayer();
-            if (distanceToPlayer < 6f)
+            if (distanceToPlayer < 6f && !isSlamAnim)
             {
                 StartCoroutine(GroundSlam());
             }
@@ -57,8 +60,13 @@ public class BossController : MonoBehaviour
         }
     }
 
+
+
     public IEnumerator GroundSlam()
     {
+        isSlamAnim = true;
+        animator.SetTrigger("Slam");
+        yield return new WaitForSeconds(0.5f);
         hasSword = false;
         slamming = true;
         sword.transform.parent = null;
@@ -72,7 +80,8 @@ public class BossController : MonoBehaviour
         }
         yield return new WaitForSeconds(3f);
         retrievingSword = true;
-        slamming = false; 
+        slamming = false;
+        isSlamAnim = false;
     }
 
     void TryThrowSword()
@@ -91,13 +100,20 @@ public class BossController : MonoBehaviour
 
     void ThrowSword()
     {
+        if (isThrowingAnim) return; //stop the animation from repeating
+        isThrowingAnim = true;
+        animator.SetTrigger("Throw");
+        StartCoroutine(DelayedThrow(0.4f));
+    }
+
+    private IEnumerator DelayedThrow(float delay)
+    {
+        yield return new WaitForSeconds(delay);
         hasSword = false;
-
         sword.transform.parent = null;
-
         Vector2 direction = player.position - handPosition.position;
-
         sword.Throw(direction, this);
+        isThrowingAnim = false;
     }
 
     public void OnSwordStuck(BossSword stuckSword)
