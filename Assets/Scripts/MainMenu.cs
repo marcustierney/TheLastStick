@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public void PlayGame()
+    /*public void PlayGame()
     {
         if (!PlayerPrefs.HasKey("HasPlayed"))
         {
@@ -16,6 +16,10 @@ public class MainMenu : MonoBehaviour
             SceneManager.LoadScene("LevelOne");
         }
 
+    }*/
+    public void PlayGame()
+    {
+        SceneManager.LoadScene("Tutorial");
     }
 
     public void OpenOptions()
