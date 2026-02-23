@@ -4,8 +4,10 @@ using UnityEngine;
 public class ThrowEnemy : MonoBehaviour
 {
     public GameObject ballPrefab;
+    public GameObject warningHitBox;
     public Transform throwPoint;
     public float throwCooldown = 1.6f;
+    public float throwWarningDuration = 0.5f;
     public float throwForceX = 8f;
     public float throwForceY = 6f;
     private Transform player;
@@ -112,6 +114,15 @@ public class ThrowEnemy : MonoBehaviour
         animator.SetBool("isMoving", false);
         animator.SetBool("isThrowing", true);
         rb.linearVelocity = Vector2.zero;
+
+        if (warningHitBox != null)
+        {
+            Vector3 offset = spriteRenderer.flipX ? new Vector3(2f, 0f, 0f) : new Vector3(-2f, 0f, 0f);
+            warningHitBox.transform.localPosition = offset;
+            warningHitBox.SetActive(true);
+            yield return new WaitForSeconds(throwWarningDuration);
+            warningHitBox.SetActive(false);
+        }
         
         GameObject ball = Instantiate(ballPrefab, throwPoint.position, Quaternion.identity);
         Rigidbody2D ballRb = ball.GetComponent<Rigidbody2D>();

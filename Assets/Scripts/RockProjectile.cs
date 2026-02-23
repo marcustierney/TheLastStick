@@ -3,6 +3,7 @@ using UnityEngine;
 public class BallProjectile : MonoBehaviour
 {
     public float speed = 6f;
+    public float rotationSpeed = 1000f;
     public int damage = 2;
     public float lifetime = 5f;
 
@@ -17,6 +18,7 @@ public class BallProjectile : MonoBehaviour
     private void Update()
     {
         transform.Translate(direction * speed * Time.deltaTime);
+        transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
