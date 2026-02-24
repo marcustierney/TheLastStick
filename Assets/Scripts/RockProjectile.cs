@@ -4,7 +4,7 @@ public class BallProjectile : MonoBehaviour
 {
     public float speed = 6f;
     public float rotationSpeed = 1000f;
-    public int damage = 2;
+    public int damage = 10;
     public float lifetime = 5f;
 
     private Vector2 direction;
@@ -28,7 +28,7 @@ public class BallProjectile : MonoBehaviour
             UpdateHealth health = collision.GetComponent<UpdateHealth>();
             if (health != null)
             {
-                health.TakeDamage(damage, transform.position); // Pass the position of the hit for knockback direction
+                health.TakeDamage(10, transform.position); // Pass the position of the hit for knockback direction
             }
 
             Destroy(gameObject);

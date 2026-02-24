@@ -2772,7 +2772,7 @@ MonoBehaviour:
   bossCollider: {fileID: 0}
   slamRange: 4
   slamDamage: 15
-  maxHealth: 3
+  maxHealth: 100
   bossSword: {fileID: 1001318507}
 --- !u!4 &1724356094
 Transform:
@@ -2831,8 +2831,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a0bbf61c3cba0a419ea5c606a5e3bf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossHealth
-  Health: 15
-  MaxHealth: 15
+  Health: 100
+  MaxHealth: 100
   healthBar: {fileID: 1536248331}
 --- !u!212 &1724356099
 SpriteRenderer:

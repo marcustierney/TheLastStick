@@ -33,7 +33,7 @@ public class ThrowEnemy : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         
         // Prevent player from pushing the enemy - set to Kinematic
-        rb.bodyType = RigidbodyType2D.Kinematic;
+        //rb.bodyType = RigidbodyType2D.Kinematic;
     }
 
     public void TakeDamage(int damage)
