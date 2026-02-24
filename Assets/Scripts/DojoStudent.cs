@@ -6,7 +6,7 @@ public class Enemy : MonoBehaviour
     private int currentHealth;
 
     [SerializeField]
-    private float damageToPlayer = 10f; //damage dealt to player on contact
+    private float damageToPlayer = 20f; //damage dealt to player on contact
     private float moveSpeed = 3f;
     private float chaseRange = 8f;
     private float attackRange = 1.2f;
@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         
         // Prevent player from pushing the enemy - set to Kinematic
-        rb.bodyType = RigidbodyType2D.Kinematic;
+        //rb.bodyType = RigidbodyType2D.Kinematic;
         //transform.localScale = new Vector3(1, 1, 1);
     }
 
@@ -134,7 +134,7 @@ public class Enemy : MonoBehaviour
     }
 
 ///THIS TABBED OUT CODE IS FOR IF WE WANT TO PLAYER TOUCHING THE ENEMEY TO DO DAMAGE OR ONLY THE ENEMY WEAPON
-/* 
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Deal damage to player on contact - but NOT if it's the sword hitbox
@@ -173,7 +173,7 @@ public class Enemy : MonoBehaviour
         UpdateHealth playerHealth = player.GetComponent<UpdateHealth>();
         if (playerHealth != null)
         {
-            playerHealth.TakeDamage(damageToPlayer);
+            playerHealth.TakeDamage(20);
         }
-    }*/
+    }
 }

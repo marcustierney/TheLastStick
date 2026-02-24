@@ -5,8 +5,8 @@ public class SwordAttack : MonoBehaviour
 {
     public GameObject swordHitbox;
     private float attackDuration = 0.2f;
-    private Vector2 rightOffset = new Vector2(0.8f, 0f);
-    private Vector2 leftOffset = new Vector2(-0.8f, 0f);
+    private Vector2 rightOffset = new Vector2(0.4f, 0f);
+    private Vector2 leftOffset = new Vector2(-0.4f, 0f);
     private Vector2 downOffset = new Vector2(0f, -.9f);
     private bool isAttacking;
     private Movement movement;
