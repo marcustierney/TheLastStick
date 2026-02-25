@@ -60,7 +60,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private List<string> dashIgnoreTags = new List<string> { "Enemy", "Enemy Attack" , "Boss"}; // Tags of objects to ignore during dash 
+    [SerializeField] private List<string> dashIgnoreTags = new List<string> { "Enemy", "EnemyAttack", "Enemy Attack", "Boss" }; // Tags of objects to ignore during dash 
 
     // Update is called once per frame
     void Update()
@@ -268,6 +268,12 @@ public class Movement : MonoBehaviour
             {
                 Collider2D targetCollider = target.GetComponent<Collider2D>();
                 AddIgnoredCollider(ignoredColliders, targetCollider);
+
+                Collider2D[] childColliders = target.GetComponentsInChildren<Collider2D>(true);
+                foreach (Collider2D childCollider in childColliders)
+                {
+                    AddIgnoredCollider(ignoredColliders, childCollider);
+                }
 
                 if (tag == "Enemy")
                 {
