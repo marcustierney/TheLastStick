@@ -25,6 +25,12 @@ public class UpdateHealth : MonoBehaviour
     private float knockbackForce = 10f; // Horizontal force to knock player back
     [SerializeField]
     private float knockbackUpForce = 10f; // Upward force to knock player up
+    [SerializeField]
+    private AudioSource damageAudioSource;
+    [SerializeField]
+    private float damageSoundDuration = 0.5f;
+
+    private Coroutine damageSoundCoroutine;
     private Rigidbody2D rb;
     private Movement movement;
 
@@ -85,6 +91,7 @@ public class UpdateHealth : MonoBehaviour
 
         SetHealth(-damage);
         lastDamageTime = Time.time;
+        PlayDamageSound();
         
         if (rb != null && movement != null)
         {
@@ -131,5 +138,33 @@ public class UpdateHealth : MonoBehaviour
     {
         Debug.Log("Player died");
         SceneManager.LoadScene("DeathScreen");
+    }
+
+    private void PlayDamageSound()
+    {
+        if (damageAudioSource == null)
+        {
+            return;
+        }
+
+        if (damageSoundCoroutine != null)
+        {
+            StopCoroutine(damageSoundCoroutine);
+        }
+
+        damageAudioSource.Play();
+        damageSoundCoroutine = StartCoroutine(StopDamageSoundAfterDelay());
+    }
+
+    private IEnumerator StopDamageSoundAfterDelay()
+    {
+        yield return new WaitForSeconds(damageSoundDuration);
+
+        if (damageAudioSource != null && damageAudioSource.isPlaying)
+        {
+            damageAudioSource.Stop();
+        }
+
+        damageSoundCoroutine = null;
     }
 }

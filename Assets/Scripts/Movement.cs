@@ -27,6 +27,12 @@ public class Movement : MonoBehaviour
     private bool shiftHold = false;
 
     private bool canMoveHorizontally = true;
+    [SerializeField] private AudioSource groundedMoveAudioSource;
+    [SerializeField] private float walkMovePitch = 1f;
+    [SerializeField] private float runMovePitch = 1.3f;
+    [SerializeField] private AudioSource dashAudioSource;
+    private bool wasGroundedMoving = false;
+
     public bool CanMoveHorizontally
     {
         get
@@ -79,6 +85,11 @@ public class Movement : MonoBehaviour
         {
             knockbackTimer -= Time.deltaTime;
             horizontal = 0f; // No horizontal input during knockback
+            if (wasGroundedMoving)
+            {
+                StopGroundedMoveSound();
+                wasGroundedMoving = false;
+            }
             return; // Block all other inputs during knockback
         }
 
@@ -115,12 +126,28 @@ public class Movement : MonoBehaviour
             }
         }
 
+        bool isGroundedMoving = areGrounded && Mathf.Abs(horizontal) > 0f && !isDashing && knockbackTimer <= 0f;
+        if (isGroundedMoving && !wasGroundedMoving)
+        {
+            PlayGroundedMoveSound();
+        }
+        if (isGroundedMoving)
+        {
+            UpdateGroundedMoveSoundPitch();
+        }
+        else if (!isGroundedMoving && wasGroundedMoving)
+        {
+            StopGroundedMoveSound();
+        }
+        wasGroundedMoving = isGroundedMoving;
+
         // dash input (Shift) - only if cooldown expired
         if (CanMoveHorizontally && (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)) && dashCooldownTimer <= 0f)
         {
             isDashing = true;
             dashTimeLeft = dashTime;
             dashCooldownTimer = dashCooldown;
+            PlayDashSound();
             StartDashIgnoreCollisions();
             rb.gravityScale = 0f;
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f); // maintain vertical velocity
@@ -307,5 +334,46 @@ public class Movement : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpHeight);
         isJumping = false;
+    }
+
+    private void PlayGroundedMoveSound()
+    {
+        if (groundedMoveAudioSource == null)
+        {
+            return;
+        }
+
+        groundedMoveAudioSource.pitch = shiftHold ? runMovePitch : walkMovePitch;
+        groundedMoveAudioSource.loop = true;
+        if (!groundedMoveAudioSource.isPlaying)
+            groundedMoveAudioSource.Play();
+    }
+
+    private void UpdateGroundedMoveSoundPitch()
+    {
+        if (groundedMoveAudioSource == null)
+        {
+            return;
+        }
+
+        groundedMoveAudioSource.pitch = shiftHold ? runMovePitch : walkMovePitch;
+    }
+
+    private void StopGroundedMoveSound()
+    {
+        if (groundedMoveAudioSource != null && groundedMoveAudioSource.isPlaying)
+        {
+            groundedMoveAudioSource.Stop();
+        }
+    }
+
+    private void PlayDashSound()
+    {
+        if (dashAudioSource == null)
+        {
+            return;
+        }
+
+        dashAudioSource.Play();
     }
 }

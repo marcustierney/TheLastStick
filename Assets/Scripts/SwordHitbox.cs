@@ -5,6 +5,8 @@ public class SwordHitbox : MonoBehaviour
     public int damage = 1;
     private BoxCollider2D boxCollider;
     private SwordAttack swordAttack;
+    [SerializeField] private AudioSource hitDamageAudioSource;
+
     private void Awake()
     {
         swordAttack = GetComponentInParent<SwordAttack>();
@@ -41,6 +43,27 @@ public class SwordHitbox : MonoBehaviour
             if (enemy != null)
             {
                 enemy.TakeDamage(damage);
+                PlayHitDamageSound();
+            }
+            else
+            {
+                ThrowEnemy throwEnemy = collision.GetComponent<ThrowEnemy>();
+                if (throwEnemy != null)
+                {
+                    throwEnemy.TakeDamage(damage);
+                    PlayHitDamageSound();
+                }
+            }
+            swordAttack.ForceExitSwordStand();
+        }
+        if (collision.CompareTag("TutorialEnemy"))
+        {
+            Debug.Log("hit tutorial enemy");
+            TutorialEnemy tutorialEnemy = collision.GetComponent<TutorialEnemy>();
+            if (tutorialEnemy != null)
+            {
+                tutorialEnemy.TutorialTakeDamage(damage);
+                PlayHitDamageSound();
             }
             swordAttack.ForceExitSwordStand();
         }
@@ -51,6 +74,7 @@ public class SwordHitbox : MonoBehaviour
             if (boss != null)
             {
                 boss.TakeDamage(damage);
+                PlayHitDamageSound();
             }
             swordAttack.ForceExitSwordStand();
         }
@@ -58,13 +82,6 @@ public class SwordHitbox : MonoBehaviour
         {
             Debug.Log("Sword ground trigger");
             swordAttack.swordStandTouchGround = true;
-        }
-        if (collision.CompareTag("TutorialEnemy"))
-        {
-            TutorialEnemy enemy = collision.GetComponent<TutorialEnemy>();
-            print("tutorialhit");
-            enemy.TutorialTakeDamage(damage);
-            swordAttack.ForceExitSwordStand();
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -74,7 +91,30 @@ public class SwordHitbox : MonoBehaviour
         if (collision.collider.CompareTag("Enemy"))
         {
             Enemy enemy = collision.collider.GetComponent<Enemy>();
-            enemy.TakeDamage(damage);
+            if (enemy != null)
+            {
+                enemy.TakeDamage(damage);
+                PlayHitDamageSound();
+            }
+            else
+            {
+                ThrowEnemy throwEnemy = collision.collider.GetComponent<ThrowEnemy>();
+                if (throwEnemy != null)
+                {
+                    throwEnemy.TakeDamage(damage);
+                    PlayHitDamageSound();
+                }
+            }
+            swordAttack.ForceExitSwordStand();
+        }
+        if (collision.collider.CompareTag("TutorialEnemy"))
+        {
+            TutorialEnemy tutorialEnemy = collision.collider.GetComponent<TutorialEnemy>();
+            if (tutorialEnemy != null)
+            {
+                tutorialEnemy.TutorialTakeDamage(damage);
+                PlayHitDamageSound();
+            }
             swordAttack.ForceExitSwordStand();
         }
         if (collision.collider.CompareTag("Ground"))
@@ -82,12 +122,13 @@ public class SwordHitbox : MonoBehaviour
             Debug.Log("Sword landed on ground");
             swordAttack.swordStandTouchGround = true;
         }
-        if (collision.collider.CompareTag("TutorialEnemy"))
+    }
+
+    private void PlayHitDamageSound()
+    {
+        if (hitDamageAudioSource != null)
         {
-            TutorialEnemy enemy = collision.collider.GetComponent<TutorialEnemy>();
-            print("tutorialhit");
-            enemy.TutorialTakeDamage(damage);
-            swordAttack.ForceExitSwordStand();
+            hitDamageAudioSource.Play();
         }
     }
 }
