@@ -5,8 +5,8 @@ public class SwordAttack : MonoBehaviour
 {
     public GameObject swordHitbox;
     private float attackDuration = 0.2f;
-    private Vector2 rightOffset = new Vector2(0.4f, 0f);
-    private Vector2 leftOffset = new Vector2(-0.4f, 0f);
+    private Vector2 rightOffset = new Vector2(0.8f, 0f);
+    private Vector2 leftOffset = new Vector2(-0.8f, 0f);
     private Vector2 downOffset = new Vector2(0f, -.9f);
     private bool isAttacking;
     private Movement movement;
@@ -43,13 +43,11 @@ public class SwordAttack : MonoBehaviour
                 return;
             }
         }
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        bool facingRight = movement.FacingRight;
+        if ((facingRight && Input.GetKeyDown(KeyCode.RightArrow)) ||
+            (!facingRight && Input.GetKeyDown(KeyCode.LeftArrow)))
         {
-            StartCoroutine(Attack(true));
-        }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            StartCoroutine(Attack(false));
+            StartCoroutine(Attack());
         }
         if (movement.IsGrounded())
         {
@@ -98,9 +96,15 @@ public class SwordAttack : MonoBehaviour
         isAttacking = false;
     }
 
-    private IEnumerator Attack(bool attackRight)
+    private IEnumerator Attack()
     {
         isAttacking = true;
+        movement.CanMoveHorizontally = false;
+        Rigidbody2D rb = movement.GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+        }
         
         // Trigger attack animation
         if (animator != null)
@@ -109,28 +113,14 @@ public class SwordAttack : MonoBehaviour
         }
         
         bool facingRight = movement.FacingRight;
-        if (attackRight)
+        float facingSign = facingRight ? 1f : -1f;
+        float scaleSign = Mathf.Sign(transform.localScale.x);
+        if (scaleSign == 0f)
         {
-            if (facingRight)
-            {
-                swordHitbox.transform.localPosition = rightOffset;
-            }
-            else
-            {
-                swordHitbox.transform.localPosition = leftOffset;
-            }
+            scaleSign = 1f;
         }
-        else //Left
-        {
-            if (facingRight)
-            {
-                swordHitbox.transform.localPosition = leftOffset;
-            }
-            else
-            {
-                swordHitbox.transform.localPosition = rightOffset;
-            }
-        }
+        float localX = Mathf.Abs(rightOffset.x) * facingSign * scaleSign;
+        swordHitbox.transform.localPosition = new Vector2(localX, rightOffset.y);
         swordHitbox.SetActive(true);
         swordHitbox.GetComponent<SwordHitbox>().EnableAttack();
 
@@ -138,12 +128,14 @@ public class SwordAttack : MonoBehaviour
 
         swordHitbox.GetComponent<SwordHitbox>().Disable();
         swordHitbox.SetActive(false);
-        
+        swordHitbox.transform.localPosition = Vector3.zero;
         // End attack animation
         if (animator != null)
         {
             animator.SetBool("isAttacking", false);
         }
+
+        movement.CanMoveHorizontally = true;
         
         isAttacking = false;
     }

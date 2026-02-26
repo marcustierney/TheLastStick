@@ -21,6 +21,8 @@ public class ThrowEnemy : MonoBehaviour
     private float lastThrowTime;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+    [SerializeField]
+    private float damageToPlayer = 20f;
 
     private void Awake()
     {
@@ -157,6 +159,43 @@ public class ThrowEnemy : MonoBehaviour
         if (collision.CompareTag("SwordHitBox"))
         {
             TakeDamage(1);
+        }
+
+        if (collision.CompareTag("Player") && collision.gameObject.name != "SwordHitbox")
+        {
+            DealDamageToPlayer(collision.gameObject);
+        }
+
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player") && collision.gameObject.name != "SwordHitbox")
+        {
+            DealDamageToPlayer(collision.gameObject);
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player") && collision.gameObject.name != "SwordHitbox")
+        {
+            DealDamageToPlayer(collision.gameObject);
+        }
+    }
+
+    private void DealDamageToPlayer(GameObject playerObject)
+    {
+        SwordAttack swordAttack = playerObject.GetComponent<SwordAttack>();
+        if (swordAttack != null && swordAttack.IsAttacking)
+        {
+            return;
+        }
+
+        UpdateHealth playerHealth = playerObject.GetComponent<UpdateHealth>();
+        if (playerHealth != null)
+        {
+            playerHealth.TakeDamage((int)damageToPlayer);
         }
 
     }
