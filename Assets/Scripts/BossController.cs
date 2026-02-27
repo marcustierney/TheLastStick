@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class BossController : MonoBehaviour
 {
+    private static readonly Collider2D[] slamOverlapResults = new Collider2D[12];
+
     public Transform player;
     public Transform handPosition;      
     public BossSword sword;
@@ -15,6 +17,11 @@ public class BossController : MonoBehaviour
     private bool slamming = false;
     public float slamRange = 6f;
     public int slamDamage = 30;
+    public Collider2D slamDamageZone;
+    public GameObject slamWarningZone;
+    public float slamWarningDuration = 0.7f;
+    public float slamDamageDuration = 0.05f;
+    public float swordThrowStartOffset = 1.5f;
     private int currentHealth = 100;
     public int maxHealth = 100;
     public GameObject bossSword;
@@ -22,6 +29,9 @@ public class BossController : MonoBehaviour
     private Animator animator;
     private bool isThrowingAnim = false;
     private bool isSlamAnim = false;
+    private RigidbodyConstraints2D cachedConstraints;
+    private bool slamLockApplied = false;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -30,9 +40,27 @@ public class BossController : MonoBehaviour
         currentHealth = maxHealth;
         health = GetComponent<BossHealth>();
         animator = GetComponent<Animator>();
+        cachedConstraints = rb.constraints;
+        AutoAssignSlamDamageZone();
+        EnsureSlamDamageZoneIsTrigger();
+        SetSlamZonesActive(false);
+
+        if (sword != null)
+        {
+            sword.gameObject.SetActive(false);
+        }
     }
     void Update()
     {
+        if (isSlamAnim || slamming)
+        {
+            if (rb != null)
+            {
+                rb.linearVelocity = Vector2.zero;
+            }
+            return;
+        }
+
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
         if (hasSword && distanceToPlayer < 12f)
         {
@@ -64,28 +92,33 @@ public class BossController : MonoBehaviour
 
     public IEnumerator GroundSlam()
     {
-        isSlamAnim = true;
-        animator.SetTrigger("Slam");
-        yield return new WaitForSeconds(0.5f);
-        hasSword = false;
-        slamming = true;
-        sword.transform.parent = null;
-        sword.transform.position = handPosition.position; 
-        sword.Slam(); 
-        //Deal damage to player within radius
-        if (Vector2.Distance(transform.position, player.position) <= 7f)
+        if (isSlamAnim)
         {
-            UpdateHealth health = player.GetComponent<UpdateHealth>();
-            health.TakeDamage(30); //slamDamage
+            yield break;
         }
-        yield return new WaitForSeconds(3f);
-        retrievingSword = true;
+
+        isSlamAnim = true;
+        slamming = true;
+        LockBossForSlam();
+
+        animator.SetTrigger("Slam");
+        yield return new WaitForSeconds(0.3f);
+
+        yield return StartCoroutine(DojoStyleSlamHitbox());
+
+        UnlockBossAfterSlam();
         slamming = false;
         isSlamAnim = false;
     }
 
     void TryThrowSword()
     {
+        if (sword == null)
+        {
+            MoveTowardsPlayer();
+            return;
+        }
+
         float distance = Vector2.Distance(transform.position, player.position);
 
         if (distance > 8 && distance < 15f)
@@ -109,9 +142,21 @@ public class BossController : MonoBehaviour
     private IEnumerator DelayedThrow(float delay)
     {
         yield return new WaitForSeconds(delay);
+
+        if (sword == null)
+        {
+            isThrowingAnim = false;
+            yield break;
+        }
+
         hasSword = false;
+
+        sword.gameObject.SetActive(true);
+
         sword.transform.parent = null;
         Vector2 direction = player.position - handPosition.position;
+        Vector2 throwDirection = new Vector2(Mathf.Sign(direction.x), 0f).normalized;
+        sword.transform.position = (Vector2)handPosition.position + (throwDirection * swordThrowStartOffset);
         sword.Throw(direction, this);
         isThrowingAnim = false;
     }
@@ -155,6 +200,11 @@ public class BossController : MonoBehaviour
     public void OnSwordRetrieved()
     {
         hasSword = true;
+
+        if (sword != null)
+        {
+            sword.gameObject.SetActive(false);
+        }
     }
 
     private void FacePlayer()
@@ -186,30 +236,193 @@ public class BossController : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private bool IsPlayerInSlamZone()
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (!slamDamageZone)
         {
-            if (collision.otherCollider.gameObject.layer == LayerMask.NameToLayer("BossHead"))
-                return;
-            DamageAndKnockbackPlayer(collision);
+            AutoAssignSlamDamageZone();
+            EnsureSlamDamageZoneIsTrigger();
+        }
+
+        if (!slamDamageZone || !player)
+        {
+            return false;
+        }
+
+        try
+        {
+            Collider2D playerCollider = player.GetComponent<Collider2D>();
+            if (playerCollider != null)
+            {
+                return slamDamageZone.bounds.Intersects(playerCollider.bounds);
+            }
+
+            return slamDamageZone.bounds.Contains(player.position);
+        }
+        catch (MissingReferenceException)
+        {
+            slamDamageZone = null;
+            return false;
         }
     }
 
-    private void DamageAndKnockbackPlayer(Collision2D collision)
+    private void AutoAssignSlamDamageZone()
     {
-        UpdateHealth health = collision.gameObject.GetComponent<UpdateHealth>();
-        if (health != null)
+        if (slamDamageZone)
         {
-            // health.TakeDamage(10); 
+            return;
         }
-        Rigidbody2D playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
-        if (playerRb != null)
+
+        GameObject slamZoneObject = GameObject.FindGameObjectWithTag("Enemy Attack");
+        if (slamZoneObject != null)
         {
-            Vector2 knockDir = (collision.transform.position - transform.position).normalized;
-            float knockbackForce = 20f;
-            playerRb.linearVelocity = Vector2.zero; 
-            playerRb.AddForce(knockDir * knockbackForce, ForceMode2D.Impulse);
+            slamDamageZone = slamZoneObject.GetComponent<Collider2D>();
         }
+    }
+
+    private void EnsureSlamDamageZoneIsTrigger()
+    {
+        if (slamDamageZone != null)
+        {
+            slamDamageZone.isTrigger = true;
+        }
+    }
+
+    private IEnumerator DojoStyleSlamHitbox()
+    {
+        if (slamWarningZone != null)
+        {
+            slamWarningZone.SetActive(true);
+            yield return new WaitForSeconds(slamWarningDuration);
+            slamWarningZone.SetActive(false);
+        }
+
+        bool playerDamaged = false;
+        if (slamDamageZone != null)
+        {
+            slamDamageZone.gameObject.SetActive(true);
+            float timer = 0f;
+
+            while (timer < slamDamageDuration)
+            {
+                if (!playerDamaged && TryDamagePlayerInSlamZone())
+                {
+                    playerDamaged = true;
+                }
+
+                timer += Time.deltaTime;
+                yield return null;
+            }
+
+            slamDamageZone.gameObject.SetActive(false);
+        }
+    }
+
+    private void SetSlamZonesActive(bool isActive)
+    {
+        if (slamWarningZone != null)
+        {
+            slamWarningZone.SetActive(isActive);
+        }
+
+        if (slamDamageZone != null)
+        {
+            slamDamageZone.gameObject.SetActive(isActive);
+        }
+    }
+
+    private bool TryDamagePlayerInSlamZone()
+    {
+        if (!slamDamageZone)
+        {
+            return false;
+        }
+
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.useTriggers = true;
+        int hitCount = slamDamageZone.Overlap(filter, slamOverlapResults);
+
+        for (int i = 0; i < hitCount; i++)
+        {
+            Collider2D hit = slamOverlapResults[i];
+            if (hit == null)
+            {
+                continue;
+            }
+
+            if (!hit.CompareTag("Player"))
+            {
+                continue;
+            }
+
+            UpdateHealth playerHealth = hit.GetComponentInParent<UpdateHealth>();
+            if (playerHealth == null)
+            {
+                playerHealth = hit.GetComponent<UpdateHealth>();
+            }
+
+            if (playerHealth != null && !IsMovementDashing(playerHealth))
+            {
+                playerHealth.TakeDamage(slamDamage, transform.position);
+                return true;
+            }
+        }
+
+        if (IsPlayerInSlamZone())
+        {
+            UpdateHealth playerHealth = player.GetComponent<UpdateHealth>();
+            if (playerHealth != null && !IsMovementDashing(playerHealth))
+            {
+                playerHealth.TakeDamage(slamDamage, transform.position);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private void LockBossForSlam()
+    {
+        if (rb == null)
+        {
+            return;
+        }
+
+        if (!slamLockApplied)
+        {
+            cachedConstraints = rb.constraints;
+            slamLockApplied = true;
+        }
+
+        rb.linearVelocity = Vector2.zero;
+        rb.angularVelocity = 0f;
+        rb.constraints = cachedConstraints
+            | RigidbodyConstraints2D.FreezePositionX
+            | RigidbodyConstraints2D.FreezePositionY
+            | RigidbodyConstraints2D.FreezeRotation;
+    }
+
+    private void UnlockBossAfterSlam()
+    {
+        if (rb == null || !slamLockApplied)
+        {
+            return;
+        }
+
+        rb.linearVelocity = Vector2.zero;
+        rb.angularVelocity = 0f;
+        rb.constraints = cachedConstraints;
+        slamLockApplied = false;
+    }
+
+    private bool IsMovementDashing(UpdateHealth playerHealth)
+    {
+        if (playerHealth == null)
+        {
+            return false;
+        }
+
+        Movement movement = playerHealth.GetComponent<Movement>();
+        return movement != null && movement.IsDashing;
     }
 }
