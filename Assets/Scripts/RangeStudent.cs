@@ -163,7 +163,7 @@ public class ThrowEnemy : MonoBehaviour
 
         if (collision.CompareTag("Player") && collision.gameObject.name != "SwordHitbox")
         {
-            DealDamageToPlayer(collision.gameObject);
+            // DealDamageToPlayer(collision.gameObject);
         }
 
     }
@@ -172,7 +172,7 @@ public class ThrowEnemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player") && collision.gameObject.name != "SwordHitbox")
         {
-            DealDamageToPlayer(collision.gameObject);
+            // DealDamageToPlayer(collision.gameObject);
         }
     }
 
@@ -180,7 +180,7 @@ public class ThrowEnemy : MonoBehaviour
     {
         if (collision.CompareTag("Player") && collision.gameObject.name != "SwordHitbox")
         {
-            DealDamageToPlayer(collision.gameObject);
+            // DealDamageToPlayer(collision.gameObject);
         }
     }
 

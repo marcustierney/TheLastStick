@@ -201,7 +201,7 @@ public class BossController : MonoBehaviour
         UpdateHealth health = collision.gameObject.GetComponent<UpdateHealth>();
         if (health != null)
         {
-            health.TakeDamage(10); 
+            // health.TakeDamage(10); 
         }
         Rigidbody2D playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
         if (playerRb != null)

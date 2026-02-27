@@ -140,7 +140,7 @@ public class Enemy : MonoBehaviour
         // Deal damage to player on contact - but NOT if it's the sword hitbox
         if (collision.gameObject.CompareTag("Player") && collision.gameObject.name != "SwordHitbox")
         {
-            DealDamageToPlayer(collision.gameObject);
+            // DealDamageToPlayer(collision.gameObject);
         }
     }
 
@@ -149,7 +149,7 @@ public class Enemy : MonoBehaviour
         // Deal damage to player if touching trigger - but NOT if it's the sword hitbox
         if (collision.CompareTag("Player") && collision.gameObject.name != "SwordHitbox")
         {
-            DealDamageToPlayer(collision.gameObject);
+            // DealDamageToPlayer(collision.gameObject);
         }
     }
 
@@ -158,7 +158,7 @@ public class Enemy : MonoBehaviour
         // Continue dealing damage while touching, respecting I-frames - but NOT if it's the sword hitbox
         if (collision.CompareTag("Player") && collision.gameObject.name != "SwordHitbox")
         {
-            DealDamageToPlayer(collision.gameObject);
+            // DealDamageToPlayer(collision.gameObject);
         }
     }
 
