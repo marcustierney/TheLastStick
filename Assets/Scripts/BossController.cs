@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class BossController : MonoBehaviour
 {
     private static readonly Collider2D[] slamOverlapResults = new Collider2D[12];
+    private const string HasSwordAnimatorParam = "HasSword";
 
     public Transform player;
     public Transform handPosition;      
@@ -44,6 +45,7 @@ public class BossController : MonoBehaviour
         AutoAssignSlamDamageZone();
         EnsureSlamDamageZoneIsTrigger();
         SetSlamZonesActive(false);
+        SetAnimatorHasSword(false);
 
         if (sword != null)
         {
@@ -52,7 +54,7 @@ public class BossController : MonoBehaviour
     }
     void Update()
     {
-        if (isSlamAnim || slamming)
+        if (isSlamAnim || slamming || isThrowingAnim)
         {
             if (rb != null)
             {
@@ -65,7 +67,7 @@ public class BossController : MonoBehaviour
         if (hasSword && distanceToPlayer < 12f)
         {
             FacePlayer();
-            if (distanceToPlayer < 6f && !isSlamAnim)
+            if (distanceToPlayer < 3f && !isSlamAnim)
             {
                 StartCoroutine(GroundSlam());
             }
@@ -104,7 +106,7 @@ public class BossController : MonoBehaviour
         animator.SetTrigger("Slam");
         yield return new WaitForSeconds(0.3f);
 
-        yield return StartCoroutine(DojoStyleSlamHitbox());
+        yield return StartCoroutine(SlamHitbox());
 
         UnlockBossAfterSlam();
         slamming = false;
@@ -134,9 +136,12 @@ public class BossController : MonoBehaviour
     void ThrowSword()
     {
         if (isThrowingAnim) return; //stop the animation from repeating
+        FacePlayer();
+        hasSword = false;
+        SetAnimatorHasSword(false);
         isThrowingAnim = true;
         animator.SetTrigger("Throw");
-        StartCoroutine(DelayedThrow(0.4f));
+        StartCoroutine(DelayedThrow(0.5f));
     }
 
     private IEnumerator DelayedThrow(float delay)
@@ -150,6 +155,7 @@ public class BossController : MonoBehaviour
         }
 
         hasSword = false;
+        SetAnimatorHasSword(false);
 
         sword.gameObject.SetActive(true);
 
@@ -164,11 +170,14 @@ public class BossController : MonoBehaviour
     public void OnSwordStuck(BossSword stuckSword)
     {
         retrievingSword = true;
+        SetAnimatorHasSword(false);
     }
 
     void MoveToSword()
     {
         if (sword == null) return;
+
+        FaceSword();
 
         transform.position = Vector2.MoveTowards(
             transform.position,
@@ -200,6 +209,7 @@ public class BossController : MonoBehaviour
     public void OnSwordRetrieved()
     {
         hasSword = true;
+        SetAnimatorHasSword(true);
 
         if (sword != null)
         {
@@ -210,6 +220,19 @@ public class BossController : MonoBehaviour
     private void FacePlayer()
     {
         if (player.position.x > transform.position.x)
+            transform.localScale = new Vector3(5, 5, 5);
+        else
+            transform.localScale = new Vector3(-5, 5, 5);
+    }
+
+    private void FaceSword()
+    {
+        if (sword == null)
+        {
+            return;
+        }
+
+        if (sword.transform.position.x > transform.position.x)
             transform.localScale = new Vector3(5, 5, 5);
         else
             transform.localScale = new Vector3(-5, 5, 5);
@@ -288,7 +311,7 @@ public class BossController : MonoBehaviour
         }
     }
 
-    private IEnumerator DojoStyleSlamHitbox()
+    private IEnumerator SlamHitbox()
     {
         if (slamWarningZone != null)
         {
@@ -424,5 +447,13 @@ public class BossController : MonoBehaviour
 
         Movement movement = playerHealth.GetComponent<Movement>();
         return movement != null && movement.IsDashing;
+    }
+
+    private void SetAnimatorHasSword(bool hasSwordState)
+    {
+        if (animator != null)
+        {
+            animator.SetBool(HasSwordAnimatorParam, hasSwordState);
+        }
     }
 }
