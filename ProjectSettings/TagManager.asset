@@ -59,6 +59,9 @@ TagManager:
   - name: Buildings/Environment
     uniqueID: 845003913
     locked: 0
+  - name: Buildings/Roof
+    uniqueID: 3610290773
+    locked: 0
   - name: Player
     uniqueID: 3722907645
     locked: 0
