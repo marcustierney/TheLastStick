@@ -4,9 +4,11 @@ using UnityEngine;
 public class SwordAttack : MonoBehaviour
 {
     public GameObject swordHitbox;
+    [SerializeField] private GameObject dashAttackHitbox;
     private float attackDuration = 0.2f;
     private Vector2 rightOffset = new Vector2(0.8f, 0f);
     private Vector2 leftOffset = new Vector2(-0.8f, 0f);
+    [SerializeField] private Vector2 dashAttackRightOffset = new Vector2(1.2f, 0f);
     private Vector2 downOffset = new Vector2(0f, -.9f);
     private bool isAttacking;
     private Movement movement;
@@ -14,6 +16,9 @@ public class SwordAttack : MonoBehaviour
     public bool swordStandTouchGround;
     private bool usedSwordStand;
     private Animator animator;
+    private bool isDashAttacking;
+    private GameObject activeAttackHitbox;
+    [SerializeField] private string dashAttackStateName = "Dash_Attack";
 
     public bool IsAttacking => isAttacking;
     public bool IsSwordStanding => isSwordStanding;
@@ -29,6 +34,8 @@ public class SwordAttack : MonoBehaviour
     {
         if (isAttacking) return;
 
+        bool attackKeyPressed = Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow);
+
         if (!movement.IsGrounded() && Input.GetKeyDown(KeyCode.DownArrow))
         {
             if (!usedSwordStand)
@@ -43,6 +50,13 @@ public class SwordAttack : MonoBehaviour
                 return;
             }
         }
+
+        if (movement.IsDashing && attackKeyPressed)
+        {
+            StartCoroutine(Attack());
+            return;
+        }
+
         bool facingRight = movement.FacingRight;
         if ((facingRight && Input.GetKeyDown(KeyCode.RightArrow)) ||
             (!facingRight && Input.GetKeyDown(KeyCode.LeftArrow)))
@@ -99,46 +113,158 @@ public class SwordAttack : MonoBehaviour
     private IEnumerator Attack()
     {
         isAttacking = true;
-        movement.CanMoveHorizontally = false;
-        Rigidbody2D rb = movement.GetComponent<Rigidbody2D>();
-        if (rb != null)
+        bool dashAttack = movement.IsDashing;
+        isDashAttacking = dashAttack;
+        bool facingRight = movement.FacingRight;
+        activeAttackHitbox = GetAttackHitbox(dashAttack);
+
+        ApplyFacingToVisual(facingRight);
+
+        if (!dashAttack)
         {
-            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+            movement.CanMoveHorizontally = false;
+            Rigidbody2D rb = movement.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+            }
         }
         
         // Trigger attack animation
         if (animator != null)
         {
             animator.SetBool("isAttacking", true);
+            if (dashAttack && !string.IsNullOrEmpty(dashAttackStateName))
+            {
+                animator.CrossFadeInFixedTime(dashAttackStateName, 0.02f, 0, 0f);
+            }
         }
-        
-        bool facingRight = movement.FacingRight;
-        float facingSign = facingRight ? 1f : -1f;
-        float scaleSign = Mathf.Sign(transform.localScale.x);
-        if (scaleSign == 0f)
+
+        DisableAttackHitbox(swordHitbox);
+        DisableAttackHitbox(dashAttackHitbox);
+
+        if (activeAttackHitbox != null)
         {
-            scaleSign = 1f;
+            PositionAttackHitbox(activeAttackHitbox, facingRight, dashAttack);
+            activeAttackHitbox.SetActive(true);
+            SwordHitbox hitbox = activeAttackHitbox.GetComponent<SwordHitbox>();
+            if (hitbox != null)
+            {
+                hitbox.EnableAttack();
+            }
         }
-        float localX = Mathf.Abs(rightOffset.x) * facingSign * scaleSign;
-        swordHitbox.transform.localPosition = new Vector2(localX, rightOffset.y);
-        swordHitbox.SetActive(true);
-        swordHitbox.GetComponent<SwordHitbox>().EnableAttack();
 
-        yield return new WaitForSeconds(attackDuration);
+        if (dashAttack)
+        {
+            while (movement.IsDashing)
+            {
+                ApplyFacingToVisual(movement.FacingRight);
+                yield return null;
+            }
+        }
+        else
+        {
+            yield return new WaitForSeconds(attackDuration);
+        }
 
-        swordHitbox.GetComponent<SwordHitbox>().Disable();
-        swordHitbox.SetActive(false);
-        swordHitbox.transform.localPosition = Vector3.zero;
+        DisableAttackHitbox(activeAttackHitbox);
+        if (activeAttackHitbox != null)
+        {
+            activeAttackHitbox.transform.localPosition = Vector3.zero;
+        }
+        activeAttackHitbox = null;
         // End attack animation
         if (animator != null)
         {
             animator.SetBool("isAttacking", false);
         }
 
-        movement.CanMoveHorizontally = true;
+        if (!dashAttack)
+        {
+            movement.CanMoveHorizontally = true;
+        }
+
+        isDashAttacking = false;
         
         isAttacking = false;
     }
+
+    private void LateUpdate()
+    {
+        if (!isDashAttacking)
+        {
+            return;
+        }
+
+        bool facingRight = movement.FacingRight;
+        ApplyFacingToVisual(facingRight);
+
+        if (activeAttackHitbox != null)
+        {
+            PositionAttackHitbox(activeAttackHitbox, facingRight, true);
+        }
+    }
+
+    private GameObject GetAttackHitbox(bool dashAttack)
+    {
+        if (dashAttack && dashAttackHitbox != null)
+        {
+            return dashAttackHitbox;
+        }
+
+        return swordHitbox;
+    }
+
+    private void PositionAttackHitbox(GameObject hitboxObject, bool facingRight, bool dashAttack)
+    {
+        if (hitboxObject == null)
+        {
+            return;
+        }
+
+        Vector2 baseOffset = dashAttack ? dashAttackRightOffset : rightOffset;
+        float facingSign = facingRight ? 1f : -1f;
+        float scaleSign = Mathf.Sign(transform.localScale.x);
+        if (scaleSign == 0f)
+        {
+            scaleSign = 1f;
+        }
+
+        float localX = Mathf.Abs(baseOffset.x) * facingSign * scaleSign;
+        hitboxObject.transform.localPosition = new Vector2(localX, baseOffset.y);
+    }
+
+    private void DisableAttackHitbox(GameObject hitboxObject)
+    {
+        if (hitboxObject == null)
+        {
+            return;
+        }
+
+        SwordHitbox hitbox = hitboxObject.GetComponent<SwordHitbox>();
+        if (hitbox != null)
+        {
+            hitbox.Disable();
+        }
+        else
+        {
+            hitboxObject.SetActive(false);
+        }
+    }
+
+    private void ApplyFacingToVisual(bool facingRight)
+    {
+        Vector3 localScale = transform.localScale;
+        float absX = Mathf.Abs(localScale.x);
+        if (absX == 0f)
+        {
+            absX = 1f;
+        }
+
+        localScale.x = facingRight ? absX : -absX;
+        transform.localScale = localScale;
+    }
+
     public void ForceExitSwordStand()
     {
         if (!isSwordStanding) return;
