@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 52bad481dfac11f46b35ba8ce8a439a3
+guid: 0535e0d195e161244ad3d6202c07c8f5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3985935973762550766
-    second: playerweapon_0
+      213: -5462986005976640550
+    second: standingonsword (1)_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: playerweapon_0
+      name: standingonsword (1)_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 2
-        width: 27
-        height: 27
+        x: 18
+        y: 4
+        width: 30
+        height: 56
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: eeb419556a3e05730800000000000000
-      internalID: 3985935973762550766
+      spriteID: ad315d4fb239f24b0800000000000000
+      internalID: -5462986005976640550
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      playerweapon_0: 3985935973762550766
+      standingonsword (1)_0: -5462986005976640550
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

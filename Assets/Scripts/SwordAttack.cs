@@ -4,12 +4,13 @@ using UnityEngine;
 public class SwordAttack : MonoBehaviour
 {
     public GameObject swordHitbox;
+    [SerializeField] private GameObject swordStandHitbox;
     [SerializeField] private GameObject dashAttackHitbox;
     private float attackDuration = 0.2f;
     private Vector2 rightOffset = new Vector2(0.8f, 0f);
     private Vector2 leftOffset = new Vector2(-0.8f, 0f);
     [SerializeField] private Vector2 dashAttackRightOffset = new Vector2(1.2f, 0f);
-    private Vector2 downOffset = new Vector2(0f, -.9f);
+    private Vector2 downOffset = new Vector2(0f, -.8f);
     private bool isAttacking;
     private Movement movement;
     private bool isSwordStanding;
@@ -19,6 +20,7 @@ public class SwordAttack : MonoBehaviour
     private bool isDashAttacking;
     private GameObject activeAttackHitbox;
     [SerializeField] private string dashAttackStateName = "Dash_Attack";
+    [SerializeField] private string swordStandBoolName = "isSwordStanding";
 
     public bool IsAttacking => isAttacking;
     public bool IsSwordStanding => isSwordStanding;
@@ -72,20 +74,31 @@ public class SwordAttack : MonoBehaviour
 
     private IEnumerator SwordStand()
     {
+        GameObject standHitbox = GetSwordStandHitbox();
+        if (standHitbox == null)
+        {
+            yield break;
+        }
+
+        swordStandTouchGround = false;
         usedSwordStand = true;
         isAttacking = true;
         isSwordStanding = true;
+        SetSwordStandAnimation(true);
         movement.CanMoveHorizontally = false;
         //move sword below player
-        swordHitbox.transform.localPosition = downOffset;
-        swordHitbox.transform.localEulerAngles = new Vector3(0, 0, 90);
+        standHitbox.transform.localPosition = downOffset;
+        //standHitbox.transform.localEulerAngles = new Vector3(0, 0, 90);
         //make sword standable
-        swordHitbox.SetActive(true);
-        swordHitbox.GetComponent<SwordHitbox>().EnablePlatform();
+        standHitbox.SetActive(true);
+        standHitbox.GetComponent<SwordHitbox>().EnablePlatform();
 
         while (isSwordStanding)
         {
-            if (Input.GetKeyDown(KeyCode.Space)) 
+            bool moveCancelPressed = Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D);
+            bool jumpOffPressed = Input.GetKeyDown(KeyCode.Space) && swordStandTouchGround;
+
+            if (moveCancelPressed || jumpOffPressed)
             {
                 ExitSwordStand();
             }
@@ -93,19 +106,29 @@ public class SwordAttack : MonoBehaviour
             yield return null;
         }
         //remove sword platform
-        swordHitbox.GetComponent<SwordHitbox>().Disable();
-        swordHitbox.SetActive(false);
-        swordHitbox.transform.localEulerAngles = Vector3.zero;
+        standHitbox.GetComponent<SwordHitbox>().Disable();
+        standHitbox.SetActive(false);
+        standHitbox.transform.localEulerAngles = Vector3.zero;
+        SetSwordStandAnimation(false);
         isAttacking = false;
     }
 
     private void ExitSwordStand()
     {
+        GameObject standHitbox = GetSwordStandHitbox();
+
         isSwordStanding = false;
-        movement.SwordJump();
-        swordHitbox.GetComponent<SwordHitbox>().Disable();
-        swordHitbox.SetActive(false);
-        swordHitbox.transform.localEulerAngles = Vector3.zero;
+        SetSwordStandAnimation(false);
+        if (swordStandTouchGround)
+        {
+            movement.SwordJump();
+        }
+        if (standHitbox != null)
+        {
+            standHitbox.GetComponent<SwordHitbox>().Disable();
+            standHitbox.SetActive(false);
+            standHitbox.transform.localEulerAngles = Vector3.zero;
+        }
         movement.CanMoveHorizontally = true;
         isAttacking = false;
     }
@@ -141,6 +164,7 @@ public class SwordAttack : MonoBehaviour
         }
 
         DisableAttackHitbox(swordHitbox);
+        DisableAttackHitbox(swordStandHitbox);
         DisableAttackHitbox(dashAttackHitbox);
 
         if (activeAttackHitbox != null)
@@ -270,5 +294,33 @@ public class SwordAttack : MonoBehaviour
         if (!isSwordStanding) return;
 
         ExitSwordStand();
+    }
+
+    public void ForceExitSwordStandWithBounce()
+    {
+        if (!isSwordStanding) return;
+
+        swordStandTouchGround = true;
+        ExitSwordStand();
+    }
+
+    private void SetSwordStandAnimation(bool value)
+    {
+        if (animator == null || string.IsNullOrEmpty(swordStandBoolName))
+        {
+            return;
+        }
+
+        animator.SetBool(swordStandBoolName, value);
+    }
+
+    private GameObject GetSwordStandHitbox()
+    {
+        if (swordStandHitbox != null)
+        {
+            return swordStandHitbox;
+        }
+
+        return swordHitbox;
     }
 }

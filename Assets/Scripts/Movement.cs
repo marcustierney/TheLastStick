@@ -162,12 +162,6 @@ public class Movement : MonoBehaviour
             }
         }
 
-        // when player lets go of jump before max height is reached you start going back down
-        if (Input.GetButtonUp("Jump") && rb.linearVelocity.y > 0f) 
-        {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
-        }
-
         Flip();
     }
 
@@ -337,7 +331,7 @@ public class Movement : MonoBehaviour
     private IEnumerator JumpWithDelay()
     {
         isJumping = true;
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0f);
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpHeight);
         isJumping = false;
     }

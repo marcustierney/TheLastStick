@@ -54,7 +54,7 @@ public class SwordHitbox : MonoBehaviour
                     PlayHitDamageSound();
                 }
             }
-            swordAttack.ForceExitSwordStand();
+            swordAttack.ForceExitSwordStandWithBounce();
         }
         if (collision.CompareTag("TutorialEnemy"))
         {
@@ -65,7 +65,7 @@ public class SwordHitbox : MonoBehaviour
                 tutorialEnemy.TutorialTakeDamage(damage);
                 PlayHitDamageSound();
             }
-            swordAttack.ForceExitSwordStand();
+            swordAttack.ForceExitSwordStandWithBounce();
         }
         if (collision.CompareTag("Boss"))
         {
@@ -76,7 +76,7 @@ public class SwordHitbox : MonoBehaviour
                 boss.TakeDamage(damage);
                 PlayHitDamageSound();
             }
-            swordAttack.ForceExitSwordStand();
+            swordAttack.ForceExitSwordStandWithBounce();
         }
         if (collision.CompareTag("Ground"))
         {
@@ -105,7 +105,7 @@ public class SwordHitbox : MonoBehaviour
                     PlayHitDamageSound();
                 }
             }
-            swordAttack.ForceExitSwordStand();
+            swordAttack.ForceExitSwordStandWithBounce();
         }
         if (collision.collider.CompareTag("TutorialEnemy"))
         {
@@ -115,7 +115,7 @@ public class SwordHitbox : MonoBehaviour
                 tutorialEnemy.TutorialTakeDamage(damage);
                 PlayHitDamageSound();
             }
-            swordAttack.ForceExitSwordStand();
+            swordAttack.ForceExitSwordStandWithBounce();
         }
         if (collision.collider.CompareTag("Ground"))
         {
