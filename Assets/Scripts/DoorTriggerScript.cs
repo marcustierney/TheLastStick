@@ -7,7 +7,14 @@ public class DoorTrigger : MonoBehaviour
     {
         if (other.CompareTag("BossDoor"))
         {
-            SceneManager.LoadScene("LevelOneBoss");
+            if (SceneManager.GetActiveScene().name == "LevelOne")
+            {
+                SceneManager.LoadScene("LevelOneBoss");
+            }
+            else if (SceneManager.GetActiveScene().name == "LevelTwo")
+            {
+                SceneManager.LoadScene("LevelTwoBoss");
+            }
         }
         if (other.CompareTag("LevelOneDoor"))
         {

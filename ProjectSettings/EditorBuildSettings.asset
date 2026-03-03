@@ -26,6 +26,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DeathScreen.unity
     guid: 2a8b16f968af8464fb39b6c23e3d5b5f
+  - enabled: 1
+    path: Assets/Scenes/LevelTwoBoss.unity
+    guid: 2c30ac5f9725bb84a9501aa23e9aa0ef
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
