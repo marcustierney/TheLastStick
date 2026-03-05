@@ -9,12 +9,7 @@ public class BossSummoningSwords : MonoBehaviour
     public int swordCount = 30;             
     public float timeBetweenSwords = 0.15f; 
     public float chargeUpDuration = 2f;     
-    private Animator animator;
-
-    private void Awake()
-    {
-        animator = GetComponent<Animator>();
-    }
+    public System.Action<bool> onChargingChanged;
 
     public void TriggerSummonAttack()
     {
@@ -23,14 +18,9 @@ public class BossSummoningSwords : MonoBehaviour
 
     private IEnumerator SummonAttackSequence()
     {
-        if (animator != null)
-            animator.SetBool("isCharging", true);
-
+        onChargingChanged.Invoke(true);
         yield return new WaitForSeconds(chargeUpDuration);
-
-        if (animator != null)
-            animator.SetBool("isCharging", false);
-
+        onChargingChanged.Invoke(false);
         float arenaWidth = arenaRightEdge - arenaLeftEdge;
         float spacing = arenaWidth / (swordCount - 1); 
         float[] positions = new float[swordCount];
