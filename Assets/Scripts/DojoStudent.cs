@@ -19,6 +19,9 @@ public class Enemy : MonoBehaviour
     private Animator animator;
     private bool isAttacking = false;
     private SpriteRenderer spriteRenderer;
+    public float ledgeCheckDistance = 1f; 
+    public float ledgeCheckDepth = 1f;   
+    public LayerMask groundLayer;
 
     private void Awake()
     {
@@ -85,16 +88,30 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    private bool IsGroundAhead(float moveDirectionX)
+    {
+        Vector2 rayOrigin = new Vector2(transform.position.x + moveDirectionX * ledgeCheckDistance, transform.position.y);
+        RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.down, ledgeCheckDepth, groundLayer);
+        return hit.collider != null;
+    }
+
     private void MoveTowardsPlayer()
     {
         Vector2 direction = (player.position - transform.position).normalized;
-        rb.linearVelocity = new Vector2(direction.x * moveSpeed, rb.linearVelocity.y);
 
-        //trigger walking animation
-        animator.SetBool("isMoving", true);
+        if (IsGroundAhead(direction.x))
+        {
+            rb.linearVelocity = new Vector2(direction.x * moveSpeed, rb.linearVelocity.y);
+            animator.SetBool("isMoving", true);
+        }
+        else
+        {
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            animator.SetBool("isMoving", false);
+        }
     }
 
-    private IEnumerator Attack()
+        private IEnumerator Attack()
     {
         isAttacking = true;
         animator.SetBool("isMoving", false);
