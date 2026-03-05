@@ -21,7 +21,7 @@ public class BossHealth : MonoBehaviour
     {
         Health -= damage;
         Health = Mathf.Clamp(Health, 0, MaxHealth);
-
+        print(damage);
         healthBar.SetHealth(Health);
 
         if (Health <= 0)

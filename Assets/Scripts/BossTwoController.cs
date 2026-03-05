@@ -4,22 +4,117 @@ using UnityEngine;
 public class BossTwoController : MonoBehaviour
 {
     public BossSummoningSwords summoningSwords;
-    public int maxHealth = 100;
-    private int currentHealth;
-    public float summonAttackCooldown = 12f; 
+    public BossFloatingSwords floatingSwords;
+    public BossHealth bossHealth;
+    public float moveSpeed = 3f;
+    public float dashAttackRange = 8f;      
+    public float dashChargeUpDuration = 1.2f;  
+    public float dashSpeed = 25f;              
+    public float dashDuration = 0.6f;         
+    public float dashStunDuration = 1.0f;      
+    public float dashCooldown = 4f;            
+    public int dashDamage = 20;
+    public float summonAttackCooldown = 12f;
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
+    private Rigidbody2D rb;
+    private Transform player;
     private bool isDead = false;
-    private bool isSummonOnCooldown = false;
+    private bool isDashing = false;
+    private bool isChargingDash = false;
+    private bool isStunned = false;
+    private bool isDealingDashDamage = false;
+    private bool isSummonCharging = false;
+    private float lastDashTime = -999f;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        player = GameObject.FindGameObjectWithTag("Player")?.transform;
+    }
 
     private void Start()
     {
-        currentHealth = maxHealth;
+        if (summoningSwords != null)
+        {
+            summoningSwords.onChargingChanged += OnSummonChargingChanged;
+        }
+
         StartCoroutine(SummonAttackLoop());
+    }
+    private void OnSummonChargingChanged(bool charging)
+    {
+        isSummonCharging = charging;
+        if (animator != null)
+        {
+            animator.SetBool("isCharging", charging);
+        }
+    }
+    private void Update()
+    {
+        if (isDead || player == null) return;
+        if (isDashing || isChargingDash || isStunned || isSummonCharging) return; 
+        float distance = Vector2.Distance(transform.position, player.position);
+        spriteRenderer.flipX = player.position.x > transform.position.x;
+        if (distance <= dashAttackRange && Time.time >= lastDashTime + dashCooldown)
+        {
+            StartCoroutine(DashAttack());
+        }
+        else if (distance > dashAttackRange)
+        {
+            MoveTowardsPlayer();
+        }
+        else
+        {
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            animator.SetBool("isMoving", false);
+        }
+    }
+
+    private void MoveTowardsPlayer()
+    {
+        Vector2 direction = (player.position - transform.position).normalized;
+        rb.linearVelocity = new Vector2(direction.x * moveSpeed, rb.linearVelocity.y);
+        animator.SetBool("isMoving", true);
+    }
+
+    private IEnumerator DashAttack()
+    {
+        lastDashTime = Time.time;
+        isChargingDash = true;
+        rb.linearVelocity = Vector2.zero;
+        animator.SetBool("isMoving", false);
+        animator.SetBool("isChargingDash", true);
+        yield return new WaitForSeconds(dashChargeUpDuration);
+        animator.SetBool("isChargingDash", false);
+        isChargingDash = false;
+        isDashing = true;
+        isDealingDashDamage = true;
+        animator.SetBool("isDashing", true);
+        Vector2 dashDirection = (player.position - transform.position).normalized;
+        float dashTimer = 0f;
+        while (dashTimer < dashDuration)
+        {
+            rb.linearVelocity = new Vector2(dashDirection.x * dashSpeed, rb.linearVelocity.y);
+            dashTimer += Time.deltaTime;
+            yield return null;
+        }
+        rb.linearVelocity = Vector2.zero;
+        isDashing = false;
+        isDealingDashDamage = false;
+        animator.SetBool("isDashing", false);
+        isStunned = true;
+        animator.SetBool("isStunned", true);
+        yield return new WaitForSeconds(dashStunDuration);
+        isStunned = false;
+        animator.SetBool("isStunned", false);
     }
 
     private IEnumerator SummonAttackLoop()
     {
         yield return new WaitForSeconds(6f);
-
         while (!isDead)
         {
             if (summoningSwords != null)
@@ -33,11 +128,8 @@ public class BossTwoController : MonoBehaviour
     public void TakeDamage(int damage)
     {
         if (isDead) return;
-
-        currentHealth -= damage;
-        Debug.Log("Boss health: " + currentHealth);
-
-        if (currentHealth <= 0)
+        bossHealth.TakeDamage(damage);
+        if (bossHealth.Health <= 0)
         {
             Die();
         }
@@ -46,6 +138,21 @@ public class BossTwoController : MonoBehaviour
     private void Die()
     {
         isDead = true;
+        Debug.Log("Boss dead");
         Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (!isDealingDashDamage) return;
+
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            UpdateHealth health = collision.gameObject.GetComponent<UpdateHealth>();
+            if (health != null)
+            {
+                health.TakeDamage(dashDamage, transform.position);
+            }
+        }
     }
 }
