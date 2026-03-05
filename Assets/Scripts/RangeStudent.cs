@@ -21,8 +21,8 @@ public class ThrowEnemy : MonoBehaviour
     private Animator animator;
     private SpriteRenderer spriteRenderer;
     private float damageToPlayer = 20f;
-    public float ledgeCheckDistance = 0.4f; 
-    public float ledgeCheckDepth = 0.5f;   
+    public float ledgeCheckDistance = 1f; 
+    public float ledgeCheckDepth = 1f;   
     public LayerMask groundLayer;           
 
     private void Awake()

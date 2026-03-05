@@ -4053,7 +4053,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &493979930
 Animator:
   serializedVersion: 7
@@ -4092,6 +4092,11 @@ MonoBehaviour:
   damageToPlayer: 10
   swordHitbox: {fileID: 1102442744}
   warningHitBox: {fileID: 232541777}
+  ledgeCheckDistance: 1
+  ledgeCheckDepth: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!50 &493979932
 Rigidbody2D:
   serializedVersion: 5
@@ -4232,7 +4237,7 @@ Transform:
   m_GameObject: {fileID: 493979929}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 23.84, y: 12.17, z: 0}
+  m_LocalPosition: {x: 5.68, y: -4.6, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
