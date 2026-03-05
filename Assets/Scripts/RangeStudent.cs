@@ -8,8 +8,7 @@ public class ThrowEnemy : MonoBehaviour
     public Transform throwPoint;
     public float throwCooldown = 1.6f;
     public float throwWarningDuration = 0.5f;
-    public float throwForceX = 8f;
-    public float throwForceY = 6f;
+    public float projectileSpeed = 10f;
     private Transform player;
     private float moveSpeed = 2f;
     private Rigidbody2D rb;
@@ -21,8 +20,10 @@ public class ThrowEnemy : MonoBehaviour
     private float lastThrowTime;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
-    [SerializeField]
     private float damageToPlayer = 20f;
+    public float ledgeCheckDistance = 0.4f; 
+    public float ledgeCheckDepth = 0.5f;   
+    public LayerMask groundLayer;           
 
     private void Awake()
     {
@@ -95,15 +96,28 @@ public class ThrowEnemy : MonoBehaviour
         }
     }
 
+    private bool IsGroundAhead(float moveDirectionX)
+    {
+        Vector2 rayOrigin = new Vector2(transform.position.x + moveDirectionX * ledgeCheckDistance, transform.position.y);
+        RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.down, ledgeCheckDepth, groundLayer);
+        return hit.collider != null;
+    }
+
     private void MoveTowardsPlayer()
     {
         Vector2 direction = (player.position - transform.position).normalized;
-        rb.linearVelocity = new Vector2(direction.x * moveSpeed, rb.linearVelocity.y);
 
-        //trigger walking animation
-        animator.SetBool("isMoving", true);
+        if (IsGroundAhead(direction.x))  
+        {
+            rb.linearVelocity = new Vector2(direction.x * moveSpeed, rb.linearVelocity.y);
+            animator.SetBool("isMoving", true);
+        }
+        else
+        {
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            animator.SetBool("isMoving", false);
+        }
     }
-
     private void Die()
     {
         Debug.Log("killed");
@@ -116,7 +130,7 @@ public class ThrowEnemy : MonoBehaviour
         animator.SetBool("isMoving", false);
         animator.SetBool("isThrowing", true);
         rb.linearVelocity = Vector2.zero;
-
+        Vector2 targetPosition = player.position;
         if (warningHitBox != null)
         {
             Vector3 offset = spriteRenderer.flipX ? new Vector3(2f, 0f, 0f) : new Vector3(-2f, 0f, 0f);
@@ -125,34 +139,18 @@ public class ThrowEnemy : MonoBehaviour
             yield return new WaitForSeconds(throwWarningDuration);
             warningHitBox.SetActive(false);
         }
-        
         GameObject ball = Instantiate(ballPrefab, throwPoint.position, Quaternion.identity);
-        Rigidbody2D ballRb = ball.GetComponent<Rigidbody2D>();
-
-        float horizontalDirection;
-        if (player.position.x > transform.position.x)
+        BallProjectile projectile = ball.GetComponent<BallProjectile>();
+        if (projectile != null)
         {
-            horizontalDirection = 1f; //player is to the right
+            Vector2 aimDirection = (targetPosition - (Vector2)throwPoint.position).normalized;
+            projectile.Launch(aimDirection, projectileSpeed);
         }
-        else
-        {
-            horizontalDirection = -1f; //player is to the left
-        }
-
-        float verticalForce = throwForceY;
-        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-        if (distanceToPlayer <= 6f)
-        {
-            verticalForce = 3f; //less arc
-        }
-
-        Vector2 force = new Vector2(throwForceX * horizontalDirection, verticalForce);
-        ballRb.AddForce(force, ForceMode2D.Impulse);
-        
-        yield return new WaitForSeconds(0.5f); // Animation duration
+        yield return new WaitForSeconds(0.5f);
         isAttacking = false;
         animator.SetBool("isThrowing", false);
     }
+
 
     void OnTriggerEnter2D(Collider2D collision)
     {

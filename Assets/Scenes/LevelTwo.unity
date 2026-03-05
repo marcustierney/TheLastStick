@@ -1318,7 +1318,7 @@ GameObject:
   m_Component:
   - component: {fileID: 185180714}
   - component: {fileID: 185180715}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: apartment1_0 (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1408,7 +1408,7 @@ GameObject:
   m_Component:
   - component: {fileID: 194592320}
   - component: {fileID: 194592321}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: apartment1_0 (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2041,6 +2041,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: TiledRoof (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 216963982763078432, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 568036583912093275, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4040671118395224777, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
       propertyPath: m_LocalPosition.x
       value: 89.95
@@ -2080,6 +2088,10 @@ PrefabInstance:
     - target: {fileID: 4040671118395224777, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -12.826
+      objectReference: {fileID: 0}
+    - target: {fileID: 4928118908788669419, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6465674071605179986, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
       propertyPath: m_Enabled
@@ -2243,7 +2255,7 @@ GameObject:
   m_Component:
   - component: {fileID: 303893623}
   - component: {fileID: 303893624}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: apartment1_0 (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2609,6 +2621,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: TiledRoof (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 216963982763078432, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 568036583912093275, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3656320216068006923, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4040671118395224777, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
       propertyPath: m_LocalPosition.x
       value: 14.276424
@@ -2648,6 +2672,14 @@ PrefabInstance:
     - target: {fileID: 4040671118395224777, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4556105578448335446, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4928118908788669419, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3378,6 +3410,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: TiledRoof (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 216963982763078432, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 568036583912093275, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3656320216068006923, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4040671118395224777, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
       propertyPath: m_LocalPosition.x
       value: 27
@@ -3417,6 +3461,14 @@ PrefabInstance:
     - target: {fileID: 4040671118395224777, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4556105578448335446, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4928118908788669419, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4208,7 +4260,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &503794335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4226,10 +4278,13 @@ MonoBehaviour:
   throwPoint: {fileID: 1338230498}
   throwCooldown: 3
   throwWarningDuration: 0.5
-  throwForceX: 8
-  throwForceY: 6
+  projectileSpeed: 10
   maxHealth: 3
-  damageToPlayer: 20
+  ledgeCheckDistance: 1
+  ledgeCheckDepth: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!50 &503794337
 Rigidbody2D:
   serializedVersion: 5
@@ -4324,7 +4379,7 @@ Transform:
   m_GameObject: {fileID: 503794334}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 29.59, y: 12.06, z: 0}
+  m_LocalPosition: {x: 39.4, y: -0.6, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4597,6 +4652,14 @@ PrefabInstance:
     - target: {fileID: 2170382641996073723, guid: dc42cb1a68b92954cbfc5ff0c8bd5397, type: 3}
       propertyPath: m_Name
       value: RoofNoWall (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2170382641996073723, guid: dc42cb1a68b92954cbfc5ff0c8bd5397, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524238159572057586, guid: dc42cb1a68b92954cbfc5ff0c8bd5397, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5247,6 +5310,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FlyingSwordEnemy (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 96541649214089779, guid: d0e6fc8b91c81b547a7e8cc4c5c94342, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2376153269071889105, guid: d0e6fc8b91c81b547a7e8cc4c5c94342, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -5330,7 +5397,7 @@ GameObject:
   m_Component:
   - component: {fileID: 790078992}
   - component: {fileID: 790078991}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5599,6 +5666,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: RoofNoWall (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 2170382641996073723, guid: dc42cb1a68b92954cbfc5ff0c8bd5397, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524238159572057586, guid: dc42cb1a68b92954cbfc5ff0c8bd5397, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5659,6 +5734,14 @@ PrefabInstance:
     - target: {fileID: 2170382641996073723, guid: dc42cb1a68b92954cbfc5ff0c8bd5397, type: 3}
       propertyPath: m_Name
       value: RoofNoWall (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2170382641996073723, guid: dc42cb1a68b92954cbfc5ff0c8bd5397, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524238159572057586, guid: dc42cb1a68b92954cbfc5ff0c8bd5397, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5950,7 +6033,7 @@ GameObject:
   m_Component:
   - component: {fileID: 811963276}
   - component: {fileID: 811963275}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6321,6 +6404,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: TiledRoof (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 216963982763078432, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 568036583912093275, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4040671118395224777, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
       propertyPath: m_LocalPosition.x
       value: 80
@@ -6360,6 +6451,10 @@ PrefabInstance:
     - target: {fileID: 4040671118395224777, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4928118908788669419, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6465674071605179986, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
       propertyPath: m_Enabled
@@ -6894,6 +6989,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: TiledRoof (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 216963982763078432, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 568036583912093275, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3656320216068006923, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4040671118395224777, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.0657499
@@ -6938,6 +7045,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4556105578448335446, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4928118908788669419, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6954,6 +7069,18 @@ PrefabInstance:
     - target: {fileID: 216963982763078432, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
       propertyPath: m_Name
       value: TiledRoof (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 216963982763078432, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 568036583912093275, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3656320216068006923, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4040671118395224777, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6994,6 +7121,14 @@ PrefabInstance:
     - target: {fileID: 4040671118395224777, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4556105578448335446, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4928118908788669419, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8034,9 +8169,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1154230893}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Buildings
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8165,6 +8300,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: TiledRoof (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 216963982763078432, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 568036583912093275, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3656320216068006923, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4040671118395224777, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.4885311
@@ -8208,6 +8355,14 @@ PrefabInstance:
     - target: {fileID: 4040671118395224777, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4556105578448335446, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4928118908788669419, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6465674071605179986, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
       propertyPath: m_Enabled
@@ -8597,7 +8752,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1199933819}
   - component: {fileID: 1199933820}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: apartment1_0 (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10069,7 +10224,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1380233854}
   - component: {fileID: 1380233853}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: apartment1_0 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10219,7 +10374,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1411042200}
   - component: {fileID: 1411042201}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: apartment1_0 (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10947,7 +11102,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1500262164}
   - component: {fileID: 1500262163}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: apartment1_0 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11176,6 +11331,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FlyingSwordEnemy (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 96541649214089779, guid: d0e6fc8b91c81b547a7e8cc4c5c94342, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2376153269071889105, guid: d0e6fc8b91c81b547a7e8cc4c5c94342, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -11385,7 +11544,7 @@ GameObject:
   - component: {fileID: 1571256813}
   - component: {fileID: 1571256812}
   - component: {fileID: 1571256811}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ground
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -11658,7 +11817,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1608571099}
   - component: {fileID: 1608571100}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: apartment1_0 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12064,6 +12223,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: RoofNoWall (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2170382641996073723, guid: dc42cb1a68b92954cbfc5ff0c8bd5397, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524238159572057586, guid: dc42cb1a68b92954cbfc5ff0c8bd5397, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12121,6 +12288,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: RoofNoWall (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 2170382641996073723, guid: dc42cb1a68b92954cbfc5ff0c8bd5397, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524238159572057586, guid: dc42cb1a68b92954cbfc5ff0c8bd5397, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12142,6 +12317,18 @@ PrefabInstance:
     - target: {fileID: 216963982763078432, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
       propertyPath: m_Name
       value: TiledRoof (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 216963982763078432, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 568036583912093275, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3656320216068006923, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4040671118395224777, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
       propertyPath: m_LocalScale.x
@@ -12186,6 +12373,14 @@ PrefabInstance:
     - target: {fileID: 4040671118395224777, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4556105578448335446, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4928118908788669419, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6465674071605179986, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
       propertyPath: m_Enabled
@@ -12631,7 +12826,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1816926658}
   - component: {fileID: 1816926657}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13031,7 +13226,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1841647938}
   - component: {fileID: 1841647939}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: apartment1_0 (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13535,6 +13730,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: TiledRoof (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 216963982763078432, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 568036583912093275, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3656320216068006923, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4040671118395224777, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
       propertyPath: m_LocalPosition.x
       value: 119.4
@@ -13575,6 +13782,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -11.631
       objectReference: {fileID: 0}
+    - target: {fileID: 4556105578448335446, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4928118908788669419, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6465674071605179986, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -13599,6 +13814,18 @@ PrefabInstance:
     - target: {fileID: 216963982763078432, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
       propertyPath: m_Name
       value: TiledRoof (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 216963982763078432, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 568036583912093275, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3656320216068006923, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4040671118395224777, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
       propertyPath: m_LocalScale.x
@@ -13643,6 +13870,14 @@ PrefabInstance:
     - target: {fileID: 4040671118395224777, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4556105578448335446, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4928118908788669419, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6465674071605179986, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
       propertyPath: m_Enabled
@@ -13712,6 +13947,14 @@ PrefabInstance:
     - target: {fileID: 2170382641996073723, guid: dc42cb1a68b92954cbfc5ff0c8bd5397, type: 3}
       propertyPath: m_Name
       value: RoofNoWall (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2170382641996073723, guid: dc42cb1a68b92954cbfc5ff0c8bd5397, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524238159572057586, guid: dc42cb1a68b92954cbfc5ff0c8bd5397, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14766,7 +15009,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2129963118}
   - component: {fileID: 2129963119}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: apartment1_0 (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14993,7 +15236,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2143892849}
   - component: {fileID: 2143892850}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: apartment1_0 (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15222,6 +15465,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: TiledRoof
       objectReference: {fileID: 0}
+    - target: {fileID: 216963982763078432, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 568036583912093275, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3656320216068006923, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4040671118395224777, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
       propertyPath: m_LocalPosition.x
       value: -29.88444
@@ -15262,6 +15517,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4556105578448335446, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4928118908788669419, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -15278,6 +15541,10 @@ PrefabInstance:
     - target: {fileID: 96541649214089779, guid: d0e6fc8b91c81b547a7e8cc4c5c94342, type: 3}
       propertyPath: m_Name
       value: FlyingSwordEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 96541649214089779, guid: d0e6fc8b91c81b547a7e8cc4c5c94342, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2931321126287663618, guid: d0e6fc8b91c81b547a7e8cc4c5c94342, type: 3}
       propertyPath: m_LocalPosition.x

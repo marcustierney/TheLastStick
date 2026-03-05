@@ -6,18 +6,33 @@ public class BallProjectile : MonoBehaviour
     public float rotationSpeed = 1000f;
     public int damage = 10;
     public float lifetime = 5f;
-
+    private Rigidbody2D rb;
     private Vector2 direction;
 
-    public void Launch(Vector2 dir)
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.gravityScale = 0f; 
+        }
+    }
+
+    public void Launch(Vector2 dir, float projectileSpeed)
     {
         direction = dir.normalized;
+        speed = projectileSpeed;
+        if (rb != null)
+        {
+            rb.linearVelocity = direction * speed;
+        }
+
         Destroy(gameObject, lifetime);
     }
 
     private void Update()
     {
-        transform.Translate(direction * speed * Time.deltaTime);
+        //transform.Translate(direction * speed * Time.deltaTime);
         transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
     }
 
