@@ -59,11 +59,20 @@ public class SwordHitbox : MonoBehaviour
         if (collision.CompareTag("TutorialEnemy"))
         {
             Debug.Log("hit tutorial enemy");
-            TutorialEnemy tutorialEnemy = collision.GetComponent<TutorialEnemy>();
-            if (tutorialEnemy != null)
+            DummyHitTarget dummyHitTarget = collision.GetComponent<DummyHitTarget>();
+            if (dummyHitTarget != null)
             {
-                tutorialEnemy.TutorialTakeDamage(damage);
+                dummyHitTarget.TutorialTakeDamage(damage);
                 PlayHitDamageSound();
+            }
+            else
+            {
+                TutorialEnemy tutorialEnemy = collision.GetComponent<TutorialEnemy>();
+                if (tutorialEnemy != null)
+                {
+                    tutorialEnemy.TutorialTakeDamage(damage);
+                    PlayHitDamageSound();
+                }
             }
             swordAttack.ForceExitSwordStandWithBounce();
         }
@@ -120,11 +129,20 @@ public class SwordHitbox : MonoBehaviour
         }
         if (collision.collider.CompareTag("TutorialEnemy"))
         {
-            TutorialEnemy tutorialEnemy = collision.collider.GetComponent<TutorialEnemy>();
-            if (tutorialEnemy != null)
+            DummyHitTarget dummyHitTarget = collision.collider.GetComponent<DummyHitTarget>();
+            if (dummyHitTarget != null)
             {
-                tutorialEnemy.TutorialTakeDamage(damage);
+                dummyHitTarget.TutorialTakeDamage(damage);
                 PlayHitDamageSound();
+            }
+            else
+            {
+                TutorialEnemy tutorialEnemy = collision.collider.GetComponent<TutorialEnemy>();
+                if (tutorialEnemy != null)
+                {
+                    tutorialEnemy.TutorialTakeDamage(damage);
+                    PlayHitDamageSound();
+                }
             }
             swordAttack.ForceExitSwordStandWithBounce();
         }
