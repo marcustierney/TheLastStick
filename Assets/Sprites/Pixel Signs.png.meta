@@ -1,25 +1,31 @@
 fileFormatVersion: 2
-guid: 0c1c03af045b1314dab2e58d7057c22f
+guid: 770bb43fdabec1b4f95179ce4e92e63d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -383079662205346997
-    second: Stickidea3_0
+      213: -1746378213634046086
+    second: Pixel Signs_0
   - first:
-      213: -3881927643456304204
-    second: Stickidea3_1
+      213: -3412750265785916984
+    second: Pixel Signs_1
   - first:
-      213: 3911049859933815908
-    second: Stickidea3_2
+      213: -4709638093245235189
+    second: Pixel Signs_2
   - first:
-      213: -3327402099267660926
-    second: Stickidea3_3
+      213: -7801920716642765529
+    second: Pixel Signs_3
   - first:
-      213: -1260854649545099936
-    second: Stickidea3_4
+      213: 4501897343363115860
+    second: Pixel Signs_4
   - first:
-      213: -1000007077410235287
-    second: Stickidea3_5
+      213: 5595660867878712641
+    second: Pixel Signs_5
+  - first:
+      213: -574545840548897083
+    second: Pixel Signs_6
+  - first:
+      213: 6642818857383319513
+    second: Pixel Signs_7
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -66,7 +72,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 64
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -115,13 +121,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Stickidea3_0
+      name: Pixel Signs_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 66
-        width: 64
-        height: 62
+        x: 8
+        y: 736
+        width: 105
+        height: 104
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -130,20 +136,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b4bd29da3170faaf0800000000000000
-      internalID: -383079662205346997
+      spriteID: a778cd4744e93c7e0800000000000000
+      internalID: -1746378213634046086
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stickidea3_1
+      name: Pixel Signs_1
       rect:
         serializedVersion: 2
-        x: 64
-        y: 66
-        width: 64
-        height: 62
+        x: 127
+        y: 0
+        width: 107
+        height: 960
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,20 +158,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4bb8408206f902ac0800000000000000
-      internalID: -3881927643456304204
+      spriteID: 8c1e5bcf6b973a0d0800000000000000
+      internalID: -3412750265785916984
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stickidea3_2
+      name: Pixel Signs_2
       rect:
         serializedVersion: 2
-        x: 128
-        y: 66
-        width: 64
-        height: 62
+        x: 247
+        y: 0
+        width: 107
+        height: 960
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,20 +180,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 46442304027d64630800000000000000
-      internalID: 3911049859933815908
+      spriteID: b00487f5b1104aeb0800000000000000
+      internalID: -4709638093245235189
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stickidea3_3
+      name: Pixel Signs_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 2
-        width: 64
-        height: 62
+        x: 367
+        y: 0
+        width: 107
+        height: 960
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -196,20 +202,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 28313488b61b2d1d0800000000000000
-      internalID: -3327402099267660926
+      spriteID: 7253fbec1720ab390800000000000000
+      internalID: -7801920716642765529
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stickidea3_4
+      name: Pixel Signs_4
       rect:
         serializedVersion: 2
-        x: 64
-        y: 2
-        width: 64
-        height: 62
+        x: 487
+        y: 0
+        width: 106
+        height: 960
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -218,20 +224,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 065f674606b808ee0800000000000000
-      internalID: -1260854649545099936
+      spriteID: 45bee6e18c3f97e30800000000000000
+      internalID: 4501897343363115860
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stickidea3_5
+      name: Pixel Signs_5
       rect:
         serializedVersion: 2
-        x: 128
-        y: 2
-        width: 64
-        height: 62
+        x: 606
+        y: 0
+        width: 107
+        height: 960
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -240,8 +246,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 96c16128cd24f12f0800000000000000
-      internalID: -1000007077410235287
+      spriteID: 145f67989e7c7ad40800000000000000
+      internalID: 5595660867878712641
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel Signs_6
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 0
+        width: 107
+        height: 960
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ce97e22a9dc608f0800000000000000
+      internalID: -574545840548897083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel Signs_7
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 0
+        width: 107
+        height: 960
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d7599d3e88003c50800000000000000
+      internalID: 6642818857383319513
       vertices: []
       indices: 
       edges: []
@@ -250,7 +300,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 3b51964ec6916ea43940ba904b7e2f57
+    spriteID: 1af149ed725da9e459f2fe748d1e38e2
     internalID: 0
     vertices: []
     indices: 
@@ -258,16 +308,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      Stickidea3_0: -383079662205346997
-      Stickidea3_1: -3881927643456304204
-      Stickidea3_2: 3911049859933815908
-      Stickidea3_3: -3327402099267660926
-      Stickidea3_4: -1260854649545099936
-      Stickidea3_5: -1000007077410235287
+      Pixel Signs_0: -1746378213634046086
+      Pixel Signs_1: -3412750265785916984
+      Pixel Signs_2: -4709638093245235189
+      Pixel Signs_3: -7801920716642765529
+      Pixel Signs_4: 4501897343363115860
+      Pixel Signs_5: 5595660867878712641
+      Pixel Signs_6: -574545840548897083
+      Pixel Signs_7: 6642818857383319513
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
