@@ -153,7 +153,7 @@ public class Movement : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f); // maintain vertical velocity
         }
 
-        if (CanMoveHorizontally && Input.GetButtonDown("Jump"))
+        if (CanMoveHorizontally && !isDashing && Input.GetButtonDown("Jump"))
         {
             spacebarPressed = true;
             if (Grounded() && !isJumping)

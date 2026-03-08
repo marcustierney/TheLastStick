@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 3088535e3406fef48ae323015c82d293
+guid: ba88c60a622e3d74893c9ce151028d60
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2588616413238721606
-    second: tls_bg_0
+      213: -4589014661385913729
+    second: backgroundtreepng_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: tls_bg_0
+      name: backgroundtreepng_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 320
-        height: 180
+        x: 40
+        y: 79
+        width: 541
+        height: 225
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ab309255613631cd0800000000000000
-      internalID: -2588616413238721606
+      spriteID: f7a7807aa7b8050c0800000000000000
+      internalID: -4589014661385913729
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 051e9bca1b7566e468e683354e2f5079
+    spriteID: 526161d444470d846a9af21010402a9d
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      tls_bg_0: -2588616413238721606
+      backgroundtreepng_0: -4589014661385913729
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
