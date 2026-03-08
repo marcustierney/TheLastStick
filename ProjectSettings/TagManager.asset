@@ -58,6 +58,9 @@ TagManager:
   - name: Background
     uniqueID: 1359259917
     locked: 0
+  - name: Background 2
+    uniqueID: 937401111
+    locked: 0
   - name: Buildings/Environment
     uniqueID: 845003913
     locked: 0

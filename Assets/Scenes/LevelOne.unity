@@ -269,7 +269,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 237396399
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
   m_Color: {r: 0, g: 1, b: 0.08795643, a: 0.62352943}
@@ -508,7 +508,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 237396399
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: -9095717837082945937, guid: bd3cb4af8406d4436a2ae8c2aafe1f8d, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 0.59607846}
@@ -787,7 +787,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 237396399
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: -9095717837082945937, guid: bd3cb4af8406d4436a2ae8c2aafe1f8d, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 0.59607846}
@@ -919,7 +919,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1632807775
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -994,7 +994,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 237396399
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: -9095717837082945937, guid: bd3cb4af8406d4436a2ae8c2aafe1f8d, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 0.59607846}
@@ -1274,7 +1274,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 237396399
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
   m_Color: {r: 0, g: 1, b: 0.08795643, a: 0.62352943}
@@ -1395,7 +1395,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 237396399
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 5933873706318380680, guid: 1c4ee3ecf558987449c92cd606e8af1b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1563,7 +1563,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 845003913
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: -4479717087290020229, guid: 94f982be30279a341a0916da5a24f126, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1653,7 +1653,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 237396399
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: -9095717837082945937, guid: bd3cb4af8406d4436a2ae8c2aafe1f8d, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 0.59607846}
@@ -1866,7 +1866,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -572059651
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2387,7 +2387,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 845003913
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.20788585, g: 0.7372549, b: 0.050980408, a: 1}
@@ -2477,7 +2477,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 237396399
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 0.59607846}
@@ -2564,6 +2564,11 @@ MonoBehaviour:
   damageToPlayer: 10
   swordHitbox: {fileID: 1102442744}
   warningHitBox: {fileID: 232541777}
+  ledgeCheckDistance: 1
+  ledgeCheckDepth: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!50 &493979932
 Rigidbody2D:
   serializedVersion: 5
@@ -2682,7 +2687,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 2126181457
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: -1238227573687895156, guid: 9226f74cff56bb34b98ee3fcb8966ac4, type: 3}
   m_Color: {r: 0.990566, g: 1, b: 1, a: 1}
@@ -2750,10 +2755,13 @@ MonoBehaviour:
   throwPoint: {fileID: 1338230498}
   throwCooldown: 3
   throwWarningDuration: 0.5
-  throwForceX: 8
-  throwForceY: 6
+  projectileSpeed: 10
   maxHealth: 3
-  damageToPlayer: 20
+  ledgeCheckDistance: 1
+  ledgeCheckDepth: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!50 &503794337
 Rigidbody2D:
   serializedVersion: 5
@@ -2826,7 +2834,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 2126181457
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 3326434354005741071, guid: 4a74bf26a2b5579429acc2493c6a5377, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3098,6 +3106,11 @@ MonoBehaviour:
   damageToPlayer: 10
   swordHitbox: {fileID: 1919942772}
   warningHitBox: {fileID: 99923960}
+  ledgeCheckDistance: 1
+  ledgeCheckDepth: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!50 &532487170
 Rigidbody2D:
   serializedVersion: 5
@@ -3216,7 +3229,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 2126181457
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: -1238227573687895156, guid: 9226f74cff56bb34b98ee3fcb8966ac4, type: 3}
   m_Color: {r: 0.990566, g: 1, b: 1, a: 1}
@@ -3377,7 +3390,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 845003913
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 1}
@@ -3532,10 +3545,13 @@ MonoBehaviour:
   throwPoint: {fileID: 1497161825}
   throwCooldown: 3
   throwWarningDuration: 0.5
-  throwForceX: 8
-  throwForceY: 6
+  projectileSpeed: 10
   maxHealth: 3
-  damageToPlayer: 20
+  ledgeCheckDistance: 1
+  ledgeCheckDepth: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!70 &593678446
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -3645,7 +3661,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 2126181457
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
   m_Color: {r: 0.73391, g: 0.13550194, b: 0.8207547, a: 1}
@@ -3711,7 +3727,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 000000000da9045189bc5d32fd0fe7dd51f4ba7eaf61260ea154ad9e75188cd29bcf979c
+  m_ApplyToSortingLayers: 000000000da9045189bc5d32fd0fe7dd51f4ba7eaf61260ea154ad9e75188cd29bcf979c179bdf37
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -3821,7 +3837,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 845003913
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 3817974485441315557, guid: d094d301828d3d14393f50dbf518e7d3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3957,7 +3973,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 237396399
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 0.59607846}
@@ -4362,7 +4378,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 237396399
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
   m_Color: {r: 0, g: 1, b: 0.08795643, a: 0.62352943}
@@ -4540,7 +4556,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 237396399
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
   m_Color: {r: 0, g: 1, b: 0.08795643, a: 0.62352943}
@@ -4631,7 +4647,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 845003913
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 6804807191054158518, guid: 89fa8aac7efa7c44bb045cc008a24574, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -4764,6 +4780,11 @@ MonoBehaviour:
   damageToPlayer: 10
   swordHitbox: {fileID: 824042081}
   warningHitBox: {fileID: 325505762}
+  ledgeCheckDistance: 1
+  ledgeCheckDepth: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!50 &971796170
 Rigidbody2D:
   serializedVersion: 5
@@ -4882,7 +4903,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 2126181457
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: -1238227573687895156, guid: 9226f74cff56bb34b98ee3fcb8966ac4, type: 3}
   m_Color: {r: 0.990566, g: 1, b: 1, a: 1}
@@ -4971,6 +4992,11 @@ MonoBehaviour:
   damageToPlayer: 10
   swordHitbox: {fileID: 1134650854}
   warningHitBox: {fileID: 1718966792}
+  ledgeCheckDistance: 1
+  ledgeCheckDepth: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!50 &1018532114
 Rigidbody2D:
   serializedVersion: 5
@@ -5089,7 +5115,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 2126181457
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: -1238227573687895156, guid: 9226f74cff56bb34b98ee3fcb8966ac4, type: 3}
   m_Color: {r: 0.990566, g: 1, b: 1, a: 1}
@@ -5401,7 +5427,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 845003913
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -5625,10 +5651,13 @@ MonoBehaviour:
   throwPoint: {fileID: 396338256}
   throwCooldown: 3
   throwWarningDuration: 0.5
-  throwForceX: 8
-  throwForceY: 6
+  projectileSpeed: 10
   maxHealth: 3
-  damageToPlayer: 20
+  ledgeCheckDistance: 1
+  ledgeCheckDepth: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!50 &1051650208
 Rigidbody2D:
   serializedVersion: 5
@@ -5747,7 +5776,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 2126181457
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 3326434354005741071, guid: 4a74bf26a2b5579429acc2493c6a5377, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -6106,6 +6135,11 @@ MonoBehaviour:
   damageToPlayer: 10
   swordHitbox: {fileID: 868316345}
   warningHitBox: {fileID: 1523704098}
+  ledgeCheckDistance: 1
+  ledgeCheckDepth: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!50 &1097434576
 Rigidbody2D:
   serializedVersion: 5
@@ -6224,7 +6258,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 2126181457
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: -1238227573687895156, guid: 9226f74cff56bb34b98ee3fcb8966ac4, type: 3}
   m_Color: {r: 0.990566, g: 1, b: 1, a: 1}
@@ -6404,7 +6438,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 237396399
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
   m_Color: {r: 0, g: 1, b: 0.08795643, a: 0.62352943}
@@ -6491,6 +6525,11 @@ MonoBehaviour:
   damageToPlayer: 10
   swordHitbox: {fileID: 239896971}
   warningHitBox: {fileID: 1338296246}
+  ledgeCheckDistance: 1
+  ledgeCheckDepth: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!50 &1109079840
 Rigidbody2D:
   serializedVersion: 5
@@ -6609,7 +6648,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 2126181457
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: -1238227573687895156, guid: 9226f74cff56bb34b98ee3fcb8966ac4, type: 3}
   m_Color: {r: 0.990566, g: 1, b: 1, a: 1}
@@ -6748,7 +6787,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 845003913
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 1}
@@ -6772,6 +6811,96 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 80.91, y: -0.38, z: 0}
   m_LocalScale: {x: 8.263411, y: 0.658125, z: 1.0088}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1124597264
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1124597266}
+  - component: {fileID: 1124597265}
+  m_Layer: 0
+  m_Name: backgroundtreepng_0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!212 &1124597265
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1124597264}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 4294967295
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 1359259917
+  m_SortingLayer: 2
+  m_SortingOrder: 0
+  m_Sprite: {fileID: -4589014661385913729, guid: ba88c60a622e3d74893c9ce151028d60, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 5.41, y: 2.7}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &1124597266
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1124597264}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 90.9646, y: 6.3645, z: 0}
+  m_LocalScale: {x: 5.9244204, y: 5.9244204, z: 5.9244204}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -6926,7 +7055,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 237396399
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
   m_Color: {r: 0, g: 1, b: 0.08795643, a: 0.62352943}
@@ -7079,7 +7208,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 237396399
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: -9095717837082945937, guid: 34587324d412940a79d530020c957dc0, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 0.46666667}
@@ -7457,7 +7586,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 237396399
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: -9095717837082945937, guid: bd3cb4af8406d4436a2ae8c2aafe1f8d, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 0.59607846}
@@ -7772,7 +7901,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 845003913
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: -4479717087290020229, guid: 94f982be30279a341a0916da5a24f126, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.8}
@@ -7877,7 +8006,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 237396399
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 0.59607846}
@@ -7983,7 +8112,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 237396399
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: -9095717837082945937, guid: bd3cb4af8406d4436a2ae8c2aafe1f8d, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 0.59607846}
@@ -8343,7 +8472,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 237396399
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: -9095717837082945937, guid: bd3cb4af8406d4436a2ae8c2aafe1f8d, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 0.59607846}
@@ -8430,6 +8559,11 @@ MonoBehaviour:
   damageToPlayer: 10
   swordHitbox: {fileID: 73480349}
   warningHitBox: {fileID: 134564740}
+  ledgeCheckDistance: 1
+  ledgeCheckDepth: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!50 &1790444294
 Rigidbody2D:
   serializedVersion: 5
@@ -8548,7 +8682,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 2126181457
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: -1238227573687895156, guid: 9226f74cff56bb34b98ee3fcb8966ac4, type: 3}
   m_Color: {r: 0.990566, g: 1, b: 1, a: 1}
@@ -9075,7 +9209,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 845003913
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 1}
@@ -9341,7 +9475,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 845003913
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 1}
@@ -9449,7 +9583,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 237396399
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
   m_Color: {r: 0, g: 1, b: 0.08795643, a: 0.62352943}
@@ -9610,7 +9744,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 845003913
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: -4479717087290020229, guid: 94f982be30279a341a0916da5a24f126, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -9922,7 +10056,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 845003913
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 1}
@@ -10010,10 +10144,13 @@ MonoBehaviour:
   throwPoint: {fileID: 95182955}
   throwCooldown: 3
   throwWarningDuration: 0.5
-  throwForceX: 8
-  throwForceY: 6
+  projectileSpeed: 10
   maxHealth: 3
-  damageToPlayer: 20
+  ledgeCheckDistance: 1
+  ledgeCheckDepth: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!50 &2002583522
 Rigidbody2D:
   serializedVersion: 5
@@ -10132,7 +10269,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 2126181457
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 3326434354005741071, guid: 4a74bf26a2b5579429acc2493c6a5377, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -10345,7 +10482,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 237396399
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: -9095717837082945937, guid: 34587324d412940a79d530020c957dc0, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 0.46666667}
@@ -10747,6 +10884,7 @@ SceneRoots:
   - {fileID: 1037436708}
   - {fileID: 1666809687}
   - {fileID: 1607316209}
+  - {fileID: 1124597266}
   - {fileID: 1221046275}
   - {fileID: 1215313011}
   - {fileID: 1949239365}
