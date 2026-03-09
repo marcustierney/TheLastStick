@@ -633,6 +633,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  deathAudioSource: {fileID: 0}
 --- !u!50 &58670293
 Rigidbody2D:
   serializedVersion: 5
@@ -987,6 +988,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  deathAudioSource: {fileID: 0}
 --- !u!50 &63749630
 Rigidbody2D:
   serializedVersion: 5
@@ -1597,6 +1599,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  deathAudioSource: {fileID: 0}
 --- !u!50 &94499595
 Rigidbody2D:
   serializedVersion: 5
@@ -1853,8 +1856,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -684676523
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.9150943, g: 0.88064545, b: 0.11654504, a: 1}
@@ -2835,6 +2838,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  deathAudioSource: {fileID: 0}
 --- !u!50 &251523483
 Rigidbody2D:
   serializedVersion: 5
@@ -3353,6 +3357,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  deathAudioSource: {fileID: 0}
 --- !u!50 &283509830
 Rigidbody2D:
   serializedVersion: 5
@@ -3792,6 +3797,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  deathAudioSource: {fileID: 0}
 --- !u!50 &311474307
 Rigidbody2D:
   serializedVersion: 5
@@ -4278,6 +4284,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  deathAudioSource: {fileID: 0}
 --- !u!50 &344393362
 Rigidbody2D:
   serializedVersion: 5
@@ -4779,6 +4786,7 @@ MonoBehaviour:
   walkMovePitch: 1
   runMovePitch: 1.3
   dashAudioSource: {fileID: 0}
+  jumpAudioSource: {fileID: 0}
   rb: {fileID: 365664718}
   groundCheck: {fileID: 1833125426}
   groundLayer:
@@ -4980,6 +4988,7 @@ MonoBehaviour:
   swordStandTouchGround: 0
   dashAttackStateName: Dash_Attack
   swordStandBoolName: isSwordStanding
+  attackAudioSource: {fileID: 0}
 --- !u!114 &365664721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6231,6 +6240,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  deathAudioSource: {fileID: 0}
 --- !u!50 &493979932
 Rigidbody2D:
   serializedVersion: 5
@@ -6424,6 +6434,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  deathAudioSource: {fileID: 0}
 --- !u!50 &503794337
 Rigidbody2D:
   serializedVersion: 5
@@ -6800,6 +6811,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  deathAudioSource: {fileID: 0}
 --- !u!50 &550895631
 Rigidbody2D:
   serializedVersion: 5
@@ -7754,6 +7766,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  deathAudioSource: {fileID: 0}
 --- !u!50 &641939936
 Rigidbody2D:
   serializedVersion: 5
@@ -10839,6 +10852,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  deathAudioSource: {fileID: 0}
 --- !u!50 &1014808872
 Rigidbody2D:
   serializedVersion: 5
@@ -11328,6 +11342,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  deathAudioSource: {fileID: 0}
 --- !u!50 &1066661733
 Rigidbody2D:
   serializedVersion: 5
@@ -11711,6 +11726,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  deathAudioSource: {fileID: 0}
 --- !u!50 &1095853778
 Rigidbody2D:
   serializedVersion: 5
@@ -12269,6 +12285,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  deathAudioSource: {fileID: 0}
 --- !u!50 &1131748222
 Rigidbody2D:
   serializedVersion: 5
@@ -13957,6 +13974,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  deathAudioSource: {fileID: 0}
 --- !u!50 &1242375695
 Rigidbody2D:
   serializedVersion: 5
@@ -18210,6 +18228,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  deathAudioSource: {fileID: 0}
 --- !u!50 &1674185677
 Rigidbody2D:
   serializedVersion: 5
@@ -18772,6 +18791,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  deathAudioSource: {fileID: 0}
 --- !u!50 &1722841086
 Rigidbody2D:
   serializedVersion: 5
@@ -19266,6 +19286,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  deathAudioSource: {fileID: 0}
 --- !u!50 &1803093643
 Rigidbody2D:
   serializedVersion: 5
@@ -21948,6 +21969,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  deathAudioSource: {fileID: 0}
 --- !u!50 &2074401886
 Rigidbody2D:
   serializedVersion: 5
