@@ -21,6 +21,7 @@ public class SwordAttack : MonoBehaviour
     private GameObject activeAttackHitbox;
     [SerializeField] private string dashAttackStateName = "Dash_Attack";
     [SerializeField] private string swordStandBoolName = "isSwordStanding";
+    [SerializeField] private AudioSource attackAudioSource;
 
     public bool IsAttacking => isAttacking;
     public bool IsSwordStanding => isSwordStanding;
@@ -136,6 +137,7 @@ public class SwordAttack : MonoBehaviour
     private IEnumerator Attack()
     {
         isAttacking = true;
+        PlayAttackSound();
         bool dashAttack = movement.IsDashing;
         isDashAttacking = dashAttack;
         bool facingRight = movement.FacingRight;
@@ -322,5 +324,15 @@ public class SwordAttack : MonoBehaviour
         }
 
         return swordHitbox;
+    }
+
+    private void PlayAttackSound()
+    {
+        if (attackAudioSource == null)
+        {
+            return;
+        }
+
+        attackAudioSource.Play();
     }
 }

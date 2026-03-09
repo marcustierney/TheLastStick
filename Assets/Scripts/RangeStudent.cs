@@ -24,6 +24,7 @@ public class ThrowEnemy : MonoBehaviour
     public float ledgeCheckDistance = 1f; 
     public float ledgeCheckDepth = 1f;   
     public LayerMask groundLayer;           
+    [SerializeField] private AudioSource deathAudioSource;
 
     private void Awake()
     {
@@ -121,7 +122,33 @@ public class ThrowEnemy : MonoBehaviour
     private void Die()
     {
         Debug.Log("killed");
+        PlayDeathSound();
         Destroy(gameObject); 
+    }
+
+    private void PlayDeathSound()
+    {
+        if (deathAudioSource == null || deathAudioSource.clip == null)
+        {
+            return;
+        }
+
+        GameObject tempAudioObject = new GameObject("EnemyDeathSFX");
+        tempAudioObject.transform.position = transform.position;
+
+        AudioSource tempSource = tempAudioObject.AddComponent<AudioSource>();
+        tempSource.clip = deathAudioSource.clip;
+        tempSource.outputAudioMixerGroup = deathAudioSource.outputAudioMixerGroup;
+        tempSource.volume = deathAudioSource.volume;
+        tempSource.pitch = deathAudioSource.pitch;
+        tempSource.spatialBlend = deathAudioSource.spatialBlend;
+        tempSource.minDistance = deathAudioSource.minDistance;
+        tempSource.maxDistance = deathAudioSource.maxDistance;
+        tempSource.rolloffMode = deathAudioSource.rolloffMode;
+        tempSource.dopplerLevel = deathAudioSource.dopplerLevel;
+        tempSource.Play();
+
+        Destroy(tempAudioObject, tempSource.clip.length / Mathf.Max(Mathf.Abs(tempSource.pitch), 0.01f));
     }
 
     IEnumerator ThrowBall()

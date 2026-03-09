@@ -31,6 +31,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private float walkMovePitch = 1f;
     [SerializeField] private float runMovePitch = 1.3f;
     [SerializeField] private AudioSource dashAudioSource;
+    [SerializeField] private AudioSource jumpAudioSource;
     private bool wasGroundedMoving = false;
 
     public bool CanMoveHorizontally
@@ -326,6 +327,7 @@ public class Movement : MonoBehaviour
     public void SwordJump()
     {
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpHeight);
+        PlayJumpSound();
     }
 
     private IEnumerator JumpWithDelay()
@@ -333,6 +335,7 @@ public class Movement : MonoBehaviour
         isJumping = true;
         yield return new WaitForSeconds(0f);
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpHeight);
+        PlayJumpSound();
         isJumping = false;
     }
 
@@ -375,5 +378,15 @@ public class Movement : MonoBehaviour
         }
 
         dashAudioSource.Play();
+    }
+
+    private void PlayJumpSound()
+    {
+        if (jumpAudioSource == null)
+        {
+            return;
+        }
+
+        jumpAudioSource.Play();
     }
 }

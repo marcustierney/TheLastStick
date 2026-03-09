@@ -32,6 +32,9 @@ public class BossController : MonoBehaviour
     private bool isSlamAnim = false;
     private RigidbodyConstraints2D cachedConstraints;
     private bool slamLockApplied = false;
+    [SerializeField] private AudioSource walkAudioSource;
+    [SerializeField] private AudioSource slamAudioSource;
+    [SerializeField] private AudioSource throwAudioSource;
 
     void Awake()
     {
@@ -56,6 +59,7 @@ public class BossController : MonoBehaviour
     {
         if (isSlamAnim || slamming || isThrowingAnim)
         {
+            StopWalkSound();
             if (rb != null)
             {
                 rb.linearVelocity = Vector2.zero;
@@ -88,6 +92,10 @@ public class BossController : MonoBehaviour
         {
             MoveTowardsPlayer();
         }
+        else
+        {
+            StopWalkSound();
+        }
     }
 
 
@@ -103,6 +111,7 @@ public class BossController : MonoBehaviour
         slamming = true;
         LockBossForSlam();
 
+        PlaySlamSound();
         animator.SetTrigger("Slam");
         yield return new WaitForSeconds(0.3f);
 
@@ -140,6 +149,7 @@ public class BossController : MonoBehaviour
         hasSword = false;
         SetAnimatorHasSword(false);
         isThrowingAnim = true;
+        PlayThrowSound();
         animator.SetTrigger("Throw");
         StartCoroutine(DelayedThrow(0.5f));
     }
@@ -179,6 +189,8 @@ public class BossController : MonoBehaviour
 
         FaceSword();
 
+        PlayWalkSound();
+
         transform.position = Vector2.MoveTowards(
             transform.position,
             sword.transform.position,
@@ -189,6 +201,7 @@ public class BossController : MonoBehaviour
 
         if (distance < 3f)
         {
+            StopWalkSound();
             sword.Retrieve(handPosition);
             retrievingSword = false;
         }
@@ -198,6 +211,15 @@ public class BossController : MonoBehaviour
     {
         Vector2 direction = (player.position - transform.position).normalized;
         rb.linearVelocity = new Vector2(direction.x * 4, rb.linearVelocity.y); //dir * moveSpeed, linearvelocity.y
+
+        if (Mathf.Abs(direction.x) > 0.01f)
+        {
+            PlayWalkSound();
+        }
+        else
+        {
+            StopWalkSound();
+        }
 
         //flip sprite
         if (direction.x > 0)
@@ -251,6 +273,7 @@ public class BossController : MonoBehaviour
 
     private void Die()
     {
+        StopWalkSound();
         if (bossSword != null)
         {
             Destroy(bossSword.gameObject);
@@ -455,5 +478,47 @@ public class BossController : MonoBehaviour
         {
             animator.SetBool(HasSwordAnimatorParam, hasSwordState);
         }
+    }
+
+    private void PlayWalkSound()
+    {
+        if (walkAudioSource == null)
+        {
+            return;
+        }
+
+        walkAudioSource.loop = true;
+        if (!walkAudioSource.isPlaying)
+        {
+            walkAudioSource.Play();
+        }
+    }
+
+    private void StopWalkSound()
+    {
+        if (walkAudioSource != null && walkAudioSource.isPlaying)
+        {
+            walkAudioSource.Stop();
+        }
+    }
+
+    private void PlaySlamSound()
+    {
+        if (slamAudioSource == null)
+        {
+            return;
+        }
+
+        slamAudioSource.Play();
+    }
+
+    private void PlayThrowSound()
+    {
+        if (throwAudioSource == null)
+        {
+            return;
+        }
+
+        throwAudioSource.Play();
     }
 }

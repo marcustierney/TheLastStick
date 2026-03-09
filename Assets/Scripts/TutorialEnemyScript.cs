@@ -4,6 +4,7 @@ public class TutorialEnemy : MonoBehaviour
 {
     public int maxHealth = 3;
     private int currentHealth;
+    [SerializeField] private AudioSource deathAudioSource;
 
     private void Awake()
     {
@@ -24,6 +25,17 @@ public class TutorialEnemy : MonoBehaviour
     private void Die()
     {
         Debug.Log("killed");
+        PlayDeathSound();
         Destroy(gameObject);
+    }
+
+    private void PlayDeathSound()
+    {
+        if (deathAudioSource == null || deathAudioSource.clip == null)
+        {
+            return;
+        }
+
+        AudioSource.PlayClipAtPoint(deathAudioSource.clip, transform.position);
     }
 }
