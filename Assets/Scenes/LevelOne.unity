@@ -2570,7 +2570,7 @@ MonoBehaviour:
   ledgeCheckDepth: 1
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   deathAudioSource: {fileID: 537382964}
 --- !u!50 &493979932
 Rigidbody2D:
@@ -2764,7 +2764,7 @@ MonoBehaviour:
   ledgeCheckDepth: 1
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   deathAudioSource: {fileID: 537382964}
 --- !u!50 &503794337
 Rigidbody2D:
@@ -3114,7 +3114,7 @@ MonoBehaviour:
   ledgeCheckDepth: 1
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   deathAudioSource: {fileID: 537382964}
 --- !u!50 &532487170
 Rigidbody2D:
@@ -5048,7 +5048,7 @@ MonoBehaviour:
   ledgeCheckDepth: 1
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   deathAudioSource: {fileID: 537382964}
 --- !u!50 &971796170
 Rigidbody2D:
@@ -5390,7 +5390,7 @@ MonoBehaviour:
   ledgeCheckDepth: 1
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   deathAudioSource: {fileID: 537382964}
 --- !u!50 &1018532114
 Rigidbody2D:
@@ -5915,7 +5915,7 @@ MonoBehaviour:
   ledgeCheckDepth: 1
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   deathAudioSource: {fileID: 537382964}
 --- !u!50 &1051650208
 Rigidbody2D:
@@ -6398,7 +6398,7 @@ MonoBehaviour:
   ledgeCheckDepth: 1
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   deathAudioSource: {fileID: 537382964}
 --- !u!50 &1097434576
 Rigidbody2D:
@@ -6789,7 +6789,7 @@ MonoBehaviour:
   ledgeCheckDepth: 1
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   deathAudioSource: {fileID: 537382964}
 --- !u!50 &1109079840
 Rigidbody2D:
@@ -8824,7 +8824,7 @@ MonoBehaviour:
   ledgeCheckDepth: 1
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   deathAudioSource: {fileID: 537382964}
 --- !u!50 &1790444294
 Rigidbody2D:
@@ -10412,7 +10412,7 @@ MonoBehaviour:
   ledgeCheckDepth: 1
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   deathAudioSource: {fileID: 537382964}
 --- !u!50 &2002583522
 Rigidbody2D:
