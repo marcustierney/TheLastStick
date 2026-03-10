@@ -3,10 +3,10 @@ using UnityEngine;
 public class BossSummoningSwords : MonoBehaviour
 {
     public GameObject fallingSwordPrefab;   
-    public float arenaLeftEdge = 15f;     
-    public float arenaRightEdge = 30f;     
+    public float arenaLeftEdge = -20f;     
+    public float arenaRightEdge = 45f;     
     public float swordSpawnHeight = 8f;    
-    public int swordCount = 30;             
+    public int swordCount = 150;             
     public float timeBetweenSwords = 0.15f; 
     public float chargeUpDuration = 2f;     
     public System.Action<bool> onChargingChanged;

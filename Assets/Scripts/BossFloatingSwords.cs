@@ -6,12 +6,12 @@ public class BossFloatingSwords : MonoBehaviour
     public float bobSpeed = 2f;        
     public float bobAmount = 0.2f;     
     public float followSpeed = 5f;     
-    public float hoverHeight = 6f;     
+    public float hoverHeight = 6.5f;     
     public float horizontalOffset = 0f; 
     public float diveSpeed = 18f;      
     public float returnSpeed = 6f;     
     public float groundStabDuration = 0.3f; 
-    public int damage = 15;
+    public int damage = 8;
     public LayerMask groundLayer;
     private Transform player;
     private Vector2 floatTarget;
