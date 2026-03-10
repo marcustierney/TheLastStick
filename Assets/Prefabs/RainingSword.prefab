@@ -79,8 +79,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 237396399
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: -4099963352145159723, guid: 336216670faa9544ba8ebe8631682ba2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -160,7 +160,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RainingSword
   fallSpeed: 50
-  warningIndicatorPrefab: {fileID: 8459089863231465296, guid: c83bea0aa8d5ea34e95f7bf79d4b24ca, type: 3}
   warningDuration: 1.2
   damage: 25
   targetX: 0

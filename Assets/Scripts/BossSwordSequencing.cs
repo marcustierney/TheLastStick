@@ -6,9 +6,9 @@ public class BossSwordSequencing : MonoBehaviour
     public BossFloatingSwords swordLeft;
     public BossFloatingSwords swordMiddle;
     public BossFloatingSwords swordRight;
-    public float timeBetweenSequences = 5f;  
+    public float timeBetweenSequences = 10f;  
     public float timeBetweenDives = 0.6f;    
-    public float horizontalSpread = 3f;    
+    public float horizontalSpread = 4f;    
     private bool isActive = false;
 
     private void Start()
