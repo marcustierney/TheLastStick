@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-public class FlyingSwordEnemyScript : MonoBehaviour
+public class FlyingSwordEnemy : MonoBehaviour
 {
     public float speed = 3f;
     public float damage = 1f;
