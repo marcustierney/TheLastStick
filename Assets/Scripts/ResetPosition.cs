@@ -10,9 +10,21 @@ public class ResetPosition : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             collision.gameObject.transform.position = new Vector3(-0, -2, 0);
-            swordOne.transform.position = new Vector3(-12, -2, 0);
-            swordTwo.transform.position = new Vector3(-6, -2, 0);
-            swordThree.transform.position = new Vector3(-7, 1, 0);
+            if (swordOne != null)
+            {
+                swordOne.ForceDespawn();
+            }
+
+            if (swordTwo != null)
+            {
+                swordTwo.ForceDespawn();
+            }
+
+            if (swordThree != null)
+            {
+                swordThree.ForceDespawn();
+            }
+
             print("fall");
             Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
             if (rb != null)
