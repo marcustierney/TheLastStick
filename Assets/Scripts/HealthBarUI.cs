@@ -19,6 +19,6 @@ public class HealthBarUI : MonoBehaviour
     {
         Health = health;
         float newWidth = (Health / MaxHealth) * Width;
-        healthBar.sizeDelta = new Vector2(newWidth, Height);
+        healthBar.sizeDelta = new Vector2(newWidth - 16, Height);
     }
 }
