@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class BossController : MonoBehaviour
 {
@@ -280,6 +281,7 @@ public class BossController : MonoBehaviour
         }
         Debug.Log("killed");
         Destroy(gameObject);
+        SceneManager.LoadScene("TransitionLevelTwo");
     }
 
     private bool IsPlayerInSlamZone()
