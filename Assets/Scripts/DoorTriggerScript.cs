@@ -9,11 +9,11 @@ public class DoorTrigger : MonoBehaviour
         {
             if (SceneManager.GetActiveScene().name == "LevelOne")
             {
-                SceneManager.LoadScene("LevelOneBoss");
+                SceneManager.LoadScene("TransitionBossOne");
             }
             else if (SceneManager.GetActiveScene().name == "LevelTwo")
             {
-                SceneManager.LoadScene("LevelTwoBoss");
+                SceneManager.LoadScene("TransitionLevelTwoBoss");
             }
         }
         if (other.CompareTag("LevelOneDoor"))
