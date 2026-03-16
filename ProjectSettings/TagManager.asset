@@ -15,6 +15,7 @@ TagManager:
   - LevelOneDoor
   - Roof
   - BossTwo
+  - CameraShift
   layers:
   - Default
   - TransparentFX
@@ -78,9 +79,6 @@ TagManager:
     locked: 0
   - name: UI
     uniqueID: 2662159521
-    locked: 0
-  - name: UILabels
-    uniqueID: 3885011859
     locked: 0
   m_RenderingLayers:
   - Default
