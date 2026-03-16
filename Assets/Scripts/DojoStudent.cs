@@ -148,6 +148,7 @@ public class Enemy : MonoBehaviour
     private void Die()
     {
         Debug.Log("killed");
+        CoinManager.Instance?.AddCoins(100);
         PlayDeathSound();
         Destroy(gameObject); 
     }
@@ -159,22 +160,7 @@ public class Enemy : MonoBehaviour
             return;
         }
 
-        GameObject tempAudioObject = new GameObject("EnemyDeathSFX");
-        tempAudioObject.transform.position = transform.position;
-
-        AudioSource tempSource = tempAudioObject.AddComponent<AudioSource>();
-        tempSource.clip = deathAudioSource.clip;
-        tempSource.outputAudioMixerGroup = deathAudioSource.outputAudioMixerGroup;
-        tempSource.volume = deathAudioSource.volume;
-        tempSource.pitch = deathAudioSource.pitch;
-        tempSource.spatialBlend = deathAudioSource.spatialBlend;
-        tempSource.minDistance = deathAudioSource.minDistance;
-        tempSource.maxDistance = deathAudioSource.maxDistance;
-        tempSource.rolloffMode = deathAudioSource.rolloffMode;
-        tempSource.dopplerLevel = deathAudioSource.dopplerLevel;
-        tempSource.Play();
-
-        Destroy(tempAudioObject, tempSource.clip.length / Mathf.Max(Mathf.Abs(tempSource.pitch), 0.01f));
+        AudioSource.PlayClipAtPoint(deathAudioSource.clip, transform.position);
     }
 
 ///THIS TABBED OUT CODE IS FOR IF WE WANT TO PLAYER TOUCHING THE ENEMEY TO DO DAMAGE OR ONLY THE ENEMY WEAPON

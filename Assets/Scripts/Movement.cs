@@ -195,6 +195,12 @@ public class Movement : MonoBehaviour
     }
 
     // bool for dashing checks
+    public void AddSpeed(float amount)
+    {
+        speed += amount;
+        runSpeed += amount;
+    }
+
     public bool IsDashing
     {
         get { return isDashing; }

@@ -84,6 +84,13 @@ public class UpdateHealth : MonoBehaviour
         healthBar.SetHealth(Health);
     }
 
+    public void IncreaseMaxHealth(float amount)
+    {
+        MaxHealth += amount;
+        healthBar.SetMaxHealth(MaxHealth);
+        SetHealth(amount); // also give the player the new HP
+    }
+
     public void TakeDamage(float damage, Vector2 hitSourcePosition) // Apply damage to the player, trigger knockback, and start I-frames
     {
         if (IsInvulnerable())

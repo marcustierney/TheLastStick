@@ -22,6 +22,12 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("Tutorial");
     }
 
+    public void RestartGame()
+    {
+        CoinManager.ClearSavedProgress();
+        SceneManager.LoadScene("Tutorial");
+    }
+
     public void OpenOptions()
     {
         SceneManager.LoadScene("Options");

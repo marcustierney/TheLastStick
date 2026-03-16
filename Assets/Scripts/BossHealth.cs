@@ -8,7 +8,7 @@ public class BossHealth : MonoBehaviour
     public float Health;
     public float MaxHealth;
 
-    public HealthBarUI healthBar;
+    public BossHealthBarUI healthBar;
 
     void Start()
     {
@@ -26,6 +26,7 @@ public class BossHealth : MonoBehaviour
 
         if (Health <= 0)
         {
+            CoinManager.Instance?.AddCoins(20);
             //GetComponent<BossController>().Die();
         }
     }

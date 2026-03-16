@@ -122,6 +122,7 @@ public class ThrowEnemy : MonoBehaviour
     private void Die()
     {
         Debug.Log("killed");
+        CoinManager.Instance?.AddCoins(2);
         PlayDeathSound();
         Destroy(gameObject); 
     }
@@ -133,22 +134,7 @@ public class ThrowEnemy : MonoBehaviour
             return;
         }
 
-        GameObject tempAudioObject = new GameObject("EnemyDeathSFX");
-        tempAudioObject.transform.position = transform.position;
-
-        AudioSource tempSource = tempAudioObject.AddComponent<AudioSource>();
-        tempSource.clip = deathAudioSource.clip;
-        tempSource.outputAudioMixerGroup = deathAudioSource.outputAudioMixerGroup;
-        tempSource.volume = deathAudioSource.volume;
-        tempSource.pitch = deathAudioSource.pitch;
-        tempSource.spatialBlend = deathAudioSource.spatialBlend;
-        tempSource.minDistance = deathAudioSource.minDistance;
-        tempSource.maxDistance = deathAudioSource.maxDistance;
-        tempSource.rolloffMode = deathAudioSource.rolloffMode;
-        tempSource.dopplerLevel = deathAudioSource.dopplerLevel;
-        tempSource.Play();
-
-        Destroy(tempAudioObject, tempSource.clip.length / Mathf.Max(Mathf.Abs(tempSource.pitch), 0.01f));
+        AudioSource.PlayClipAtPoint(deathAudioSource.clip, transform.position);
     }
 
     IEnumerator ThrowBall()
