@@ -404,7 +404,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Color
+  m_text: 'Greyscale
 
 '
   m_isRightToLeft: 0
