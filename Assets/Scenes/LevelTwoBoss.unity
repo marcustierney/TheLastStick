@@ -243,7 +243,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 778605266}
-  - {fileID: 1795437614}
+  - {fileID: 1787427416}
   - {fileID: 224444958}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -708,7 +708,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BossHealth
   Health: 20
   MaxHealth: 20
-  healthBar: {fileID: 0}
+  healthBar: {fileID: 1795437617}
 --- !u!1 &217386348
 GameObject:
   m_ObjectHideFlags: 0
@@ -4325,16 +4325,17 @@ RectTransform:
   m_GameObject: {fileID: 1787427415}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.1364374, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1795437614}
+  m_Children:
+  - {fileID: 1795437614}
+  m_Father: {fileID: 83659212}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 0.000061035156, y: 0}
-  m_SizeDelta: {x: 300, y: 10}
-  m_Pivot: {x: 0, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 172, y: 75}
+  m_SizeDelta: {x: 300, y: 14}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1787427417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4348,14 +4349,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.11830664, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 7819368512461668363, guid: 0ce97ca99d9ad0048ad2f720f7676988, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4384,7 +4385,7 @@ GameObject:
   - component: {fileID: 1795437614}
   - component: {fileID: 1795437616}
   - component: {fileID: 1795437615}
-  - component: {fileID: 1795437613}
+  - component: {fileID: 1795437617}
   m_Layer: 5
   m_Name: Boss Health Bar
   m_TagString: Untagged
@@ -4392,23 +4393,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1795437613
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1795437612}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3550f0cbfca79ce4384dbc88d630109a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HealthBarUI
-  Health: 100
-  MaxHealth: 100
-  Width: 300
-  Height: 10
-  healthBar: {fileID: 1787427416}
 --- !u!224 &1795437614
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4416,18 +4400,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1795437612}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.1364374, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1787427416}
-  m_Father: {fileID: 83659212}
+  m_Children: []
+  m_Father: {fileID: 1787427416}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 423, y: -290}
-  m_SizeDelta: {x: 300, y: 5}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 300, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1795437615
 MonoBehaviour:
@@ -4449,7 +4432,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 6575713027597330885, guid: 18745a62a42dfcd49b002efdb2c32175, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4467,6 +4450,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1795437612}
   m_CullTransparentMesh: 1
+--- !u!114 &1795437617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1795437612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34d3fcba5db57c245bd60cfcf5812b37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossHealthBarUI
+  Health: 0
+  MaxHealth: 0
+  Width: 300
+  Height: 14
+  healthBar: {fileID: 1787427416}
+  widthPadding: 16
 --- !u!1 &1843605680
 GameObject:
   m_ObjectHideFlags: 0
