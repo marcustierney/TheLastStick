@@ -37,9 +37,9 @@ public class SwordAttack : MonoBehaviour
     {
         if (isAttacking) return;
 
-        bool attackKeyPressed = Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow);
-
-        if (!movement.IsGrounded() && Input.GetKeyDown(KeyCode.DownArrow))
+        //bool attackKeyPressed = Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow);
+        bool attackKeyPressed = Input.GetKeyDown(KeyCode.Space);
+        if (!movement.IsGrounded() && Input.GetKeyDown(KeyCode.S))
         {
             if (!usedSwordStand)
             {
@@ -61,8 +61,8 @@ public class SwordAttack : MonoBehaviour
         }
 
         bool facingRight = movement.FacingRight;
-        if ((facingRight && Input.GetKeyDown(KeyCode.RightArrow)) ||
-            (!facingRight && Input.GetKeyDown(KeyCode.LeftArrow)))
+        if ((facingRight && Input.GetKeyDown(KeyCode.Space)) ||
+            (!facingRight && Input.GetKeyDown(KeyCode.Space)))
         {
             StartCoroutine(Attack());
         }
@@ -97,7 +97,7 @@ public class SwordAttack : MonoBehaviour
         while (isSwordStanding)
         {
             bool moveCancelPressed = Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D);
-            bool jumpOffPressed = Input.GetKeyDown(KeyCode.Space) && swordStandTouchGround;
+            bool jumpOffPressed = Input.GetKeyDown(KeyCode.W) && swordStandTouchGround;
 
             if (moveCancelPressed || jumpOffPressed)
             {
