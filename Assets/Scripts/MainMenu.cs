@@ -32,6 +32,8 @@ public class MainMenu : MonoBehaviour
     {
         CoinManager.ClearSavedProgress();
         SceneManager.LoadScene("Tutorial");
+        PlayerPrefs.SetInt("CurrentLevel", 0);
+        PlayerPrefs.Save();
     }
 
     public void OpenOptions()

@@ -18,6 +18,8 @@ public class DoorTrigger : MonoBehaviour
         }
         if (other.CompareTag("LevelOneDoor"))
         {
+            PlayerPrefs.SetInt("CurrentLevel", 1);
+            PlayerPrefs.Save();
             SceneManager.LoadScene("LevelOne");
         }
     }
