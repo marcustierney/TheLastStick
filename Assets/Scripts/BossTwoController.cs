@@ -22,7 +22,7 @@ public class BossTwoController : MonoBehaviour
     private bool isDead = false;
     private bool isDashing = false;
     private bool isChargingDash = false;
-    private bool isStunned = false;
+    private bool isDazed = false;
     private bool isDealingDashDamage = false;
     private bool isSummonCharging = false;
     private float lastDashTime = -999f;
@@ -55,7 +55,7 @@ public class BossTwoController : MonoBehaviour
     private void Update()
     {
         if (isDead || player == null) return;
-        if (isDashing || isChargingDash || isStunned || isSummonCharging) return; 
+        if (isDashing || isChargingDash || isDazed || isSummonCharging) return; 
         float distance = Vector2.Distance(transform.position, player.position);
         spriteRenderer.flipX = player.position.x > transform.position.x;
         if (distance <= dashAttackRange && Time.time >= lastDashTime + dashCooldown)
@@ -105,11 +105,11 @@ public class BossTwoController : MonoBehaviour
         isDashing = false;
         isDealingDashDamage = false;
         animator.SetBool("isDashing", false);
-        isStunned = true;
-        animator.SetBool("isStunned", true);
+        isDazed = true;
+        animator.SetBool("isDazed", true);
         yield return new WaitForSeconds(dashStunDuration);
-        isStunned = false;
-        animator.SetBool("isStunned", false);
+        isDazed = false;
+        animator.SetBool("isDazed", false);
     }
 
     private IEnumerator SummonAttackLoop()
