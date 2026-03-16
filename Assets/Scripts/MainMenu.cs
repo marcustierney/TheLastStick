@@ -7,23 +7,25 @@ public class MainMenu : MonoBehaviour
     {
         EnsureGreyscaleManager();
     }
-    /*public void PlayGame()
+    public void PlayGame()
     {
-        if (!PlayerPrefs.HasKey("HasPlayed"))
+        int level = PlayerPrefs.GetInt("CurrentLevel", 0);
+
+        if (level == 0)
         {
             SceneManager.LoadScene("Tutorial");
-            PlayerPrefs.SetInt("HasPlayed", 1);
-            PlayerPrefs.Save();
-        } 
-        else
+            PlayerPrefs.SetInt("CurrentLevel", 1);
+        }
+        else if (level == 1)
         {
             SceneManager.LoadScene("LevelOne");
         }
+        else if (level == 2)
+        {
+            SceneManager.LoadScene("LevelTwo");
+        }
 
-    }*/
-    public void PlayGame()
-    {
-        SceneManager.LoadScene("Tutorial");
+        PlayerPrefs.Save();
     }
 
     public void RestartGame()
