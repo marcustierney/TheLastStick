@@ -280,8 +280,10 @@ public class BossController : MonoBehaviour
             Destroy(bossSword.gameObject);
         }
         Debug.Log("killed");
-        Destroy(gameObject);
+        PlayerPrefs.SetInt("CurrentLevel", 2);
+        PlayerPrefs.Save();
         SceneManager.LoadScene("TransitionLevelTwo");
+        Destroy(gameObject);
     }
 
     private bool IsPlayerInSlamZone()
