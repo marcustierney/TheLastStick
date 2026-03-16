@@ -15,6 +15,7 @@ TagManager:
   - LevelOneDoor
   - Roof
   - BossTwo
+  - CameraShift
   layers:
   - Default
   - TransparentFX
