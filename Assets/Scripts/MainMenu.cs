@@ -3,6 +3,10 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    private void Awake()
+    {
+        EnsureGreyscaleManager();
+    }
     /*public void PlayGame()
     {
         if (!PlayerPrefs.HasKey("HasPlayed"))
@@ -44,5 +48,27 @@ public class MainMenu : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void GreyscaleToggle()
+    {
+        EnsureGreyscaleManager().ToggleGreyscale();
+    }
+
+    public void GreyscaleToggle(bool enabled)
+    {
+        EnsureGreyscaleManager().SetGreyscale(enabled);
+    }
+
+    private static GreyscaleManager EnsureGreyscaleManager()
+    {
+        GreyscaleManager manager = FindObjectOfType<GreyscaleManager>(true);
+        if (manager != null)
+        {
+            return manager;
+        }
+
+        GameObject managerObject = new GameObject("GreyscaleManager");
+        return managerObject.AddComponent<GreyscaleManager>();
     }
 }
