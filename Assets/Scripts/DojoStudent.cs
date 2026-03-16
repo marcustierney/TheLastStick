@@ -148,7 +148,7 @@ public class Enemy : MonoBehaviour
     private void Die()
     {
         Debug.Log("killed");
-        CoinManager.Instance?.AddCoins(100);
+        CoinManager.Instance?.AddCoins(2);
         PlayDeathSound();
         Destroy(gameObject); 
     }
