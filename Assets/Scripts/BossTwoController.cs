@@ -26,6 +26,8 @@ public class BossTwoController : MonoBehaviour
     private bool isDealingDashDamage = false;
     private bool isSummonCharging = false;
     private float lastDashTime = -999f;
+    private bool lockedChargeDirection = false;
+    private bool facingRight = false;
 
     private void Awake()
     {
@@ -84,6 +86,9 @@ public class BossTwoController : MonoBehaviour
     {
         lastDashTime = Time.time;
         isChargingDash = true;
+        lockedChargeDirection = true;
+        facingRight = player.position.x > transform.position.x;
+        spriteRenderer.flipX = facingRight;
         rb.linearVelocity = Vector2.zero;
         animator.SetBool("isMoving", false);
         animator.SetBool("isChargingDash", true);
@@ -93,7 +98,7 @@ public class BossTwoController : MonoBehaviour
         isDashing = true;
         isDealingDashDamage = true;
         animator.SetBool("isDashing", true);
-        Vector2 dashDirection = (player.position - transform.position).normalized;
+        Vector2 dashDirection = facingRight ? Vector2.right : Vector2.left;
         float dashTimer = 0f;
         while (dashTimer < dashDuration)
         {
@@ -110,6 +115,7 @@ public class BossTwoController : MonoBehaviour
         yield return new WaitForSeconds(dashStunDuration);
         isDazed = false;
         animator.SetBool("isDazed", false);
+        lockedChargeDirection = false;
     }
 
     private IEnumerator SummonAttackLoop()
