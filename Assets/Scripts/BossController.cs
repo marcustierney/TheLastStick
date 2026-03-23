@@ -33,6 +33,7 @@ public class BossController : MonoBehaviour
     private bool isSlamAnim = false;
     private RigidbodyConstraints2D cachedConstraints;
     private bool slamLockApplied = false;
+    int slamCount = 0;
     [SerializeField] private AudioSource walkAudioSource;
     [SerializeField] private AudioSource slamAudioSource;
     [SerializeField] private AudioSource throwAudioSource;
@@ -69,33 +70,37 @@ public class BossController : MonoBehaviour
         }
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-        if (hasSword && distanceToPlayer < 12f)
+        if (distanceToPlayer < 12f)
         {
-            FacePlayer();
-            if (distanceToPlayer < 3f && !isSlamAnim)
+            if (hasSword && slamCount < 10)
             {
-                StartCoroutine(GroundSlam());
+                FacePlayer();
+                if (distanceToPlayer < 3f && !isSlamAnim)
+                {
+                    StartCoroutine(GroundSlam());
+                    slamCount += Random.Range(1, 11);
+                }
+                else
+                {
+                    MoveTowardsPlayer();
+                }
             }
-            else
+            else if (hasSword)
+            {
+                TryThrowSword();
+            }
+            else if (retrievingSword)
+            {
+                MoveToSword();
+            }
+            else if (!slamming)
             {
                 MoveTowardsPlayer();
             }
-        }
-        else if (hasSword)
-        {
-            TryThrowSword();
-        }
-        else if (retrievingSword)
-        {
-            MoveToSword();
-        }
-        else if (!slamming)
-        {
-            MoveTowardsPlayer();
-        }
-        else
-        {
-            StopWalkSound();
+            else
+            {
+                StopWalkSound();
+            }
         }
     }
 
@@ -133,8 +138,9 @@ public class BossController : MonoBehaviour
 
         float distance = Vector2.Distance(transform.position, player.position);
 
-        if (distance > 8 && distance < 15f)
+        if (distance < 15f)
         {
+            slamCount = 0;
             ThrowSword();
         }
         else
