@@ -3,14 +3,22 @@ using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
 {
-    public GameObject pauseMenuUI; 
+    public GameObject pauseMenuUI;
+    public GameObject optionsCanvas;
     private bool isPaused = false;
+    private bool isOptionsOpen = false;
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (isPaused)
+            // If options are open, close them
+            if (isOptionsOpen)
+            {
+                CloseOptions();
+            }
+            // Otherwise, toggle pause
+            else if (isPaused)
             {
                 ResumeGame();
             }
@@ -39,5 +47,30 @@ public class PauseManager : MonoBehaviour
     {
         Time.timeScale = 1f; 
         SceneManager.LoadScene("MainMenu"); 
+    }
+
+    public void OpenOptions()
+    {
+        if (optionsCanvas == null)
+        {
+            Debug.LogWarning("Options canvas not assigned to PauseManager");
+            return;
+        }
+
+        pauseMenuUI.SetActive(false);
+        optionsCanvas.SetActive(true);
+        isOptionsOpen = true;
+    }
+
+    public void CloseOptions()
+    {
+        if (optionsCanvas == null)
+        {
+            return;
+        }
+
+        optionsCanvas.SetActive(false);
+        pauseMenuUI.SetActive(true);
+        isOptionsOpen = false;
     }
 }
