@@ -14,7 +14,7 @@ public class MainMenu : MonoBehaviour
         if (level == 0)
         {
             SceneManager.LoadScene("Tutorial");
-            PlayerPrefs.SetInt("CurrentLevel", 1);
+            //PlayerPrefs.SetInt("CurrentLevel", 1);
         }
         else if (level == 1)
         {
