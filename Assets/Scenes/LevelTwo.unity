@@ -10980,7 +10980,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4769185698412302628, guid: d0e6fc8b91c81b547a7e8cc4c5c94342, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4769185698412302628, guid: d0e6fc8b91c81b547a7e8cc4c5c94342, type: 3}
       propertyPath: minSpawnInterval
@@ -19319,7 +19319,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 730864089}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1310682981}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29bd421438cf724469aa0c4a21dff3f7, type: 3}
   m_Name: 
@@ -20754,7 +20754,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 1537562294}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1400043417}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29bd421438cf724469aa0c4a21dff3f7, type: 3}
   m_Name: 
@@ -22587,7 +22587,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4769185698412302628, guid: d0e6fc8b91c81b547a7e8cc4c5c94342, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4769185698412302628, guid: d0e6fc8b91c81b547a7e8cc4c5c94342, type: 3}
       propertyPath: minSpawnInterval
@@ -26474,7 +26474,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 6090546654387116836}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29bd421438cf724469aa0c4a21dff3f7, type: 3}
   m_Name: 
@@ -31259,7 +31259,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4769185698412302628, guid: d0e6fc8b91c81b547a7e8cc4c5c94342, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4769185698412302628, guid: d0e6fc8b91c81b547a7e8cc4c5c94342, type: 3}
       propertyPath: minSpawnInterval
