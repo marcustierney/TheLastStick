@@ -8365,6 +8365,10 @@ MonoBehaviour:
   slamWarningDuration: 0.7
   slamDamageDuration: 0.1
   swordThrowStartOffset: 1.5
+  swordThrowRange: 15
+  swordThrowPriorityMinDistance: 8
+  swordThrowSpawnDelay: 0.5
+  swordThrowRecoveryDelay: 0.5
   maxHealth: 100
   bossSword: {fileID: 1001318507}
   walkAudioSource: {fileID: 473431837}

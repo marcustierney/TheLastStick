@@ -24,6 +24,10 @@ public class BossController : MonoBehaviour
     public float slamWarningDuration = 0.7f;
     public float slamDamageDuration = 0.05f;
     public float swordThrowStartOffset = 1.5f;
+    [SerializeField] private float swordThrowRange = 15f;
+    [SerializeField] private float swordThrowPriorityMinDistance = 8f;
+    [SerializeField] private float swordThrowSpawnDelay = 0.5f;
+    [SerializeField] private float swordThrowRecoveryDelay = 0.35f;
     private int currentHealth = 100;
     public int maxHealth = 100;
     public GameObject bossSword;
@@ -70,9 +74,15 @@ public class BossController : MonoBehaviour
         }
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-        if (distanceToPlayer < 12f)
+        if (distanceToPlayer < 50f)
         {
-            if (hasSword && slamCount < 10)
+            if (hasSword
+                && distanceToPlayer >= swordThrowPriorityMinDistance
+                && distanceToPlayer < swordThrowRange)
+            {
+                TryThrowSword();
+            }
+            else if (hasSword && slamCount < 10)
             {
                 FacePlayer();
                 if (distanceToPlayer < 3f && !isSlamAnim)
@@ -138,7 +148,7 @@ public class BossController : MonoBehaviour
 
         float distance = Vector2.Distance(transform.position, player.position);
 
-        if (distance < 15f)
+        if (distance < swordThrowRange)
         {
             slamCount = 0;
             ThrowSword();
@@ -158,12 +168,12 @@ public class BossController : MonoBehaviour
         isThrowingAnim = true;
         PlayThrowSound();
         animator.SetTrigger("Throw");
-        StartCoroutine(DelayedThrow(0.5f));
+        StartCoroutine(DelayedThrow());
     }
 
-    private IEnumerator DelayedThrow(float delay)
+    private IEnumerator DelayedThrow()
     {
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(swordThrowSpawnDelay);
 
         if (sword == null)
         {
@@ -181,6 +191,12 @@ public class BossController : MonoBehaviour
         Vector2 throwDirection = new Vector2(Mathf.Sign(direction.x), 0f).normalized;
         sword.transform.position = (Vector2)handPosition.position + (throwDirection * swordThrowStartOffset);
         sword.Throw(direction, this);
+
+        if (swordThrowRecoveryDelay > 0f)
+        {
+            yield return new WaitForSeconds(swordThrowRecoveryDelay);
+        }
+
         isThrowingAnim = false;
     }
 
