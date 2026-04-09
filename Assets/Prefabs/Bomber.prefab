@@ -102,6 +102,7 @@ GameObject:
   - component: {fileID: 3021737919586077092}
   - component: {fileID: 7535126312442976984}
   - component: {fileID: 402391559494971714}
+  - component: {fileID: 8843012345600000099}
   m_Layer: 10
   m_Name: Bomber
   m_TagString: Enemy
@@ -258,6 +259,33 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &8843012345600000099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3760796964183595177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adf58a6f774cd4b809166d25d4c185c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BomberController
+  maxHealth: 3
+  damageToPlayer: 10
+  swordHitbox: {fileID: 3828524069247789819}
+  warningHitBox: {fileID: 3058110089579805678}
+  ledgeCheckDistance: 1
+  ledgeCheckDepth: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  deathAudioSource: {fileID: 0}
+  explodeTriggerName: Explode
+  warningFlashCount: 3
+  warningFlashOnDuration: 0.2
+  warningFlashOffDuration: 0.12
+  explosionHitboxDuration: 0.25
 --- !u!1 &3828524069247789819
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,7 +300,7 @@ GameObject:
   - component: {fileID: 6933277252375041610}
   - component: {fileID: 2858917146871702058}
   m_Layer: 10
-  m_Name: 'EnemySwordHitbox '
+  m_Name: 'EnemyBombHitbox '
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
