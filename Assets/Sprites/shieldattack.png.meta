@@ -1,22 +1,19 @@
 fileFormatVersion: 2
-guid: bc5af6a9153ec4021b72d860163a8f6c
+guid: 77dd585934355ce46b77f4a9d9defda2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4154774972919640832
-    second: explosion_sfx_0
+      213: -7242875785008666944
+    second: shieldattack_0
   - first:
-      213: 5314393645733680394
-    second: explosion_sfx_1
+      213: -5258168492468584657
+    second: shieldattack_1
   - first:
-      213: 4221555586742802709
-    second: explosion_sfx_2
+      213: 8278956178522179216
+    second: shieldattack_2
   - first:
-      213: 530035535779562021
-    second: explosion_sfx_3
-  - first:
-      213: 6653647145956740970
-    second: explosion_sfx_4
+      213: -706121828435572841
+    second: shieldattack_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -112,89 +109,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: explosion_sfx_0
+      name: shieldattack_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 64
-        height: 128
+        x: 16
+        y: 7
+        width: 34
+        height: 49
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 003fe8e23d9b8a930800000000000000
-      internalID: 4154774972919640832
+      spriteID: 0c6a74219d22c7b90800000000000000
+      internalID: -7242875785008666944
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: explosion_sfx_1
+      name: shieldattack_1
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
-        width: 64
-        height: 128
+        x: 69
+        y: 7
+        width: 46
+        height: 50
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a059c8a2dd480c940800000000000000
-      internalID: 5314393645733680394
+      spriteID: f2f32457d9b3707b0800000000000000
+      internalID: -5258168492468584657
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: explosion_sfx_2
+      name: shieldattack_2
       rect:
         serializedVersion: 2
-        x: 128
-        y: 0
-        width: 64
-        height: 128
+        x: 126
+        y: 7
+        width: 54
+        height: 49
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 519de5b707af59a30800000000000000
-      internalID: 4221555586742802709
+      spriteID: 09607d3d7c2c4e270800000000000000
+      internalID: 8278956178522179216
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: explosion_sfx_3
+      name: shieldattack_3
       rect:
         serializedVersion: 2
-        x: 192
-        y: 0
-        width: 64
-        height: 128
+        x: 190
+        y: 7
+        width: 53
+        height: 49
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5228974f2801b5700800000000000000
-      internalID: 530035535779562021
+      spriteID: 797c2ff20f95336f0800000000000000
+      internalID: -706121828435572841
       vertices: []
       indices: 
       edges: []
@@ -203,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 67705c80f145e4506b095b445aec4d16
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -211,14 +208,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":128.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      explosion_sfx_0: 4154774972919640832
-      explosion_sfx_1: 5314393645733680394
-      explosion_sfx_2: 4221555586742802709
-      explosion_sfx_3: 530035535779562021
+      shieldattack_0: -7242875785008666944
+      shieldattack_1: -5258168492468584657
+      shieldattack_2: 8278956178522179216
+      shieldattack_3: -706121828435572841
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

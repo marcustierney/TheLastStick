@@ -35,6 +35,15 @@ public class SwordHitbox : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player")) return;
+
+        ShieldEnemyController shieldEnemy = collision.GetComponentInParent<ShieldEnemyController>();
+        if (shieldEnemy != null)
+        {
+            shieldEnemy.TakeDamage(damage, transform.position);
+            PlayHitDamageSound();
+            swordAttack.ForceExitSwordStandWithBounce();
+            return;
+        }
         
         if (collision.CompareTag("Enemy"))
         {
@@ -107,6 +116,15 @@ public class SwordHitbox : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.CompareTag("Player")) return;
+
+        ShieldEnemyController shieldEnemy = collision.collider.GetComponentInParent<ShieldEnemyController>();
+        if (shieldEnemy != null)
+        {
+            shieldEnemy.TakeDamage(damage, transform.position);
+            PlayHitDamageSound();
+            swordAttack.ForceExitSwordStandWithBounce();
+            return;
+        }
         
         if (collision.collider.CompareTag("Enemy"))
         {

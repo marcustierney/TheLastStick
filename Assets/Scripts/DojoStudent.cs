@@ -7,18 +7,18 @@ public class Enemy : MonoBehaviour
 
     [SerializeField]
     private float damageToPlayer = 20f; //damage dealt to player on contact
-    private float moveSpeed = 3f;
-    private float chaseRange = 8f;
-    private float attackRange = 1.2f;
-    private Transform player;
-    private Rigidbody2D rb;
+    protected float moveSpeed = 3f;
+    protected float chaseRange = 8f;
+    protected float attackRange = 1.2f;
+    protected Transform player;
+    protected Rigidbody2D rb;
     public GameObject swordHitbox;
     public GameObject warningHitBox;
     private float attackDuration = 0.1f;
     private float attackCooldown = .5f;
-    private Animator animator;
+    protected Animator animator;
     private bool isAttacking = false;
-    private SpriteRenderer spriteRenderer;
+    protected SpriteRenderer spriteRenderer;
     public float ledgeCheckDistance = 1f; 
     public float ledgeCheckDepth = 1f;   
     public LayerMask groundLayer;
@@ -96,7 +96,7 @@ public class Enemy : MonoBehaviour
         return hit.collider != null;
     }
 
-    private void MoveTowardsPlayer()
+    protected virtual void MoveTowardsPlayer()
     {
         Vector2 direction = (player.position - transform.position).normalized;
 

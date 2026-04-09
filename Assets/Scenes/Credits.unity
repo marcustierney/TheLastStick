@@ -406,7 +406,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Programmers:\nBen Gomes \nMarcus Tierney\nAyush Bandopadhyay\r\n\nArtists:\nAnthony
-    Nguyen\nRia Iyer"
+    Nguyen\nRia Iyer\nIsabelle Tai"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1528b646891af474cb561ac0ba328b92, type: 2}
   m_sharedMaterial: {fileID: 6802183088965565074, guid: 1528b646891af474cb561ac0ba328b92, type: 2}
