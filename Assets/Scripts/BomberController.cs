@@ -6,15 +6,22 @@ public class BomberController : Enemy
     private static readonly int IsMovingHash = Animator.StringToHash("isMoving");
 
     [SerializeField] private string explodeTriggerName = "Explode";
+    [SerializeField] private float movementSpeed = 3f;
     [SerializeField] private int warningFlashCount = 3;
     [SerializeField] private float warningFlashOnDuration = 0.2f;
     [SerializeField] private float warningFlashOffDuration = 0.12f;
     [SerializeField] private float explosionHitboxDuration = 0.25f;
 
     private bool committedToExplode;
+    private bool isWarningFlashing;
     private bool isDetonating;
 
-    private new void Update()
+    private void Start()
+    {
+        moveSpeed = movementSpeed;
+    }
+
+    private void Update()
     {
         if (player == null)
         {
@@ -43,45 +50,97 @@ public class BomberController : Enemy
             else if (!committedToExplode && distance <= attackRange)
             {
                 committedToExplode = true;
-                StartCoroutine(ExplodeRoutine());
+                StartCoroutine(ExplodeRoutine(skipWarningFlash: false));
+            }
+            else if (committedToExplode && isWarningFlashing)
+            {
+                MoveTowardsPlayer();
             }
         }
         else
         {
-            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
-            if (animator != null)
+            if (committedToExplode && isWarningFlashing)
             {
-                animator.SetBool(IsMovingHash, false);
-            }
+                Vector2 direction = (player.position - transform.position).normalized;
+                if (spriteRenderer != null)
+                {
+                    spriteRenderer.flipX = direction.x > 0f;
+                }
 
-            if (spriteRenderer != null)
+                MoveTowardsPlayer();
+            }
+            else
             {
-                spriteRenderer.flipX = false;
+                rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+                if (animator != null)
+                {
+                    animator.SetBool(IsMovingHash, false);
+                }
+
+                if (spriteRenderer != null)
+                {
+                    spriteRenderer.flipX = false;
+                }
             }
         }
     }
 
-    private IEnumerator ExplodeRoutine()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        isDetonating = true;
-        rb.linearVelocity = Vector2.zero;
-        // Keep isMoving true while warning so Animator stays on BomberRun (Idle has no path to Explode).
-
-        for (int i = 0; i < warningFlashCount; i++)
+        if (isDetonating)
         {
-            if (warningHitBox != null)
+            return;
+        }
+
+        if (!collision.gameObject.CompareTag("Player") && !collision.transform.root.CompareTag("Player"))
+        {
+            return;
+        }
+
+        StopAllCoroutines();
+        committedToExplode = true;
+        StartCoroutine(ExplodeRoutine(skipWarningFlash: true));
+    }
+
+    private IEnumerator ExplodeRoutine(bool skipWarningFlash)
+    {
+        if (!skipWarningFlash)
+        {
+            isWarningFlashing = true;
+
+            for (int i = 0; i < warningFlashCount; i++)
             {
-                warningHitBox.SetActive(true);
+                if (warningHitBox != null)
+                {
+                    warningHitBox.SetActive(true);
+                }
+
+                yield return new WaitForSeconds(warningFlashOnDuration);
+
+                if (warningHitBox != null)
+                {
+                    warningHitBox.SetActive(false);
+                }
+
+                yield return new WaitForSeconds(warningFlashOffDuration);
             }
 
-            yield return new WaitForSeconds(warningFlashOnDuration);
-
+            isWarningFlashing = false;
+        }
+        else
+        {
             if (warningHitBox != null)
             {
                 warningHitBox.SetActive(false);
             }
 
-            yield return new WaitForSeconds(warningFlashOffDuration);
+            isWarningFlashing = false;
+        }
+        isDetonating = true;
+        rb.linearVelocity = Vector2.zero;
+        if (animator != null)
+        {
+            animator.SetBool(IsMovingHash, false);
         }
 
         if (animator != null && !string.IsNullOrEmpty(explodeTriggerName))

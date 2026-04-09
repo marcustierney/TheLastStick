@@ -6,12 +6,17 @@
 [Ll]ogs/
 [Mm]emoryCaptures/
 
+# Unity — personal editor state (layouts, search index, local prefs). Never commit.
+UserSettings/
+
 # Visual Studio / Rider
 .vs/
 .vscode/
 .idea/
+*.csproj.user
+*.unityproj.user
+*.sln.DotSettings.user
 
 # OS files
 .DS_Store
 Thumbs.db
-UserSettings/

@@ -29,9 +29,17 @@ public class Enemy : MonoBehaviour
         currentHealth = maxHealth;
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        animator = GetComponent<Animator>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        
+        animator = GetComponentInChildren<Animator>(true);
+        if (animator != null)
+        {
+            SpriteRenderer srOnAnimator = animator.GetComponent<SpriteRenderer>();
+            spriteRenderer = srOnAnimator != null ? srOnAnimator : GetComponent<SpriteRenderer>();
+        }
+        else
+        {
+            spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+
         // Prevent player from pushing the enemy - set to Kinematic
         //rb.bodyType = RigidbodyType2D.Kinematic;
         //transform.localScale = new Vector3(1, 1, 1);
@@ -103,12 +111,18 @@ public class Enemy : MonoBehaviour
         if (IsGroundAhead(direction.x))
         {
             rb.linearVelocity = new Vector2(direction.x * moveSpeed, rb.linearVelocity.y);
-            animator.SetBool("isMoving", true);
+            if (animator != null)
+            {
+                animator.SetBool("isMoving", true);
+            }
         }
         else
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
-            animator.SetBool("isMoving", false);
+            if (animator != null)
+            {
+                animator.SetBool("isMoving", false);
+            }
         }
     }
 
