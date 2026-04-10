@@ -78,7 +78,7 @@ public class GreyscaleManager : MonoBehaviour
 
     private void ApplyStateToAllSceneVolumes()
     {
-        Volume[] sceneVolumes = FindObjectsOfType<Volume>(true);
+        Volume[] sceneVolumes = Object.FindObjectsByType<Volume>(FindObjectsInactive.Include);
         bool appliedAtLeastOnce = false;
 
         for (int i = 0; i < sceneVolumes.Length; i++)

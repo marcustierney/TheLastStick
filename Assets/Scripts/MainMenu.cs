@@ -66,7 +66,7 @@ public class MainMenu : MonoBehaviour
 
     private static GreyscaleManager EnsureGreyscaleManager()
     {
-        GreyscaleManager manager = FindObjectOfType<GreyscaleManager>(true);
+        GreyscaleManager manager = Object.FindAnyObjectByType<GreyscaleManager>(FindObjectsInactive.Include);
         if (manager != null)
         {
             return manager;
