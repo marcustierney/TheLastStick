@@ -14,6 +14,8 @@ public class GreyscaleManager : MonoBehaviour
 
     private bool isGreyscaleEnabled;
 
+    public event System.Action<bool> GreyscaleStateChanged;
+
     public bool IsGreyscaleEnabled => isGreyscaleEnabled;
 
     private void Awake()
@@ -56,6 +58,7 @@ public class GreyscaleManager : MonoBehaviour
         isGreyscaleEnabled = enabled;
         SaveState();
         ApplyStateToAllSceneVolumes();
+        GreyscaleStateChanged?.Invoke(isGreyscaleEnabled);
     }
 
     private void LoadState()
