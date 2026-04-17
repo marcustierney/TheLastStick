@@ -21,15 +21,11 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 3399700986686678843, guid: a53119948a914314193fdf10d803ba51, type: 3}
-    - time: 0.083333336
-      value: {fileID: 5726886900009300577, guid: a53119948a914314193fdf10d803ba51, type: 3}
-    - time: 0.16666667
-      value: {fileID: 8249673523473532564, guid: a53119948a914314193fdf10d803ba51, type: 3}
-    - time: 0.33333334
-      value: {fileID: 5275480369473905651, guid: a53119948a914314193fdf10d803ba51, type: 3}
-    - time: 0.41666666
-      value: {fileID: 517676090722429640, guid: a53119948a914314193fdf10d803ba51, type: 3}
+      value: {fileID: 7034338576483803127, guid: ae226d0752360a140a0d01865e8e5c5e, type: 3}
+    - time: 0.05
+      value: {fileID: 6054277451648750542, guid: ae226d0752360a140a0d01865e8e5c5e, type: 3}
+    - time: 0.21666667
+      value: {fileID: 6054277451648750542, guid: ae226d0752360a140a0d01865e8e5c5e, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -52,17 +48,15 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 3399700986686678843, guid: a53119948a914314193fdf10d803ba51, type: 3}
-    - {fileID: 5726886900009300577, guid: a53119948a914314193fdf10d803ba51, type: 3}
-    - {fileID: 8249673523473532564, guid: a53119948a914314193fdf10d803ba51, type: 3}
-    - {fileID: 5275480369473905651, guid: a53119948a914314193fdf10d803ba51, type: 3}
-    - {fileID: 517676090722429640, guid: a53119948a914314193fdf10d803ba51, type: 3}
+    - {fileID: 7034338576483803127, guid: ae226d0752360a140a0d01865e8e5c5e, type: 3}
+    - {fileID: 6054277451648750542, guid: ae226d0752360a140a0d01865e8e5c5e, type: 3}
+    - {fileID: 6054277451648750542, guid: ae226d0752360a140a0d01865e8e5c5e, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.43333334
+    m_StopTime: 0.23333333
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
