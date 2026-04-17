@@ -1,0 +1,429 @@
+fileFormatVersion: 2
+guid: 40ddb6b461a9b8a41af8c63524fe15aa
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7638929961553781011
+    second: Idolanimation_0
+  - first:
+      213: 8471314056339074410
+    second: Idolanimation_1
+  - first:
+      213: -4945295583444490647
+    second: Idolanimation_2
+  - first:
+      213: 3074029726133704407
+    second: Idolanimation_3
+  - first:
+      213: -4044209626566268005
+    second: Idolanimation_4
+  - first:
+      213: -1518122110583697544
+    second: Idolanimation_5
+  - first:
+      213: -113384253214026743
+    second: Idolanimation_6
+  - first:
+      213: -7013688000039736067
+    second: Idolanimation_7
+  - first:
+      213: 1894717439405723956
+    second: Idolanimation_8
+  - first:
+      213: 6062514997612294235
+    second: Idolanimation_9
+  - first:
+      213: 7131710146872565510
+    second: Idolanimation_10
+  - first:
+      213: -7623389234439363732
+    second: Idolanimation_11
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Idolanimation_0
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 0
+        width: 29
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.45}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3116086c35ee20a60800000000000000
+      internalID: 7638929961553781011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Idolanimation_1
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 0
+        width: 48
+        height: 64
+      alignment: 9
+      pivot: {x: 0.698, y: 0.45}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6d2dd45047209570800000000000000
+      internalID: 8471314056339074410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Idolanimation_2
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 0
+        width: 52
+        height: 64
+      alignment: 9
+      pivot: {x: 0.74, y: 0.45}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 966ab7f3ed7ce5bb0800000000000000
+      internalID: -4945295583444490647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Idolanimation_3
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 0
+        width: 57
+        height: 64
+      alignment: 9
+      pivot: {x: 0.622, y: 0.45}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d6d03fbfb529aa20800000000000000
+      internalID: 3074029726133704407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Idolanimation_4
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 0
+        width: 40
+        height: 64
+      alignment: 9
+      pivot: {x: 0.362, y: 0.45}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9b6d4395c410e7c0800000000000000
+      internalID: -4044209626566268005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Idolanimation_5
+      rect:
+        serializedVersion: 2
+        x: 341
+        y: 0
+        width: 43
+        height: 64
+      alignment: 9
+      pivot: {x: 0.3839, y: 0.45}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87f0ef8dbfb8eeae0800000000000000
+      internalID: -1518122110583697544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Idolanimation_6
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 0
+        width: 38
+        height: 64
+      alignment: 9
+      pivot: {x: 0.619, y: 0.45}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9041e085f9d2d6ef0800000000000000
+      internalID: -113384253214026743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Idolanimation_7
+      rect:
+        serializedVersion: 2
+        x: 465
+        y: 0
+        width: 30
+        height: 64
+      alignment: 9
+      pivot: {x: 0.517, y: 0.45}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfc26309cef5aae90800000000000000
+      internalID: -7013688000039736067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Idolanimation_8
+      rect:
+        serializedVersion: 2
+        x: 523
+        y: 0
+        width: 44
+        height: 64
+      alignment: 9
+      pivot: {x: 0.6933, y: 0.45}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4311485f8736b4a10800000000000000
+      internalID: 1894717439405723956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Idolanimation_9
+      rect:
+        serializedVersion: 2
+        x: 583
+        y: 0
+        width: 48
+        height: 64
+      alignment: 9
+      pivot: {x: 0.698, y: 0.45}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b50b82e0541622450800000000000000
+      internalID: 6062514997612294235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Idolanimation_10
+      rect:
+        serializedVersion: 2
+        x: 657
+        y: 0
+        width: 29
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.45}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60f5369d79ce8f260800000000000000
+      internalID: 7131710146872565510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Idolanimation_11
+      rect:
+        serializedVersion: 2
+        x: 721
+        y: 0
+        width: 29
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.45}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6364b8b1e7443690800000000000000
+      internalID: -7623389234439363732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 9fa1efdf3d5797348ada6c68ada5df44
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Idolanimation_0: 7638929961553781011
+      Idolanimation_1: 8471314056339074410
+      Idolanimation_10: 7131710146872565510
+      Idolanimation_11: -7623389234439363732
+      Idolanimation_2: -4945295583444490647
+      Idolanimation_3: 3074029726133704407
+      Idolanimation_4: -4044209626566268005
+      Idolanimation_5: -1518122110583697544
+      Idolanimation_6: -113384253214026743
+      Idolanimation_7: -7013688000039736067
+      Idolanimation_8: 1894717439405723956
+      Idolanimation_9: 6062514997612294235
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
