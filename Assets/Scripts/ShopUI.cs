@@ -21,8 +21,13 @@ public class ShopUI : MonoBehaviour
     [SerializeField] private TMP_Text healthLevelText;
     [SerializeField] private float healthIncreasePerUpgrade = 10f;
 
+    [Header("Purchase Sound")]
+    [SerializeField] private AudioSource purchaseAudioSource;
+    [SerializeField] private AudioClip[] purchaseClips = new AudioClip[5];
+
     private void Start()
     {
+        CachePurchaseAudioSource();
         if (shopPanel != null) shopPanel.SetActive(false);
         RefreshUI();
     }
@@ -49,6 +54,7 @@ public class ShopUI : MonoBehaviour
 
         if (!CoinManager.Instance.TryBuySpeedUpgrade(speedIncreasePerUpgrade)) return;
 
+        PlayRandomPurchaseSound();
         RefreshUI();
     }
 
@@ -63,6 +69,7 @@ public class ShopUI : MonoBehaviour
 
         if (!CoinManager.Instance.TryBuyDamageUpgrade(damageIncreasePerUpgrade)) return;
 
+        PlayRandomPurchaseSound();
         RefreshUI();
     }
 
@@ -77,6 +84,7 @@ public class ShopUI : MonoBehaviour
 
         if (!CoinManager.Instance.TryBuyHealthUpgrade(healthIncreasePerUpgrade)) return;
 
+        PlayRandomPurchaseSound();
         RefreshUI();
     }
 
@@ -99,5 +107,38 @@ public class ShopUI : MonoBehaviour
     {
         if (costText != null) costText.text = $"Cost: {cost} coins";
         if (levelText != null) levelText.text = $"Level {level}";
+    }
+
+    private void PlayRandomPurchaseSound()
+    {
+        CachePurchaseAudioSource();
+
+        if (purchaseAudioSource == null || purchaseClips == null || purchaseClips.Length == 0)
+        {
+            return;
+        }
+
+        int clipIndex = Random.Range(0, purchaseClips.Length);
+        AudioClip clip = purchaseClips[clipIndex];
+        if (clip == null)
+        {
+            return;
+        }
+
+        purchaseAudioSource.PlayOneShot(clip);
+    }
+
+    private void CachePurchaseAudioSource()
+    {
+        if (purchaseAudioSource != null)
+        {
+            return;
+        }
+
+        GameObject purchaseObject = GameObject.Find("Purchase");
+        if (purchaseObject != null)
+        {
+            purchaseAudioSource = purchaseObject.GetComponent<AudioSource>();
+        }
     }
 }
