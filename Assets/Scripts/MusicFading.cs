@@ -10,7 +10,7 @@ public class MusicFading : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         audioSource.volume = 0f;
-        StartCoroutine(Fade(true, 10f, .4f));
+        StartCoroutine(Fade(true, 10f, .2f));
         StartCoroutine(Fade(false, 2f, 0f));
     }
 

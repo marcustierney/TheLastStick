@@ -1281,7 +1281,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 224444957}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2377.8706}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 75, y: 75, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4302,6 +4302,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   deathAudioSource: {fileID: 537382964}
+  deathClips:
+  - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
+  - {fileID: 8300000, guid: b7e0e3d10c170934b9d95f7797ecd15b, type: 3}
+  - {fileID: 8300000, guid: f480e51556057e541b2df122e2ee0f07, type: 3}
+  - {fileID: 8300000, guid: 52c81033aa5d83744a8bfc47f5142f9f, type: 3}
+  - {fileID: 8300000, guid: 34799525f4a08b4479825d8ea8fa46d6, type: 3}
 --- !u!50 &493979932
 Rigidbody2D:
   serializedVersion: 5
@@ -4709,7 +4715,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 5148463774940904718, guid: b937f504e11073e4c8a015f7480885a5, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 835ee498fdc2991439ddae7a9b6f37a0, type: 3}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -5060,6 +5066,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   deathAudioSource: {fileID: 0}
+  deathClips:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!70 &593678446
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -7367,6 +7379,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   deathAudioSource: {fileID: 537382964}
+  deathClips:
+  - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
+  - {fileID: 8300000, guid: b7e0e3d10c170934b9d95f7797ecd15b, type: 3}
+  - {fileID: 8300000, guid: f480e51556057e541b2df122e2ee0f07, type: 3}
+  - {fileID: 8300000, guid: 52c81033aa5d83744a8bfc47f5142f9f, type: 3}
+  - {fileID: 8300000, guid: 34799525f4a08b4479825d8ea8fa46d6, type: 3}
 --- !u!50 &971796170
 Rigidbody2D:
   serializedVersion: 5
@@ -7920,6 +7938,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   deathAudioSource: {fileID: 537382964}
+  deathClips:
+  - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
+  - {fileID: 8300000, guid: b7e0e3d10c170934b9d95f7797ecd15b, type: 3}
+  - {fileID: 8300000, guid: f480e51556057e541b2df122e2ee0f07, type: 3}
+  - {fileID: 8300000, guid: 52c81033aa5d83744a8bfc47f5142f9f, type: 3}
+  - {fileID: 8300000, guid: 34799525f4a08b4479825d8ea8fa46d6, type: 3}
 --- !u!50 &1018532114
 Rigidbody2D:
   serializedVersion: 5
@@ -8393,6 +8417,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   deathAudioSource: {fileID: 537382964}
+  deathClips:
+  - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
+  - {fileID: 8300000, guid: b7e0e3d10c170934b9d95f7797ecd15b, type: 3}
+  - {fileID: 8300000, guid: f480e51556057e541b2df122e2ee0f07, type: 3}
+  - {fileID: 8300000, guid: 52c81033aa5d83744a8bfc47f5142f9f, type: 3}
+  - {fileID: 8300000, guid: 34799525f4a08b4479825d8ea8fa46d6, type: 3}
 --- !u!50 &1051650208
 Rigidbody2D:
   serializedVersion: 5
@@ -8974,6 +9004,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   deathAudioSource: {fileID: 537382964}
+  deathClips:
+  - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
+  - {fileID: 8300000, guid: b7e0e3d10c170934b9d95f7797ecd15b, type: 3}
+  - {fileID: 8300000, guid: f480e51556057e541b2df122e2ee0f07, type: 3}
+  - {fileID: 8300000, guid: 52c81033aa5d83744a8bfc47f5142f9f, type: 3}
+  - {fileID: 8300000, guid: 34799525f4a08b4479825d8ea8fa46d6, type: 3}
 --- !u!50 &1097434576
 Rigidbody2D:
   serializedVersion: 5
@@ -9367,6 +9403,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   deathAudioSource: {fileID: 537382964}
+  deathClips:
+  - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
+  - {fileID: 8300000, guid: b7e0e3d10c170934b9d95f7797ecd15b, type: 3}
+  - {fileID: 8300000, guid: f480e51556057e541b2df122e2ee0f07, type: 3}
+  - {fileID: 8300000, guid: 52c81033aa5d83744a8bfc47f5142f9f, type: 3}
+  - {fileID: 8300000, guid: 34799525f4a08b4479825d8ea8fa46d6, type: 3}
 --- !u!50 &1109079840
 Rigidbody2D:
   serializedVersion: 5
@@ -10520,7 +10562,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1406237389}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2858.9062}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 18, y: 18, z: 18}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12282,6 +12324,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   deathAudioSource: {fileID: 537382964}
+  deathClips:
+  - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
+  - {fileID: 8300000, guid: b7e0e3d10c170934b9d95f7797ecd15b, type: 3}
+  - {fileID: 8300000, guid: f480e51556057e541b2df122e2ee0f07, type: 3}
+  - {fileID: 8300000, guid: 52c81033aa5d83744a8bfc47f5142f9f, type: 3}
+  - {fileID: 8300000, guid: 34799525f4a08b4479825d8ea8fa46d6, type: 3}
 --- !u!50 &1790444294
 Rigidbody2D:
   serializedVersion: 5
@@ -13590,6 +13638,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   deathAudioSource: {fileID: 537382964}
+  deathClips:
+  - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
+  - {fileID: 8300000, guid: b7e0e3d10c170934b9d95f7797ecd15b, type: 3}
+  - {fileID: 8300000, guid: f480e51556057e541b2df122e2ee0f07, type: 3}
+  - {fileID: 8300000, guid: 52c81033aa5d83744a8bfc47f5142f9f, type: 3}
+  - {fileID: 8300000, guid: 34799525f4a08b4479825d8ea8fa46d6, type: 3}
 --- !u!50 &2002583522
 Rigidbody2D:
   serializedVersion: 5
@@ -15013,6 +15067,26 @@ PrefabInstance:
       propertyPath: deathAudioSource
       value: 
       objectReference: {fileID: 537382964}
+    - target: {fileID: 2438577093027244426, guid: 5bb3250bcbb524df6acc68ca3eb5b975, type: 3}
+      propertyPath: 'deathClips.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
+    - target: {fileID: 2438577093027244426, guid: 5bb3250bcbb524df6acc68ca3eb5b975, type: 3}
+      propertyPath: 'deathClips.Array.data[1]'
+      value: 
+      objectReference: {fileID: 8300000, guid: b7e0e3d10c170934b9d95f7797ecd15b, type: 3}
+    - target: {fileID: 2438577093027244426, guid: 5bb3250bcbb524df6acc68ca3eb5b975, type: 3}
+      propertyPath: 'deathClips.Array.data[2]'
+      value: 
+      objectReference: {fileID: 8300000, guid: f480e51556057e541b2df122e2ee0f07, type: 3}
+    - target: {fileID: 2438577093027244426, guid: 5bb3250bcbb524df6acc68ca3eb5b975, type: 3}
+      propertyPath: 'deathClips.Array.data[3]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 52c81033aa5d83744a8bfc47f5142f9f, type: 3}
+    - target: {fileID: 2438577093027244426, guid: 5bb3250bcbb524df6acc68ca3eb5b975, type: 3}
+      propertyPath: 'deathClips.Array.data[4]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 34799525f4a08b4479825d8ea8fa46d6, type: 3}
     - target: {fileID: 2543465489117012176, guid: 5bb3250bcbb524df6acc68ca3eb5b975, type: 3}
       propertyPath: m_Name
       value: RangeStudent
@@ -15078,6 +15152,26 @@ PrefabInstance:
       propertyPath: deathAudioSource
       value: 
       objectReference: {fileID: 537382964}
+    - target: {fileID: 7308374798395958328, guid: e9d3068383c6c4492b83308e4c2acd22, type: 3}
+      propertyPath: 'deathClips.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
+    - target: {fileID: 7308374798395958328, guid: e9d3068383c6c4492b83308e4c2acd22, type: 3}
+      propertyPath: 'deathClips.Array.data[1]'
+      value: 
+      objectReference: {fileID: 8300000, guid: b7e0e3d10c170934b9d95f7797ecd15b, type: 3}
+    - target: {fileID: 7308374798395958328, guid: e9d3068383c6c4492b83308e4c2acd22, type: 3}
+      propertyPath: 'deathClips.Array.data[2]'
+      value: 
+      objectReference: {fileID: 8300000, guid: f480e51556057e541b2df122e2ee0f07, type: 3}
+    - target: {fileID: 7308374798395958328, guid: e9d3068383c6c4492b83308e4c2acd22, type: 3}
+      propertyPath: 'deathClips.Array.data[3]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 52c81033aa5d83744a8bfc47f5142f9f, type: 3}
+    - target: {fileID: 7308374798395958328, guid: e9d3068383c6c4492b83308e4c2acd22, type: 3}
+      propertyPath: 'deathClips.Array.data[4]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 34799525f4a08b4479825d8ea8fa46d6, type: 3}
     - target: {fileID: 7845751950952677389, guid: e9d3068383c6c4492b83308e4c2acd22, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.589
