@@ -115,12 +115,12 @@ TextureImporter:
       name: dash_0
       rect:
         serializedVersion: 2
-        x: 35
-        y: 7
-        width: 47
-        height: 52
+        x: 0
+        y: 13
+        width: 121
+        height: 60
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -137,12 +137,12 @@ TextureImporter:
       name: dash_1
       rect:
         serializedVersion: 2
-        x: 109
-        y: 5
-        width: 77
-        height: 54
+        x: 130
+        y: 13
+        width: 104
+        height: 60
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -159,12 +159,12 @@ TextureImporter:
       name: dash_2
       rect:
         serializedVersion: 2
-        x: 247
-        y: 5
-        width: 57
-        height: 54
+        x: 281
+        y: 13
+        width: 81
+        height: 60
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -181,12 +181,12 @@ TextureImporter:
       name: dash_3
       rect:
         serializedVersion: 2
-        x: 316
-        y: 5
-        width: 86
-        height: 54
+        x: 411
+        y: 12
+        width: 71
+        height: 61
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -203,12 +203,12 @@ TextureImporter:
       name: dash_4
       rect:
         serializedVersion: 2
-        x: 432
-        y: 5
-        width: 102
-        height: 54
+        x: 550
+        y: 13
+        width: 60
+        height: 60
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -225,7 +225,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: f59cd9ec3c2b0704e8b21ce38c7b2820
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
