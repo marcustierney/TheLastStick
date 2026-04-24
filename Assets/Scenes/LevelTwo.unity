@@ -947,6 +947,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   deathAudioSource: {fileID: 1693394383}
+  deathClips:
+  - {fileID: 8300000, guid: e3b521793c492344db18bfe228ac7078, type: 3}
+  - {fileID: 8300000, guid: e7cb56638220d9548a5b4679711600cd, type: 3}
+  - {fileID: 8300000, guid: 01f4bd262376f5e47b68aae727e2e17b, type: 3}
+  - {fileID: 8300000, guid: d25bfd8234215e04a978f96a9b49baf5, type: 3}
+  - {fileID: 8300000, guid: 09c3460dbdf026a49b0183dab5974664, type: 3}
 --- !u!50 &58670293
 Rigidbody2D:
   serializedVersion: 5
@@ -1304,6 +1310,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   deathAudioSource: {fileID: 1693394383}
+  deathClips:
+  - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
+  - {fileID: 8300000, guid: b7e0e3d10c170934b9d95f7797ecd15b, type: 3}
+  - {fileID: 8300000, guid: f480e51556057e541b2df122e2ee0f07, type: 3}
+  - {fileID: 8300000, guid: 52c81033aa5d83744a8bfc47f5142f9f, type: 3}
+  - {fileID: 8300000, guid: 34799525f4a08b4479825d8ea8fa46d6, type: 3}
 --- !u!50 &63749630
 Rigidbody2D:
   serializedVersion: 5
@@ -1658,7 +1670,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 76806926}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2377.8706}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 75, y: 75, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1922,6 +1934,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   deathAudioSource: {fileID: 1693394383}
+  deathClips:
+  - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
+  - {fileID: 8300000, guid: b7e0e3d10c170934b9d95f7797ecd15b, type: 3}
+  - {fileID: 8300000, guid: f480e51556057e541b2df122e2ee0f07, type: 3}
+  - {fileID: 8300000, guid: 52c81033aa5d83744a8bfc47f5142f9f, type: 3}
+  - {fileID: 8300000, guid: 34799525f4a08b4479825d8ea8fa46d6, type: 3}
 --- !u!50 &94499595
 Rigidbody2D:
   serializedVersion: 5
@@ -3619,6 +3637,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   deathAudioSource: {fileID: 1693394383}
+  deathClips:
+  - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
+  - {fileID: 8300000, guid: b7e0e3d10c170934b9d95f7797ecd15b, type: 3}
+  - {fileID: 8300000, guid: f480e51556057e541b2df122e2ee0f07, type: 3}
+  - {fileID: 8300000, guid: 52c81033aa5d83744a8bfc47f5142f9f, type: 3}
+  - {fileID: 8300000, guid: 34799525f4a08b4479825d8ea8fa46d6, type: 3}
 --- !u!50 &251523483
 Rigidbody2D:
   serializedVersion: 5
@@ -4445,6 +4469,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   deathAudioSource: {fileID: 1693394383}
+  deathClips:
+  - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
+  - {fileID: 8300000, guid: b7e0e3d10c170934b9d95f7797ecd15b, type: 3}
+  - {fileID: 8300000, guid: f480e51556057e541b2df122e2ee0f07, type: 3}
+  - {fileID: 8300000, guid: 52c81033aa5d83744a8bfc47f5142f9f, type: 3}
+  - {fileID: 8300000, guid: 34799525f4a08b4479825d8ea8fa46d6, type: 3}
 --- !u!50 &283509830
 Rigidbody2D:
   serializedVersion: 5
@@ -5162,6 +5192,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   deathAudioSource: {fileID: 1693394383}
+  deathClips:
+  - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
+  - {fileID: 8300000, guid: b7e0e3d10c170934b9d95f7797ecd15b, type: 3}
+  - {fileID: 8300000, guid: f480e51556057e541b2df122e2ee0f07, type: 3}
+  - {fileID: 8300000, guid: 52c81033aa5d83744a8bfc47f5142f9f, type: 3}
+  - {fileID: 8300000, guid: 34799525f4a08b4479825d8ea8fa46d6, type: 3}
 --- !u!50 &311474307
 Rigidbody2D:
   serializedVersion: 5
@@ -5789,6 +5825,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   deathAudioSource: {fileID: 1693394383}
+  deathClips:
+  - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
+  - {fileID: 8300000, guid: b7e0e3d10c170934b9d95f7797ecd15b, type: 3}
+  - {fileID: 8300000, guid: f480e51556057e541b2df122e2ee0f07, type: 3}
+  - {fileID: 8300000, guid: 52c81033aa5d83744a8bfc47f5142f9f, type: 3}
+  - {fileID: 8300000, guid: 34799525f4a08b4479825d8ea8fa46d6, type: 3}
 --- !u!50 &344393362
 Rigidbody2D:
   serializedVersion: 5
@@ -6383,7 +6425,7 @@ SpriteRenderer:
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
@@ -7154,6 +7196,13 @@ MonoBehaviour:
   healthCostText: {fileID: 304237838}
   healthLevelText: {fileID: 1305307222}
   healthIncreasePerUpgrade: 10
+  purchaseAudioSource: {fileID: 1445136940}
+  purchaseClips:
+  - {fileID: 8300000, guid: 6b530f6e7f53b1e41a9345f1d26193a8, type: 3}
+  - {fileID: 8300000, guid: 3fd84c830bb7dd5469e8bf831ea4dbe2, type: 3}
+  - {fileID: 8300000, guid: a122ade7de79a3b488d4c4f93eaae48c, type: 3}
+  - {fileID: 8300000, guid: 66ecf86999d84774fa440a060d72c325, type: 3}
+  - {fileID: 8300000, guid: 9836c97c1f148a04dbca0409c46dae5c, type: 3}
 --- !u!114 &410673946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8727,6 +8776,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   deathAudioSource: {fileID: 1693394383}
+  deathClips:
+  - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
+  - {fileID: 8300000, guid: b7e0e3d10c170934b9d95f7797ecd15b, type: 3}
+  - {fileID: 8300000, guid: f480e51556057e541b2df122e2ee0f07, type: 3}
+  - {fileID: 8300000, guid: 52c81033aa5d83744a8bfc47f5142f9f, type: 3}
+  - {fileID: 8300000, guid: 34799525f4a08b4479825d8ea8fa46d6, type: 3}
 --- !u!50 &493979932
 Rigidbody2D:
   serializedVersion: 5
@@ -8922,6 +8977,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   deathAudioSource: {fileID: 1693394383}
+  deathClips:
+  - {fileID: 8300000, guid: e3b521793c492344db18bfe228ac7078, type: 3}
+  - {fileID: 8300000, guid: e7cb56638220d9548a5b4679711600cd, type: 3}
+  - {fileID: 8300000, guid: 01f4bd262376f5e47b68aae727e2e17b, type: 3}
+  - {fileID: 8300000, guid: d25bfd8234215e04a978f96a9b49baf5, type: 3}
+  - {fileID: 8300000, guid: 09c3460dbdf026a49b0183dab5974664, type: 3}
 --- !u!50 &503794337
 Rigidbody2D:
   serializedVersion: 5
@@ -9468,6 +9529,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   deathAudioSource: {fileID: 1693394383}
+  deathClips:
+  - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
+  - {fileID: 8300000, guid: b7e0e3d10c170934b9d95f7797ecd15b, type: 3}
+  - {fileID: 8300000, guid: f480e51556057e541b2df122e2ee0f07, type: 3}
+  - {fileID: 8300000, guid: 52c81033aa5d83744a8bfc47f5142f9f, type: 3}
+  - {fileID: 8300000, guid: 34799525f4a08b4479825d8ea8fa46d6, type: 3}
 --- !u!50 &550895631
 Rigidbody2D:
   serializedVersion: 5
@@ -10698,6 +10765,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   deathAudioSource: {fileID: 1693394383}
+  deathClips:
+  - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
+  - {fileID: 8300000, guid: b7e0e3d10c170934b9d95f7797ecd15b, type: 3}
+  - {fileID: 8300000, guid: f480e51556057e541b2df122e2ee0f07, type: 3}
+  - {fileID: 8300000, guid: 52c81033aa5d83744a8bfc47f5142f9f, type: 3}
+  - {fileID: 8300000, guid: 34799525f4a08b4479825d8ea8fa46d6, type: 3}
 --- !u!50 &641939936
 Rigidbody2D:
   serializedVersion: 5
@@ -14460,6 +14533,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   deathAudioSource: {fileID: 1693394383}
+  deathClips:
+  - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
+  - {fileID: 8300000, guid: b7e0e3d10c170934b9d95f7797ecd15b, type: 3}
+  - {fileID: 8300000, guid: f480e51556057e541b2df122e2ee0f07, type: 3}
+  - {fileID: 8300000, guid: 52c81033aa5d83744a8bfc47f5142f9f, type: 3}
+  - {fileID: 8300000, guid: 34799525f4a08b4479825d8ea8fa46d6, type: 3}
 --- !u!50 &1014808872
 Rigidbody2D:
   serializedVersion: 5
@@ -15223,6 +15302,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   deathAudioSource: {fileID: 1693394383}
+  deathClips:
+  - {fileID: 8300000, guid: e3b521793c492344db18bfe228ac7078, type: 3}
+  - {fileID: 8300000, guid: e7cb56638220d9548a5b4679711600cd, type: 3}
+  - {fileID: 8300000, guid: 01f4bd262376f5e47b68aae727e2e17b, type: 3}
+  - {fileID: 8300000, guid: d25bfd8234215e04a978f96a9b49baf5, type: 3}
+  - {fileID: 8300000, guid: 09c3460dbdf026a49b0183dab5974664, type: 3}
 --- !u!50 &1066661733
 Rigidbody2D:
   serializedVersion: 5
@@ -15682,6 +15767,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   deathAudioSource: {fileID: 1693394383}
+  deathClips:
+  - {fileID: 8300000, guid: e3b521793c492344db18bfe228ac7078, type: 3}
+  - {fileID: 8300000, guid: e7cb56638220d9548a5b4679711600cd, type: 3}
+  - {fileID: 8300000, guid: 01f4bd262376f5e47b68aae727e2e17b, type: 3}
+  - {fileID: 8300000, guid: d25bfd8234215e04a978f96a9b49baf5, type: 3}
+  - {fileID: 8300000, guid: 09c3460dbdf026a49b0183dab5974664, type: 3}
 --- !u!50 &1095853778
 Rigidbody2D:
   serializedVersion: 5
@@ -16526,6 +16617,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   deathAudioSource: {fileID: 1693394383}
+  deathClips:
+  - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
+  - {fileID: 8300000, guid: b7e0e3d10c170934b9d95f7797ecd15b, type: 3}
+  - {fileID: 8300000, guid: f480e51556057e541b2df122e2ee0f07, type: 3}
+  - {fileID: 8300000, guid: 52c81033aa5d83744a8bfc47f5142f9f, type: 3}
+  - {fileID: 8300000, guid: 34799525f4a08b4479825d8ea8fa46d6, type: 3}
 --- !u!50 &1131748222
 Rigidbody2D:
   serializedVersion: 5
@@ -18224,6 +18321,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   deathAudioSource: {fileID: 1693394383}
+  deathClips:
+  - {fileID: 8300000, guid: e3b521793c492344db18bfe228ac7078, type: 3}
+  - {fileID: 8300000, guid: e7cb56638220d9548a5b4679711600cd, type: 3}
+  - {fileID: 8300000, guid: 01f4bd262376f5e47b68aae727e2e17b, type: 3}
+  - {fileID: 8300000, guid: d25bfd8234215e04a978f96a9b49baf5, type: 3}
+  - {fileID: 8300000, guid: 09c3460dbdf026a49b0183dab5974664, type: 3}
 --- !u!50 &1242375695
 Rigidbody2D:
   serializedVersion: 5
@@ -20134,7 +20237,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1345258460}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2858.9065}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 17.999914, y: 17.999914, z: 17.999914}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21303,6 +21406,135 @@ Transform:
   m_Children: []
   m_Father: {fileID: 311474310}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!1 &1445136939
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1445136941}
+  - component: {fileID: 1445136940}
+  m_Layer: 0
+  m_Name: Purchase
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &1445136940
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1445136939}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.5
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &1445136941
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1445136939}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1448614266
 GameObject:
   m_ObjectHideFlags: 0
@@ -24759,6 +24991,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   deathAudioSource: {fileID: 1693394383}
+  deathClips:
+  - {fileID: 8300000, guid: e3b521793c492344db18bfe228ac7078, type: 3}
+  - {fileID: 8300000, guid: e7cb56638220d9548a5b4679711600cd, type: 3}
+  - {fileID: 8300000, guid: 01f4bd262376f5e47b68aae727e2e17b, type: 3}
+  - {fileID: 8300000, guid: d25bfd8234215e04a978f96a9b49baf5, type: 3}
+  - {fileID: 8300000, guid: 09c3460dbdf026a49b0183dab5974664, type: 3}
 --- !u!50 &1674185677
 Rigidbody2D:
   serializedVersion: 5
@@ -25006,7 +25244,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 5148463774940904718, guid: b937f504e11073e4c8a015f7480885a5, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 835ee498fdc2991439ddae7a9b6f37a0, type: 3}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -25460,6 +25698,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   deathAudioSource: {fileID: 1693394383}
+  deathClips:
+  - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
+  - {fileID: 8300000, guid: b7e0e3d10c170934b9d95f7797ecd15b, type: 3}
+  - {fileID: 8300000, guid: f480e51556057e541b2df122e2ee0f07, type: 3}
+  - {fileID: 8300000, guid: 52c81033aa5d83744a8bfc47f5142f9f, type: 3}
+  - {fileID: 8300000, guid: 34799525f4a08b4479825d8ea8fa46d6, type: 3}
 --- !u!50 &1722841086
 Rigidbody2D:
   serializedVersion: 5
@@ -26108,6 +26352,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   deathAudioSource: {fileID: 1693394383}
+  deathClips:
+  - {fileID: 8300000, guid: e3b521793c492344db18bfe228ac7078, type: 3}
+  - {fileID: 8300000, guid: e7cb56638220d9548a5b4679711600cd, type: 3}
+  - {fileID: 8300000, guid: 01f4bd262376f5e47b68aae727e2e17b, type: 3}
+  - {fileID: 8300000, guid: d25bfd8234215e04a978f96a9b49baf5, type: 3}
+  - {fileID: 8300000, guid: 09c3460dbdf026a49b0183dab5974664, type: 3}
 --- !u!50 &1803093643
 Rigidbody2D:
   serializedVersion: 5
@@ -29762,6 +30012,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   deathAudioSource: {fileID: 1693394383}
+  deathClips:
+  - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
+  - {fileID: 8300000, guid: b7e0e3d10c170934b9d95f7797ecd15b, type: 3}
+  - {fileID: 8300000, guid: f480e51556057e541b2df122e2ee0f07, type: 3}
+  - {fileID: 8300000, guid: 52c81033aa5d83744a8bfc47f5142f9f, type: 3}
+  - {fileID: 8300000, guid: 34799525f4a08b4479825d8ea8fa46d6, type: 3}
 --- !u!50 &2074401886
 Rigidbody2D:
   serializedVersion: 5
@@ -31749,3 +32005,4 @@ SceneRoots:
   - {fileID: 474225664}
   - {fileID: 1649098666}
   - {fileID: 1956390264}
+  - {fileID: 1445136941}

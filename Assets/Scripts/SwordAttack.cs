@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SwordAttack : MonoBehaviour
@@ -22,6 +23,16 @@ public class SwordAttack : MonoBehaviour
     [SerializeField] private string dashAttackStateName = "Dash_Attack";
     [SerializeField] private string swordStandBoolName = "isSwordStanding";
     [SerializeField] private AudioSource attackAudioSource;
+    [SerializeField] private KeyCode attackKey = KeyCode.Space;
+    [SerializeField] private int comboLength = 4;
+    [SerializeField] private float comboResetDelay = 0.7f;
+    [SerializeField] private string comboStepIntName = "attackComboStep";
+    [SerializeField] private string comboTriggerName = "attackCombo";
+
+    private int comboStepIndex;
+    private float lastAttackInputTime = float.NegativeInfinity;
+    private bool queuedComboAttack;
+    private readonly HashSet<string> animatorParameterNames = new HashSet<string>();
 
     public bool IsAttacking => isAttacking;
     public bool IsSwordStanding => isSwordStanding;
@@ -31,14 +42,35 @@ public class SwordAttack : MonoBehaviour
     {
         movement = GetComponent<Movement>();
         animator = GetComponent<Animator>();
+        CacheAnimatorParameters();
+
+        comboLength = Mathf.Max(1, comboLength);
+        comboResetDelay = Mathf.Max(0.01f, comboResetDelay);
     }
 
     void Update()
     {
-        if (isAttacking) return;
-
         //bool attackKeyPressed = Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow);
-        bool attackKeyPressed = Input.GetKeyDown(KeyCode.Space);
+        bool attackKeyPressed = Input.GetKeyDown(attackKey);
+        if (attackKeyPressed)
+        {
+            lastAttackInputTime = Time.time;
+        }
+
+        if (!isAttacking && !isDashAttacking && Time.time - lastAttackInputTime > comboResetDelay)
+        {
+            comboStepIndex = 0;
+        }
+
+        if (isAttacking)
+        {
+            if (!isSwordStanding && !movement.IsDashing && attackKeyPressed)
+            {
+                queuedComboAttack = true;
+            }
+            return;
+        }
+
         if (!movement.IsGrounded() && Input.GetKeyDown(KeyCode.S))
         {
             if (!usedSwordStand)
@@ -61,8 +93,8 @@ public class SwordAttack : MonoBehaviour
         }
 
         bool facingRight = movement.FacingRight;
-        if ((facingRight && Input.GetKeyDown(KeyCode.Space)) ||
-            (!facingRight && Input.GetKeyDown(KeyCode.Space)))
+        if ((facingRight && attackKeyPressed) ||
+            (!facingRight && attackKeyPressed))
         {
             StartCoroutine(Attack());
         }
@@ -75,6 +107,9 @@ public class SwordAttack : MonoBehaviour
 
     private IEnumerator SwordStand()
     {
+        comboStepIndex = 0;
+        queuedComboAttack = false;
+
         GameObject standHitbox = GetSwordStandHitbox();
         if (standHitbox == null)
         {
@@ -140,6 +175,19 @@ public class SwordAttack : MonoBehaviour
         PlayAttackSound();
         bool dashAttack = movement.IsDashing;
         isDashAttacking = dashAttack;
+        queuedComboAttack = false;
+
+        if (!dashAttack && Time.time - lastAttackInputTime > comboResetDelay)
+        {
+            comboStepIndex = 0;
+        }
+
+        int currentComboStep = comboStepIndex;
+        if (!dashAttack)
+        {
+            comboStepIndex = (comboStepIndex + 1) % comboLength;
+        }
+
         bool facingRight = movement.FacingRight;
         activeAttackHitbox = GetAttackHitbox(dashAttack);
 
@@ -162,6 +210,10 @@ public class SwordAttack : MonoBehaviour
             if (dashAttack && !string.IsNullOrEmpty(dashAttackStateName))
             {
                 animator.CrossFadeInFixedTime(dashAttackStateName, 0.02f, 0, 0f);
+            }
+            else
+            {
+                TriggerComboAnimation(currentComboStep);
             }
         }
 
@@ -213,6 +265,11 @@ public class SwordAttack : MonoBehaviour
         isDashAttacking = false;
         
         isAttacking = false;
+
+        if (!dashAttack && queuedComboAttack && Time.time - lastAttackInputTime <= comboResetDelay)
+        {
+            StartCoroutine(Attack());
+        }
     }
 
     private void LateUpdate()
@@ -334,5 +391,49 @@ public class SwordAttack : MonoBehaviour
         }
 
         attackAudioSource.Play();
+    }
+
+    private void CacheAnimatorParameters()
+    {
+        animatorParameterNames.Clear();
+
+        if (animator == null)
+        {
+            return;
+        }
+
+        AnimatorControllerParameter[] parameters = animator.parameters;
+        for (int i = 0; i < parameters.Length; i++)
+        {
+            animatorParameterNames.Add(parameters[i].name);
+        }
+    }
+
+    private bool HasAnimatorParameter(string parameterName)
+    {
+        if (string.IsNullOrEmpty(parameterName))
+        {
+            return false;
+        }
+
+        return animatorParameterNames.Contains(parameterName);
+    }
+
+    private void TriggerComboAnimation(int comboStep)
+    {
+        if (animator == null)
+        {
+            return;
+        }
+
+        if (HasAnimatorParameter(comboStepIntName))
+        {
+            animator.SetInteger(comboStepIntName, comboStep + 1);
+        }
+
+        if (HasAnimatorParameter(comboTriggerName))
+        {
+            animator.SetTrigger(comboTriggerName);
+        }
     }
 }

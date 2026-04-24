@@ -24,7 +24,9 @@ public class ThrowEnemy : MonoBehaviour
     public float ledgeCheckDistance = 1f; 
     public float ledgeCheckDepth = 1f;   
     public LayerMask groundLayer;           
+    [Header("Death Sound")]
     [SerializeField] private AudioSource deathAudioSource;
+    [SerializeField] private AudioClip[] deathClips = new AudioClip[5];
 
     private void Awake()
     {
@@ -129,12 +131,33 @@ public class ThrowEnemy : MonoBehaviour
 
     private void PlayDeathSound()
     {
-        if (deathAudioSource == null || deathAudioSource.clip == null)
+        AudioClip clipToPlay = GetRandomDeathClip();
+        if (clipToPlay == null)
         {
             return;
         }
 
-        AudioSource.PlayClipAtPoint(deathAudioSource.clip, transform.position);
+        AudioSource.PlayClipAtPoint(clipToPlay, transform.position);
+    }
+
+    private AudioClip GetRandomDeathClip()
+    {
+        if (deathClips != null && deathClips.Length > 0)
+        {
+            int clipIndex = Random.Range(0, deathClips.Length);
+            AudioClip clip = deathClips[clipIndex];
+            if (clip != null)
+            {
+                return clip;
+            }
+        }
+
+        if (deathAudioSource != null && deathAudioSource.clip != null)
+        {
+            return deathAudioSource.clip;
+        }
+
+        return null;
     }
 
     IEnumerator ThrowBall()

@@ -22,7 +22,9 @@ public class Enemy : MonoBehaviour
     public float ledgeCheckDistance = 1f; 
     public float ledgeCheckDepth = 1f;   
     public LayerMask groundLayer;
+    [Header("Death Sound")]
     [SerializeField] private AudioSource deathAudioSource;
+    [SerializeField] private AudioClip[] deathClips = new AudioClip[5];
 
     private void Awake()
     {
@@ -169,12 +171,33 @@ public class Enemy : MonoBehaviour
 
     private void PlayDeathSound()
     {
-        if (deathAudioSource == null || deathAudioSource.clip == null)
+        AudioClip clipToPlay = GetRandomDeathClip();
+        if (clipToPlay == null)
         {
             return;
         }
 
-        AudioSource.PlayClipAtPoint(deathAudioSource.clip, transform.position);
+        AudioSource.PlayClipAtPoint(clipToPlay, transform.position);
+    }
+
+    private AudioClip GetRandomDeathClip()
+    {
+        if (deathClips != null && deathClips.Length > 0)
+        {
+            int clipIndex = Random.Range(0, deathClips.Length);
+            AudioClip clip = deathClips[clipIndex];
+            if (clip != null)
+            {
+                return clip;
+            }
+        }
+
+        if (deathAudioSource != null && deathAudioSource.clip != null)
+        {
+            return deathAudioSource.clip;
+        }
+
+        return null;
     }
 
 ///THIS TABBED OUT CODE IS FOR IF WE WANT TO PLAYER TOUCHING THE ENEMEY TO DO DAMAGE OR ONLY THE ENEMY WEAPON

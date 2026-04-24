@@ -11,10 +11,7 @@ public class GreyscaleToggleButton : MonoBehaviour
 
     private void Awake()
     {
-        if (targetImage == null)
-        {
-            targetImage = GetComponent<Image>();
-        }
+        ResolveTargetImage();
     }
 
     private void OnEnable()
@@ -24,6 +21,7 @@ public class GreyscaleToggleButton : MonoBehaviour
             return;
         }
 
+        ResolveTargetImage();
         manager = EnsureGreyscaleManager();
 
         manager.GreyscaleStateChanged += HandleGreyscaleStateChanged;
@@ -37,15 +35,23 @@ public class GreyscaleToggleButton : MonoBehaviour
             return;
         }
 
-        if (manager != null)
+        UnregisterFromManager();
+    }
+
+    private void OnDestroy()
+    {
+        if (!Application.isPlaying)
         {
-            manager.GreyscaleStateChanged -= HandleGreyscaleStateChanged;
+            return;
         }
+
+        UnregisterFromManager();
+        targetImage = null;
     }
 
     private void HandleGreyscaleStateChanged(bool enabled)
     {
-        if (targetImage == null)
+        if (!ResolveTargetImage())
         {
             return;
         }
@@ -68,5 +74,25 @@ public class GreyscaleToggleButton : MonoBehaviour
 
         GameObject managerObject = new GameObject("GreyscaleManager");
         return managerObject.AddComponent<GreyscaleManager>();
+    }
+
+    private void UnregisterFromManager()
+    {
+        if (manager != null)
+        {
+            manager.GreyscaleStateChanged -= HandleGreyscaleStateChanged;
+            manager = null;
+        }
+    }
+
+    private bool ResolveTargetImage()
+    {
+        if (targetImage != null)
+        {
+            return true;
+        }
+
+        targetImage = GetComponent<Image>();
+        return targetImage != null;
     }
 }
