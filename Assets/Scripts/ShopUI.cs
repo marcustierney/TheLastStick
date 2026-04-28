@@ -1,10 +1,14 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShopUI : MonoBehaviour
 {
     [Header("Shop Panel")]
     [SerializeField] private GameObject shopPanel;
+    [SerializeField] private UIFocusGuard focusGuard;
+    [SerializeField] private Selectable shopDefaultSelectable;
 
     [Header("Speed Upgrade")]
     [SerializeField] private TMP_Text speedCostText;
@@ -29,18 +33,48 @@ public class ShopUI : MonoBehaviour
     {
         CachePurchaseAudioSource();
         if (shopPanel != null) shopPanel.SetActive(false);
+        if (focusGuard == null)
+        {
+            focusGuard = Object.FindAnyObjectByType<UIFocusGuard>(FindObjectsInactive.Include);
+        }
+
+        if (shopDefaultSelectable == null)
+        {
+            shopDefaultSelectable = FindFirstSelectable(shopPanel);
+        }
         RefreshUI();
     }
 
     public void Toggle()
     {
         if (shopPanel == null) return;
-        shopPanel.SetActive(!shopPanel.activeSelf);
+        bool shouldOpen = !shopPanel.activeSelf;
+        shopPanel.SetActive(shouldOpen);
+
+        if (shouldOpen)
+        {
+            StartCoroutine(SelectAfterFrame(shopDefaultSelectable));
+            return;
+        }
+
+        if (focusGuard != null)
+        {
+            focusGuard.ClearSelection();
+        }
     }
 
     public void Close()
     {
-        if (shopPanel != null) shopPanel.SetActive(false);
+        if (shopPanel == null)
+        {
+            return;
+        }
+
+        shopPanel.SetActive(false);
+        if (focusGuard != null)
+        {
+            focusGuard.ClearSelection();
+        }
     }
 
     // Called by the Speed upgrade button via OnClick in the Inspector
@@ -140,5 +174,27 @@ public class ShopUI : MonoBehaviour
         {
             purchaseAudioSource = purchaseObject.GetComponent<AudioSource>();
         }
+    }
+
+    private IEnumerator SelectAfterFrame(Selectable selectable)
+    {
+        yield return null;
+
+        if (focusGuard != null && selectable != null && selectable.gameObject.activeInHierarchy)
+        {
+            focusGuard.SetCurrentFallback(selectable);
+            focusGuard.ForceSelectCurrentFallback();
+        }
+    }
+
+    private static Selectable FindFirstSelectable(GameObject root)
+    {
+        if (root == null)
+        {
+            return null;
+        }
+
+        Selectable[] selectables = root.GetComponentsInChildren<Selectable>(true);
+        return selectables.Length > 0 ? selectables[0] : null;
     }
 }
