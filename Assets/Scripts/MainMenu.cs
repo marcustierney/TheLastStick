@@ -3,10 +3,15 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    [SerializeField] CanvasGroup mainMenuPanel;
+    [SerializeField] CanvasGroup optionsPanel;
+    [SerializeField] CanvasGroup creditsPanel;
+
     private void Awake()
     {
         EnsureGreyscaleManager();
     }
+
     public void PlayGame()
     {
         int level = PlayerPrefs.GetInt("CurrentLevel", 0);
@@ -38,17 +43,27 @@ public class MainMenu : MonoBehaviour
 
     public void OpenOptions()
     {
-        SceneManager.LoadScene("Options");
+        SetPanel(mainMenuPanel, false);
+        SetPanel(creditsPanel, false);
+        SetPanel(optionsPanel, true);
+        optionsPanel.GetComponent<OptionsTabManager>().ShowGraphics();
+
     }
 
     public void OpenCredits()
     {
-        SceneManager.LoadScene("Credits");
+        SetPanel(mainMenuPanel, false);
+        SetPanel(optionsPanel, false);
+        SetPanel(creditsPanel, true);
     }
+
     public void BackToMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        SetPanel(optionsPanel, false);
+        SetPanel(creditsPanel, false);
+        SetPanel(mainMenuPanel, true);
     }
+
     public void QuitGame()
     {
         Application.Quit();
@@ -64,13 +79,17 @@ public class MainMenu : MonoBehaviour
         EnsureGreyscaleManager().SetGreyscale(enabled);
     }
 
+    private void SetPanel(CanvasGroup cg, bool on)
+    {
+        cg.alpha          = on ? 1f : 0f;
+        cg.interactable   = on;
+        cg.blocksRaycasts = on;
+    }
+
     private static GreyscaleManager EnsureGreyscaleManager()
     {
         GreyscaleManager manager = Object.FindAnyObjectByType<GreyscaleManager>(FindObjectsInactive.Include);
-        if (manager != null)
-        {
-            return manager;
-        }
+        if (manager != null) return manager;
 
         GameObject managerObject = new GameObject("GreyscaleManager");
         return managerObject.AddComponent<GreyscaleManager>();

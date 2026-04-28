@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 9ea06e94d6f934cb88e61362a1a4c1b1
+guid: 26b5d2aae0e7f0042af5161e2b859b83
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -716521792549702372
-    second: pixel_bg_w_o_sword_buttons_0
+      213: -996115601472494200
+    second: settingsBG_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: pixel_bg_w_o_sword_buttons_0
+      name: settingsBG_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1280
-        height: 720
+        width: 400
+        height: 294
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c15bf39d9376e06f0800000000000000
-      internalID: -716521792549702372
+      spriteID: 885e10b53261d22f0800000000000000
+      internalID: -996115601472494200
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      pixel_bg_w_o_sword_buttons_0: -716521792549702372
+      settingsBG_0: -996115601472494200
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
