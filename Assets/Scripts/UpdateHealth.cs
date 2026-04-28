@@ -67,7 +67,6 @@ public class UpdateHealth : MonoBehaviour
             SetHealth(regenRate * Time.deltaTime);
         }
 
-        // Legacy input debug snippets removed during Input System migration.
     }
 
     public void SetHealth(float healthChange) // Adjust health by a specified amount and update the health bar

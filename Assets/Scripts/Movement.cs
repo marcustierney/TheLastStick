@@ -425,7 +425,7 @@ public class Movement : MonoBehaviour
             return true;
         }
 
-        return Gamepad.current != null && Gamepad.current.leftStickButton.isPressed;
+        return Gamepad.current != null && Gamepad.current.rightShoulder.isPressed;
     }
 
     private bool IsSprintPressedThisFrame()
@@ -441,7 +441,7 @@ public class Movement : MonoBehaviour
             return true;
         }
 
-        return Gamepad.current != null && Gamepad.current.leftStickButton.wasPressedThisFrame;
+        return Gamepad.current != null && Gamepad.current.rightShoulder.wasPressedThisFrame;
     }
 
     private float ResolveHorizontalInput()
