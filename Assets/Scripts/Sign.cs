@@ -1,16 +1,15 @@
 using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 
 public class Sign : MonoBehaviour, IInteractable
 {
+    private InputSystem_Actions inputActions;
     [Header("Sign Content")]
     [SerializeField, TextArea(2, 6)] private string signText = "Put your sign text here.";
     [SerializeField, TextArea(2, 6)] private List<string> signTexts = new List<string>();
     [SerializeField] private bool interactOnce = false;
-
-    [Header("Input")]
-    [SerializeField] private KeyCode interactKey = KeyCode.E;
 
     [Header("Optional UI References")]
     [SerializeField] private GameObject interactionPrompt;
@@ -32,7 +31,7 @@ public class Sign : MonoBehaviour, IInteractable
             return;
         }
 
-        if (Input.GetKeyDown(interactKey) && CanInteract())
+        if (inputActions.Player.Interact.WasPressedThisFrame() && CanInteract())
         {
             Interact();
         }
@@ -85,6 +84,21 @@ public class Sign : MonoBehaviour, IInteractable
         }
 
         UpdatePromptState();
+    }
+
+    private void Awake()
+    {
+        inputActions = new InputSystem_Actions();
+    }
+
+    private void OnEnable()
+    {
+        inputActions?.Player.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputActions?.Player.Disable();
     }
 
     private void ApplySignText()

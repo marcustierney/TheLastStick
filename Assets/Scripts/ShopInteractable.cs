@@ -1,8 +1,9 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ShopInteractable : MonoBehaviour, IInteractable
 {
-    [SerializeField] private KeyCode interactKey = KeyCode.E;
+    private InputSystem_Actions inputActions;
     [SerializeField] private GameObject interactionPrompt;
     [SerializeField] private ShopUI shopUI;
 
@@ -11,8 +12,23 @@ public class ShopInteractable : MonoBehaviour, IInteractable
     private void Update()
     {
         if (!playerInRange) return;
-        if (Input.GetKeyDown(interactKey) && CanInteract())
+        if (inputActions.Player.Interact.WasPressedThisFrame() && CanInteract())
             Interact();
+    }
+
+    private void Awake()
+    {
+        inputActions = new InputSystem_Actions();
+    }
+
+    private void OnEnable()
+    {
+        inputActions?.Player.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputActions?.Player.Disable();
     }
 
     public void Interact()

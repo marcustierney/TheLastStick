@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class SwordAttack : MonoBehaviour
 {
+    private InputSystem_Actions inputActions;
     public GameObject swordHitbox;
     [SerializeField] private GameObject swordStandHitbox;
     [SerializeField] private GameObject dashAttackHitbox;
@@ -23,7 +25,6 @@ public class SwordAttack : MonoBehaviour
     [SerializeField] private string dashAttackStateName = "Dash_Attack";
     [SerializeField] private string swordStandBoolName = "isSwordStanding";
     [SerializeField] private AudioSource attackAudioSource;
-    [SerializeField] private KeyCode attackKey = KeyCode.Space;
     [SerializeField] private int comboLength = 4;
     [SerializeField] private float comboResetDelay = 0.7f;
     [SerializeField] private string comboStepIntName = "attackComboStep";
@@ -33,6 +34,7 @@ public class SwordAttack : MonoBehaviour
     private float lastAttackInputTime = float.NegativeInfinity;
     private bool queuedComboAttack;
     private readonly HashSet<string> animatorParameterNames = new HashSet<string>();
+    private bool wasDownInputHeld;
 
     public bool IsAttacking => isAttacking;
     public bool IsSwordStanding => isSwordStanding;
@@ -40,6 +42,7 @@ public class SwordAttack : MonoBehaviour
 
     private void Awake()
     {
+        inputActions = new InputSystem_Actions();
         movement = GetComponent<Movement>();
         animator = GetComponent<Animator>();
         CacheAnimatorParameters();
@@ -48,10 +51,19 @@ public class SwordAttack : MonoBehaviour
         comboResetDelay = Mathf.Max(0.01f, comboResetDelay);
     }
 
+    private void OnEnable()
+    {
+        inputActions?.Player.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputActions?.Player.Disable();
+    }
+
     void Update()
     {
-        //bool attackKeyPressed = Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow);
-        bool attackKeyPressed = Input.GetKeyDown(attackKey);
+        bool attackKeyPressed = inputActions.Player.Attack.WasPressedThisFrame();
         if (attackKeyPressed)
         {
             lastAttackInputTime = Time.time;
@@ -71,7 +83,10 @@ public class SwordAttack : MonoBehaviour
             return;
         }
 
-        if (!movement.IsGrounded() && Input.GetKeyDown(KeyCode.S))
+        Vector2 moveInput = inputActions.Player.Move.ReadValue<Vector2>();
+        bool downInputPressed = IsDownAttackPressedThisFrame(moveInput);
+
+        if (!movement.IsGrounded() && downInputPressed)
         {
             if (!usedSwordStand)
             {
@@ -128,11 +143,19 @@ public class SwordAttack : MonoBehaviour
         //make sword standable
         standHitbox.SetActive(true);
         standHitbox.GetComponent<SwordHitbox>().EnablePlatform();
+        Vector2 initialMoveInput = inputActions.Player.Move.ReadValue<Vector2>();
+        bool wasMoveCancelHeld = Mathf.Abs(initialMoveInput.x) > 0.5f;
+        bool wasJumpHeld = initialMoveInput.y > 0.5f;
 
         while (isSwordStanding)
         {
-            bool moveCancelPressed = Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D);
-            bool jumpOffPressed = Input.GetKeyDown(KeyCode.W) && swordStandTouchGround;
+            Vector2 moveInput = inputActions.Player.Move.ReadValue<Vector2>();
+            bool moveCancelHeld = Mathf.Abs(moveInput.x) > 0.5f;
+            bool jumpHeld = moveInput.y > 0.5f;
+            bool moveCancelPressed = moveCancelHeld && !wasMoveCancelHeld;
+            bool jumpOffPressed = jumpHeld && !wasJumpHeld && swordStandTouchGround;
+            wasMoveCancelHeld = moveCancelHeld;
+            wasJumpHeld = jumpHeld;
 
             if (moveCancelPressed || jumpOffPressed)
             {
@@ -435,5 +458,19 @@ public class SwordAttack : MonoBehaviour
         {
             animator.SetTrigger(comboTriggerName);
         }
+    }
+
+    private bool IsDownAttackPressedThisFrame(Vector2 moveInput)
+    {
+        if (Keyboard.current != null &&
+            (Keyboard.current.sKey.wasPressedThisFrame || Keyboard.current.downArrowKey.wasPressedThisFrame))
+        {
+            return true;
+        }
+
+        bool downInputHeld = moveInput.y < -0.5f;
+        bool downInputPressed = downInputHeld && !wasDownInputHeld;
+        wasDownInputHeld = downInputHeld;
+        return downInputPressed;
     }
 }

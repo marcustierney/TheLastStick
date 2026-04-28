@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Movement : MonoBehaviour
 {
+    private InputSystem_Actions inputActions;
     private bool areGrounded = false; 
     private bool isWalking = false;  
     private bool spacebarPressed = false;
@@ -25,6 +27,9 @@ public class Movement : MonoBehaviour
     private List<Collider2D> ignoredIFrameColliders = new List<Collider2D>(); // Colliders ignored during I-frames (e.g. after taking damage)
     private bool isJumping = false; 
     private bool shiftHold = false;
+    private int lastKeyboardHorizontalDirection = 1;
+    private bool previousLeftPressed = false;
+    private bool previousRightPressed = false;
 
     private bool canMoveHorizontally = true;
     [SerializeField] private AudioSource groundedMoveAudioSource;
@@ -96,8 +101,8 @@ public class Movement : MonoBehaviour
 
         if (CanMoveHorizontally)
         {
-            horizontal = Input.GetAxisRaw("Horizontal");
-            isWalking = (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D));
+            horizontal = ResolveHorizontalInput();
+            isWalking = Mathf.Abs(horizontal) > 0.01f;
         }
         else
         {
@@ -105,7 +110,7 @@ public class Movement : MonoBehaviour
             isWalking = false;
         }
 
-        bool shiftHeld = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+        bool shiftHeld = IsSprintHeld();
         shiftHold = !isDashing && shiftHeld && Mathf.Abs(horizontal) > 0f;
 
         // Update animator
@@ -143,7 +148,7 @@ public class Movement : MonoBehaviour
         wasGroundedMoving = isGroundedMoving;
 
         // dash input (Shift) - only if cooldown expired
-        if (CanMoveHorizontally && (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)) && dashCooldownTimer <= 0f)
+        if (CanMoveHorizontally && !isDashing && IsSprintPressedThisFrame() && Mathf.Abs(horizontal) > 0.01f && dashCooldownTimer <= 0f)
         {
             isDashing = true;
             dashTimeLeft = dashTime;
@@ -154,7 +159,7 @@ public class Movement : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f); // maintain vertical velocity
         }
 
-        if (CanMoveHorizontally && !isDashing && Input.GetButtonDown("Jump"))
+        if (CanMoveHorizontally && !isDashing && inputActions.Player.Jump.WasPressedThisFrame())
         {
             spacebarPressed = true;
             if (Grounded() && !isJumping)
@@ -189,9 +194,20 @@ public class Movement : MonoBehaviour
     // initialize components 
     private void Awake()
     {
+        inputActions = new InputSystem_Actions();
         if (rb == null) rb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<Collider2D>();
         animator = GetComponent<Animator>();
+    }
+
+    private void OnEnable()
+    {
+        inputActions?.Player.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputActions?.Player.Disable();
     }
 
     // bool for dashing checks
@@ -394,5 +410,83 @@ public class Movement : MonoBehaviour
         }
 
         jumpAudioSource.Play();
+    }
+
+    private bool IsSprintHeld()
+    {
+        if (inputActions != null && inputActions.Player.Sprint.IsPressed())
+        {
+            return true;
+        }
+
+        if (Keyboard.current != null &&
+            (Keyboard.current.leftShiftKey.isPressed || Keyboard.current.rightShiftKey.isPressed))
+        {
+            return true;
+        }
+
+        return Gamepad.current != null && Gamepad.current.leftStickButton.isPressed;
+    }
+
+    private bool IsSprintPressedThisFrame()
+    {
+        if (inputActions != null && inputActions.Player.Sprint.WasPressedThisFrame())
+        {
+            return true;
+        }
+
+        if (Keyboard.current != null &&
+            (Keyboard.current.leftShiftKey.wasPressedThisFrame || Keyboard.current.rightShiftKey.wasPressedThisFrame))
+        {
+            return true;
+        }
+
+        return Gamepad.current != null && Gamepad.current.leftStickButton.wasPressedThisFrame;
+    }
+
+    private float ResolveHorizontalInput()
+    {
+        Vector2 moveInput = inputActions.Player.Move.ReadValue<Vector2>();
+
+        // Keep analog/gamepad movement unchanged if keyboard is unavailable.
+        if (Keyboard.current == null)
+        {
+            return moveInput.x;
+        }
+
+        bool leftPressed = Keyboard.current.aKey.isPressed || Keyboard.current.leftArrowKey.isPressed;
+        bool rightPressed = Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed;
+
+        bool leftJustPressed = leftPressed && !previousLeftPressed;
+        bool rightJustPressed = rightPressed && !previousRightPressed;
+
+        if (leftJustPressed)
+        {
+            lastKeyboardHorizontalDirection = -1;
+        }
+        if (rightJustPressed)
+        {
+            lastKeyboardHorizontalDirection = 1;
+        }
+
+        previousLeftPressed = leftPressed;
+        previousRightPressed = rightPressed;
+
+        if (leftPressed && rightPressed)
+        {
+            // Last input wins while both are held.
+            return lastKeyboardHorizontalDirection;
+        }
+        if (leftPressed)
+        {
+            return -1f;
+        }
+        if (rightPressed)
+        {
+            return 1f;
+        }
+
+        // No keyboard horizontal keys held: allow stick/other bindings.
+        return moveInput.x;
     }
 }

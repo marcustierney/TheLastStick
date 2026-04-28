@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class PauseManager : MonoBehaviour
 {
@@ -7,10 +8,16 @@ public class PauseManager : MonoBehaviour
     public GameObject optionsCanvas;
     private bool isPaused = false;
     private bool isOptionsOpen = false;
+    private bool wasPauseHeld;
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        bool pauseHeld = (Keyboard.current != null && Keyboard.current.escapeKey.isPressed)
+            || (Gamepad.current != null && Gamepad.current.startButton.isPressed);
+        bool pausePressed = pauseHeld && !wasPauseHeld;
+        wasPauseHeld = pauseHeld;
+
+        if (pausePressed)
         {
             // If options are open, close them
             if (isOptionsOpen)

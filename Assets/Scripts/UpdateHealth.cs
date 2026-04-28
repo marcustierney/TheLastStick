@@ -67,14 +67,7 @@ public class UpdateHealth : MonoBehaviour
             SetHealth(regenRate * Time.deltaTime);
         }
 
-        // if (input.GetKeyDown("d"))
-        // {
-        //     SetHealth(-10f);
-        // }
-        // if (Input.GetKeyDown("a"))
-        // {
-        //     SetHealth(10f);
-        // }
+        // Legacy input debug snippets removed during Input System migration.
     }
 
     public void SetHealth(float healthChange) // Adjust health by a specified amount and update the health bar
