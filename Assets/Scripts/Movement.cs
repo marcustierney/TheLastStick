@@ -27,9 +27,6 @@ public class Movement : MonoBehaviour
     private List<Collider2D> ignoredIFrameColliders = new List<Collider2D>(); // Colliders ignored during I-frames (e.g. after taking damage)
     private bool isJumping = false; 
     private bool shiftHold = false;
-    private int lastKeyboardHorizontalDirection = 1;
-    private bool previousLeftPressed = false;
-    private bool previousRightPressed = false;
 
     private bool canMoveHorizontally = true;
     [SerializeField] private AudioSource groundedMoveAudioSource;
@@ -38,6 +35,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private AudioSource dashAudioSource;
     [SerializeField] private AudioSource jumpAudioSource;
     private bool wasGroundedMoving = false;
+    private readonly List<HorizontalControlBinding> horizontalControlBindings = new List<HorizontalControlBinding>();
 
     public bool CanMoveHorizontally
     {
@@ -159,7 +157,7 @@ public class Movement : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f); // maintain vertical velocity
         }
 
-        if (CanMoveHorizontally && !isDashing && inputActions.Player.Jump.WasPressedThisFrame())
+        if (CanMoveHorizontally && !isDashing && inputActions.Gameplay.Jump.WasPressedThisFrame())
         {
             spacebarPressed = true;
             if (Grounded() && !isJumping)
@@ -195,6 +193,8 @@ public class Movement : MonoBehaviour
     private void Awake()
     {
         inputActions = new InputSystem_Actions();
+        InputBindingOverrides.ApplySavedOverrides(inputActions.asset);
+        CacheHorizontalControlBindings();
         if (rb == null) rb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<Collider2D>();
         animator = GetComponent<Animator>();
@@ -202,12 +202,12 @@ public class Movement : MonoBehaviour
 
     private void OnEnable()
     {
-        inputActions?.Player.Enable();
+        inputActions?.Gameplay.Enable();
     }
 
     private void OnDisable()
     {
-        inputActions?.Player.Disable();
+        inputActions?.Gameplay.Disable();
     }
 
     // bool for dashing checks
@@ -414,79 +414,125 @@ public class Movement : MonoBehaviour
 
     private bool IsSprintHeld()
     {
-        if (inputActions != null && inputActions.Player.Sprint.IsPressed())
-        {
-            return true;
-        }
-
-        if (Keyboard.current != null &&
-            (Keyboard.current.leftShiftKey.isPressed || Keyboard.current.rightShiftKey.isPressed))
-        {
-            return true;
-        }
-
-        return Gamepad.current != null && Gamepad.current.rightShoulder.isPressed;
+        return inputActions != null && inputActions.Gameplay.Sprint.IsPressed();
     }
 
     private bool IsSprintPressedThisFrame()
     {
-        if (inputActions != null && inputActions.Player.Sprint.WasPressedThisFrame())
-        {
-            return true;
-        }
-
-        if (Keyboard.current != null &&
-            (Keyboard.current.leftShiftKey.wasPressedThisFrame || Keyboard.current.rightShiftKey.wasPressedThisFrame))
-        {
-            return true;
-        }
-
-        return Gamepad.current != null && Gamepad.current.rightShoulder.wasPressedThisFrame;
+        return inputActions != null && inputActions.Gameplay.Sprint.WasPressedThisFrame();
     }
 
     private float ResolveHorizontalInput()
     {
-        Vector2 moveInput = inputActions.Player.Move.ReadValue<Vector2>();
+        InputAction moveAction = inputActions.Gameplay.Move;
+        Vector2 moveInput = moveAction.ReadValue<Vector2>();
 
-        // Keep analog/gamepad movement unchanged if keyboard is unavailable.
-        if (Keyboard.current == null)
+        if (horizontalControlBindings.Count == 0)
         {
-            return moveInput.x;
+            CacheHorizontalControlBindings();
         }
 
-        bool leftPressed = Keyboard.current.aKey.isPressed || Keyboard.current.leftArrowKey.isPressed;
-        bool rightPressed = Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed;
+        bool leftPressed = false;
+        bool rightPressed = false;
+        float latestLeftPressTime = float.NegativeInfinity;
+        float latestRightPressTime = float.NegativeInfinity;
 
-        bool leftJustPressed = leftPressed && !previousLeftPressed;
-        bool rightJustPressed = rightPressed && !previousRightPressed;
-
-        if (leftJustPressed)
+        float now = Time.unscaledTime;
+        foreach (HorizontalControlBinding binding in horizontalControlBindings)
         {
-            lastKeyboardHorizontalDirection = -1;
-        }
-        if (rightJustPressed)
-        {
-            lastKeyboardHorizontalDirection = 1;
-        }
+            bool isPressed = binding.control != null && binding.control.IsPressed();
+            if (isPressed && !binding.wasPressedLastFrame)
+            {
+                binding.lastPressedTime = now;
+            }
 
-        previousLeftPressed = leftPressed;
-        previousRightPressed = rightPressed;
+            binding.wasPressedLastFrame = isPressed;
+
+            if (!isPressed)
+            {
+                continue;
+            }
+
+            if (binding.direction < 0f)
+            {
+                leftPressed = true;
+                if (binding.lastPressedTime > latestLeftPressTime)
+                    latestLeftPressTime = binding.lastPressedTime;
+            }
+            else
+            {
+                rightPressed = true;
+                if (binding.lastPressedTime > latestRightPressTime)
+                    latestRightPressTime = binding.lastPressedTime;
+            }
+        }
 
         if (leftPressed && rightPressed)
         {
-            // Last input wins while both are held.
-            return lastKeyboardHorizontalDirection;
-        }
-        if (leftPressed)
-        {
-            return -1f;
-        }
-        if (rightPressed)
-        {
-            return 1f;
+            // Conflict case: when opposite directions are held, the most recently pressed direction wins.
+            return latestRightPressTime > latestLeftPressTime ? 1f : -1f;
         }
 
-        // No keyboard horizontal keys held: allow stick/other bindings.
+        if (leftPressed)
+            return -1f;
+        if (rightPressed)
+            return 1f;
+
+        // Fall back to analog movement value when no digital left/right bindings are pressed.
         return moveInput.x;
+    }
+
+    private void CacheHorizontalControlBindings()
+    {
+        horizontalControlBindings.Clear();
+        InputAction moveAction = inputActions?.Gameplay.Move;
+        if (moveAction == null)
+        {
+            return;
+        }
+
+        foreach (InputControl control in moveAction.controls)
+        {
+            if (control == null)
+            {
+                continue;
+            }
+
+            int bindingIndex = moveAction.GetBindingIndexForControl(control);
+            if (bindingIndex < 0 || bindingIndex >= moveAction.bindings.Count)
+            {
+                continue;
+            }
+
+            InputBinding binding = moveAction.bindings[bindingIndex];
+            if (!binding.isPartOfComposite)
+            {
+                continue;
+            }
+
+            float direction = 0f;
+            if (binding.name == "left")
+                direction = -1f;
+            else if (binding.name == "right")
+                direction = 1f;
+            else
+                continue;
+
+            horizontalControlBindings.Add(new HorizontalControlBinding
+            {
+                control = control,
+                direction = direction,
+                lastPressedTime = float.NegativeInfinity,
+                wasPressedLastFrame = false
+            });
+        }
+    }
+
+    private class HorizontalControlBinding
+    {
+        public InputControl control;
+        public float direction;
+        public float lastPressedTime;
+        public bool wasPressedLastFrame;
     }
 }

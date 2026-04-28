@@ -43,6 +43,7 @@ public class SwordAttack : MonoBehaviour
     private void Awake()
     {
         inputActions = new InputSystem_Actions();
+        InputBindingOverrides.ApplySavedOverrides(inputActions.asset);
         movement = GetComponent<Movement>();
         animator = GetComponent<Animator>();
         CacheAnimatorParameters();
@@ -53,17 +54,17 @@ public class SwordAttack : MonoBehaviour
 
     private void OnEnable()
     {
-        inputActions?.Player.Enable();
+        inputActions?.Gameplay.Enable();
     }
 
     private void OnDisable()
     {
-        inputActions?.Player.Disable();
+        inputActions?.Gameplay.Disable();
     }
 
     void Update()
     {
-        bool attackKeyPressed = inputActions.Player.Attack.WasPressedThisFrame();
+        bool attackKeyPressed = inputActions.Gameplay.Attack.WasPressedThisFrame();
         if (attackKeyPressed)
         {
             lastAttackInputTime = Time.time;
@@ -83,7 +84,7 @@ public class SwordAttack : MonoBehaviour
             return;
         }
 
-        Vector2 moveInput = inputActions.Player.Move.ReadValue<Vector2>();
+        Vector2 moveInput = inputActions.Gameplay.Move.ReadValue<Vector2>();
         bool downInputPressed = IsDownAttackPressedThisFrame(moveInput);
 
         if (!movement.IsGrounded() && downInputPressed)
@@ -143,13 +144,13 @@ public class SwordAttack : MonoBehaviour
         //make sword standable
         standHitbox.SetActive(true);
         standHitbox.GetComponent<SwordHitbox>().EnablePlatform();
-        Vector2 initialMoveInput = inputActions.Player.Move.ReadValue<Vector2>();
+        Vector2 initialMoveInput = inputActions.Gameplay.Move.ReadValue<Vector2>();
         bool wasMoveCancelHeld = Mathf.Abs(initialMoveInput.x) > 0.5f;
         bool wasJumpHeld = initialMoveInput.y > 0.5f;
 
         while (isSwordStanding)
         {
-            Vector2 moveInput = inputActions.Player.Move.ReadValue<Vector2>();
+            Vector2 moveInput = inputActions.Gameplay.Move.ReadValue<Vector2>();
             bool moveCancelHeld = Mathf.Abs(moveInput.x) > 0.5f;
             bool jumpHeld = moveInput.y > 0.5f;
             bool moveCancelPressed = moveCancelHeld && !wasMoveCancelHeld;
@@ -462,12 +463,6 @@ public class SwordAttack : MonoBehaviour
 
     private bool IsDownAttackPressedThisFrame(Vector2 moveInput)
     {
-        if (Keyboard.current != null &&
-            (Keyboard.current.sKey.wasPressedThisFrame || Keyboard.current.downArrowKey.wasPressedThisFrame))
-        {
-            return true;
-        }
-
         bool downInputHeld = moveInput.y < -0.5f;
         bool downInputPressed = downInputHeld && !wasDownInputHeld;
         wasDownInputHeld = downInputHeld;

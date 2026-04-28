@@ -31,7 +31,7 @@ public class Sign : MonoBehaviour, IInteractable
             return;
         }
 
-        if (inputActions.Player.Interact.WasPressedThisFrame() && CanInteract())
+        if (inputActions.Gameplay.Interact.WasPressedThisFrame() && CanInteract())
         {
             Interact();
         }
@@ -89,16 +89,17 @@ public class Sign : MonoBehaviour, IInteractable
     private void Awake()
     {
         inputActions = new InputSystem_Actions();
+        InputBindingOverrides.ApplySavedOverrides(inputActions.asset);
     }
 
     private void OnEnable()
     {
-        inputActions?.Player.Enable();
+        inputActions?.Gameplay.Enable();
     }
 
     private void OnDisable()
     {
-        inputActions?.Player.Disable();
+        inputActions?.Gameplay.Disable();
     }
 
     private void ApplySignText()

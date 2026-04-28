@@ -1,0 +1,42 @@
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
+
+public static class UIInputBootstrap
+{
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+    private static void WireUiInputModule()
+    {
+        EventSystem eventSystem = EventSystem.current;
+        if (eventSystem == null)
+            return;
+
+        InputSystemUIInputModule uiModule = eventSystem.GetComponent<InputSystemUIInputModule>();
+        if (uiModule == null)
+            return;
+
+        PlayerInput playerInput = Object.FindFirstObjectByType<PlayerInput>();
+        InputActionAsset asset = playerInput != null ? playerInput.actions : null;
+        if (asset == null)
+            return;
+
+        uiModule.actionsAsset = asset;
+        uiModule.move = ActionRef(asset, "UI/Navigate");
+        uiModule.submit = ActionRef(asset, "UI/Submit");
+        uiModule.cancel = ActionRef(asset, "UI/Cancel");
+        uiModule.point = ActionRef(asset, "UI/Point");
+        uiModule.leftClick = ActionRef(asset, "UI/Click");
+        uiModule.rightClick = ActionRef(asset, "UI/RightClick");
+        uiModule.middleClick = ActionRef(asset, "UI/MiddleClick");
+        uiModule.scrollWheel = ActionRef(asset, "UI/ScrollWheel");
+        uiModule.trackedDevicePosition = ActionRef(asset, "UI/TrackedDevicePosition");
+        uiModule.trackedDeviceOrientation = ActionRef(asset, "UI/TrackedDeviceOrientation");
+    }
+
+    private static InputActionReference ActionRef(InputActionAsset asset, string actionPath)
+    {
+        InputAction action = asset.FindAction(actionPath, throwIfNotFound: false);
+        return action != null ? InputActionReference.Create(action) : null;
+    }
+}

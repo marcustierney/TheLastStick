@@ -14,9 +14,14 @@ public class PauseManager : MonoBehaviour
     private bool isPaused = false;
     private bool isOptionsOpen = false;
     private bool wasPauseHeld;
+    private PlayerInput playerInput;
+    private const string GameplayActionMap = "Gameplay";
+    private const string UiActionMap = "UI";
 
     private void Start()
     {
+        playerInput = Object.FindFirstObjectByType<PlayerInput>();
+
         if (focusGuard == null)
         {
             focusGuard = Object.FindAnyObjectByType<UIFocusGuard>(FindObjectsInactive.Include);
@@ -64,6 +69,7 @@ public class PauseManager : MonoBehaviour
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f; //freeze game
         isPaused = true;
+        SwitchActionMap(UiActionMap);
         StartCoroutine(SelectAfterFrame(pauseDefaultSelectable));
     }
 
@@ -72,6 +78,8 @@ public class PauseManager : MonoBehaviour
         pauseMenuUI.SetActive(false); 
         Time.timeScale = 1f; //resume game
         isPaused = false;
+        isOptionsOpen = false;
+        SwitchActionMap(GameplayActionMap);
         if (focusGuard != null)
         {
             focusGuard.ClearSelection();
@@ -95,6 +103,7 @@ public class PauseManager : MonoBehaviour
         pauseMenuUI.SetActive(false);
         optionsCanvas.SetActive(true);
         isOptionsOpen = true;
+        SwitchActionMap(UiActionMap);
 
         if (focusGuard != null)
         {
@@ -122,7 +131,28 @@ public class PauseManager : MonoBehaviour
         optionsCanvas.SetActive(false);
         pauseMenuUI.SetActive(true);
         isOptionsOpen = false;
+        SwitchActionMap(UiActionMap);
         StartCoroutine(SelectAfterFrame(pauseDefaultSelectable));
+    }
+
+    private void SwitchActionMap(string mapName)
+    {
+        if (playerInput == null)
+        {
+            playerInput = Object.FindFirstObjectByType<PlayerInput>();
+        }
+
+        if (playerInput == null || string.IsNullOrEmpty(mapName))
+        {
+            return;
+        }
+
+        if (playerInput.currentActionMap != null && playerInput.currentActionMap.name == mapName)
+        {
+            return;
+        }
+
+        playerInput.SwitchCurrentActionMap(mapName);
     }
 
     private IEnumerator SelectOptionsAfterFrame(OptionsTabManager tabManager)
