@@ -5,6 +5,11 @@ public static class InputBindingOverrides
 {
     private const string BindingKeyPrefix = "Binding_";
     private const string DefaultBindingKeyPrefix = "BindingDefault_";
+    
+    public static string GetOverrideKey(InputBinding binding) => BindingKeyPrefix + binding.id;
+    public static string GetOverrideKey(string bindingId) => BindingKeyPrefix + bindingId;
+    public static string GetDefaultKey(InputBinding binding) => DefaultBindingKeyPrefix + binding.id;
+    public static string GetDefaultKey(string bindingId) => DefaultBindingKeyPrefix + bindingId;
 
     public static void EnsureDefaultsCached(InputActionAsset asset)
     {
@@ -19,7 +24,7 @@ public static class InputBindingOverrides
             for (int i = 0; i < bindings.Count; i++)
             {
                 InputBinding binding = bindings[i];
-                string defaultKey = DefaultBindingKeyPrefix + binding.id;
+                string defaultKey = GetDefaultKey(binding);
                 if (PlayerPrefs.HasKey(defaultKey))
                 {
                     continue;
@@ -43,7 +48,7 @@ public static class InputBindingOverrides
             for (int i = 0; i < bindings.Count; i++)
             {
                 string bindingId = bindings[i].id.ToString();
-                PlayerPrefs.DeleteKey(DefaultBindingKeyPrefix + bindingId);
+                PlayerPrefs.DeleteKey(GetDefaultKey(bindingId));
             }
         }
 
@@ -66,7 +71,7 @@ public static class InputBindingOverrides
             for (int i = 0; i < bindings.Count; i++)
             {
                 InputBinding binding = bindings[i];
-                string key = BindingKeyPrefix + binding.id;
+                string key = GetOverrideKey(binding);
                 if (!PlayerPrefs.HasKey(key))
                 {
                     continue;
@@ -105,9 +110,9 @@ public static class InputBindingOverrides
                 string bindingId = binding.id.ToString();
 
                 action.RemoveBindingOverride(i);
-                PlayerPrefs.DeleteKey(BindingKeyPrefix + bindingId);
+                PlayerPrefs.DeleteKey(GetOverrideKey(bindingId));
 
-                string defaultKey = DefaultBindingKeyPrefix + bindingId;
+                string defaultKey = GetDefaultKey(bindingId);
                 if (!PlayerPrefs.HasKey(defaultKey))
                 {
                     continue;
@@ -132,4 +137,5 @@ public static class InputBindingOverrides
             }
         }
     }
+
 }

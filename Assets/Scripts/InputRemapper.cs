@@ -1,8 +1,6 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Utilities;
 
 /// <summary>
 /// Attach to a manager GameObject in your scene.
@@ -19,35 +17,51 @@ public class InputRemapper : MonoBehaviour
     public Button resetButton;
 
     [Header("Listening State Visuals")]
-    [Tooltip("Color applied to the button currently awaiting input.")]
-    public Color listeningColor = new Color(1f, 0.85f, 0.2f);
     public string listeningText = "...";
 
-    // ── Public accessor for RemapButton ──────────────────────────────
     public InputActionAsset Asset => _asset;
 
-    // ── Runtime state ────────────────────────────────────────────────
     private InputActionAsset _asset;
     private InputActionRebindingExtensions.RebindingOperation _rebindOp;
     private RemapButton _activeButton;
 
-    private readonly Dictionary<string, string> _pendingOverrides = new();
-
-    // ── Lifecycle ────────────────────────────────────────────────────
     private void Awake()
     {
+        if (playerInput == null)
+        {
+            Debug.LogError("[InputRemapper] PlayerInput is not assigned.");
+            enabled = false;
+            return;
+        }
+
         _asset = playerInput.actions;
-        InputBindingOverrides.EnsureDefaultsCached(_asset);
+        if (_asset == null)
+        {
+            Debug.LogError("[InputRemapper] PlayerInput has no InputActionAsset.");
+            enabled = false;
+            return;
+        }
 
-        _asset.Disable();
+        // Snapshot defaults now; reset should always restore this baseline.
+        InputBindingOverrides.RebuildDefaultsCache(_asset);
 
-        applyButton.onClick.AddListener(ApplyAllOverrides);
-        resetButton.onClick.AddListener(ResetAllOverrides);
+        if (applyButton != null)
+        {
+            applyButton.onClick.RemoveAllListeners();
+        }
+
+        if (resetButton != null)
+        {
+            resetButton.onClick.AddListener(ResetAllOverrides);
+        }
+        else
+        {
+            Debug.LogWarning("[InputRemapper] Reset button is not assigned.");
+        }
 
         foreach (var rb in GetComponentsInChildren<RemapButton>(includeInactive: true))
             rb.Initialize(this);
 
-        _asset.Enable();
     }
 
     private void OnDestroy()
@@ -55,14 +69,12 @@ public class InputRemapper : MonoBehaviour
         _rebindOp?.Dispose();
     }
 
-    // ── Public API called by RemapButton ─────────────────────────────
-
     public void StartListening(RemapButton button)
     {
         CancelListening();
 
         _activeButton = button;
-        _activeButton.SetListeningVisual(listeningColor, listeningText);
+        _activeButton.SetListeningVisual(listeningText);
 
         InputAction action = _asset.FindAction(button.actionName);
 
@@ -77,7 +89,16 @@ public class InputRemapper : MonoBehaviour
 
         action.Disable();
 
-        _rebindOp = action.PerformInteractiveRebinding(button.bindingIndex)
+        if (!button.TryResolveBinding(action, out int resolvedBindingIndex, out _))
+        {
+            Debug.LogError($"[InputRemapper] Invalid bindingIndex {button.bindingIndex} for action '{button.actionName}' on '{button.gameObject.name}'.");
+            action.Enable();
+            _activeButton.RestoreVisual();
+            _activeButton = null;
+            return;
+        }
+
+        _rebindOp = action.PerformInteractiveRebinding(resolvedBindingIndex)
             .WithCancelingThrough("<Keyboard>/escape");
 
         if (button.isKeyboard)
@@ -103,15 +124,12 @@ public class InputRemapper : MonoBehaviour
         _rebindOp.Cancel();
     }
 
-    // ── Private helpers ──────────────────────────────────────────────
-
     private void FinishListening(InputActionRebindingExtensions.RebindingOperation op, bool cancelled)
     {
         if (_activeButton == null) return;
 
         InputAction action = _asset.FindAction(_activeButton.actionName);
 
-        // Restore color/listening state FIRST before any label changes.
         _activeButton.RestoreVisual();
 
         if (!cancelled)
@@ -120,19 +138,21 @@ public class InputRemapper : MonoBehaviour
 
             if (newPath != null && action != null)
             {
-                // Use the binding's GUID to apply the override — this works correctly
-                // for both regular bindings and composite parts (e.g. WASD move directions).
-                InputBinding binding = action.bindings[_activeButton.bindingIndex];
+                if (!_activeButton.TryResolveBinding(action, out _, out InputBinding binding))
+                {
+                    Debug.LogError($"[InputRemapper] Could not resolve binding index {_activeButton.bindingIndex} for action '{_activeButton.actionName}' during apply.");
+                    action.Enable();
+                    _rebindOp?.Dispose();
+                    _rebindOp = null;
+                    _activeButton = null;
+                    return;
+                }
+
                 string bindingId = binding.id.ToString();
-
-                // Store as pending for Apply to persist to PlayerPrefs.
-                _pendingOverrides[bindingId] = newPath;
-
-                // Apply immediately so the new key works in-game right away.
-                // BindingMask targets by ID so composites are handled correctly.
                 action.ApplyBindingOverride(new InputBinding { id = binding.id, overridePath = newPath });
+                PlayerPrefs.SetString(InputBindingOverrides.GetOverrideKey(bindingId), newPath);
+                PlayerPrefs.Save();
 
-                // Update label AFTER RestoreVisual so it doesn't get overwritten.
                 _activeButton.UpdateLabel(newPath);
             }
             else
@@ -149,42 +169,20 @@ public class InputRemapper : MonoBehaviour
         _activeButton = null;
     }
 
-    private void ApplyAllOverrides()
-    {
-        foreach (InputAction action in _asset)
-        {
-            ReadOnlyArray<InputBinding> bindings = action.bindings;
-            for (int i = 0; i < bindings.Count; i++)
-            {
-                string id = bindings[i].id.ToString();
-                if (_pendingOverrides.TryGetValue(id, out string overridePath))
-                    PlayerPrefs.SetString("Binding_" + id, overridePath);
-            }
-        }
-        PlayerPrefs.Save();
-        _pendingOverrides.Clear();
-        Debug.Log("[InputRemapper] All overrides applied and saved.");
-    }
-
     private void ResetAllOverrides()
     {
         CancelListening();
-        _pendingOverrides.Clear();
 
-        _asset.Disable();
         InputBindingOverrides.ResetToCachedDefaults(_asset);
-        _asset.Enable();
 
         PlayerPrefs.Save();
 
-        foreach (var rb in GetComponentsInChildren<RemapButton>(includeInactive: true))
+        foreach (var rb in FindObjectsByType<RemapButton>(FindObjectsInactive.Include))
             rb.RefreshLabel(_asset);
 
         Debug.Log("[InputRemapper] All overrides reset to defaults.");
     }
 
-    // Optional dev utility: call from an editor/debug UI button after changing
-    // the input asset defaults to refresh the cached baseline in PlayerPrefs.
     public void RebuildDefaultsCache()
     {
         InputBindingOverrides.RebuildDefaultsCache(_asset);

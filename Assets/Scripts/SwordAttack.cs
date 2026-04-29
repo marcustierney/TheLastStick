@@ -64,6 +64,11 @@ public class SwordAttack : MonoBehaviour
 
     void Update()
     {
+        if (GameplayInputGate.BlocksGameplayActions)
+        {
+            return;
+        }
+
         bool attackKeyPressed = inputActions.Gameplay.Attack.WasPressedThisFrame();
         if (attackKeyPressed)
         {
@@ -150,6 +155,12 @@ public class SwordAttack : MonoBehaviour
 
         while (isSwordStanding)
         {
+            if (GameplayInputGate.BlocksGameplayActions)
+            {
+                yield return null;
+                continue;
+            }
+
             Vector2 moveInput = inputActions.Gameplay.Move.ReadValue<Vector2>();
             bool moveCancelHeld = Mathf.Abs(moveInput.x) > 0.5f;
             bool jumpHeld = moveInput.y > 0.5f;

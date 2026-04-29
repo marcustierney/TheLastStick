@@ -9,7 +9,7 @@ public class UIFocusGuard : MonoBehaviour
     [SerializeField] Selectable fallbackSelectable;
     [SerializeField] float restoreDebounceSeconds = 0.08f;
 
-    private bool lastInputWasGamepad = true;
+    private bool lastInputWasGamepad = false;
     private float lastSelectionLostTime = -1f;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
@@ -52,6 +52,11 @@ public class UIFocusGuard : MonoBehaviour
 
     public void ForceSelectCurrentFallback()
     {
+        if (!lastInputWasGamepad)
+        {
+            return;
+        }
+
         if (fallbackSelectable == null || !fallbackSelectable.IsInteractable() || !fallbackSelectable.gameObject.activeInHierarchy)
         {
             return;
@@ -89,6 +94,13 @@ public class UIFocusGuard : MonoBehaviour
         GameObject selectedObject = EventSystem.current.currentSelectedGameObject;
         if (selectedObject != null && selectedObject.activeInHierarchy)
         {
+            if (!lastInputWasGamepad)
+            {
+                EventSystem.current.SetSelectedGameObject(null);
+                lastSelectionLostTime = -1f;
+                return;
+            }
+
             lastSelectionLostTime = -1f;
             return;
         }

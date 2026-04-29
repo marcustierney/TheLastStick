@@ -2,11 +2,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.InputSystem;
+using System.Globalization;
 
 /// <summary>
 /// Add this to every KeyboardButton and ControllerButton prefab.
-/// Automatically finds its own Button, TMP label, and the InputRemapper in the scene —
-/// no manual wiring needed and no dependency on InputRemapper.Awake() order.
+/// Finds its own Button/TMP label and connects to an InputRemapper.
 /// </summary>
 public class RemapButton : MonoBehaviour
 {
@@ -21,21 +21,15 @@ public class RemapButton : MonoBehaviour
     [Tooltip("True = keyboard binding; False = controller binding.")]
     public bool isKeyboard = true;
 
-    // ── Auto-found references (no Inspector wiring needed) ────────────
     [HideInInspector] public TMP_Text label;
     [HideInInspector] public Button button;
 
-    // ── Private ───────────────────────────────────────────────────────
     private InputRemapper _manager;
-    private Color _originalColor;
     private string _originalText;
-    private bool _initialized;
-
-    // ── Lifecycle ─────────────────────────────────────────────────────
+    private bool _isWired;
 
     private void Awake()
     {
-        // Grab Button on this GO — required.
         button = GetComponent<Button>();
         if (button == null)
         {
@@ -44,87 +38,86 @@ public class RemapButton : MonoBehaviour
             return;
         }
 
-        // Grab the first TMP_Text in children (the button label).
-        label = GetComponentInChildren<TMP_Text>();
-        if (label == null)
-            Debug.LogWarning($"[RemapButton] No TMP_Text found in children of '{gameObject.name}'. " +
-                             $"Label updates will be skipped.");
-
-        Debug.Log($"[RemapButton] Awake on '{gameObject.name}' — " +
-                  $"button: {(button != null ? "found" : "MISSING")} | " +
-                  $"label: {(label != null ? $"found ('{label.text}')" : "MISSING")} | " +
-                  $"actionName: '{actionName}' | bindingIndex: {bindingIndex} | isKeyboard: {isKeyboard}");
-
-        // Find the manager anywhere in the scene.
-        _manager = FindFirstObjectByType<InputRemapper>();
-        if (_manager == null)
+        // Automatic controller navigation uses 3D positions; bogus non-zero local Z
+        // (often from bad prefab/scene overrides) breaks FindSelectableOnDown/Up.
+        var rect = transform as RectTransform;
+        if (rect != null)
         {
-            Debug.LogError($"[RemapButton] No InputRemapper found in scene. " +
-                           $"Add it to a GameObject and make sure it's active.");
-            return;
+            Vector3 local = rect.localPosition;
+            if (local.z != 0f)
+            {
+                rect.localPosition = new Vector3(local.x, local.y, 0f);
+            }
         }
 
-        // Wire the click — self-sufficient, no need for manager to call Initialize().
-        button.onClick.AddListener(OnButtonClicked);
-
-        Debug.Log($"[RemapButton] '{gameObject.name}' wired to InputRemapper successfully.");
+        label = GetComponentInChildren<TMP_Text>();
+        if (label == null)
+        {
+            Debug.LogWarning($"[RemapButton] No TMP_Text found in children of '{gameObject.name}'. Label updates will be skipped.");
+        }
     }
 
     private void Start()
     {
-        // Start runs after all Awakes, so the asset is ready.
-        if (_manager == null || button == null) return;
+        if (_manager == null)
+        {
+            _manager = FindFirstObjectByType<InputRemapper>();
+        }
+        EnsureWired();
 
-        // Load any saved override.
+        if (_manager == null) return;
+
         InputAction action = _manager.Asset?.FindAction(actionName);
         if (action != null)
         {
-            InputBinding binding = action.bindings[bindingIndex];
-            string id = binding.id.ToString();
-            if (PlayerPrefs.HasKey("Binding_" + id))
+            if (TryResolveBinding(action, out _, out InputBinding binding))
             {
-                string savedPath = PlayerPrefs.GetString("Binding_" + id);
-                // Use ID-based override so composites load correctly.
-                action.ApplyBindingOverride(new InputBinding { id = binding.id, overridePath = savedPath });
+                string id = binding.id.ToString();
+                string overrideKey = InputBindingOverrides.GetOverrideKey(id);
+                if (PlayerPrefs.HasKey(overrideKey))
+                {
+                    string savedPath = PlayerPrefs.GetString(overrideKey);
+                    action.ApplyBindingOverride(new InputBinding { id = binding.id, overridePath = savedPath });
+                }
             }
-        }
-        else
-        {
-            Debug.LogWarning($"[RemapButton] '{gameObject.name}' — action '{actionName}' not found in asset during Start. " +
-                             $"Label will not be populated. Double-check actionName spelling.");
         }
 
         RefreshLabel(_manager.Asset);
-        _initialized = true;
     }
-
-    // ── Click handler ─────────────────────────────────────────────────
 
     private void OnButtonClicked()
     {
-        Debug.Log($"[RemapButton] CLICKED — '{gameObject.name}' | " +
-                  $"actionName: '{actionName}' | bindingIndex: {bindingIndex} | isKeyboard: {isKeyboard} | " +
-                  $"initialized: {_initialized} | manager: {(_manager != null ? "valid" : "NULL")}");
-
-        if (!_initialized || _manager == null)
+        if (_manager == null)
         {
-            Debug.LogError($"[RemapButton] '{gameObject.name}' clicked but not initialized. " +
-                           $"Check earlier errors for the cause.");
+            _manager = FindFirstObjectByType<InputRemapper>();
+            EnsureWired();
+        }
+
+        if (_manager == null)
+        {
+            Debug.LogError($"[RemapButton] Cannot start rebind for '{gameObject.name}' because no InputRemapper was found.");
             return;
         }
 
         _manager.StartListening(this);
     }
 
-    // ── Called by InputRemapper (kept for compatibility) ──────────────
-
     public void Initialize(InputRemapper manager)
     {
-        // No-op: self-initialization happens in Awake/Start.
-        // Kept so InputRemapper.Awake()'s GetComponentsInChildren loop doesn't break.
+        _manager = manager;
+        EnsureWired();
     }
 
-    // ── Label helpers ─────────────────────────────────────────────────
+    private void EnsureWired()
+    {
+        if (_isWired || button == null)
+        {
+            return;
+        }
+
+        button.onClick.AddListener(OnButtonClicked);
+        _isWired = true;
+    }
 
     public void RefreshLabel(InputActionAsset asset)
     {
@@ -133,57 +126,175 @@ public class RemapButton : MonoBehaviour
         InputAction action = asset.FindAction(actionName);
         if (action == null) return;
 
-        string path = action.bindings[bindingIndex].effectivePath;
-        string displayName = InputControlPath.ToHumanReadableString(
-            path,
-            InputControlPath.HumanReadableStringOptions.OmitDevice);
+        if (!TryResolveBinding(action, out _, out InputBinding binding))
+        {
+            label.text = "—";
+            Debug.LogWarning($"[RemapButton] '{gameObject.name}' has invalid binding index {bindingIndex} for action '{actionName}'.");
+            return;
+        }
 
-        label.text = string.IsNullOrEmpty(displayName) ? "—" : displayName;
+        label.text = FormatBindingDisplay(binding.effectivePath);
 
-        Debug.Log($"[RemapButton] '{gameObject.name}' label refreshed → '{label.text}' (path: '{path}')");
+    }
+
+    /// <summary>
+    /// Resolves configured bindingIndex to an action-local index.
+    /// Supports both action-local indices and global action-map indices.
+    /// </summary>
+    public bool TryResolveBinding(InputAction action, out int resolvedBindingIndex, out InputBinding resolvedBinding)
+    {
+        resolvedBindingIndex = -1;
+        resolvedBinding = default;
+
+        if (action == null || bindingIndex < 0)
+        {
+            return false;
+        }
+
+        // Preferred: index is already action-local.
+        if (bindingIndex < action.bindings.Count)
+        {
+            resolvedBindingIndex = bindingIndex;
+            resolvedBinding = action.bindings[bindingIndex];
+            return true;
+        }
+
+        // Fallback: index is global within the action map.
+        InputActionMap map = action.actionMap;
+        if (map == null || bindingIndex >= map.bindings.Count)
+        {
+            return false;
+        }
+
+        if (map.bindings[bindingIndex].action != action.name)
+        {
+            return false;
+        }
+
+        int localIndex = 0;
+        for (int mapIndex = 0; mapIndex < map.bindings.Count; mapIndex++)
+        {
+            if (map.bindings[mapIndex].action != action.name)
+            {
+                continue;
+            }
+
+            if (mapIndex == bindingIndex)
+            {
+                if (localIndex >= 0 && localIndex < action.bindings.Count)
+                {
+                    resolvedBindingIndex = localIndex;
+                    resolvedBinding = action.bindings[localIndex];
+                    return true;
+                }
+
+                return false;
+            }
+
+            localIndex++;
+        }
+
+        return false;
     }
 
     public void UpdateLabel(string path)
     {
         if (label == null)
         {
-            Debug.LogWarning($"[RemapButton] '{gameObject.name}' UpdateLabel called but label is NULL.");
             return;
+        }
+
+        label.text = FormatBindingDisplay(path);
+    }
+
+    private static string FormatBindingDisplay(string path)
+    {
+        if (string.IsNullOrWhiteSpace(path))
+        {
+            return "—";
+        }
+
+        string normalizedPath = path.ToLowerInvariant();
+        if (normalizedPath.Contains("/dpad/"))
+        {
+            string direction = FormatDirection(path);
+            return string.IsNullOrEmpty(direction) ? "D-Pad" : $"D-Pad {direction}";
+        }
+
+        if (normalizedPath.Contains("/leftstick/"))
+        {
+            string direction = FormatDirection(path);
+            return string.IsNullOrEmpty(direction) ? "Left Stick" : $"Left Stick {direction}";
+        }
+
+        if (normalizedPath.EndsWith("/leftstick"))
+        {
+            return "Left Stick";
+        }
+
+        if (normalizedPath.Contains("/rightstick/"))
+        {
+            string direction = FormatDirection(path);
+            return string.IsNullOrEmpty(direction) ? "Right Stick" : $"Right Stick {direction}";
+        }
+
+        if (normalizedPath.EndsWith("/rightstick"))
+        {
+            return "Right Stick";
         }
 
         string displayName = InputControlPath.ToHumanReadableString(
             path,
             InputControlPath.HumanReadableStringOptions.OmitDevice);
 
-        string resolved = string.IsNullOrEmpty(displayName) ? "—" : displayName;
-        Debug.Log($"[RemapButton] '{gameObject.name}' UpdateLabel — path: '{path}' → display: '{resolved}'");
-        label.text = resolved;
+        return string.IsNullOrEmpty(displayName) ? "—" : CapitalizeWords(displayName);
     }
 
-    // ── Visual state ──────────────────────────────────────────────────
+    private static string FormatDirection(string path)
+    {
+        if (string.IsNullOrWhiteSpace(path))
+        {
+            return string.Empty;
+        }
 
-    public void SetListeningVisual(Color color, string text)
+        string[] segments = path.Split('/');
+        if (segments.Length == 0)
+        {
+            return string.Empty;
+        }
+
+        string direction = segments[segments.Length - 1].ToLowerInvariant();
+        return direction switch
+        {
+            "left" => "Left",
+            "right" => "Right",
+            "up" => "Up",
+            "down" => "Down",
+            _ => string.Empty
+        };
+    }
+
+    private static string CapitalizeWords(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return value;
+        }
+
+        return CultureInfo.InvariantCulture.TextInfo.ToTitleCase(value.ToLowerInvariant());
+    }
+
+    public void SetListeningVisual(string text)
     {
         if (label)
         {
             _originalText = label.text;
             label.text = text;
         }
-
-        var colors = button.colors;
-        _originalColor = colors.normalColor;
-        colors.normalColor = color;
-        colors.selectedColor = color;
-        button.colors = colors;
     }
 
     public void RestoreVisual()
     {
         if (label) label.text = _originalText;
-
-        var colors = button.colors;
-        colors.normalColor = _originalColor;
-        colors.selectedColor = _originalColor;
-        button.colors = colors;
     }
 }

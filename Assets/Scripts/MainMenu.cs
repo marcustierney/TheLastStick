@@ -1,11 +1,15 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
+    private const string UiActionMap = "UI";
+
     [SerializeField] CanvasGroup mainMenuPanel;
     [SerializeField] CanvasGroup optionsPanel;
     [SerializeField] CanvasGroup creditsPanel;
@@ -22,6 +26,11 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
+        // Ensure menu scene is always interactive even when loaded from paused gameplay.
+        Time.timeScale = 1f;
+        EnsureUiActionMapActive();
+        EnsureUiInputModuleReady();
+
         if (focusGuard == null)
         {
             focusGuard = Object.FindAnyObjectByType<UIFocusGuard>(FindObjectsInactive.Include);
@@ -197,5 +206,89 @@ public class MainMenu : MonoBehaviour
         }
 
         return selectables.Length > 0 ? selectables[0] : null;
+    }
+
+    private static void EnsureUiActionMapActive()
+    {
+        PlayerInput playerInput = Object.FindFirstObjectByType<PlayerInput>();
+        if (playerInput == null)
+        {
+            return;
+        }
+
+        InputActionMap uiMap = playerInput.actions != null
+            ? playerInput.actions.FindActionMap(UiActionMap, throwIfNotFound: false)
+            : null;
+        if (uiMap == null)
+        {
+            return;
+        }
+
+        if (playerInput.currentActionMap == null || playerInput.currentActionMap.name != UiActionMap)
+        {
+            playerInput.SwitchCurrentActionMap(UiActionMap);
+        }
+
+        if (!uiMap.enabled)
+        {
+            uiMap.Enable();
+        }
+    }
+
+    private static void EnsureUiInputModuleReady()
+    {
+        EventSystem eventSystem = EventSystem.current;
+        if (eventSystem == null)
+        {
+            return;
+        }
+
+        InputSystemUIInputModule uiModule = eventSystem.GetComponent<InputSystemUIInputModule>();
+        if (uiModule == null)
+        {
+            return;
+        }
+
+        PlayerInput playerInput = Object.FindFirstObjectByType<PlayerInput>();
+        InputActionAsset asset = playerInput != null ? playerInput.actions : uiModule.actionsAsset;
+        if (asset == null)
+        {
+            return;
+        }
+
+        uiModule.actionsAsset = asset;
+        uiModule.move = ActionRef(asset, "UI/Navigate");
+        uiModule.submit = ActionRef(asset, "UI/Submit");
+        uiModule.cancel = ActionRef(asset, "UI/Cancel");
+        uiModule.point = ActionRef(asset, "UI/Point");
+        uiModule.leftClick = ActionRef(asset, "UI/Click");
+        uiModule.rightClick = ActionRef(asset, "UI/RightClick");
+        uiModule.middleClick = ActionRef(asset, "UI/MiddleClick");
+        uiModule.scrollWheel = ActionRef(asset, "UI/ScrollWheel");
+        uiModule.trackedDevicePosition = ActionRef(asset, "UI/TrackedDevicePosition");
+        uiModule.trackedDeviceOrientation = ActionRef(asset, "UI/TrackedDeviceOrientation");
+
+        EnableActionReference(uiModule.move);
+        EnableActionReference(uiModule.submit);
+        EnableActionReference(uiModule.cancel);
+        EnableActionReference(uiModule.point);
+        EnableActionReference(uiModule.leftClick);
+        EnableActionReference(uiModule.rightClick);
+        EnableActionReference(uiModule.middleClick);
+        EnableActionReference(uiModule.scrollWheel);
+    }
+
+    private static InputActionReference ActionRef(InputActionAsset asset, string actionPath)
+    {
+        InputAction action = asset.FindAction(actionPath, throwIfNotFound: false);
+        return action != null ? InputActionReference.Create(action) : null;
+    }
+
+    private static void EnableActionReference(InputActionReference actionReference)
+    {
+        if (actionReference?.action != null && !actionReference.action.enabled)
+        {
+            actionReference.action.Enable();
+        }
     }
 }

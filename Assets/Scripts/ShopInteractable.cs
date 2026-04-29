@@ -12,6 +12,7 @@ public class ShopInteractable : MonoBehaviour, IInteractable
     private void Update()
     {
         if (!playerInRange) return;
+        if (GameplayInputGate.BlocksGameplayActions) return;
         if (inputActions.Gameplay.Interact.WasPressedThisFrame() && CanInteract())
             Interact();
     }

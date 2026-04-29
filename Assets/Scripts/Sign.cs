@@ -31,6 +31,11 @@ public class Sign : MonoBehaviour, IInteractable
             return;
         }
 
+        if (GameplayInputGate.BlocksGameplayActions)
+        {
+            return;
+        }
+
         if (inputActions.Gameplay.Interact.WasPressedThisFrame() && CanInteract())
         {
             Interact();

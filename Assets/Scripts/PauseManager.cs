@@ -13,14 +13,17 @@ public class PauseManager : MonoBehaviour
     [SerializeField] private Selectable optionsDefaultSelectable;
     private bool isPaused = false;
     private bool isOptionsOpen = false;
-    private bool wasPauseHeld;
     private PlayerInput playerInput;
+    private InputAction pauseAction;
+    private bool hasLoggedPauseFallbackWarning;
     private const string GameplayActionMap = "Gameplay";
     private const string UiActionMap = "UI";
 
     private void Start()
     {
         playerInput = Object.FindFirstObjectByType<PlayerInput>();
+        CachePauseAction();
+        EnsurePauseActionEnabled();
 
         if (focusGuard == null)
         {
@@ -40,10 +43,7 @@ public class PauseManager : MonoBehaviour
 
     void Update()
     {
-        bool pauseHeld = (Keyboard.current != null && Keyboard.current.escapeKey.isPressed)
-            || (Gamepad.current != null && Gamepad.current.startButton.isPressed);
-        bool pausePressed = pauseHeld && !wasPauseHeld;
-        wasPauseHeld = pauseHeld;
+        bool pausePressed = IsPausePressedThisFrame();
 
         if (pausePressed)
         {
@@ -70,6 +70,7 @@ public class PauseManager : MonoBehaviour
         Time.timeScale = 0f; //freeze game
         isPaused = true;
         SwitchActionMap(UiActionMap);
+        EnsurePauseActionEnabled();
         StartCoroutine(SelectAfterFrame(pauseDefaultSelectable));
     }
 
@@ -88,8 +89,29 @@ public class PauseManager : MonoBehaviour
 
     public void GoToMainMenu()
     {
-        Time.timeScale = 1f; 
-        SceneManager.LoadScene("MainMenu"); 
+        isPaused = false;
+        isOptionsOpen = false;
+        Time.timeScale = 1f;
+
+        if (pauseMenuUI != null)
+        {
+            pauseMenuUI.SetActive(false);
+        }
+
+        if (optionsCanvas != null)
+        {
+            optionsCanvas.SetActive(false);
+        }
+
+        SwitchActionMap(UiActionMap);
+        EnsurePauseActionEnabled();
+
+        if (focusGuard != null)
+        {
+            focusGuard.ClearSelection();
+        }
+
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void OpenOptions()
@@ -104,6 +126,7 @@ public class PauseManager : MonoBehaviour
         optionsCanvas.SetActive(true);
         isOptionsOpen = true;
         SwitchActionMap(UiActionMap);
+        EnsurePauseActionEnabled();
 
         if (focusGuard != null)
         {
@@ -132,7 +155,57 @@ public class PauseManager : MonoBehaviour
         pauseMenuUI.SetActive(true);
         isOptionsOpen = false;
         SwitchActionMap(UiActionMap);
+        EnsurePauseActionEnabled();
         StartCoroutine(SelectAfterFrame(pauseDefaultSelectable));
+    }
+
+    private void CachePauseAction()
+    {
+        if (playerInput == null)
+        {
+            playerInput = Object.FindFirstObjectByType<PlayerInput>();
+        }
+
+        if (playerInput == null || playerInput.actions == null)
+        {
+            pauseAction = null;
+            return;
+        }
+
+        pauseAction = playerInput.actions.FindAction("Gameplay/Pause", throwIfNotFound: false)
+            ?? playerInput.actions.FindAction("Pause", throwIfNotFound: false);
+    }
+
+    private void EnsurePauseActionEnabled()
+    {
+        if (pauseAction != null && !pauseAction.enabled)
+        {
+            pauseAction.Enable();
+        }
+    }
+
+    private bool IsPausePressedThisFrame()
+    {
+        if (pauseAction == null)
+        {
+            CachePauseAction();
+            EnsurePauseActionEnabled();
+        }
+
+        if (pauseAction != null)
+        {
+            return pauseAction.WasPressedThisFrame();
+        }
+
+        // Fallback only if action lookup failed; keeps pause usable during setup issues.
+        if (!hasLoggedPauseFallbackWarning)
+        {
+            Debug.LogWarning("[PauseManager] Gameplay/Pause action not found. Using fallback keys (Escape/Start).");
+            hasLoggedPauseFallbackWarning = true;
+        }
+
+        return (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+            || (Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame);
     }
 
     private void SwitchActionMap(string mapName)
@@ -148,6 +221,14 @@ public class PauseManager : MonoBehaviour
         }
 
         if (playerInput.currentActionMap != null && playerInput.currentActionMap.name == mapName)
+        {
+            return;
+        }
+
+        InputActionMap map = playerInput.actions != null
+            ? playerInput.actions.FindActionMap(mapName, throwIfNotFound: false)
+            : null;
+        if (map == null)
         {
             return;
         }

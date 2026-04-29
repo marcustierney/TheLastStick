@@ -27,7 +27,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2776652494528792460}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
@@ -38,7 +38,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 150, y: 50}
+  m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &261277052138697415
 CanvasRenderer:
@@ -134,11 +134,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6ce3099ec97e504a8fffe4bd20695d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RemapButton
-  actionName: 
-  bindingIndex: 0
+  actionName: Move
+  bindingIndex: 3
   isKeyboard: 1
-  label: {fileID: 0}
-  button: {fileID: 0}
+  label: {fileID: 7104217552960306167}
+  button: {fileID: 5484576428253119613}
 --- !u!1 &7806719591729209067
 GameObject:
   m_ObjectHideFlags: 0

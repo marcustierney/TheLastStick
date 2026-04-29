@@ -69,6 +69,14 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameplayInputGate.BlocksGameplayActions)
+        {
+            horizontal = 0f;
+            isWalking = false;
+            shiftHold = false;
+            return;
+        }
+
         // Update dash timers even if knockback is active
         if (isDashing)
         {
