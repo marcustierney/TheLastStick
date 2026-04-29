@@ -16,6 +16,8 @@ public class Movement : MonoBehaviour
     private float jumpHeight = 15f;
     private bool isFacingRight = true;
 
+    private float crouchSpeed = 2.5f; // Crouch walk speed (half of normal walk speed)
+
     private float dashTime = 0.2f; 
     private float dashSpeed = 20f;
     private float dashCooldown = 0.5f;
@@ -27,6 +29,8 @@ public class Movement : MonoBehaviour
     private List<Collider2D> ignoredIFrameColliders = new List<Collider2D>(); // Colliders ignored during I-frames (e.g. after taking damage)
     private bool isJumping = false; 
     private bool shiftHold = false;
+    private bool isCrouching = false;
+    private bool isCrouchWalking = false;
 
     private bool canMoveHorizontally = true;
     [SerializeField] private AudioSource groundedMoveAudioSource;
@@ -127,6 +131,8 @@ public class Movement : MonoBehaviour
             animator.SetBool("isWalking", isWalking);
             animator.SetBool("areGrounded", areGrounded);
             animator.SetBool("shiftHold", shiftHold);
+            animator.SetBool("isCrouching", isCrouching);
+            animator.SetBool("isCrouchWalking", isCrouchWalking);
             if (spacebarPressed)
             {
                 animator.SetBool("spacebarPressed", true);
@@ -174,6 +180,19 @@ public class Movement : MonoBehaviour
             }
         }
 
+        // Handle crouch input
+        if (CanMoveHorizontally && inputActions.Gameplay.Crouch.IsPressed() && areGrounded)
+        {
+            isCrouching = true;
+        }
+        else
+        {
+            isCrouching = false;
+        }
+
+        // Determine if crouch walking
+        isCrouchWalking = isCrouching && Mathf.Abs(horizontal) > 0.01f;
+
         Flip();
     }
 
@@ -192,7 +211,15 @@ public class Movement : MonoBehaviour
         }
         else
         {
-            float moveSpeed = shiftHold ? runSpeed : speed;
+            float moveSpeed;
+            if (isCrouchWalking)
+            {
+                moveSpeed = crouchSpeed;
+            }
+            else
+            {
+                moveSpeed = shiftHold ? runSpeed : speed;
+            }
             rb.linearVelocity = new Vector2(horizontal * moveSpeed, rb.linearVelocity.y);
         }
     }

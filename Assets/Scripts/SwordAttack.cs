@@ -91,8 +91,9 @@ public class SwordAttack : MonoBehaviour
 
         Vector2 moveInput = inputActions.Gameplay.Move.ReadValue<Vector2>();
         bool downInputPressed = IsDownAttackPressedThisFrame(moveInput);
+        bool crouchInputPressed = inputActions.Gameplay.Crouch.WasPressedThisFrame();
 
-        if (!movement.IsGrounded() && downInputPressed)
+        if (!movement.IsGrounded() && (downInputPressed || crouchInputPressed))
         {
             if (!usedSwordStand)
             {
