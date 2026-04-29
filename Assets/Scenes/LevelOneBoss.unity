@@ -867,6 +867,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PauseManager
   pauseMenuUI: {fileID: 905261608}
   optionsCanvas: {fileID: 1409068497}
+  focusGuard: {fileID: 0}
+  pauseDefaultSelectable: {fileID: 0}
+  optionsDefaultSelectable: {fileID: 0}
 --- !u!4 &198051068
 Transform:
   m_ObjectHideFlags: 0
@@ -1201,6 +1204,10 @@ MonoBehaviour:
   dashAttackStateName: Dash_Attack
   swordStandBoolName: isSwordStanding
   attackAudioSource: {fileID: 1641112402}
+  comboLength: 4
+  comboResetDelay: 0.7
+  comboStepIntName: attackComboStep
+  comboTriggerName: attackCombo
 --- !u!114 &365664721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1644,6 +1651,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopUI
   shopPanel: {fileID: 1524442706}
+  focusGuard: {fileID: 0}
+  shopDefaultSelectable: {fileID: 0}
   speedCostText: {fileID: 715712814}
   speedLevelText: {fileID: 1063733335}
   speedIncreasePerUpgrade: 1
@@ -1672,7 +1681,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecfd27c0b2fe726479f3d3d4b470d2b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopInteractable
-  interactKey: 101
   interactionPrompt: {fileID: 1666662187}
   shopUI: {fileID: 439114208}
 --- !u!61 &439114210
@@ -3861,6 +3869,7 @@ GameObject:
   - component: {fileID: 979455801}
   - component: {fileID: 979455800}
   - component: {fileID: 979455799}
+  - component: {fileID: 979455802}
   m_Layer: 3
   m_Name: DashAttackHitbox
   m_TagString: SwordHitBox
@@ -4002,6 +4011,21 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &979455802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 979455797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
 --- !u!1 &982650885
 GameObject:
   m_ObjectHideFlags: 0
@@ -5207,6 +5231,7 @@ GameObject:
   - component: {fileID: 1132393810}
   - component: {fileID: 1132393811}
   - component: {fileID: 1132393812}
+  - component: {fileID: 1132393813}
   m_Layer: 8
   m_Name: attackIndicator
   m_TagString: Boss
@@ -5334,6 +5359,21 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1132393813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1132393809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
 --- !u!1 &1156109360
 GameObject:
   m_ObjectHideFlags: 0
@@ -5730,6 +5770,7 @@ GameObject:
   - component: {fileID: 1183832629}
   - component: {fileID: 1183832631}
   - component: {fileID: 1183832632}
+  - component: {fileID: 1183832633}
   m_Layer: 3
   m_Name: SwordHitbox
   m_TagString: SwordHitBox
@@ -5871,6 +5912,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SwordHitbox
   damage: 1
   hitDamageAudioSource: {fileID: 393104686}
+--- !u!114 &1183832633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1183832628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
 --- !u!1 &1205941702
 GameObject:
   m_ObjectHideFlags: 0
@@ -9462,6 +9518,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1958016577
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1958016579}
+  - component: {fileID: 1958016578}
+  m_Layer: 0
+  m_Name: HitboxVisualizationManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1958016578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1958016577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d12a0e09195c4264e9fbe1e9a676fc1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitboxVisualizationManager
+  persistAcrossScenes: 1
+  showHitboxes: 1
+  hitboxColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!4 &1958016579
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1958016577}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1981698598
 GameObject:
   m_ObjectHideFlags: 0
@@ -9847,6 +9950,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 500f76c4a774ce2458f71857e6c13990, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenu
+  mainMenuPanel: {fileID: 0}
+  optionsPanel: {fileID: 0}
+  creditsPanel: {fileID: 0}
+  focusGuard: {fileID: 0}
+  mainMenuDefaultSelection: {fileID: 0}
+  creditsDefaultSelection: {fileID: 0}
 --- !u!4 &2012173542
 Transform:
   m_ObjectHideFlags: 0
@@ -10673,3 +10782,4 @@ SceneRoots:
   - {fileID: 198051068}
   - {fileID: 905261612}
   - {fileID: 1409068502}
+  - {fileID: 1958016579}

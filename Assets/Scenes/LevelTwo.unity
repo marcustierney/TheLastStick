@@ -1569,6 +1569,8 @@ GameObject:
   - component: {fileID: 68706590}
   - component: {fileID: 68706589}
   - component: {fileID: 68706588}
+  - component: {fileID: 68706593}
+  - component: {fileID: 68706594}
   m_Layer: 10
   m_Name: 'EnemySwordHitbox '
   m_TagString: Enemy
@@ -1735,6 +1737,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2074401889}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &68706593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 68706587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
+--- !u!114 &68706594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 68706587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 1
+  hiddenAlpha: 0
 --- !u!1 &76806926
 GameObject:
   m_ObjectHideFlags: 0
@@ -3369,6 +3401,8 @@ GameObject:
   m_Component:
   - component: {fileID: 232541779}
   - component: {fileID: 232541778}
+  - component: {fileID: 232541780}
+  - component: {fileID: 232541781}
   m_Layer: 10
   m_Name: EnemyWarningHitBox
   m_TagString: Enemy
@@ -3443,13 +3477,74 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 232541777}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0.717, y: 0.063, z: 0}
-  m_LocalScale: {x: 0.76795644, y: 0.15160534, z: 2.2897995}
+  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -4.3780003, y: 1.138, z: 0}
+  m_LocalScale: {x: 0.7679565, y: 0.15160534, z: 2.2897995}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 493979935}
+  m_Father: {fileID: 251523486}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &232541780
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 232541777}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 2}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &232541781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 232541777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
 --- !u!1 &234996948
 GameObject:
   m_ObjectHideFlags: 0
@@ -3879,6 +3974,8 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1102442749}
+  - {fileID: 232541779}
   - {fileID: 2146659370}
   - {fileID: 468286083}
   m_Father: {fileID: 137354064}
@@ -4414,6 +4511,9 @@ GameObject:
   m_Component:
   - component: {fileID: 279819563}
   - component: {fileID: 279819562}
+  - component: {fileID: 279819565}
+  - component: {fileID: 279819564}
+  - component: {fileID: 279819566}
   m_Layer: 10
   m_Name: EnemyWarningHitBox
   m_TagString: Enemy
@@ -4495,6 +4595,82 @@ Transform:
   m_Children: []
   m_Father: {fileID: 641939939}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &279819564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279819561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
+--- !u!61 &279819565
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279819561}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 2}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &279819566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279819561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 1
+  hiddenAlpha: 0
 --- !u!1 &283509827
 GameObject:
   m_ObjectHideFlags: 0
@@ -6195,6 +6371,9 @@ GameObject:
   m_Component:
   - component: {fileID: 350114922}
   - component: {fileID: 350114921}
+  - component: {fileID: 350114924}
+  - component: {fileID: 350114923}
+  - component: {fileID: 350114925}
   m_Layer: 10
   m_Name: EnemyWarningHitBox
   m_TagString: Enemy
@@ -6276,6 +6455,82 @@ Transform:
   m_Children: []
   m_Father: {fileID: 283509833}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &350114923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 350114920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
+--- !u!61 &350114924
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 350114920}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 2}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &350114925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 350114920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 1
+  hiddenAlpha: 0
 --- !u!1 &363013026
 GameObject:
   m_ObjectHideFlags: 0
@@ -6659,7 +6914,6 @@ MonoBehaviour:
   dashAttackStateName: Dash_Attack
   swordStandBoolName: isSwordStanding
   attackAudioSource: {fileID: 115237481}
-  attackKey: 32
   comboLength: 4
   comboResetDelay: 0.7
   comboStepIntName: attackComboStep
@@ -7283,6 +7537,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopUI
   shopPanel: {fileID: 256776672}
+  focusGuard: {fileID: 0}
+  shopDefaultSelectable: {fileID: 0}
   speedCostText: {fileID: 162389430}
   speedLevelText: {fileID: 289888204}
   speedIncreasePerUpgrade: 1
@@ -7311,7 +7567,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecfd27c0b2fe726479f3d3d4b470d2b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopInteractable
-  interactKey: 101
   interactionPrompt: {fileID: 1147239811}
   shopUI: {fileID: 410673945}
 --- !u!61 &410673947
@@ -8263,6 +8518,9 @@ GameObject:
   m_Component:
   - component: {fileID: 468286083}
   - component: {fileID: 468286082}
+  - component: {fileID: 468286085}
+  - component: {fileID: 468286084}
+  - component: {fileID: 468286086}
   m_Layer: 10
   m_Name: EnemyWarningHitBox
   m_TagString: Enemy
@@ -8344,6 +8602,82 @@ Transform:
   m_Children: []
   m_Father: {fileID: 251523486}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &468286084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 468286081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
+--- !u!61 &468286085
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 468286081}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 2}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &468286086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 468286081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 1
+  hiddenAlpha: 0
 --- !u!1 &474225660
 GameObject:
   m_ObjectHideFlags: 0
@@ -8721,6 +9055,9 @@ GameObject:
   m_Component:
   - component: {fileID: 485755185}
   - component: {fileID: 485755184}
+  - component: {fileID: 485755187}
+  - component: {fileID: 485755186}
+  - component: {fileID: 485755188}
   m_Layer: 10
   m_Name: EnemyWarningHitBox
   m_TagString: Enemy
@@ -8802,6 +9139,82 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1014808875}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &485755186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485755183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
+--- !u!61 &485755187
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485755183}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 2}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &485755188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485755183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 1
+  hiddenAlpha: 0
 --- !u!4 &489895255 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4040671118395224777, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
@@ -9022,9 +9435,7 @@ Transform:
   m_LocalPosition: {x: -0.012390137, y: 7.40747, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1102442749}
-  - {fileID: 232541779}
+  m_Children: []
   m_Father: {fileID: 137354064}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &503794334
@@ -9793,6 +10204,8 @@ GameObject:
   - component: {fileID: 570870561}
   - component: {fileID: 570870560}
   - component: {fileID: 570870559}
+  - component: {fileID: 570870564}
+  - component: {fileID: 570870565}
   m_Layer: 10
   m_Name: 'EnemySwordHitbox '
   m_TagString: Enemy
@@ -9959,6 +10372,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 550895634}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &570870564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 570870558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
+--- !u!114 &570870565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 570870558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 1
+  hiddenAlpha: 0
 --- !u!1001 &584514010
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11174,6 +11617,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 500f76c4a774ce2458f71857e6c13990, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenu
+  mainMenuPanel: {fileID: 0}
+  optionsPanel: {fileID: 0}
+  creditsPanel: {fileID: 0}
+  focusGuard: {fileID: 0}
+  mainMenuDefaultSelection: {fileID: 0}
+  creditsDefaultSelection: {fileID: 0}
 --- !u!4 &683743547
 Transform:
   m_ObjectHideFlags: 0
@@ -11290,6 +11739,8 @@ GameObject:
   m_Component:
   - component: {fileID: 699497919}
   - component: {fileID: 699497918}
+  - component: {fileID: 699497921}
+  - component: {fileID: 699497920}
   m_Layer: 10
   m_Name: EnemyWarningHitBox
   m_TagString: Enemy
@@ -11371,6 +11822,67 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1803093646}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &699497920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 699497917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
+--- !u!61 &699497921
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 699497917}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 2}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &702523144
 GameObject:
   m_ObjectHideFlags: 0
@@ -11759,6 +12271,8 @@ GameObject:
   m_Component:
   - component: {fileID: 785800066}
   - component: {fileID: 785800065}
+  - component: {fileID: 785800068}
+  - component: {fileID: 785800067}
   m_Layer: 10
   m_Name: EnemyWarningHitBox
   m_TagString: Enemy
@@ -11840,6 +12354,67 @@ Transform:
   m_Children: []
   m_Father: {fileID: 58670296}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &785800067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 785800064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
+--- !u!61 &785800068
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 785800064}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 2}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &790078990
 GameObject:
   m_ObjectHideFlags: 0
@@ -12955,6 +13530,9 @@ GameObject:
   m_Component:
   - component: {fileID: 846492303}
   - component: {fileID: 846492302}
+  - component: {fileID: 846492305}
+  - component: {fileID: 846492304}
+  - component: {fileID: 846492306}
   m_Layer: 10
   m_Name: EnemyWarningHitBox
   m_TagString: Enemy
@@ -13036,6 +13614,82 @@ Transform:
   m_Children: []
   m_Father: {fileID: 311474310}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &846492304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846492301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
+--- !u!61 &846492305
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846492301}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 2}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &846492306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846492301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 1
+  hiddenAlpha: 0
 --- !u!1 &846745116
 GameObject:
   m_ObjectHideFlags: 0
@@ -13046,6 +13700,8 @@ GameObject:
   m_Component:
   - component: {fileID: 846745118}
   - component: {fileID: 846745117}
+  - component: {fileID: 846745120}
+  - component: {fileID: 846745119}
   m_Layer: 10
   m_Name: EnemyWarningHitBox
   m_TagString: Enemy
@@ -13127,6 +13783,67 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1242375698}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &846745119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846745116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
+--- !u!61 &846745120
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846745116}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 2}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &850498741
 GameObject:
   m_ObjectHideFlags: 0
@@ -14057,6 +14774,7 @@ GameObject:
   - component: {fileID: 980786704}
   - component: {fileID: 980786703}
   - component: {fileID: 980786702}
+  - component: {fileID: 980786705}
   m_Layer: 3
   m_Name: DashAttackHitbox
   m_TagString: SwordHitBox
@@ -14198,6 +14916,21 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &980786705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 980786700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
 --- !u!1 &982757296
 GameObject:
   m_ObjectHideFlags: 0
@@ -14208,6 +14941,9 @@ GameObject:
   m_Component:
   - component: {fileID: 982757298}
   - component: {fileID: 982757297}
+  - component: {fileID: 982757300}
+  - component: {fileID: 982757299}
+  - component: {fileID: 982757301}
   m_Layer: 10
   m_Name: EnemyWarningHitBox
   m_TagString: Enemy
@@ -14289,6 +15025,82 @@ Transform:
   m_Children: []
   m_Father: {fileID: 94499598}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &982757299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982757296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
+--- !u!61 &982757300
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982757296}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 2}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &982757301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982757296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 1
+  hiddenAlpha: 0
 --- !u!1 &986428113
 GameObject:
   m_ObjectHideFlags: 0
@@ -14299,6 +15111,9 @@ GameObject:
   m_Component:
   - component: {fileID: 986428115}
   - component: {fileID: 986428114}
+  - component: {fileID: 986428117}
+  - component: {fileID: 986428116}
+  - component: {fileID: 986428118}
   m_Layer: 10
   m_Name: EnemyWarningHitBox
   m_TagString: Enemy
@@ -14380,6 +15195,82 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1722841089}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &986428116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 986428113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
+--- !u!61 &986428117
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 986428113}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 2}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &986428118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 986428113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 1
+  hiddenAlpha: 0
 --- !u!4 &1001304564 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1546361789544839454, guid: dc42cb1a68b92954cbfc5ff0c8bd5397, type: 3}
@@ -14398,6 +15289,8 @@ GameObject:
   - component: {fileID: 1007347736}
   - component: {fileID: 1007347735}
   - component: {fileID: 1007347734}
+  - component: {fileID: 1007347739}
+  - component: {fileID: 1007347740}
   m_Layer: 10
   m_Name: 'EnemySwordHitbox '
   m_TagString: Enemy
@@ -14564,6 +15457,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 641939939}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &1007347739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007347733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
+--- !u!114 &1007347740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007347733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 1
+  hiddenAlpha: 0
 --- !u!1 &1014808869
 GameObject:
   m_ObjectHideFlags: 0
@@ -16195,6 +17118,8 @@ GameObject:
   - component: {fileID: 1102442747}
   - component: {fileID: 1102442746}
   - component: {fileID: 1102442745}
+  - component: {fileID: 1102442750}
+  - component: {fileID: 1102442751}
   m_Layer: 10
   m_Name: 'EnemySwordHitbox '
   m_TagString: Enemy
@@ -16354,13 +17279,43 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1102442744}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0.717, y: 0.063, z: 0}
-  m_LocalScale: {x: 0.76795644, y: 0.15160534, z: 2.2897995}
+  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -4.3780003, y: 1.138, z: 0}
+  m_LocalScale: {x: 0.7679565, y: 0.15160534, z: 2.2897995}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 493979935}
+  m_Father: {fileID: 251523486}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &1102442750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1102442744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
+--- !u!114 &1102442751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1102442744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 1
+  hiddenAlpha: 0
 --- !u!1 &1118778685
 GameObject:
   m_ObjectHideFlags: 0
@@ -17280,6 +18235,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1169994820}
   - component: {fileID: 1169994819}
+  - component: {fileID: 1169994822}
+  - component: {fileID: 1169994821}
+  - component: {fileID: 1169994823}
   m_Layer: 10
   m_Name: EnemyWarningHitBox
   m_TagString: Enemy
@@ -17361,6 +18319,82 @@ Transform:
   m_Children: []
   m_Father: {fileID: 550895634}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1169994821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1169994818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
+--- !u!61 &1169994822
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1169994818}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 2}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &1169994823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1169994818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 1
+  hiddenAlpha: 0
 --- !u!1 &1179143176
 GameObject:
   m_ObjectHideFlags: 0
@@ -17511,6 +18545,7 @@ GameObject:
   - component: {fileID: 1183832629}
   - component: {fileID: 1183832631}
   - component: {fileID: 1183832632}
+  - component: {fileID: 1183832633}
   m_Layer: 8
   m_Name: SwordHitbox
   m_TagString: SwordHitBox
@@ -17652,6 +18687,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SwordHitbox
   damage: 1
   hitDamageAudioSource: {fileID: 669901013}
+--- !u!114 &1183832633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1183832628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
 --- !u!1 &1198145846
 GameObject:
   m_ObjectHideFlags: 0
@@ -17665,6 +18715,8 @@ GameObject:
   - component: {fileID: 1198145849}
   - component: {fileID: 1198145848}
   - component: {fileID: 1198145847}
+  - component: {fileID: 1198145852}
+  - component: {fileID: 1198145853}
   m_Layer: 10
   m_Name: 'EnemySwordHitbox '
   m_TagString: Enemy
@@ -17831,6 +18883,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 94499598}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &1198145852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1198145846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
+--- !u!114 &1198145853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1198145846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 1
+  hiddenAlpha: 0
 --- !u!1 &1199933818
 GameObject:
   m_ObjectHideFlags: 0
@@ -18301,6 +19383,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1234982466}
   - component: {fileID: 1234982465}
+  - component: {fileID: 1234982468}
+  - component: {fileID: 1234982467}
+  - component: {fileID: 1234982469}
   m_Layer: 10
   m_Name: EnemyWarningHitBox
   m_TagString: Enemy
@@ -18382,6 +19467,82 @@ Transform:
   m_Children: []
   m_Father: {fileID: 344393365}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1234982467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234982464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
+--- !u!61 &1234982468
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234982464}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 2}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &1234982469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234982464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 1
+  hiddenAlpha: 0
 --- !u!1 &1242375692
 GameObject:
   m_ObjectHideFlags: 0
@@ -19157,6 +20318,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1154230893}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1271649632
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1271649634}
+  - component: {fileID: 1271649633}
+  m_Layer: 0
+  m_Name: HitboxVisualizationManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1271649633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1271649632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d12a0e09195c4264e9fbe1e9a676fc1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitboxVisualizationManager
+  persistAcrossScenes: 1
+  showHitboxes: 1
+  hitboxColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!4 &1271649634
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1271649632}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 14.83495, y: 1.41806, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1283751431
 GameObject:
   m_ObjectHideFlags: 0
@@ -19167,6 +20375,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1283751433}
   - component: {fileID: 1283751432}
+  - component: {fileID: 1283751435}
+  - component: {fileID: 1283751434}
   m_Layer: 10
   m_Name: EnemyWarningHitBox
   m_TagString: Enemy
@@ -19248,6 +20458,67 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1066661736}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1283751434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1283751431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
+--- !u!61 &1283751435
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1283751431}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 2}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &1286201550
 GameObject:
   m_ObjectHideFlags: 0
@@ -19396,6 +20667,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1298051765}
   - component: {fileID: 1298051764}
+  - component: {fileID: 1298051767}
+  - component: {fileID: 1298051766}
+  - component: {fileID: 1298051768}
   m_Layer: 10
   m_Name: EnemyWarningHitBox
   m_TagString: Enemy
@@ -19477,6 +20751,82 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2074401889}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1298051766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1298051763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
+--- !u!61 &1298051767
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1298051763}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 2}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &1298051768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1298051763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 1
+  hiddenAlpha: 0
 --- !u!1 &1305307220
 GameObject:
   m_ObjectHideFlags: 0
@@ -20174,6 +21524,8 @@ GameObject:
   - component: {fileID: 1340464870}
   - component: {fileID: 1340464869}
   - component: {fileID: 1340464868}
+  - component: {fileID: 1340464873}
+  - component: {fileID: 1340464874}
   m_Layer: 10
   m_Name: 'EnemySwordHitbox '
   m_TagString: Enemy
@@ -20340,6 +21692,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1722841089}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &1340464873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1340464867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
+--- !u!114 &1340464874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1340464867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 1
+  hiddenAlpha: 0
 --- !u!1 &1345258460
 GameObject:
   m_ObjectHideFlags: 0
@@ -21184,6 +22566,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1404282235}
   - component: {fileID: 1404282234}
+  - component: {fileID: 1404282237}
+  - component: {fileID: 1404282236}
+  - component: {fileID: 1404282238}
   m_Layer: 10
   m_Name: EnemyWarningHitBox
   m_TagString: Enemy
@@ -21265,6 +22650,82 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1131748225}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1404282236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1404282233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
+--- !u!61 &1404282237
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1404282233}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 2}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &1404282238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1404282233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 1
+  hiddenAlpha: 0
 --- !u!1 &1411042199
 GameObject:
   m_ObjectHideFlags: 0
@@ -21369,6 +22830,8 @@ GameObject:
   - component: {fileID: 1424952770}
   - component: {fileID: 1424952769}
   - component: {fileID: 1424952768}
+  - component: {fileID: 1424952773}
+  - component: {fileID: 1424952774}
   m_Layer: 10
   m_Name: 'EnemySwordHitbox '
   m_TagString: Enemy
@@ -21535,6 +22998,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 311474310}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &1424952773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1424952767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
+--- !u!114 &1424952774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1424952767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 1
+  hiddenAlpha: 0
 --- !u!1 &1445136939
 GameObject:
   m_ObjectHideFlags: 0
@@ -21807,6 +23300,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1457961367}
   - component: {fileID: 1457961368}
+  - component: {fileID: 1457961370}
+  - component: {fileID: 1457961369}
   m_Layer: 10
   m_Name: EnemyWarningHitBox
   m_TagString: Enemy
@@ -21888,6 +23383,67 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1457961369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457961366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
+--- !u!61 &1457961370
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457961366}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 2}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &1459128089
 GameObject:
   m_ObjectHideFlags: 0
@@ -22450,6 +24006,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1499668816}
   - component: {fileID: 1499668815}
+  - component: {fileID: 1499668818}
+  - component: {fileID: 1499668817}
+  - component: {fileID: 1499668819}
   m_Layer: 10
   m_Name: EnemyWarningHitBox
   m_TagString: Enemy
@@ -22531,6 +24090,82 @@ Transform:
   m_Children: []
   m_Father: {fileID: 63749633}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1499668817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499668814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
+--- !u!61 &1499668818
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499668814}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 2}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &1499668819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499668814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 1
+  hiddenAlpha: 0
 --- !u!1 &1500262162
 GameObject:
   m_ObjectHideFlags: 0
@@ -23484,6 +25119,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1557898125}
   - component: {fileID: 1557898124}
+  - component: {fileID: 1557898127}
+  - component: {fileID: 1557898126}
   m_Layer: 10
   m_Name: EnemyWarningHitBox
   m_TagString: Enemy
@@ -23565,6 +25202,67 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1674185680}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1557898126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1557898123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
+--- !u!61 &1557898127
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1557898123}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 2}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &1564504572
 GameObject:
   m_ObjectHideFlags: 0
@@ -23851,6 +25549,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1581586640}
   - component: {fileID: 1581586639}
+  - component: {fileID: 1581586642}
+  - component: {fileID: 1581586641}
   m_Layer: 10
   m_Name: EnemyWarningHitBox
   m_TagString: Enemy
@@ -23932,6 +25632,67 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1095853781}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1581586641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1581586638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
+--- !u!61 &1581586642
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1581586638}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 2}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &1588641850
 GameObject:
   m_ObjectHideFlags: 0
@@ -24972,6 +26733,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PauseManager
   pauseMenuUI: {fileID: 474225660}
   optionsCanvas: {fileID: 1956390259}
+  focusGuard: {fileID: 0}
+  pauseDefaultSelectable: {fileID: 0}
+  optionsDefaultSelectable: {fileID: 0}
 --- !u!4 &1649098666
 Transform:
   m_ObjectHideFlags: 0
@@ -25591,6 +27355,8 @@ GameObject:
   - component: {fileID: 1709372991}
   - component: {fileID: 1709372990}
   - component: {fileID: 1709372989}
+  - component: {fileID: 1709372994}
+  - component: {fileID: 1709372995}
   m_Layer: 10
   m_Name: 'EnemySwordHitbox '
   m_TagString: Enemy
@@ -25757,6 +27523,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 63749633}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &1709372994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709372988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
+--- !u!114 &1709372995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709372988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 1
+  hiddenAlpha: 0
 --- !u!4 &1713807882 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4040671118395224777, guid: 2781a827d5ebb4048b2c360a48f5f480, type: 3}
@@ -26878,6 +28674,8 @@ GameObject:
   - component: {fileID: 1817678387}
   - component: {fileID: 1817678386}
   - component: {fileID: 1817678385}
+  - component: {fileID: 1817678390}
+  - component: {fileID: 1817678391}
   m_Layer: 10
   m_Name: 'EnemySwordHitbox '
   m_TagString: Enemy
@@ -27044,6 +28842,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1014808875}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &1817678390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1817678384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
+--- !u!114 &1817678391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1817678384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 1
+  hiddenAlpha: 0
 --- !u!1 &1820929360
 GameObject:
   m_ObjectHideFlags: 0
@@ -28155,6 +29983,8 @@ GameObject:
   - component: {fileID: 1911533293}
   - component: {fileID: 1911533292}
   - component: {fileID: 1911533291}
+  - component: {fileID: 1911533296}
+  - component: {fileID: 1911533297}
   m_Layer: 10
   m_Name: 'EnemySwordHitbox '
   m_TagString: Enemy
@@ -28321,6 +30151,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 344393365}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &1911533296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1911533290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
+--- !u!114 &1911533297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1911533290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 1
+  hiddenAlpha: 0
 --- !u!1 &1917220506
 GameObject:
   m_ObjectHideFlags: 0
@@ -28641,6 +30501,8 @@ GameObject:
   - component: {fileID: 1938626028}
   - component: {fileID: 1938626027}
   - component: {fileID: 1938626026}
+  - component: {fileID: 1938626031}
+  - component: {fileID: 1938626032}
   m_Layer: 10
   m_Name: 'EnemySwordHitbox '
   m_TagString: Enemy
@@ -28807,6 +30669,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1131748225}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &1938626031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1938626025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
+--- !u!114 &1938626032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1938626025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 1
+  hiddenAlpha: 0
 --- !u!1 &1939655611
 GameObject:
   m_ObjectHideFlags: 0
@@ -30388,6 +32280,8 @@ GameObject:
   - component: {fileID: 2090518626}
   - component: {fileID: 2090518625}
   - component: {fileID: 2090518624}
+  - component: {fileID: 2090518629}
+  - component: {fileID: 2090518630}
   m_Layer: 10
   m_Name: 'EnemySwordHitbox '
   m_TagString: Enemy
@@ -30554,6 +32448,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 283509833}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &2090518629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2090518623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
+--- !u!114 &2090518630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2090518623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 1
+  hiddenAlpha: 0
 --- !u!1 &2095163550
 GameObject:
   m_ObjectHideFlags: 0
@@ -31752,6 +33676,8 @@ GameObject:
   - component: {fileID: 2146659368}
   - component: {fileID: 2146659367}
   - component: {fileID: 2146659366}
+  - component: {fileID: 2146659371}
+  - component: {fileID: 2146659372}
   m_Layer: 10
   m_Name: 'EnemySwordHitbox '
   m_TagString: Enemy
@@ -31918,6 +33844,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 251523486}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &2146659371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2146659365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
+--- !u!114 &2146659372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2146659365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 1
+  hiddenAlpha: 0
 --- !u!1001 &3776748576439356430
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32135,3 +34091,4 @@ SceneRoots:
   - {fileID: 1649098666}
   - {fileID: 1956390264}
   - {fileID: 1445136941}
+  - {fileID: 1271649634}

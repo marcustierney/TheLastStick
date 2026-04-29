@@ -940,6 +940,7 @@ GameObject:
   - component: {fileID: 217386351}
   - component: {fileID: 217386350}
   - component: {fileID: 217386349}
+  - component: {fileID: 217386353}
   m_Layer: 3
   m_Name: DashAttackHitbox
   m_TagString: SwordHitBox
@@ -1081,6 +1082,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2033661660}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &217386353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 217386348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
 --- !u!1 &234554322
 GameObject:
   m_ObjectHideFlags: 0
@@ -1989,6 +2005,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PauseManager
   pauseMenuUI: {fileID: 1889529898}
   optionsCanvas: {fileID: 1516339690}
+  focusGuard: {fileID: 0}
+  pauseDefaultSelectable: {fileID: 0}
+  optionsDefaultSelectable: {fileID: 0}
 --- !u!4 &585725816
 Transform:
   m_ObjectHideFlags: 0
@@ -2502,6 +2521,7 @@ GameObject:
   - component: {fileID: 637060108}
   - component: {fileID: 637060107}
   - component: {fileID: 637060106}
+  - component: {fileID: 637060110}
   m_Layer: 8
   m_Name: SwordHitbox
   m_TagString: SwordHitBox
@@ -2643,6 +2663,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2033661660}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &637060110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637060105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
 --- !u!1 &640489978
 GameObject:
   m_ObjectHideFlags: 0
@@ -5992,6 +6027,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 500f76c4a774ce2458f71857e6c13990, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenu
+  mainMenuPanel: {fileID: 0}
+  optionsPanel: {fileID: 0}
+  creditsPanel: {fileID: 0}
+  focusGuard: {fileID: 0}
+  mainMenuDefaultSelection: {fileID: 0}
+  creditsDefaultSelection: {fileID: 0}
 --- !u!4 &1178326605
 Transform:
   m_ObjectHideFlags: 0
@@ -8934,6 +8975,10 @@ MonoBehaviour:
   dashAttackStateName: Dash_Attack
   swordStandBoolName: isSwordStanding
   attackAudioSource: {fileID: 0}
+  comboLength: 4
+  comboResetDelay: 0.7
+  comboStepIntName: attackComboStep
+  comboTriggerName: attackCombo
 --- !u!95 &2033661655
 Animator:
   serializedVersion: 7
