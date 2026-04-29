@@ -90,7 +90,7 @@ public class HitboxVisualizationManager : MonoBehaviour
     {
         if (instance == null)
         {
-            instance = FindFirstObjectByType<HitboxVisualizationManager>();
+            instance = FindAnyObjectByType<HitboxVisualizationManager>();
         }
 
         return instance;

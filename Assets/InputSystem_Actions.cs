@@ -483,7 +483,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Point"",
-                    ""type"": ""Value"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""812cb13a-2d2f-4d11-960d-1517b8f8f086"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
@@ -492,7 +492,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Click"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""c3c93c06-2e02-4f81-88e7-fa88e3153afd"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
@@ -501,7 +501,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""RightClick"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""fc9f13f2-0b66-41a8-acab-b5f47f9b7369"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
@@ -510,7 +510,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""MiddleClick"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""4918efb6-9677-4e27-8cbc-d7a4da9e20cd"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
@@ -519,7 +519,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""ScrollWheel"",
-                    ""type"": ""Value"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""4c1c6616-c326-4809-859f-d745a8e67397"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",

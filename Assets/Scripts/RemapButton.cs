@@ -61,7 +61,7 @@ public class RemapButton : MonoBehaviour
     {
         if (_manager == null)
         {
-            _manager = FindFirstObjectByType<InputRemapper>();
+            _manager = FindAnyObjectByType<InputRemapper>();
         }
         EnsureWired();
 
@@ -89,7 +89,7 @@ public class RemapButton : MonoBehaviour
     {
         if (_manager == null)
         {
-            _manager = FindFirstObjectByType<InputRemapper>();
+            _manager = FindAnyObjectByType<InputRemapper>();
             EnsureWired();
         }
 

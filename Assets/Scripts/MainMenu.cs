@@ -210,7 +210,7 @@ public class MainMenu : MonoBehaviour
 
     private static void EnsureUiActionMapActive()
     {
-        PlayerInput playerInput = Object.FindFirstObjectByType<PlayerInput>();
+        PlayerInput playerInput = Object.FindAnyObjectByType<PlayerInput>();
         if (playerInput == null)
         {
             return;
@@ -249,7 +249,7 @@ public class MainMenu : MonoBehaviour
             return;
         }
 
-        PlayerInput playerInput = Object.FindFirstObjectByType<PlayerInput>();
+        PlayerInput playerInput = Object.FindAnyObjectByType<PlayerInput>();
         InputActionAsset asset = playerInput != null ? playerInput.actions : uiModule.actionsAsset;
         if (asset == null)
         {

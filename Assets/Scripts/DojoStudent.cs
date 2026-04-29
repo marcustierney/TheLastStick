@@ -5,8 +5,8 @@ public class Enemy : MonoBehaviour
     public int maxHealth = 3;   
     private int currentHealth;
 
-    [SerializeField]
-    private float damageToPlayer = 20f; //damage dealt to player on contact
+    // [SerializeField]
+    // private float damageToPlayer = 20f;
     protected float moveSpeed = 3f;
     protected float chaseRange = 8f;
     protected float attackRange = 1.2f;

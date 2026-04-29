@@ -21,7 +21,7 @@ public class PauseManager : MonoBehaviour
 
     private void Start()
     {
-        playerInput = Object.FindFirstObjectByType<PlayerInput>();
+        playerInput = Object.FindAnyObjectByType<PlayerInput>();
         CachePauseAction();
         EnsurePauseActionEnabled();
 
@@ -111,6 +111,12 @@ public class PauseManager : MonoBehaviour
             focusGuard.ClearSelection();
         }
 
+#if UNITY_EDITOR
+        // Prevent Inspector preview from trying to repaint a scene object that
+        // is about to be destroyed by the scene load (editor-only warning).
+        UnityEditor.Selection.activeObject = null;
+#endif
+
         SceneManager.LoadScene("MainMenu");
     }
 
@@ -163,7 +169,7 @@ public class PauseManager : MonoBehaviour
     {
         if (playerInput == null)
         {
-            playerInput = Object.FindFirstObjectByType<PlayerInput>();
+            playerInput = Object.FindAnyObjectByType<PlayerInput>();
         }
 
         if (playerInput == null || playerInput.actions == null)
@@ -212,7 +218,7 @@ public class PauseManager : MonoBehaviour
     {
         if (playerInput == null)
         {
-            playerInput = Object.FindFirstObjectByType<PlayerInput>();
+            playerInput = Object.FindAnyObjectByType<PlayerInput>();
         }
 
         if (playerInput == null || string.IsNullOrEmpty(mapName))

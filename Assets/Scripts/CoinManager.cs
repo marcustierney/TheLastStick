@@ -41,6 +41,11 @@ public class CoinManager : MonoBehaviour
         }
 
         Instance = this;
+        if (transform.parent != null)
+        {
+            // DontDestroyOnLoad only works on root objects.
+            transform.SetParent(null, true);
+        }
         DontDestroyOnLoad(gameObject);
         SceneManager.sceneLoaded += HandleSceneLoaded;
         LoadState();

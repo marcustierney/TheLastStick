@@ -17,20 +17,21 @@ public class HitboxVisualizationToggleButton : MonoBehaviour
 
         if (manager == null)
         {
-            Debug.LogError("HitboxVisualizationToggleButton: No HitboxVisualizationManager found in scene.");
-            enabled = false;
+            // For non-level scenes
+            if (toggle != null)
+            {
+                toggle.interactable = false;
+            }
             return;
         }
         
         if (toggle != null)
         {
-            // Set initial state
+            toggle.interactable = true;
             toggle.isOn = manager.ShowHitboxes;
-            // Listen for toggle changes
             toggle.onValueChanged.AddListener(OnToggleValueChanged);
         }
         
-        // Listen for manager state changes
         manager.HitboxVisualizationStateChanged += HandleVisualizationStateChanged;
     }
 
@@ -49,6 +50,7 @@ public class HitboxVisualizationToggleButton : MonoBehaviour
 
     private void OnToggleValueChanged(bool isOn)
     {
+        if (manager == null) return;
         manager.SetHitboxVisualization(isOn);
     }
 

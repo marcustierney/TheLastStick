@@ -9,7 +9,7 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class SwordHitboxVisualizer : MonoBehaviour
 {
-    private Collider2D collider2D;
+    private new Collider2D collider2D;
     private HitboxVisualizationManager vizManager;
     private SpriteRenderer[] spriteRenderers;
 

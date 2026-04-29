@@ -16,7 +16,7 @@ public static class UIInputBootstrap
         if (uiModule == null)
             return;
 
-        PlayerInput playerInput = Object.FindFirstObjectByType<PlayerInput>();
+        PlayerInput playerInput = Object.FindAnyObjectByType<PlayerInput>();
         InputActionAsset asset = playerInput != null ? playerInput.actions : null;
         if (asset == null)
             return;
