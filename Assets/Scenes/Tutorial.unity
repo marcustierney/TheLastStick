@@ -2306,7 +2306,6 @@ MonoBehaviour:
   dashAttackStateName: Dash_Attack
   swordStandBoolName: isSwordStanding
   attackAudioSource: {fileID: 453820947}
-  attackKey: 32
   comboLength: 4
   comboResetDelay: 0.7
   comboStepIntName: attackComboStep
@@ -2399,7 +2398,6 @@ MonoBehaviour:
   signText: 
   signTexts: []
   interactOnce: 0
-  interactKey: 101
   interactionPrompt: {fileID: 2033514025}
   signPanel: {fileID: 1490951751}
   signTextRoot: {fileID: 1490951751}
@@ -2559,7 +2557,6 @@ MonoBehaviour:
   signText: 
   signTexts: []
   interactOnce: 0
-  interactKey: 101
   interactionPrompt: {fileID: 1227393648}
   signPanel: {fileID: 1258901019}
   signTextRoot: {fileID: 1258901019}
@@ -6172,7 +6169,6 @@ MonoBehaviour:
   signText: 
   signTexts: []
   interactOnce: 0
-  interactKey: 101
   interactionPrompt: {fileID: 1252414043}
   signPanel: {fileID: 570742041}
   signTextRoot: {fileID: 570742041}
@@ -9524,6 +9520,7 @@ GameObject:
   - component: {fileID: 1183832629}
   - component: {fileID: 1183832631}
   - component: {fileID: 1183832632}
+  - component: {fileID: 1183832633}
   m_Layer: 0
   m_Name: SwordHitbox
   m_TagString: SwordHitBox
@@ -9665,6 +9662,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SwordHitbox
   damage: 1
   hitDamageAudioSource: {fileID: 1075599335}
+--- !u!114 &1183832633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1183832628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
 --- !u!1 &1192900058
 GameObject:
   m_ObjectHideFlags: 0
@@ -9944,7 +9956,6 @@ MonoBehaviour:
   signText: 
   signTexts: []
   interactOnce: 0
-  interactKey: 101
   interactionPrompt: {fileID: 1000320243}
   signPanel: {fileID: 235411271}
   signTextRoot: {fileID: 235411271}
@@ -10680,6 +10691,7 @@ GameObject:
   - component: {fileID: 1298276223}
   - component: {fileID: 1298276222}
   - component: {fileID: 1298276221}
+  - component: {fileID: 1298276224}
   m_Layer: 8
   m_Name: DashAttackHitbox
   m_TagString: SwordHitBox
@@ -10821,6 +10833,21 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1298276224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1298276219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
 --- !u!1 &1314918302
 GameObject:
   m_ObjectHideFlags: 0
@@ -11069,6 +11096,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PauseManager
   pauseMenuUI: {fileID: 234126476}
   optionsCanvas: {fileID: 1367308652}
+  focusGuard: {fileID: 0}
+  pauseDefaultSelectable: {fileID: 0}
+  optionsDefaultSelectable: {fileID: 0}
 --- !u!4 &1343265354
 Transform:
   m_ObjectHideFlags: 0
@@ -11932,7 +11962,6 @@ MonoBehaviour:
   signText: 
   signTexts: []
   interactOnce: 0
-  interactKey: 101
   interactionPrompt: {fileID: 439833558}
   signPanel: {fileID: 1744263354}
   signTextRoot: {fileID: 1744263354}
@@ -12092,6 +12121,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopUI
   shopPanel: {fileID: 1760559661}
+  focusGuard: {fileID: 0}
+  shopDefaultSelectable: {fileID: 0}
   speedCostText: {fileID: 1851652019}
   speedLevelText: {fileID: 1543928736}
   speedIncreasePerUpgrade: 1
@@ -12142,7 +12173,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecfd27c0b2fe726479f3d3d4b470d2b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopInteractable
-  interactKey: 101
   interactionPrompt: {fileID: 1608858641}
   shopUI: {fileID: 1444218984}
 --- !u!61 &1444218987
@@ -17476,6 +17506,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 500f76c4a774ce2458f71857e6c13990, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenu
+  mainMenuPanel: {fileID: 0}
+  optionsPanel: {fileID: 0}
+  creditsPanel: {fileID: 0}
+  focusGuard: {fileID: 0}
+  mainMenuDefaultSelection: {fileID: 0}
+  creditsDefaultSelection: {fileID: 0}
 --- !u!4 &2029368791
 Transform:
   m_ObjectHideFlags: 0
@@ -17615,6 +17651,53 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &2035296867
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2035296869}
+  - component: {fileID: 2035296868}
+  m_Layer: 0
+  m_Name: HitboxVisualizationManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2035296868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2035296867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d12a0e09195c4264e9fbe1e9a676fc1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitboxVisualizationManager
+  persistAcrossScenes: 1
+  showHitboxes: 1
+  hitboxColor: {r: 1, g: 0, b: 0, a: 0.5372549}
+--- !u!4 &2035296869
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2035296867}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2039848002
 GameObject:
   m_ObjectHideFlags: 0
@@ -18290,6 +18373,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 619394802}
+  - {fileID: 2035296869}
   - {fileID: 365664716}
   - {fileID: 2095163552}
   - {fileID: 1973954774}
