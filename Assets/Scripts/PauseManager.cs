@@ -206,7 +206,7 @@ public class PauseManager : MonoBehaviour
         // Fallback only if action lookup failed; keeps pause usable during setup issues.
         if (!hasLoggedPauseFallbackWarning)
         {
-            Debug.LogWarning("[PauseManager] Gameplay/Pause action not found. Using fallback keys (Escape/Start).");
+            Debug.Log("[PauseManager] No PlayerInput or Gameplay/Pause action; using Escape/Start for pause.");
             hasLoggedPauseFallbackWarning = true;
         }
 
