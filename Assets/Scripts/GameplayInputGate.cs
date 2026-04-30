@@ -7,5 +7,22 @@ using UnityEngine;
 /// </summary>
 public static class GameplayInputGate
 {
-    public static bool BlocksGameplayActions => Time.timeScale <= 0f;
+    private static float blockUntilUnscaledTime = -1f;
+
+    public static bool BlocksGameplayActions =>
+        Time.timeScale <= 0f || Time.unscaledTime < blockUntilUnscaledTime;
+
+    public static void BlockForUnscaledSeconds(float duration)
+    {
+        if (duration <= 0f)
+        {
+            return;
+        }
+
+        float targetTime = Time.unscaledTime + duration;
+        if (targetTime > blockUntilUnscaledTime)
+        {
+            blockUntilUnscaledTime = targetTime;
+        }
+    }
 }

@@ -15,15 +15,22 @@ public class PauseManager : MonoBehaviour
     private bool isOptionsOpen = false;
     private PlayerInput playerInput;
     private InputAction pauseAction;
+    private InputAction uiCancelAction;
     private bool hasLoggedPauseFallbackWarning;
+    private bool pauseTriggeredByGamepad;
     private const string GameplayActionMap = "Gameplay";
     private const string UiActionMap = "UI";
+    private const string GamepadScheme = "Gamepad";
+    private const string KeyboardMouseScheme = "Keyboard&Mouse";
+    private const float ResumeInputBlockSeconds = 0.12f;
 
     private void Start()
     {
         playerInput = Object.FindAnyObjectByType<PlayerInput>();
         CachePauseAction();
         EnsurePauseActionEnabled();
+        CacheUiCancelAction();
+        EnsureUiCancelActionEnabled();
 
         if (focusGuard == null)
         {
@@ -43,6 +50,19 @@ public class PauseManager : MonoBehaviour
 
     void Update()
     {
+        if ((isPaused || isOptionsOpen) && IsUiCancelPressedThisFrame())
+        {
+            if (isOptionsOpen)
+            {
+                CloseOptions();
+            }
+            else
+            {
+                ResumeGame();
+            }
+            return;
+        }
+
         bool pausePressed = IsPausePressedThisFrame();
 
         if (pausePressed)
@@ -69,7 +89,7 @@ public class PauseManager : MonoBehaviour
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f; //freeze game
         isPaused = true;
-        SwitchActionMap(UiActionMap);
+        SwitchToUiInputContext();
         EnsurePauseActionEnabled();
         StartCoroutine(SelectAfterFrame(pauseDefaultSelectable));
     }
@@ -78,8 +98,10 @@ public class PauseManager : MonoBehaviour
     {
         pauseMenuUI.SetActive(false); 
         Time.timeScale = 1f; //resume game
+        GameplayInputGate.BlockForUnscaledSeconds(ResumeInputBlockSeconds);
         isPaused = false;
         isOptionsOpen = false;
+        pauseTriggeredByGamepad = false;
         SwitchActionMap(GameplayActionMap);
         if (focusGuard != null)
         {
@@ -182,6 +204,23 @@ public class PauseManager : MonoBehaviour
             ?? playerInput.actions.FindAction("Pause", throwIfNotFound: false);
     }
 
+    private void CacheUiCancelAction()
+    {
+        if (playerInput == null)
+        {
+            playerInput = Object.FindAnyObjectByType<PlayerInput>();
+        }
+
+        if (playerInput == null || playerInput.actions == null)
+        {
+            uiCancelAction = null;
+            return;
+        }
+
+        uiCancelAction = playerInput.actions.FindAction("UI/Cancel", throwIfNotFound: false)
+            ?? playerInput.actions.FindAction("Cancel", throwIfNotFound: false);
+    }
+
     private void EnsurePauseActionEnabled()
     {
         if (pauseAction != null && !pauseAction.enabled)
@@ -190,8 +229,28 @@ public class PauseManager : MonoBehaviour
         }
     }
 
+    private void EnsureUiCancelActionEnabled()
+    {
+        if (uiCancelAction != null && !uiCancelAction.enabled)
+        {
+            uiCancelAction.Enable();
+        }
+    }
+
     private bool IsPausePressedThisFrame()
     {
+        bool gamepadStartPressed = Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame;
+        bool keyboardEscapePressed = Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame;
+
+        if (gamepadStartPressed)
+        {
+            pauseTriggeredByGamepad = true;
+        }
+        else if (keyboardEscapePressed)
+        {
+            pauseTriggeredByGamepad = false;
+        }
+
         if (pauseAction == null)
         {
             CachePauseAction();
@@ -200,18 +259,67 @@ public class PauseManager : MonoBehaviour
 
         if (pauseAction != null)
         {
-            return pauseAction.WasPressedThisFrame();
+            bool actionPressed = pauseAction.WasPressedThisFrame();
+            if (actionPressed && pauseAction.activeControl != null)
+            {
+                pauseTriggeredByGamepad = pauseAction.activeControl.device is Gamepad;
+            }
+
+            // Always honor direct device checks so Start/Escape keep working
+            // even when the current action map is UI.
+            return actionPressed || gamepadStartPressed || keyboardEscapePressed;
         }
 
-        // Fallback only if action lookup failed; keeps pause usable during setup issues.
+        // Last-resort guard only when action lookup fails entirely.
         if (!hasLoggedPauseFallbackWarning)
         {
             Debug.Log("[PauseManager] No PlayerInput or Gameplay/Pause action; using Escape/Start for pause.");
             hasLoggedPauseFallbackWarning = true;
         }
+        return keyboardEscapePressed || gamepadStartPressed;
+    }
 
-        return (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
-            || (Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame);
+    private bool IsUiCancelPressedThisFrame()
+    {
+        if (uiCancelAction == null)
+        {
+            CacheUiCancelAction();
+            EnsureUiCancelActionEnabled();
+        }
+
+        return uiCancelAction != null && uiCancelAction.WasPressedThisFrame();
+    }
+
+    private void SwitchToUiInputContext()
+    {
+        SwitchActionMap(UiActionMap);
+
+        if (playerInput == null)
+        {
+            playerInput = Object.FindAnyObjectByType<PlayerInput>();
+        }
+
+        if (playerInput == null)
+        {
+            return;
+        }
+
+        if (pauseTriggeredByGamepad && Gamepad.current != null)
+        {
+            playerInput.SwitchCurrentControlScheme(GamepadScheme, Gamepad.current);
+            return;
+        }
+
+        if (Keyboard.current != null && Mouse.current != null)
+        {
+            playerInput.SwitchCurrentControlScheme(KeyboardMouseScheme, Keyboard.current, Mouse.current);
+            return;
+        }
+
+        if (Keyboard.current != null)
+        {
+            playerInput.SwitchCurrentControlScheme(KeyboardMouseScheme, Keyboard.current);
+        }
     }
 
     private void SwitchActionMap(string mapName)
