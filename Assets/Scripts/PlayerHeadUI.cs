@@ -4,8 +4,9 @@ using UnityEngine.UI;
 public class PlayerHeadUI : MonoBehaviour
 {
     [SerializeField] private UpdateHealth playerHealth;
-    [SerializeField] private Image headImage;
-    [SerializeField] private SpriteRenderer headSpriteRenderer;
+
+    private Image headImage;
+    private SpriteRenderer headSpriteRenderer;
 
     [SerializeField] private Sprite healthyHead;
     [SerializeField] private Sprite hurtHead;
@@ -20,15 +21,8 @@ public class PlayerHeadUI : MonoBehaviour
 
     private void Awake()
     {
-        if (headImage == null)
-        {
-            headImage = GetComponent<Image>();
-        }
-
-        if (headSpriteRenderer == null)
-        {
-            headSpriteRenderer = GetComponent<SpriteRenderer>();
-        }
+        headImage = GetComponent<Image>();
+        headSpriteRenderer = GetComponent<SpriteRenderer>();
 
         RefreshHead();
     }
