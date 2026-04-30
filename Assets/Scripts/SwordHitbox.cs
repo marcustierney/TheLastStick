@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class SwordHitbox : MonoBehaviour
@@ -32,9 +33,32 @@ public class SwordHitbox : MonoBehaviour
         if (boxCollider == null) return;
         gameObject.SetActive(false);
     }
+
+    private bool IsNonDamageableEnemyHitbox(Collider2D collider)
+    {
+        if (collider == null)
+        {
+            return false;
+        }
+
+        if (collider.GetComponent<EnemySwordHitbox>() != null)
+        {
+            return true;
+        }
+
+        string colliderTag = collider.tag;
+        if (colliderTag == "Enemy Attack" || colliderTag == "EnemyAttack")
+        {
+            return true;
+        }
+
+        return collider.name.IndexOf("warning", StringComparison.OrdinalIgnoreCase) >= 0;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player")) return;
+        if (IsNonDamageableEnemyHitbox(collision)) return;
 
         ShieldEnemyController shieldEnemy = collision.GetComponentInParent<ShieldEnemyController>();
         if (shieldEnemy != null)
@@ -116,6 +140,7 @@ public class SwordHitbox : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.CompareTag("Player")) return;
+        if (IsNonDamageableEnemyHitbox(collision.collider)) return;
 
         ShieldEnemyController shieldEnemy = collision.collider.GetComponentInParent<ShieldEnemyController>();
         if (shieldEnemy != null)

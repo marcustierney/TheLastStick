@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ThrowEnemy : MonoBehaviour
@@ -27,6 +28,7 @@ public class ThrowEnemy : MonoBehaviour
     [Header("Death Sound")]
     [SerializeField] private AudioSource deathAudioSource;
     [SerializeField] private AudioClip[] deathClips = new AudioClip[5];
+    [SerializeField] private Collider2D[] damageableHurtboxes;
 
     private void Awake()
     {
@@ -37,9 +39,66 @@ public class ThrowEnemy : MonoBehaviour
         currentHealth = maxHealth;
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        CacheDamageableHurtboxes();
         
         // Prevent player from pushing the enemy - set to Kinematic
         //rb.bodyType = RigidbodyType2D.Kinematic;
+    }
+
+    private void CacheDamageableHurtboxes()
+    {
+        if (damageableHurtboxes != null && damageableHurtboxes.Length > 0)
+        {
+            return;
+        }
+
+        Collider2D[] allColliders = GetComponentsInChildren<Collider2D>(true);
+        List<Collider2D> filteredColliders = new List<Collider2D>(allColliders.Length);
+
+        foreach (Collider2D col in allColliders)
+        {
+            if (col == null)
+            {
+                continue;
+            }
+
+            if (warningHitBox != null && col.transform.IsChildOf(warningHitBox.transform))
+            {
+                continue;
+            }
+
+            filteredColliders.Add(col);
+        }
+
+        damageableHurtboxes = filteredColliders.ToArray();
+    }
+
+    private bool IsSwordTouchingDamageableHurtbox(Collider2D swordCollider)
+    {
+        if (swordCollider == null)
+        {
+            return false;
+        }
+
+        if (damageableHurtboxes == null || damageableHurtboxes.Length == 0)
+        {
+            return true;
+        }
+
+        foreach (Collider2D hurtbox in damageableHurtboxes)
+        {
+            if (hurtbox == null || !hurtbox.enabled || !hurtbox.gameObject.activeInHierarchy)
+            {
+                continue;
+            }
+
+            if (Physics2D.IsTouching(swordCollider, hurtbox))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public void TakeDamage(int damage)
@@ -190,7 +249,7 @@ public class ThrowEnemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("SwordHitBox"))
+        if (collision.CompareTag("SwordHitBox") && IsSwordTouchingDamageableHurtbox(collision))
         {
             TakeDamage(1);
         }
