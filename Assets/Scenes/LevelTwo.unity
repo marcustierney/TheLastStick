@@ -1008,6 +1008,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 01f4bd262376f5e47b68aae727e2e17b, type: 3}
   - {fileID: 8300000, guid: d25bfd8234215e04a978f96a9b49baf5, type: 3}
   - {fileID: 8300000, guid: 09c3460dbdf026a49b0183dab5974664, type: 3}
+  damageableHurtboxes: []
 --- !u!50 &58670293
 Rigidbody2D:
   serializedVersion: 5
@@ -6169,8 +6170,8 @@ MonoBehaviour:
   iFrameDuration: 0.5
   regenDelay: 5
   regenRate: 2
-  knockbackForce: 20
-  knockbackUpForce: 20
+  knockbackForce: 30
+  knockbackUpForce: 10
   damageAudioSource: {fileID: 1381307861}
   damageSoundDuration: 0.5
 --- !u!114 &365664722
@@ -8529,6 +8530,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 01f4bd262376f5e47b68aae727e2e17b, type: 3}
   - {fileID: 8300000, guid: d25bfd8234215e04a978f96a9b49baf5, type: 3}
   - {fileID: 8300000, guid: 09c3460dbdf026a49b0183dab5974664, type: 3}
+  damageableHurtboxes: []
 --- !u!50 &503794337
 Rigidbody2D:
   serializedVersion: 5
@@ -14628,6 +14630,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 01f4bd262376f5e47b68aae727e2e17b, type: 3}
   - {fileID: 8300000, guid: d25bfd8234215e04a978f96a9b49baf5, type: 3}
   - {fileID: 8300000, guid: 09c3460dbdf026a49b0183dab5974664, type: 3}
+  damageableHurtboxes: []
 --- !u!50 &1066661733
 Rigidbody2D:
   serializedVersion: 5
@@ -15093,6 +15096,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 01f4bd262376f5e47b68aae727e2e17b, type: 3}
   - {fileID: 8300000, guid: d25bfd8234215e04a978f96a9b49baf5, type: 3}
   - {fileID: 8300000, guid: 09c3460dbdf026a49b0183dab5974664, type: 3}
+  damageableHurtboxes: []
 --- !u!50 &1095853778
 Rigidbody2D:
   serializedVersion: 5
@@ -17615,6 +17619,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 01f4bd262376f5e47b68aae727e2e17b, type: 3}
   - {fileID: 8300000, guid: d25bfd8234215e04a978f96a9b49baf5, type: 3}
   - {fileID: 8300000, guid: 09c3460dbdf026a49b0183dab5974664, type: 3}
+  damageableHurtboxes: []
 --- !u!50 &1242375695
 Rigidbody2D:
   serializedVersion: 5
@@ -23808,6 +23813,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 01f4bd262376f5e47b68aae727e2e17b, type: 3}
   - {fileID: 8300000, guid: d25bfd8234215e04a978f96a9b49baf5, type: 3}
   - {fileID: 8300000, guid: 09c3460dbdf026a49b0183dab5974664, type: 3}
+  damageableHurtboxes: []
 --- !u!50 &1674185677
 Rigidbody2D:
   serializedVersion: 5
@@ -25050,6 +25056,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 01f4bd262376f5e47b68aae727e2e17b, type: 3}
   - {fileID: 8300000, guid: d25bfd8234215e04a978f96a9b49baf5, type: 3}
   - {fileID: 8300000, guid: 09c3460dbdf026a49b0183dab5974664, type: 3}
+  damageableHurtboxes: []
 --- !u!50 &1803093643
 Rigidbody2D:
   serializedVersion: 5

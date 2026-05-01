@@ -1236,6 +1236,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  damageableHurtboxes: []
 --- !u!70 &593678446
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -5001,8 +5002,8 @@ MonoBehaviour:
   iFrameDuration: 0.5
   regenDelay: 5
   regenRate: 2
-  knockbackForce: 20
-  knockbackUpForce: 20
+  knockbackForce: 30
+  knockbackUpForce: 10
   damageAudioSource: {fileID: 0}
   damageSoundDuration: 0.5
 --- !u!114 &2033661654

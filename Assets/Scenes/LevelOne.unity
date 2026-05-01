@@ -2420,8 +2420,8 @@ MonoBehaviour:
   iFrameDuration: 0.5
   regenDelay: 5
   regenRate: 2
-  knockbackForce: 20
-  knockbackUpForce: 20
+  knockbackForce: 30
+  knockbackUpForce: 10
   damageAudioSource: {fileID: 1863261659}
   damageSoundDuration: 0.5
 --- !u!114 &365664722
@@ -4074,6 +4074,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  damageableHurtboxes: []
 --- !u!70 &593678446
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -6880,6 +6881,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f480e51556057e541b2df122e2ee0f07, type: 3}
   - {fileID: 8300000, guid: 52c81033aa5d83744a8bfc47f5142f9f, type: 3}
   - {fileID: 8300000, guid: 34799525f4a08b4479825d8ea8fa46d6, type: 3}
+  damageableHurtboxes: []
 --- !u!50 &1051650208
 Rigidbody2D:
   serializedVersion: 5
@@ -11068,6 +11070,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f480e51556057e541b2df122e2ee0f07, type: 3}
   - {fileID: 8300000, guid: 52c81033aa5d83744a8bfc47f5142f9f, type: 3}
   - {fileID: 8300000, guid: 34799525f4a08b4479825d8ea8fa46d6, type: 3}
+  damageableHurtboxes: []
 --- !u!50 &2002583522
 Rigidbody2D:
   serializedVersion: 5
