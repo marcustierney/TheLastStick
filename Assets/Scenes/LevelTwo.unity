@@ -6181,8 +6181,8 @@ MonoBehaviour:
   iFrameDuration: 0.5
   regenDelay: 5
   regenRate: 2
-  knockbackForce: 20
-  knockbackUpForce: 20
+  knockbackForce: 30
+  knockbackUpForce: 10
   damageAudioSource: {fileID: 1381307861}
   damageSoundDuration: 0.5
   deathScreen: {fileID: 2019260828}
