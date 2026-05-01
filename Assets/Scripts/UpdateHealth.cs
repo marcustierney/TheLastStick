@@ -29,15 +29,20 @@ public class UpdateHealth : MonoBehaviour
     private AudioSource damageAudioSource;
     [SerializeField]
     private float damageSoundDuration = 0.5f;
+    [SerializeField]
+    private GameObject deathScreen;
+    [SerializeField]
+    private GameObject hud;
 
     private Coroutine damageSoundCoroutine;
     private Rigidbody2D rb;
     private Movement movement;
+    private bool isDead;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        healthBar.SetMaxHealth(MaxHealth);
+        RefreshHealthBar();
         rb = GetComponent<Rigidbody2D>();
         movement = GetComponent<Movement>();
         lastDamageTime = Time.time;
@@ -46,6 +51,16 @@ public class UpdateHealth : MonoBehaviour
             Debug.LogError("Rigidbody2D not found on player!");
         if (movement == null)
             Debug.LogError("Movement script not found on player!");
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += HandleSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= HandleSceneLoaded;
     }
 
     // Update is called once per frame
@@ -73,19 +88,41 @@ public class UpdateHealth : MonoBehaviour
     {
         Health += healthChange;
         Health = Mathf.Clamp(Health, 0, MaxHealth);
-        healthBar.SetHealth(Health);
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(Health);
+        }
     }
 
     public void IncreaseMaxHealth(float amount)
     {
         MaxHealth += amount;
-        healthBar.SetMaxHealth(MaxHealth);
+        if (healthBar != null)
+        {
+            healthBar.SetMaxHealth(MaxHealth);
+        }
         SetHealth(amount); // also give the player the new HP
+    }
+
+    private void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        RefreshHealthBar();
+    }
+
+    private void RefreshHealthBar()
+    {
+        if (healthBar == null)
+        {
+            return;
+        }
+
+        healthBar.SetMaxHealth(MaxHealth);
+        healthBar.SetHealth(Mathf.Clamp(Health, 0f, MaxHealth));
     }
 
     public void TakeDamage(float damage, Vector2 hitSourcePosition) // Apply damage to the player, trigger knockback, and start I-frames
     {
-        if (IsInvulnerable())
+        if (isDead || IsInvulnerable())
             return;
 
         SetHealth(-damage);
@@ -135,8 +172,50 @@ public class UpdateHealth : MonoBehaviour
 
     private void Die() // Placeholder for player death logic
     {
+        if (isDead)
+            return;
+
+        isDead = true;
         Debug.Log("Player died");
-        SceneManager.LoadScene("DeathScreen");
+
+        // Pause gameplay in the background, but keep death-screen animation running.
+        Time.timeScale = 0f;
+
+        if (deathScreen != null)
+        {
+            ConfigureDeathScreenAnimators();
+            deathScreen.SetActive(true);
+        }
+        else
+        {
+            Debug.LogWarning("Death screen is not assigned on UpdateHealth.");
+        }
+
+        if (hud != null)
+        {
+            hud.SetActive(false);
+        }
+        else
+        {
+            Debug.LogWarning("HUD is not assigned on UpdateHealth.");
+        }
+    }
+
+    private void ConfigureDeathScreenAnimators()
+    {
+        if (deathScreen == null)
+        {
+            return;
+        }
+
+        Animator[] animators = deathScreen.GetComponentsInChildren<Animator>(true);
+        foreach (Animator animator in animators)
+        {
+            if (animator != null)
+            {
+                animator.updateMode = AnimatorUpdateMode.UnscaledTime;
+            }
+        }
     }
 
     private void PlayDamageSound()

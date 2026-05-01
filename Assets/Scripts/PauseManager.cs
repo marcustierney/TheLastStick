@@ -142,6 +142,28 @@ public class PauseManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
+    public void Restart()
+    {
+        isPaused = false;
+        isOptionsOpen = false;
+        Time.timeScale = 1f;
+
+        if (pauseMenuUI != null)
+        {
+            pauseMenuUI.SetActive(false);
+        }
+
+        if (optionsCanvas != null)
+        {
+            optionsCanvas.SetActive(false);
+        }
+
+        CoinManager.ClearSavedProgress();
+        SceneManager.LoadScene("Tutorial");
+        PlayerPrefs.SetInt("CurrentLevel", 0);
+        PlayerPrefs.Save();
+    }
+
     public void OpenOptions()
     {
         if (optionsCanvas == null)

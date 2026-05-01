@@ -1,10 +1,22 @@
 fileFormatVersion: 2
-guid: 2fae2cbf13093654d9f3fc8b46a0c771
+guid: 467053c2ed14f467aaf1dec9175d0613
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1577795877496875750
-    second: unbrokenswordwblood_0
+      213: -5855253979692583295
+    second: pixelswordlossbg_0
+  - first:
+      213: -392839446522099888
+    second: pixelswordlossbg_1
+  - first:
+      213: 5782907673007858988
+    second: pixelswordlossbg_2
+  - first:
+      213: 5397653072052030574
+    second: pixelswordlossbg_3
+  - first:
+      213: -5387603828621857535
+    second: pixelswordlossbg_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +49,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -46,7 +58,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -113,13 +125,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: unbrokenswordwblood_0
+      name: pixelswordlossbg_0
       rect:
         serializedVersion: 2
-        x: 109
-        y: 180
-        width: 1111
-        height: 370
+        x: 113
+        y: 245
+        width: 481
+        height: 156
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +140,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a1519b9420b8a1ae0800000000000000
-      internalID: -1577795877496875750
+      spriteID: 1863bb62785fdbea0800000000000000
+      internalID: -5855253979692583295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixelswordlossbg_1
+      rect:
+        serializedVersion: 2
+        x: 611
+        y: 187
+        width: 638
+        height: 453
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0570a40da9a5c8af0800000000000000
+      internalID: -392839446522099888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixelswordlossbg_2
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 162
+        width: 51
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c25a382b3e3014050800000000000000
+      internalID: 5782907673007858988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixelswordlossbg_3
+      rect:
+        serializedVersion: 2
+        x: 490
+        y: 165
+        width: 193
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6c057cfed058ea40800000000000000
+      internalID: 5397653072052030574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixelswordlossbg_4
+      rect:
+        serializedVersion: 2
+        x: 697
+        y: 163
+        width: 81
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10da574dcd26b35b0800000000000000
+      internalID: -5387603828621857535
       vertices: []
       indices: 
       edges: []
@@ -138,7 +238,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +248,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      unbrokenswordwblood_0: -1577795877496875750
+      pixelswordlossbg_0: -5855253979692583295
+      pixelswordlossbg_1: -392839446522099888
+      pixelswordlossbg_2: 5782907673007858988
+      pixelswordlossbg_3: 5397653072052030574
+      pixelswordlossbg_4: -5387603828621857535
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
