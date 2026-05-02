@@ -128,7 +128,13 @@ public class UpdateHealth : MonoBehaviour
         SetHealth(-damage);
         lastDamageTime = Time.time;
         PlayDamageSound();
-        
+
+        // Make the player face the source of the hit
+        if (movement != null)
+        {
+            movement.FaceTowards(hitSourcePosition);
+        }
+
         if (rb != null && movement != null)
         {
             // Reset velocity first to ensure knockback isn't affected by current movement
@@ -152,7 +158,11 @@ public class UpdateHealth : MonoBehaviour
             movement.StartIFrameIgnoreCollisions();
         }
 
-        // TODO: Add visual feedback here (player flash, damage popup, etc.)
+        // Visual feedback: trigger player damage animation if available
+        if (movement != null)
+        {
+            movement.PlayDamageAnimation();
+        }
 
         if (Health <= 0f)
         {

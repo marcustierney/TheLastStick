@@ -64,6 +64,29 @@ public class Movement : MonoBehaviour
         knockbackTimer = duration;
     }
 
+    // Play the damage animation on the player's animator, if available.
+    public void PlayDamageAnimation()
+    {
+        if (animator != null)
+        {
+            animator.SetTrigger("TakeDamage");
+        }
+    }
+
+    // Face the player toward the given source position (used when taking damage)
+    public void FaceTowards(Vector2 sourcePosition)
+    {
+        bool shouldFaceRight = transform.position.x < sourcePosition.x;
+        if (shouldFaceRight != isFacingRight)
+        {
+            isFacingRight = shouldFaceRight;
+            Vector3 localScale = transform.localScale;
+            float absX = Mathf.Abs(localScale.x);
+            localScale.x = absX * (isFacingRight ? 1f : -1f);
+            transform.localScale = localScale;
+        }
+    }
+
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
