@@ -187,8 +187,35 @@ public class UpdateHealth : MonoBehaviour
 
         isDead = true;
         Debug.Log("Player died");
+        // Trigger the player's death animation and then pause gameplay in the background.
+        if (movement != null)
+        {
+            // Use reflection-only invocation to avoid compile-time dependency on
+            // Movement.PlayDeathAnimation (prevents CS1061 if editor compile order
+            // temporarily doesn't see the method).
+            var mi = movement.GetType().GetMethod("PlayDeathAnimation",
+                System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic);
+            if (mi != null)
+            {
+                mi.Invoke(movement, null);
+            }
+            else
+            {
+                Debug.LogWarning("PlayDeathAnimation not found on Movement. Falling back to animator trigger.");
+                // Fallback: directly set the Animator trigger on the player so the death animation still plays
+                Animator playerAnimator = movement.GetComponent<Animator>();
+                if (playerAnimator != null)
+                {
+                    playerAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
+                    playerAnimator.SetTrigger("Death");
+                }
+                else
+                {
+                    Debug.LogWarning("No Animator found on player to play death animation.");
+                }
+            }
+        }
 
-        // Pause gameplay in the background, but keep death-screen animation running.
         Time.timeScale = 0f;
 
         if (deathScreen != null)
