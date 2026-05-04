@@ -73,6 +73,24 @@ public class Movement : MonoBehaviour
         }
     }
 
+    // Play the death animation on the player's animator and prepare animator to run while timeScale == 0
+    public void PlayDeathAnimation()
+    {
+        // Prevent further horizontal input
+        CanMoveHorizontally = false;
+
+        // Stop movement-related sounds
+        StopGroundedMoveSound();
+        if (dashAudioSource != null && dashAudioSource.isPlaying)
+            dashAudioSource.Stop();
+
+        if (animator != null)
+        {
+            animator.updateMode = AnimatorUpdateMode.UnscaledTime;
+            animator.SetTrigger("Death");
+        }
+    }
+
     // Face the player toward the given source position (used when taking damage)
     public void FaceTowards(Vector2 sourcePosition)
     {

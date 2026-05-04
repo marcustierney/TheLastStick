@@ -68,6 +68,15 @@ public class SwordHitbox : MonoBehaviour
             swordAttack.ForceExitSwordStandWithBounce();
             return;
         }
+
+        SpiderEnemy spiderEnemy = collision.GetComponentInParent<SpiderEnemy>();
+        if (spiderEnemy != null)
+        {
+            spiderEnemy.TakeDamage(damage);
+            PlayHitDamageSound();
+            swordAttack.ForceExitSwordStandWithBounce();
+            return;
+        }
         
         if (collision.CompareTag("Enemy"))
         {
@@ -146,6 +155,15 @@ public class SwordHitbox : MonoBehaviour
         if (shieldEnemy != null)
         {
             shieldEnemy.TakeDamage(damage, transform.position);
+            PlayHitDamageSound();
+            swordAttack.ForceExitSwordStandWithBounce();
+            return;
+        }
+
+        SpiderEnemy spiderEnemy = collision.collider.GetComponentInParent<SpiderEnemy>();
+        if (spiderEnemy != null)
+        {
+            spiderEnemy.TakeDamage(damage);
             PlayHitDamageSound();
             swordAttack.ForceExitSwordStandWithBounce();
             return;
