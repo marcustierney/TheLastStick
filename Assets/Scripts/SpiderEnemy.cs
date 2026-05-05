@@ -2,14 +2,14 @@ using UnityEngine;
 using System.Collections;
 public class SpiderEnemy : MonoBehaviour
 {
-    public int maxHealth = 3;   
+    public int maxHealth = 5;   
     private int currentHealth;
 
     // [SerializeField]
     // private float damageToPlayer = 20f;
-    protected float moveSpeed = 3f;
-    protected float chaseRange = 8f;
-    protected float attackRange = 1.8f;  // Increased so sword hits before body does
+    protected float moveSpeed = 10f;
+    protected float chaseRange = 10f;
+    protected float attackRange = 1.6f;  // Increased so sword hits before body does
     protected Transform player;
     protected Rigidbody2D rb;
     public GameObject swordHitbox;
@@ -21,6 +21,12 @@ public class SpiderEnemy : MonoBehaviour
     protected Animator animator;
     private bool isAttacking = false;
     protected SpriteRenderer spriteRenderer;
+    [Header("Hit Flash")]
+    [SerializeField] private float hitFlashDuration = 0.08f;
+    [SerializeField] private Material whiteFlashMaterial;
+    private SpriteRenderer[] flashRenderers;
+    private Material[] originalMaterials;
+    private Coroutine hitFlashRoutine;
     [Header("Ledge Detection")]
     [SerializeField] public float ledgeCheckDistance = 0.8f;  // Wider body detection
     [SerializeField] public float ledgeCheckDepth = 0.6f;    // Reduced for shorter body
@@ -45,6 +51,21 @@ public class SpiderEnemy : MonoBehaviour
             spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
+        flashRenderers = GetComponentsInChildren<SpriteRenderer>(true);
+        if ((flashRenderers == null || flashRenderers.Length == 0) && spriteRenderer != null)
+        {
+            flashRenderers = new SpriteRenderer[] { spriteRenderer };
+        }
+
+        if (flashRenderers != null && flashRenderers.Length > 0)
+        {
+            originalMaterials = new Material[flashRenderers.Length];
+            for (int i = 0; i < flashRenderers.Length; i++)
+            {
+                originalMaterials[i] = flashRenderers[i] != null ? flashRenderers[i].sharedMaterial : null;
+            }
+        }
+
         // Prevent player from pushing the enemy - set to Kinematic
         //rb.bodyType = RigidbodyType2D.Kinematic;
         //transform.localScale = new Vector3(1, 1, 1);
@@ -55,9 +76,68 @@ public class SpiderEnemy : MonoBehaviour
         currentHealth -= damage;
         Debug.Log("damage " + damage + " cCurrent hp " + currentHealth);
 
+        TriggerHitFlash();
+
         if (currentHealth <= 0)
         {
             Die();
+        }
+    }
+
+    private void TriggerHitFlash()
+    {
+        if (flashRenderers == null || flashRenderers.Length == 0)
+        {
+            return;
+        }
+
+        if (hitFlashRoutine != null)
+        {
+            StopCoroutine(hitFlashRoutine);
+        }
+
+        hitFlashRoutine = StartCoroutine(HitFlashRoutine());
+    }
+
+    private IEnumerator HitFlashRoutine()
+    {
+        ApplyFlashMaterial();
+        yield return new WaitForSeconds(hitFlashDuration);
+        RestoreOriginalMaterials();
+        hitFlashRoutine = null;
+    }
+
+    private void ApplyFlashMaterial()
+    {
+        if (whiteFlashMaterial == null)
+        {
+            Debug.LogWarning("SpiderEnemy whiteFlashMaterial is not assigned.", this);
+            return;
+        }
+
+        for (int i = 0; i < flashRenderers.Length; i++)
+        {
+            if (flashRenderers[i] != null)
+            {
+                flashRenderers[i].material = whiteFlashMaterial;
+            }
+        }
+    }
+
+    private void RestoreOriginalMaterials()
+    {
+        if (flashRenderers == null || originalMaterials == null)
+        {
+            return;
+        }
+
+        int count = Mathf.Min(flashRenderers.Length, originalMaterials.Length);
+        for (int i = 0; i < count; i++)
+        {
+            if (flashRenderers[i] != null)
+            {
+                flashRenderers[i].material = originalMaterials[i];
+            }
         }
     }
 
@@ -151,7 +231,7 @@ public class SpiderEnemy : MonoBehaviour
         // Show warning box first
         warningHitBox.transform.localPosition = offset;
         warningHitBox.SetActive(true);
-        yield return new WaitForSeconds(0.7f); // 0.7 second warning
+        yield return new WaitForSeconds(0.4f); // 0.7 second warning
         warningHitBox.SetActive(false);
         
         // Then show actual hitbox
@@ -167,6 +247,7 @@ public class SpiderEnemy : MonoBehaviour
     private void Die()
     {
         Debug.Log("killed");
+        RestoreOriginalMaterials();
         CoinManager.Instance?.AddCoins(2);
         PlayDeathSound();
         Destroy(gameObject); 

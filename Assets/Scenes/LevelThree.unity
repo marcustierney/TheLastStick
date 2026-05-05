@@ -3908,7 +3908,7 @@ Transform:
   m_GameObject: {fileID: 430233097}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -25.099998, y: -35.8465, z: 0}
+  m_LocalPosition: {x: -35.18, y: -35.8465, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -18996,10 +18996,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d2c6bf7b9b0430c8ab36ff0a7f6bc2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpiderEnemy
-  maxHealth: 3
+  maxHealth: 5
   swordHitbox: {fileID: 1405890728}
   warningHitBox: {fileID: 838922493}
   swordOffsetX: 0.6
+  hitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 6802183088965565074, guid: 249f27b1346834975a84f0a56d32fa50, type: 2}
   ledgeCheckDistance: 1
   ledgeCheckDepth: 1
   groundLayer:
