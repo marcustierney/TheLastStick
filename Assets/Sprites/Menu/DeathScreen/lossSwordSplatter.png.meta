@@ -1,0 +1,470 @@
+fileFormatVersion: 2
+guid: 2179635f4ebaaab4ca4d99288635a524
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2801836191975988930
+    second: lossSwordSplatter_0
+  - first:
+      213: 5074758409366837256
+    second: lossSwordSplatter_1
+  - first:
+      213: 7191629241887770942
+    second: lossSwordSplatter_2
+  - first:
+      213: 9028343363463097895
+    second: lossSwordSplatter_3
+  - first:
+      213: -5559296003613610587
+    second: lossSwordSplatter_4
+  - first:
+      213: -2164773935198060113
+    second: lossSwordSplatter_5
+  - first:
+      213: -7863979610888410588
+    second: lossSwordSplatter_6
+  - first:
+      213: 6648252032881895850
+    second: lossSwordSplatter_7
+  - first:
+      213: 5148765490703248313
+    second: lossSwordSplatter_8
+  - first:
+      213: 5528266375433065801
+    second: lossSwordSplatter_9
+  - first:
+      213: -1226147142268797502
+    second: lossSwordSplatter_10
+  - first:
+      213: 6553475499950858948
+    second: lossSwordSplatter_11
+  - first:
+      213: -5763771786383764146
+    second: lossSwordSplatter_12
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: lossSwordSplatter_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2880
+        width: 1280
+        height: 720
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cedf8dfb2f12e620800000000000000
+      internalID: 2801836191975988930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lossSwordSplatter_1
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 2880
+        width: 1280
+        height: 720
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8089c37d2e92d6640800000000000000
+      internalID: 5074758409366837256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lossSwordSplatter_2
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 2880
+        width: 1280
+        height: 720
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e39480f41bccdc360800000000000000
+      internalID: 7191629241887770942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lossSwordSplatter_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2160
+        width: 1280
+        height: 720
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72e2971747e1b4d70800000000000000
+      internalID: 9028343363463097895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lossSwordSplatter_4
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 2160
+        width: 1280
+        height: 720
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5adac573db969d2b0800000000000000
+      internalID: -5559296003613610587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lossSwordSplatter_5
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 2160
+        width: 1280
+        height: 720
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa1ce7d439d25f1e0800000000000000
+      internalID: -2164773935198060113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lossSwordSplatter_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1440
+        width: 1280
+        height: 720
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42ae41485388dd290800000000000000
+      internalID: -7863979610888410588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lossSwordSplatter_7
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 1440
+        width: 1280
+        height: 720
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa9a13dfff5534c50800000000000000
+      internalID: 6648252032881895850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lossSwordSplatter_8
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 1440
+        width: 1280
+        height: 720
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9bb28293fe6147740800000000000000
+      internalID: 5148765490703248313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lossSwordSplatter_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 720
+        width: 1280
+        height: 720
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9459c6b7af858bc40800000000000000
+      internalID: 5528266375433065801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lossSwordSplatter_10
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 720
+        width: 1280
+        height: 720
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cd35b6aba9dbfee0800000000000000
+      internalID: -1226147142268797502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lossSwordSplatter_11
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 720
+        width: 1280
+        height: 720
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c2ebc2de3f92fa50800000000000000
+      internalID: 6553475499950858948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lossSwordSplatter_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1280
+        height: 720
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e455d2a1918f200b0800000000000000
+      internalID: -5763771786383764146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 7b21d7a731efdee48ab52cb46677a7d7
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":1280.0,"y":720.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      lossSwordSplatter_0: 2801836191975988930
+      lossSwordSplatter_1: 5074758409366837256
+      lossSwordSplatter_10: -1226147142268797502
+      lossSwordSplatter_11: 6553475499950858948
+      lossSwordSplatter_12: -5763771786383764146
+      lossSwordSplatter_2: 7191629241887770942
+      lossSwordSplatter_3: 9028343363463097895
+      lossSwordSplatter_4: -5559296003613610587
+      lossSwordSplatter_5: -2164773935198060113
+      lossSwordSplatter_6: -7863979610888410588
+      lossSwordSplatter_7: 6648252032881895850
+      lossSwordSplatter_8: 5148765490703248313
+      lossSwordSplatter_9: 5528266375433065801
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

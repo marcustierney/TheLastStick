@@ -855,7 +855,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30c372baefa93e94f8ed7ad202f44a7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpdateHealth
-  Health: 1
+  Health: 100
   MaxHealth: 100
   healthBar: {fileID: 1050557000}
   iFrameDuration: 0.5

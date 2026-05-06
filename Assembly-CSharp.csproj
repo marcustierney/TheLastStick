@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\AudioSettingsManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
+    <Compile Include="Assets\Scripts\SpiderAttackHitbox.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\Scripts\FlyingSwordEnemy.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="Assets\Scripts\HitboxVisualizationManager.cs" />
     <Compile Include="Assets\Scripts\SceneTransition.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
+    <Compile Include="Assets\Scripts\SpiderEnemy.cs" />
     <Compile Include="Assets\Scripts\BossFloatingSwords.cs" />
     <Compile Include="Assets\Scripts\UISelectionHighlight.cs" />
     <Compile Include="Assets\Scripts\TutorialEnemyScript.cs" />
@@ -140,6 +142,7 @@
     <Compile Include="Assets\Scripts\RainingSword.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
     <Compile Include="Assets\Scripts\BomberController.cs" />
+    <Compile Include="Assets\Scripts\SceneHotkeyLoader.cs" />
     <Compile Include="Assets\Scripts\BossHealthBarUI.cs" />
     <Compile Include="Assets\Scripts\FPSCapDropdown.cs" />
     <Compile Include="Assets\Scripts\Audio.cs" />
