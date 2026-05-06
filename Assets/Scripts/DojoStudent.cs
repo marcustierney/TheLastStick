@@ -22,6 +22,12 @@ public class Enemy : MonoBehaviour
     public float ledgeCheckDistance = 1f; 
     public float ledgeCheckDepth = 1f;   
     public LayerMask groundLayer;
+    [Header("Hit Flash")]
+    [SerializeField] private float hitFlashDuration = 0.08f;
+    [SerializeField] private Material whiteFlashMaterial;
+    private SpriteRenderer[] flashRenderers;
+    private Material[] originalMaterials;
+    private Coroutine hitFlashRoutine;
     [Header("Death Sound")]
     [SerializeField] private AudioSource deathAudioSource;
     [SerializeField] private AudioClip[] deathClips = new AudioClip[5];
@@ -42,6 +48,21 @@ public class Enemy : MonoBehaviour
             spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
+        flashRenderers = GetComponentsInChildren<SpriteRenderer>(true);
+        if ((flashRenderers == null || flashRenderers.Length == 0) && spriteRenderer != null)
+        {
+            flashRenderers = new SpriteRenderer[] { spriteRenderer };
+        }
+
+        if (flashRenderers != null && flashRenderers.Length > 0)
+        {
+            originalMaterials = new Material[flashRenderers.Length];
+            for (int i = 0; i < flashRenderers.Length; i++)
+            {
+                originalMaterials[i] = flashRenderers[i] != null ? flashRenderers[i].sharedMaterial : null;
+            }
+        }
+
         // Prevent player from pushing the enemy - set to Kinematic
         //rb.bodyType = RigidbodyType2D.Kinematic;
         //transform.localScale = new Vector3(1, 1, 1);
@@ -52,9 +73,68 @@ public class Enemy : MonoBehaviour
         currentHealth -= damage;
         Debug.Log("damage " + damage + " cCurrent hp " + currentHealth);
 
+        TriggerHitFlash();
+
         if (currentHealth <= 0)
         {
             Die();
+        }
+    }
+
+    private void TriggerHitFlash()
+    {
+        if (flashRenderers == null || flashRenderers.Length == 0)
+        {
+            return;
+        }
+
+        if (hitFlashRoutine != null)
+        {
+            StopCoroutine(hitFlashRoutine);
+        }
+
+        hitFlashRoutine = StartCoroutine(HitFlashRoutine());
+    }
+
+    private IEnumerator HitFlashRoutine()
+    {
+        ApplyFlashMaterial();
+        yield return new WaitForSeconds(hitFlashDuration);
+        RestoreOriginalMaterials();
+        hitFlashRoutine = null;
+    }
+
+    private void ApplyFlashMaterial()
+    {
+        if (whiteFlashMaterial == null)
+        {
+            Debug.LogWarning("whiteFlashMaterial is not assigned.", this);
+            return;
+        }
+
+        for (int i = 0; i < flashRenderers.Length; i++)
+        {
+            if (flashRenderers[i] != null)
+            {
+                flashRenderers[i].material = whiteFlashMaterial;
+            }
+        }
+    }
+
+    private void RestoreOriginalMaterials()
+    {
+        if (flashRenderers == null || originalMaterials == null)
+        {
+            return;
+        }
+
+        int count = Mathf.Min(flashRenderers.Length, originalMaterials.Length);
+        for (int i = 0; i < count; i++)
+        {
+            if (flashRenderers[i] != null)
+            {
+                flashRenderers[i].material = originalMaterials[i];
+            }
         }
     }
 
@@ -74,9 +154,9 @@ public class Enemy : MonoBehaviour
             {
                 Vector2 direction = (player.position - transform.position).normalized;
                 if (direction.x > 0)
-                    spriteRenderer.flipX = true;
-                else
                     spriteRenderer.flipX = false;
+                else
+                    spriteRenderer.flipX = true;
             }
             
             if (!isAttacking && distance > attackRange)
@@ -95,7 +175,7 @@ public class Enemy : MonoBehaviour
             // Stop movement when out of range (idle)
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
             // Maintain flip when out of range
-            spriteRenderer.flipX = false;
+            spriteRenderer.flipX = true;
         }
     }
 
@@ -128,7 +208,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-        private IEnumerator Attack()
+    private IEnumerator Attack()
     {
         isAttacking = true;
         animator.SetBool("isMoving", false);
@@ -138,17 +218,17 @@ public class Enemy : MonoBehaviour
         Vector3 offset;
         if (spriteRenderer.flipX)
         {
-            offset = new Vector3(0.5f, 0f, 0f); //facing left
+            offset = new Vector3(-0.5f, 0f, 0f); //facing left
         }
         else
         {
-            offset = new Vector3(-0.5f, 0f, 0f); //facing right
+            offset = new Vector3(0.5f, 0f, 0f); //facing right
         }
         
         // Show warning box first
         warningHitBox.transform.localPosition = offset;
         warningHitBox.SetActive(true);
-        yield return new WaitForSeconds(0.7f); // 0.7 second warning
+        yield return new WaitForSeconds(0.5f); // 0.7 second warning
         warningHitBox.SetActive(false);
         
         // Then show actual hitbox
@@ -166,7 +246,28 @@ public class Enemy : MonoBehaviour
         Debug.Log("killed");
         CoinManager.Instance?.AddCoins(2);
         PlayDeathSound();
-        Destroy(gameObject); 
+        
+        // Restore original materials before stopping coroutines
+        RestoreOriginalMaterials();
+        
+        // Trigger death animation if available
+        if (animator != null)
+        {
+            animator.SetTrigger("Die");
+        }
+        
+        // Stop all coroutines to ensure clean death
+        StopAllCoroutines();
+        
+        // Destroy after animation completes (or immediately if no animator)
+        if (animator != null)
+        {
+            Destroy(gameObject, 0.5f);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void PlayDeathSound()

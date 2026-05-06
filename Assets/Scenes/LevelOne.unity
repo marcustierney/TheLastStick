@@ -3622,6 +3622,8 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  hitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 0}
   deathAudioSource: {fileID: 537382964}
   deathClips:
   - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
@@ -5984,6 +5986,8 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  hitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 0}
   deathAudioSource: {fileID: 537382964}
   deathClips:
   - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
@@ -6588,6 +6592,8 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  hitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 0}
   deathAudioSource: {fileID: 537382964}
   deathClips:
   - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
@@ -7479,6 +7485,8 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  hitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 0}
   deathAudioSource: {fileID: 537382964}
   deathClips:
   - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
@@ -7893,6 +7901,8 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  hitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 0}
   deathAudioSource: {fileID: 537382964}
   deathClips:
   - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
@@ -10036,6 +10046,8 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  hitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 0}
   deathAudioSource: {fileID: 537382964}
   deathClips:
   - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
@@ -12263,10 +12275,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: DojoStudent (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4763613139402930700, guid: e9d3068383c6c4492b83308e4c2acd22, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4763613139402930700, guid: e9d3068383c6c4492b83308e4c2acd22, type: 3}
+      propertyPath: m_Size.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4763613139402930700, guid: e9d3068383c6c4492b83308e4c2acd22, type: 3}
+      propertyPath: m_Size.y
+      value: 1.046875
+      objectReference: {fileID: 0}
+    - target: {fileID: 4763613139402930700, guid: e9d3068383c6c4492b83308e4c2acd22, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 4161799090012377812, guid: e7ef18d61851dc549b5cafa74c2a288e, type: 3}
+    - target: {fileID: 4763613139402930700, guid: e9d3068383c6c4492b83308e4c2acd22, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7308374798395958328, guid: e9d3068383c6c4492b83308e4c2acd22, type: 3}
       propertyPath: deathAudioSource
       value: 
       objectReference: {fileID: 537382964}
+    - target: {fileID: 7308374798395958328, guid: e9d3068383c6c4492b83308e4c2acd22, type: 3}
+      propertyPath: whiteFlashMaterial
+      value: 
+      objectReference: {fileID: 6802183088965565074, guid: 249f27b1346834975a84f0a56d32fa50, type: 2}
     - target: {fileID: 7308374798395958328, guid: e9d3068383c6c4492b83308e4c2acd22, type: 3}
       propertyPath: 'deathClips.Array.data[0]'
       value: 

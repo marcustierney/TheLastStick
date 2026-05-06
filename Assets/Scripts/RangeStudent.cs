@@ -228,7 +228,7 @@ public class ThrowEnemy : MonoBehaviour
         Vector2 targetPosition = player.position;
         if (warningHitBox != null)
         {
-            Vector3 offset = spriteRenderer.flipX ? new Vector3(2f, 0f, 0f) : new Vector3(-2f, 0f, 0f);
+            Vector3 offset = spriteRenderer.flipX ? new Vector3(-2f, 0f, 0f) : new Vector3(2f, 0f, 0f);
             warningHitBox.transform.localPosition = offset;
             warningHitBox.SetActive(true);
             yield return new WaitForSeconds(throwWarningDuration);
