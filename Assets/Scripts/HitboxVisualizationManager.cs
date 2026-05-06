@@ -7,9 +7,12 @@ using UnityEngine;
 /// </summary>
 public class HitboxVisualizationManager : MonoBehaviour
 {
+    private const string HitboxVisualizationEnabledKey = "tls.hitboxVisualizationEnabled";
+
     private static HitboxVisualizationManager instance;
     [SerializeField] private bool persistAcrossScenes = true;
-    
+    [SerializeField] private bool useSavedState = true;
+
     [SerializeField] private bool showHitboxes = true;
     [SerializeField] private Color hitboxColor = Color.red;
     
@@ -30,6 +33,33 @@ public class HitboxVisualizationManager : MonoBehaviour
         {
             DontDestroyOnLoad(gameObject);
         }
+
+        LoadState();
+    }
+
+    private void LoadState()
+    {
+        if (useSavedState && PlayerPrefs.HasKey(HitboxVisualizationEnabledKey))
+        {
+            showHitboxes = PlayerPrefs.GetInt(HitboxVisualizationEnabledKey) == 1;
+            return;
+        }
+
+        if (useSavedState)
+        {
+            SaveState();
+        }
+    }
+
+    private void SaveState()
+    {
+        if (!useSavedState)
+        {
+            return;
+        }
+
+        PlayerPrefs.SetInt(HitboxVisualizationEnabledKey, showHitboxes ? 1 : 0);
+        PlayerPrefs.Save();
     }
 
     public void ToggleHitboxVisualization()
@@ -40,6 +70,7 @@ public class HitboxVisualizationManager : MonoBehaviour
     public void SetHitboxVisualization(bool enabled)
     {
         showHitboxes = enabled;
+        SaveState();
         HitboxVisualizationStateChanged?.Invoke(showHitboxes);
     }
 
