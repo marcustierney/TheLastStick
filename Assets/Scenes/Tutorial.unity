@@ -11019,6 +11019,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HUD
       objectReference: {fileID: 0}
+    - target: {fileID: 3541208492338807808, guid: 53061292c2fbd714ebc75d90561b6be6, type: 3}
+      propertyPath: Width
+      value: 316
+      objectReference: {fileID: 0}
     - target: {fileID: 8819221429671336354, guid: 53061292c2fbd714ebc75d90561b6be6, type: 3}
       propertyPath: playerHealth
       value: 
@@ -11026,7 +11030,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8947523414208896703, guid: 53061292c2fbd714ebc75d90561b6be6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1786213062}
   m_SourcePrefab: {fileID: 100100000, guid: 53061292c2fbd714ebc75d90561b6be6, type: 3}
 --- !u!1 &1601180633
 GameObject:
@@ -12359,6 +12366,35 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.8, y: 1.2}
   m_EdgeRadius: 0
+--- !u!1 &1786213058 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8947523414208896703, guid: 53061292c2fbd714ebc75d90561b6be6, type: 3}
+  m_PrefabInstance: {fileID: 1595683925}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1786213059 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5866764089127775009, guid: 53061292c2fbd714ebc75d90561b6be6, type: 3}
+  m_PrefabInstance: {fileID: 1595683925}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1786213058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &1786213062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1786213058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba0e1022feaa5fa4e8e7978cab4290a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CoinTextUI
+  coinText: {fileID: 1786213059}
 --- !u!1 &1833125425
 GameObject:
   m_ObjectHideFlags: 0

@@ -3427,7 +3427,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8947523414208896703, guid: 53061292c2fbd714ebc75d90561b6be6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1050557004}
   m_SourcePrefab: {fileID: 100100000, guid: 53061292c2fbd714ebc75d90561b6be6, type: 3}
 --- !u!114 &1050557000 stripped
 MonoBehaviour:
@@ -3445,6 +3448,35 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1478372407828645569, guid: 53061292c2fbd714ebc75d90561b6be6, type: 3}
   m_PrefabInstance: {fileID: 1050556999}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1050557002 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5866764089127775009, guid: 53061292c2fbd714ebc75d90561b6be6, type: 3}
+  m_PrefabInstance: {fileID: 1050556999}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1050557003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!1 &1050557003 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8947523414208896703, guid: 53061292c2fbd714ebc75d90561b6be6, type: 3}
+  m_PrefabInstance: {fileID: 1050556999}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1050557004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1050557003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba0e1022feaa5fa4e8e7978cab4290a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CoinTextUI
+  coinText: {fileID: 1050557002}
 --- !u!1 &1063733334
 GameObject:
   m_ObjectHideFlags: 0
