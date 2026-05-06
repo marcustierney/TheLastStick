@@ -122,6 +122,10 @@ public class SwordHitbox : MonoBehaviour
         {
             Debug.Log("hit");
             BossController boss = collision.GetComponent<BossController>();
+            if (boss == null)
+            {
+                boss = collision.GetComponentInParent<BossController>();
+            }
             if (boss != null)
             {
                 boss.TakeDamage(damage);
@@ -133,6 +137,10 @@ public class SwordHitbox : MonoBehaviour
         {
             Debug.Log("hit");
             BossTwoController boss = collision.GetComponent<BossTwoController>();
+            if (boss == null)
+            {
+                boss = collision.GetComponentInParent<BossTwoController>();
+            }
             if (boss != null)
             {
                 boss.TakeDamage(damage);

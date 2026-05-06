@@ -1091,7 +1091,7 @@ Canvas:
   m_GameObject: {fileID: 386795977}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 519420031}
   m_PlaneDistance: 100
   m_PixelPerfect: 1
@@ -3758,6 +3758,7 @@ GameObject:
   - component: {fileID: 1100043779}
   - component: {fileID: 1100043781}
   - component: {fileID: 1100043780}
+  - component: {fileID: 1100043782}
   m_Layer: 5
   m_Name: Health
   m_TagString: Untagged
@@ -3782,7 +3783,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -161.5, y: 20}
+  m_AnchoredPosition: {x: -161.5, y: 15}
   m_SizeDelta: {x: 283, y: 12}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1100043780
@@ -3823,6 +3824,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1100043778}
   m_CullTransparentMesh: 1
+--- !u!114 &1100043782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1100043778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34d3fcba5db57c245bd60cfcf5812b37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossHealthBarUI
+  Health: 50
+  MaxHealth: 50
+  healthBar: {fileID: 1100043780}
 --- !u!1 &1103346430
 GameObject:
   m_ObjectHideFlags: 0
@@ -5199,8 +5215,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 150.5, y: 12.000001}
-  m_SizeDelta: {x: 300, y: 34}
+  m_AnchoredPosition: {x: 148.79999, y: 12.000001}
+  m_SizeDelta: {x: 298.3, y: 34}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1536248332
 MonoBehaviour:
@@ -5254,10 +5270,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BossHealthBarUI
   Health: 3
   MaxHealth: 3
-  Width: 300
-  Height: 12
-  healthBar: {fileID: 1100043779}
-  widthPadding: 16
+  healthBar: {fileID: 1100043780}
 --- !u!1 &1624030222
 GameObject:
   m_ObjectHideFlags: 0

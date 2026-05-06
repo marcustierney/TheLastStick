@@ -3,28 +3,26 @@ using UnityEngine.UI;
 
 public class BossHealthBarUI : MonoBehaviour
 {
-    public float Health, MaxHealth, Width, Height;
+    public float Health, MaxHealth;
 
     [SerializeField]
-    private RectTransform healthBar;
-
-    [SerializeField]
-    private float widthPadding = 16f;
-
-    private float initialCenterX;
-    private float initialPivotX;
+    private Image healthBar;
 
     private void Awake()
     {
         if (healthBar == null)
         {
-            return;
+            healthBar = GetComponent<Image>();
         }
 
-        initialPivotX = healthBar.pivot.x;
-
-        float startingWidth = Mathf.Max(0f, Width - widthPadding);
-        initialCenterX = healthBar.anchoredPosition.x + (0.5f - initialPivotX) * startingWidth;
+        if (healthBar != null)
+        {
+            healthBar.type = Image.Type.Filled;
+            healthBar.fillMethod = Image.FillMethod.Horizontal;
+            healthBar.fillOrigin = 0;
+            healthBar.fillClockwise = false;
+            healthBar.fillAmount = 1f;
+        }
     }
 
     public void SetMaxHealth(float maxHealth)
@@ -41,13 +39,6 @@ public class BossHealthBarUI : MonoBehaviour
             return;
         }
 
-        float normalizedHealth = Health / MaxHealth;
-        float newWidth = Mathf.Max(0f, normalizedHealth * Width - widthPadding);
-
-        healthBar.sizeDelta = new Vector2(newWidth, Height);
-
-        // Keep the bar center fixed so HP drains inward from both ends.
-        float anchoredX = initialCenterX - (0.5f - initialPivotX) * newWidth;
-        healthBar.anchoredPosition = new Vector2(anchoredX, healthBar.anchoredPosition.y);
+        healthBar.fillAmount = Health / MaxHealth;
     }
 }

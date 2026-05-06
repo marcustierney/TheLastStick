@@ -2107,7 +2107,7 @@ Canvas:
   m_GameObject: {fileID: 678699346}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 1099106424}
   m_PlaneDistance: 100
   m_PixelPerfect: 1
@@ -2632,11 +2632,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2072441170}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 150.5, y: 12.000001}
-  m_SizeDelta: {x: 300, y: 34}
-  m_Pivot: {x: 1, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -149.5, y: 5.9999943}
+  m_SizeDelta: {x: 298.602, y: 34}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &909291146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2651,10 +2651,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BossHealthBarUI
   Health: 50
   MaxHealth: 50
-  Width: 300
-  Height: 12
-  healthBar: {fileID: 2072441170}
-  widthPadding: 16
+  healthBar: {fileID: 2072441171}
 --- !u!114 &909291147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5719,6 +5716,7 @@ GameObject:
   - component: {fileID: 2072441170}
   - component: {fileID: 2072441172}
   - component: {fileID: 2072441171}
+  - component: {fileID: 2072441173}
   m_Layer: 5
   m_Name: Health
   m_TagString: Untagged
@@ -5741,9 +5739,9 @@ RectTransform:
   - {fileID: 909291145}
   m_Father: {fileID: 678699350}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -161.5, y: 20}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -161.5, y: -116.0212}
   m_SizeDelta: {x: 283, y: 12}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &2072441171
@@ -5767,13 +5765,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 7819368512461668363, guid: 0ce97ca99d9ad0048ad2f720f7676988, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
   m_FillClockwise: 1
-  m_FillOrigin: 0
+  m_FillOrigin: 3
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
 --- !u!222 &2072441172
@@ -5784,6 +5782,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2072441169}
   m_CullTransparentMesh: 1
+--- !u!114 &2072441173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2072441169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34d3fcba5db57c245bd60cfcf5812b37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossHealthBarUI
+  Health: 50
+  MaxHealth: 0
+  healthBar: {fileID: 2072441171}
 --- !u!1 &2077027807
 GameObject:
   m_ObjectHideFlags: 0
