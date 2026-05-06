@@ -222,7 +222,13 @@ public class Movement : MonoBehaviour
         }
 
         // Handle crouch input
-        if (CanMoveHorizontally && inputActions.Gameplay.Crouch.IsPressed() && areGrounded)
+        bool crouchPressed = inputActions.Gameplay.Crouch.IsPressed();
+        if (!crouchPressed && Gamepad.current != null)
+        {
+            crouchPressed = Gamepad.current.buttonEast.isPressed || Gamepad.current.leftStick.down.isPressed;
+        }
+
+        if (CanMoveHorizontally && crouchPressed && areGrounded)
         {
             isCrouching = true;
         }
