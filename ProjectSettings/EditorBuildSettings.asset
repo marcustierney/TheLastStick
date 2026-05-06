@@ -42,4 +42,5 @@ EditorBuildSettings:
     path: Assets/Scenes/TransitionLevelTwoBoss.unity
     guid: 489b83974e3d9574eb28da689ccaba98
   m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 2e1535a441d79ea499103081c424056c, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

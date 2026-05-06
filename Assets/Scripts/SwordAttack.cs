@@ -70,6 +70,10 @@ public class SwordAttack : MonoBehaviour
         }
 
         bool attackKeyPressed = inputActions.Gameplay.Attack.WasPressedThisFrame();
+        if (!attackKeyPressed && Mouse.current != null)
+        {
+            attackKeyPressed = Mouse.current.leftButton.wasPressedThisFrame;
+        }
         if (attackKeyPressed)
         {
             lastAttackInputTime = Time.time;
@@ -90,10 +94,13 @@ public class SwordAttack : MonoBehaviour
         }
 
         Vector2 moveInput = inputActions.Gameplay.Move.ReadValue<Vector2>();
-        bool downInputPressed = IsDownAttackPressedThisFrame(moveInput);
-        bool crouchInputPressed = inputActions.Gameplay.Crouch.WasPressedThisFrame();
+        bool downInputHeld = moveInput.y < -0.5f;
+        if (!downInputHeld && Keyboard.current != null)
+        {
+            downInputHeld = Keyboard.current.sKey.isPressed;
+        }
 
-        if (!movement.IsGrounded() && (downInputPressed || crouchInputPressed))
+        if (!movement.IsGrounded() && attackKeyPressed && downInputHeld)
         {
             if (!usedSwordStand)
             {
@@ -152,7 +159,6 @@ public class SwordAttack : MonoBehaviour
         standHitbox.GetComponent<SwordHitbox>().EnablePlatform();
         Vector2 initialMoveInput = inputActions.Gameplay.Move.ReadValue<Vector2>();
         bool wasMoveCancelHeld = Mathf.Abs(initialMoveInput.x) > 0.5f;
-        bool wasJumpHeld = initialMoveInput.y > 0.5f;
 
         while (isSwordStanding)
         {
@@ -164,11 +170,9 @@ public class SwordAttack : MonoBehaviour
 
             Vector2 moveInput = inputActions.Gameplay.Move.ReadValue<Vector2>();
             bool moveCancelHeld = Mathf.Abs(moveInput.x) > 0.5f;
-            bool jumpHeld = moveInput.y > 0.5f;
             bool moveCancelPressed = moveCancelHeld && !wasMoveCancelHeld;
-            bool jumpOffPressed = jumpHeld && !wasJumpHeld && swordStandTouchGround;
             wasMoveCancelHeld = moveCancelHeld;
-            wasJumpHeld = jumpHeld;
+            bool jumpOffPressed = inputActions.Gameplay.Jump.WasPressedThisFrame() && swordStandTouchGround;
 
             if (moveCancelPressed || jumpOffPressed)
             {
