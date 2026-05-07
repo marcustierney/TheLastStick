@@ -1,16 +1,19 @@
 fileFormatVersion: 2
-guid: c0c0aeb53e86fe54bbd9cae41204c85a
+guid: 789b9125f37b61642954e8f2499a218d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -176274480487188631
-    second: controllerOutline_0
+      213: -8983667364058287597
+    second: wasdOutlineSimple_0
   - first:
-      213: 4866859224045344603
-    second: controllerOutline_1
+      213: 4046871456842256219
+    second: wasdOutlineSimple_1
   - first:
-      213: -1250272756503977339
-    second: controllerOutline_2
+      213: 1807227663821980129
+    second: wasdOutlineSimple_2
+  - first:
+      213: 6271176214506640907
+    second: wasdOutlineSimple_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -119,67 +122,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: controllerOutline_0
+      name: wasdOutlineSimple_0
       rect:
         serializedVersion: 2
-        x: 5
-        y: 7
-        width: 250
-        height: 128
+        x: 19
+        y: 64
+        width: 71
+        height: 46
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 967389f3b4fbd8df0800000000000000
-      internalID: -176274480487188631
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: controllerOutline_1
-      rect:
-        serializedVersion: 2
-        x: 38
-        y: 135
-        width: 19
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b575e05bdae8a8340800000000000000
-      internalID: 4866859224045344603
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: controllerOutline_2
-      rect:
-        serializedVersion: 2
-        x: 203
-        y: 135
-        width: 19
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5826b3c5d8326aee0800000000000000
-      internalID: -1250272756503977339
+      spriteID: 3123901412a935380800000000000000
+      internalID: -8983667364058287597
       vertices: []
       indices: 
       edges: []
@@ -188,7 +147,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -196,11 +155,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":248.0,"y":160.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      controllerOutline_0: -176274480487188631
-      controllerOutline_1: 4866859224045344603
-      controllerOutline_2: -1250272756503977339
+      wasdOutlineSimple_0: -8983667364058287597
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
