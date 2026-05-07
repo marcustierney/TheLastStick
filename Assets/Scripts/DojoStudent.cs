@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IHittable
 {
     public int maxHealth = 3;   
     private int currentHealth;
@@ -33,6 +33,7 @@ public class Enemy : MonoBehaviour
     [Header("Death Sound")]
     [SerializeField] private AudioSource deathAudioSource;
     [SerializeField] private AudioClip[] deathClips = new AudioClip[5];
+    [SerializeField] private SlashFeedback slashFeedback;
 
     private void Awake()
     {
@@ -68,6 +69,16 @@ public class Enemy : MonoBehaviour
         // Prevent player from pushing the enemy - set to Kinematic
         //rb.bodyType = RigidbodyType2D.Kinematic;
         //transform.localScale = new Vector3(1, 1, 1);
+    }
+
+    public void ReceiveHit(PlayerMeleeHit hit)
+    {
+        if (slashFeedback != null)
+        {
+            slashFeedback.PlaySlash(hit.ComboIndex);
+        }
+
+        TakeDamage(hit.Damage);
     }
 
     public void TakeDamage(int damage)

@@ -69,6 +69,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
     <Compile Include="Assets\Scripts\BossTwoController.cs" />
     <Compile Include="Assets\Scripts\CameraShift.cs" />
+    <Compile Include="Assets\Scripts\PlayerMeleeHit.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
     <Compile Include="Assets\Scripts\ShieldEnemyController.cs" />
     <Compile Include="Assets\Scripts\InputBindingOverrides.cs" />
@@ -115,6 +116,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
     <Compile Include="Assets\Scripts\ResolutionDropdown.cs" />
     <Compile Include="Assets\Scripts\ShopInteractable.cs" />
+    <Compile Include="Assets\Scripts\SlashFeedback.cs" />
     <Compile Include="Assets\Scripts\DisplayModeDropdown.cs" />
     <Compile Include="Assets\Scripts\ResetPosition.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
@@ -131,6 +133,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
     <Compile Include="Assets\Scripts\DoorTriggerScript.cs" />
     <Compile Include="Assets\Scripts\HitboxVisualizationToggleButton.cs" />
+    <Compile Include="Assets\Scripts\IHittable.cs" />
     <Compile Include="Assets\Scripts\RangeStudent.cs" />
     <Compile Include="Assets\Scripts\UIFocusGuard.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />

@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class BossController : MonoBehaviour
+public class BossController : MonoBehaviour, IHittable
 {
     private static readonly Collider2D[] slamOverlapResults = new Collider2D[12];
     private const string HasSwordAnimatorParam = "HasSword";
@@ -41,6 +41,7 @@ public class BossController : MonoBehaviour
     [SerializeField] private AudioSource walkAudioSource;
     [SerializeField] private AudioSource slamAudioSource;
     [SerializeField] private AudioSource throwAudioSource;
+    [SerializeField] private SlashFeedback slashFeedback;
 
     void Awake()
     {
@@ -281,6 +282,16 @@ public class BossController : MonoBehaviour
             transform.localScale = new Vector3(5, 5, 5);
         else
             transform.localScale = new Vector3(-5, 5, 5);
+    }
+
+    public void ReceiveHit(PlayerMeleeHit hit)
+    {
+        if (slashFeedback != null)
+        {
+            slashFeedback.PlaySlash(hit.ComboIndex);
+        }
+
+        TakeDamage(hit.Damage);
     }
 
     public void TakeDamage(int damage)

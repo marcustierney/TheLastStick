@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class BossTwoController : MonoBehaviour
+public class BossTwoController : MonoBehaviour, IHittable
 {
     public BossSummoningSwords summoningSwords;
     public BossFloatingSwords floatingSwords;
@@ -28,6 +28,7 @@ public class BossTwoController : MonoBehaviour
     private float lastDashTime = -999f;
     // private bool lockedChargeDirection = false;
     private bool facingRight = false;
+    [SerializeField] private SlashFeedback slashFeedback;
 
     private void Awake()
     {
@@ -129,6 +130,16 @@ public class BossTwoController : MonoBehaviour
             }
             yield return new WaitForSeconds(summonAttackCooldown);
         }
+    }
+
+    public void ReceiveHit(PlayerMeleeHit hit)
+    {
+        if (slashFeedback != null)
+        {
+            slashFeedback.PlaySlash(hit.ComboIndex);
+        }
+
+        TakeDamage(hit.Damage);
     }
 
     public void TakeDamage(int damage)

@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class ShieldEnemyController : MonoBehaviour
+public class ShieldEnemyController : MonoBehaviour, IHittable
 {
     private static readonly int IsMovingHash = Animator.StringToHash("isMoving");
     private static readonly int IsRunningAttackHash = Animator.StringToHash("isRunningAttack");
@@ -29,6 +29,7 @@ public class ShieldEnemyController : MonoBehaviour
     [SerializeField] private string runningAttackBoolName = "isRunningAttack";
 
     [SerializeField] private AudioSource deathAudioSource;
+    [SerializeField] private SlashFeedback slashFeedback;
 
     private Rigidbody2D rb;
     private Animator animator;
@@ -79,6 +80,16 @@ public class ShieldEnemyController : MonoBehaviour
         }
 
         MoveTowardsPlayer();
+    }
+
+    public void ReceiveHit(PlayerMeleeHit hit)
+    {
+        if (slashFeedback != null)
+        {
+            slashFeedback.PlaySlash(hit.ComboIndex);
+        }
+
+        TakeDamage(hit.Damage, hit.HitPoint);
     }
 
     public void TakeDamage(int damage, Vector2 hitSourcePosition)

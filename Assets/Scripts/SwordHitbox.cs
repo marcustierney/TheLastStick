@@ -4,6 +4,7 @@ using UnityEngine;
 public class SwordHitbox : MonoBehaviour
 {
     public int damage = 1;
+    public int currentComboIndex;
     private BoxCollider2D boxCollider;
     private SwordAttack swordAttack;
     [SerializeField] private AudioSource hitDamageAudioSource;
@@ -31,6 +32,7 @@ public class SwordHitbox : MonoBehaviour
     public void Disable()
     {
         if (boxCollider == null) return;
+        currentComboIndex = 0;
         gameObject.SetActive(false);
     }
 
@@ -55,99 +57,41 @@ public class SwordHitbox : MonoBehaviour
         return collider.name.IndexOf("warning", StringComparison.OrdinalIgnoreCase) >= 0;
     }
 
+    private bool TryDeliverPlayerMeleeHit(Collider2D collision)
+    {
+        if (collision.GetComponentInParent<ShopInteractable>() != null)
+        {
+            return false;
+        }
+
+        IHittable hittable = collision.GetComponentInParent<IHittable>();
+        if (hittable == null)
+        {
+            return false;
+        }
+
+        var hit = new PlayerMeleeHit
+        {
+            Damage = damage,
+            ComboIndex = currentComboIndex,
+            HitPoint = collision.ClosestPoint(transform.position)
+        };
+        hittable.ReceiveHit(hit);
+        PlayHitDamageSound();
+        return true;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player")) return;
         if (IsNonDamageableEnemyHitbox(collision)) return;
 
-        ShieldEnemyController shieldEnemy = collision.GetComponentInParent<ShieldEnemyController>();
-        if (shieldEnemy != null)
+        if (TryDeliverPlayerMeleeHit(collision))
         {
-            shieldEnemy.TakeDamage(damage, transform.position);
-            PlayHitDamageSound();
             swordAttack.ForceExitSwordStandWithBounce();
             return;
         }
 
-        SpiderEnemy spiderEnemy = collision.GetComponentInParent<SpiderEnemy>();
-        if (spiderEnemy != null)
-        {
-            spiderEnemy.TakeDamage(damage);
-            PlayHitDamageSound();
-            swordAttack.ForceExitSwordStandWithBounce();
-            return;
-        }
-        
-        if (collision.CompareTag("Enemy"))
-        {
-            Debug.Log("hit");
-            Enemy enemy = collision.GetComponent<Enemy>();
-            if (enemy != null)
-            {
-                enemy.TakeDamage(damage);
-                PlayHitDamageSound();
-            }
-            else
-            {
-                ThrowEnemy throwEnemy = collision.GetComponent<ThrowEnemy>();
-                if (throwEnemy != null)
-                {
-                    throwEnemy.TakeDamage(damage);
-                    PlayHitDamageSound();
-                }
-            }
-            swordAttack.ForceExitSwordStandWithBounce();
-        }
-        if (collision.CompareTag("TutorialEnemy"))
-        {
-            Debug.Log("hit tutorial enemy");
-            DummyHitTarget dummyHitTarget = collision.GetComponent<DummyHitTarget>();
-            if (dummyHitTarget != null)
-            {
-                dummyHitTarget.TutorialTakeDamage(damage);
-                PlayHitDamageSound();
-            }
-            else
-            {
-                TutorialEnemy tutorialEnemy = collision.GetComponent<TutorialEnemy>();
-                if (tutorialEnemy != null)
-                {
-                    tutorialEnemy.TutorialTakeDamage(damage);
-                    PlayHitDamageSound();
-                }
-            }
-            swordAttack.ForceExitSwordStandWithBounce();
-        }
-        if (collision.CompareTag("Boss"))
-        {
-            Debug.Log("hit");
-            BossController boss = collision.GetComponent<BossController>();
-            if (boss == null)
-            {
-                boss = collision.GetComponentInParent<BossController>();
-            }
-            if (boss != null)
-            {
-                boss.TakeDamage(damage);
-                PlayHitDamageSound();
-            }
-            swordAttack.ForceExitSwordStandWithBounce();
-        }
-        if (collision.CompareTag("BossTwo"))
-        {
-            Debug.Log("hit");
-            BossTwoController boss = collision.GetComponent<BossTwoController>();
-            if (boss == null)
-            {
-                boss = collision.GetComponentInParent<BossTwoController>();
-            }
-            if (boss != null)
-            {
-                boss.TakeDamage(damage);
-                PlayHitDamageSound();
-            }
-            swordAttack.ForceExitSwordStandWithBounce();
-        }
         if (collision.CompareTag("Ground"))
         {
             Debug.Log("Sword ground trigger");
@@ -159,62 +103,12 @@ public class SwordHitbox : MonoBehaviour
         if (collision.collider.CompareTag("Player")) return;
         if (IsNonDamageableEnemyHitbox(collision.collider)) return;
 
-        ShieldEnemyController shieldEnemy = collision.collider.GetComponentInParent<ShieldEnemyController>();
-        if (shieldEnemy != null)
+        if (TryDeliverPlayerMeleeHit(collision.collider))
         {
-            shieldEnemy.TakeDamage(damage, transform.position);
-            PlayHitDamageSound();
             swordAttack.ForceExitSwordStandWithBounce();
             return;
         }
 
-        SpiderEnemy spiderEnemy = collision.collider.GetComponentInParent<SpiderEnemy>();
-        if (spiderEnemy != null)
-        {
-            spiderEnemy.TakeDamage(damage);
-            PlayHitDamageSound();
-            swordAttack.ForceExitSwordStandWithBounce();
-            return;
-        }
-        
-        if (collision.collider.CompareTag("Enemy"))
-        {
-            Enemy enemy = collision.collider.GetComponent<Enemy>();
-            if (enemy != null)
-            {
-                enemy.TakeDamage(damage);
-                PlayHitDamageSound();
-            }
-            else
-            {
-                ThrowEnemy throwEnemy = collision.collider.GetComponent<ThrowEnemy>();
-                if (throwEnemy != null)
-                {
-                    throwEnemy.TakeDamage(damage);
-                    PlayHitDamageSound();
-                }
-            }
-            swordAttack.ForceExitSwordStandWithBounce();
-        }
-        if (collision.collider.CompareTag("TutorialEnemy"))
-        {
-            DummyHitTarget dummyHitTarget = collision.collider.GetComponent<DummyHitTarget>();
-            if (dummyHitTarget != null)
-            {
-                dummyHitTarget.TutorialTakeDamage(damage);
-                PlayHitDamageSound();
-            }
-            else
-            {
-                TutorialEnemy tutorialEnemy = collision.collider.GetComponent<TutorialEnemy>();
-                if (tutorialEnemy != null)
-                {
-                    tutorialEnemy.TutorialTakeDamage(damage);
-                    PlayHitDamageSound();
-                }
-            }
-            swordAttack.ForceExitSwordStandWithBounce();
-        }
         if (collision.collider.CompareTag("Ground"))
         {
             Debug.Log("Sword landed on ground");

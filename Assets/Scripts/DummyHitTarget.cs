@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class DummyHitTarget : MonoBehaviour
+public class DummyHitTarget : MonoBehaviour, IHittable
 {
     [Header("Health")]
     [SerializeField] private int maxHealth = 9999;
@@ -11,6 +11,7 @@ public class DummyHitTarget : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private string hitBoolParameter = "Hit";
     [SerializeField] private float hitAnimationDuration = 0.2f;
+    [SerializeField] private SlashFeedback slashFeedback;
 
     private int currentHealth;
     private Coroutine resetHitRoutine;
@@ -23,6 +24,16 @@ public class DummyHitTarget : MonoBehaviour
         {
             animator = GetComponent<Animator>();
         }
+    }
+
+    public void ReceiveHit(PlayerMeleeHit hit)
+    {
+        if (slashFeedback != null)
+        {
+            slashFeedback.PlaySlash(hit.ComboIndex);
+        }
+
+        TakeDamage(hit.Damage);
     }
 
     public void TakeDamage(int damage)

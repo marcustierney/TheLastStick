@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-public class SpiderEnemy : MonoBehaviour
+public class SpiderEnemy : MonoBehaviour, IHittable
 {
     public int maxHealth = 5;   
     private int currentHealth;
@@ -36,6 +36,7 @@ public class SpiderEnemy : MonoBehaviour
     [Header("Death Sound")]
     [SerializeField] private AudioSource deathAudioSource;
     [SerializeField] private AudioClip[] deathClips = new AudioClip[5];
+    [SerializeField] private SlashFeedback slashFeedback;
 
     private void Awake()
     {
@@ -71,6 +72,16 @@ public class SpiderEnemy : MonoBehaviour
         // Prevent player from pushing the enemy - set to Kinematic
         //rb.bodyType = RigidbodyType2D.Kinematic;
         //transform.localScale = new Vector3(1, 1, 1);
+    }
+
+    public void ReceiveHit(PlayerMeleeHit hit)
+    {
+        if (slashFeedback != null)
+        {
+            slashFeedback.PlaySlash(hit.ComboIndex);
+        }
+
+        TakeDamage(hit.Damage);
     }
 
     public void TakeDamage(int damage)

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ThrowEnemy : MonoBehaviour
+public class ThrowEnemy : MonoBehaviour, IHittable
 {
     public GameObject ballPrefab;
     public GameObject warningHitBox;
@@ -37,6 +37,7 @@ public class ThrowEnemy : MonoBehaviour
     [SerializeField] private AudioSource deathAudioSource;
     [SerializeField] private AudioClip[] deathClips = new AudioClip[5];
     [SerializeField] private Collider2D[] damageableHurtboxes;
+    [SerializeField] private SlashFeedback slashFeedback;
 
     private void Awake()
     {
@@ -121,6 +122,16 @@ public class ThrowEnemy : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void ReceiveHit(PlayerMeleeHit hit)
+    {
+        if (slashFeedback != null)
+        {
+            slashFeedback.PlaySlash(hit.ComboIndex);
+        }
+
+        TakeDamage(hit.Damage);
     }
 
     public void TakeDamage(int damage)

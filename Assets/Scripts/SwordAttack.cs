@@ -285,6 +285,7 @@ public class SwordAttack : MonoBehaviour
             SwordHitbox hitbox = activeAttackHitbox.GetComponent<SwordHitbox>();
             if (hitbox != null)
             {
+                hitbox.currentComboIndex = currentComboStep;
                 hitbox.EnableAttack();
             }
         }

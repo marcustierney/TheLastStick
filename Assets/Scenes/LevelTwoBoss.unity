@@ -377,299 +377,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &197186527
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 197186530}
-  - component: {fileID: 197186529}
-  - component: {fileID: 197186528}
-  - component: {fileID: 197186531}
-  - component: {fileID: 197186532}
-  - component: {fileID: 197186533}
-  - component: {fileID: 197186534}
-  - component: {fileID: 197186535}
-  - component: {fileID: 197186536}
-  m_Layer: 10
-  m_Name: BossTwo
-  m_TagString: BossTwo
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!60 &197186528
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 197186527}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.37, y: 0.56}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.008320553, y: -0.25054082}
-      - {x: -0.0134095885, y: -0.2412528}
-      - {x: 0.09053398, y: -0.24597359}
-      - {x: 0.09421498, y: -0.039478436}
-      - {x: 0.18552317, y: 0.045281626}
-      - {x: 0.18659605, y: 0.15252557}
-      - {x: 0.14503016, y: 0.1967583}
-      - {x: 0.16921097, y: 0.26815844}
-      - {x: 0.099107884, y: 0.24116969}
-      - {x: 0.051339295, y: 0.28427348}
-      - {x: -0.09184059, y: 0.27784008}
-      - {x: -0.12752707, y: 0.25014588}
-      - {x: -0.17710549, y: 0.26815838}
-      - {x: -0.1541918, y: 0.1939604}
-      - {x: -0.16990359, y: 0.17884901}
-      - {x: -0.192005, y: 0.103778996}
-      - {x: -0.16490538, y: -0.047471486}
-      - {x: -0.09224088, y: -0.1263168}
-      - {x: -0.12240404, y: -0.24385065}
-      - {x: -0.036853306, y: -0.24901983}
-      - {x: -0.024999999, y: -0.24888048}
-      - {x: -0.015, y: -0.21}
-      - {x: -0.025, y: -0.2380318}
-  m_UseDelaunayMesh: 0
---- !u!212 &197186529
-SpriteRenderer:
-  serializedVersion: 2
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 197186527}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 2126181457
-  m_SortingLayer: 7
-  m_SortingOrder: 0
-  m_MaskInteraction: 0
-  m_Sprite: {fileID: 7871664356536177776, guid: bb45b38529fd22e4a93010f6cdb96472, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_SpriteSortPoint: 0
---- !u!4 &197186530
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 197186527}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 27.8, y: -2.23, z: 0}
-  m_LocalScale: {x: 6, y: 6, z: 6}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &197186531
-Rigidbody2D:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 197186527}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1000
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
---- !u!114 &197186532
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 197186527}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed331fc83c1ec3747b34278501b4a95f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BossSwordSequencing
-  swordLeft: {fileID: 75163096}
-  swordMiddle: {fileID: 1323009400}
-  swordRight: {fileID: 1853521508}
-  timeBetweenSequences: 10
-  timeBetweenDives: 0.6
-  horizontalSpread: 4
---- !u!114 &197186533
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 197186527}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7cf0fdef138f1b8499320637581ed694, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BossSummoningSwords
-  fallingSwordPrefab: {fileID: 7753180692939811231, guid: a4fcc67f3e8f11b42a9611d086a1722b, type: 3}
-  arenaLeftEdge: -20
-  arenaRightEdge: 45
-  swordSpawnHeight: 12
-  swordCount: 150
-  timeBetweenSwords: 0.15
-  chargeUpDuration: 2
---- !u!114 &197186534
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 197186527}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d6055ba36351e54aa58ea1c19af0c4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BossTwoController
-  summoningSwords: {fileID: 197186533}
-  floatingSwords: {fileID: 0}
-  bossHealth: {fileID: 197186536}
-  moveSpeed: 3
-  dashAttackRange: 8
-  dashChargeUpDuration: 1.2
-  dashSpeed: 25
-  dashDuration: 0.6
-  dashStunDuration: 1
-  dashCooldown: 4
-  dashDamage: 20
-  summonAttackCooldown: 12
---- !u!95 &197186535
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 197186527}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e2a749efc28ab7b4987b604209262afc, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!114 &197186536
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 197186527}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a0bbf61c3cba0a419ea5c606a5e3bf5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BossHealth
-  Health: 50
-  MaxHealth: 50
-  healthBar: {fileID: 909291146}
 --- !u!1 &217386348
 GameObject:
   m_ObjectHideFlags: 0
@@ -703,6 +410,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SwordHitbox
   damage: 1
+  currentComboIndex: 0
   hitDamageAudioSource: {fileID: 1462908693}
 --- !u!212 &217386350
 SpriteRenderer:
@@ -1229,6 +937,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 0
+  hitFlashDuration: 0.6
+  fatalHitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 0}
   deathAudioSource: {fileID: 0}
   deathClips:
   - {fileID: 0}
@@ -1237,6 +948,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   damageableHurtboxes: []
+  slashFeedback: {fileID: 0}
 --- !u!70 &593678446
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1561,6 +1273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SwordHitbox
   damage: 1
+  currentComboIndex: 0
   hitDamageAudioSource: {fileID: 1462908693}
 --- !u!212 &637060107
 SpriteRenderer:
@@ -5080,6 +4793,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HitboxVisualizationManager
   persistAcrossScenes: 1
+  useSavedState: 1
   showHitboxes: 1
   hitboxColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!4 &1966780057
@@ -5129,6 +4843,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SwordHitbox
   damage: 1
+  currentComboIndex: 0
   hitDamageAudioSource: {fileID: 1462908693}
 --- !u!212 &2001100928
 SpriteRenderer:
@@ -5331,6 +5046,9 @@ MonoBehaviour:
   damageSoundDuration: 0.5
   deathScreen: {fileID: 1051449200}
   hud: {fileID: 2063238151}
+  focusGuard: {fileID: 0}
+  deathDefaultSelectable: {fileID: 0}
+  deathScreenDelaySeconds: 1.5
 --- !u!114 &2033661654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5351,6 +5069,7 @@ MonoBehaviour:
   dashAttackStateName: Dash_Attack
   swordStandBoolName: isSwordStanding
   attackAudioSource: {fileID: 0}
+  attackCooldown: 0.3
   comboLength: 4
   comboResetDelay: 0.7
   comboStepIntName: attackComboStep
@@ -6307,6 +6026,79 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &2248878261737446241
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 234742203258083317, guid: 4ab54405eb2c34c4b83e108e3f9eb9a1, type: 3}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 909291146}
+    - target: {fileID: 1872856700798949170, guid: 4ab54405eb2c34c4b83e108e3f9eb9a1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 27.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1872856700798949170, guid: 4ab54405eb2c34c4b83e108e3f9eb9a1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 1872856700798949170, guid: 4ab54405eb2c34c4b83e108e3f9eb9a1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1872856700798949170, guid: 4ab54405eb2c34c4b83e108e3f9eb9a1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1872856700798949170, guid: 4ab54405eb2c34c4b83e108e3f9eb9a1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1872856700798949170, guid: 4ab54405eb2c34c4b83e108e3f9eb9a1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1872856700798949170, guid: 4ab54405eb2c34c4b83e108e3f9eb9a1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1872856700798949170, guid: 4ab54405eb2c34c4b83e108e3f9eb9a1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1872856700798949170, guid: 4ab54405eb2c34c4b83e108e3f9eb9a1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1872856700798949170, guid: 4ab54405eb2c34c4b83e108e3f9eb9a1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4948925322066994599, guid: 4ab54405eb2c34c4b83e108e3f9eb9a1, type: 3}
+      propertyPath: swordLeft
+      value: 
+      objectReference: {fileID: 75163096}
+    - target: {fileID: 4948925322066994599, guid: 4ab54405eb2c34c4b83e108e3f9eb9a1, type: 3}
+      propertyPath: swordRight
+      value: 
+      objectReference: {fileID: 1853521508}
+    - target: {fileID: 4948925322066994599, guid: 4ab54405eb2c34c4b83e108e3f9eb9a1, type: 3}
+      propertyPath: swordMiddle
+      value: 
+      objectReference: {fileID: 1323009400}
+    - target: {fileID: 5648764475433359829, guid: 4ab54405eb2c34c4b83e108e3f9eb9a1, type: 3}
+      propertyPath: m_Name
+      value: BossTwo
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4ab54405eb2c34c4b83e108e3f9eb9a1, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -6320,7 +6112,7 @@ SceneRoots:
   - {fileID: 2077027810}
   - {fileID: 1221046275}
   - {fileID: 2095163552}
-  - {fileID: 197186530}
+  - {fileID: 2248878261737446241}
   - {fileID: 593678449}
   - {fileID: 677572185}
   - {fileID: 742185705}

@@ -1,14 +1,25 @@
 using UnityEngine;
 using System.Collections;
-public class TutorialEnemy : MonoBehaviour
+public class TutorialEnemy : MonoBehaviour, IHittable
 {
     public int maxHealth = 3;
     private int currentHealth;
     [SerializeField] private AudioSource deathAudioSource;
+    [SerializeField] private SlashFeedback slashFeedback;
 
     private void Awake()
     {
         currentHealth = maxHealth;
+    }
+
+    public void ReceiveHit(PlayerMeleeHit hit)
+    {
+        if (slashFeedback != null)
+        {
+            slashFeedback.PlaySlash(hit.ComboIndex);
+        }
+
+        TutorialTakeDamage(hit.Damage);
     }
 
     public void TutorialTakeDamage(int damage)
