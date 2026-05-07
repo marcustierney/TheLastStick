@@ -34,7 +34,12 @@ public class UpdateHealth : MonoBehaviour
     [SerializeField]
     private GameObject hud;
 
+    [SerializeField]
+    [Tooltip("death screen delay in seconds")]
+    private float deathScreenDelaySeconds = 1.5f;
+
     private Coroutine damageSoundCoroutine;
+    private Coroutine deathSequenceCoroutine;
     private Rigidbody2D rb;
     private Movement movement;
     private bool isDead;
@@ -61,6 +66,11 @@ public class UpdateHealth : MonoBehaviour
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= HandleSceneLoaded;
+        if (deathSequenceCoroutine != null)
+        {
+            StopCoroutine(deathSequenceCoroutine);
+            deathSequenceCoroutine = null;
+        }
     }
 
     // Update is called once per frame
@@ -180,40 +190,29 @@ public class UpdateHealth : MonoBehaviour
         TakeDamage(damage, transform.position);
     }
 
-    private void Die() // Placeholder for player death logic
+    private void Die()
     {
         if (isDead)
             return;
 
         isDead = true;
         Debug.Log("Player died");
-        // Trigger the player's death animation and then pause gameplay in the background.
-        if (movement != null)
+
+        if (deathSequenceCoroutine != null)
         {
-            // Use reflection-only invocation to avoid compile-time dependency on
-            // Movement.PlayDeathAnimation (prevents CS1061 if editor compile order
-            // temporarily doesn't see the method).
-            var mi = movement.GetType().GetMethod("PlayDeathAnimation",
-                System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic);
-            if (mi != null)
-            {
-                mi.Invoke(movement, null);
-            }
-            else
-            {
-                Debug.LogWarning("PlayDeathAnimation not found on Movement. Falling back to animator trigger.");
-                // Fallback: directly set the Animator trigger on the player so the death animation still plays
-                Animator playerAnimator = movement.GetComponent<Animator>();
-                if (playerAnimator != null)
-                {
-                    playerAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
-                    playerAnimator.SetTrigger("Death");
-                }
-                else
-                {
-                    Debug.LogWarning("No Animator found on player to play death animation.");
-                }
-            }
+            StopCoroutine(deathSequenceCoroutine);
+        }
+
+        deathSequenceCoroutine = StartCoroutine(DeathSequenceRoutine());
+    }
+
+    private IEnumerator DeathSequenceRoutine()
+    {
+        TriggerDeathAnimation();
+
+        if (deathScreenDelaySeconds > 0f)
+        {
+            yield return new WaitForSecondsRealtime(deathScreenDelaySeconds);
         }
 
         Time.timeScale = 0f;
@@ -235,6 +234,40 @@ public class UpdateHealth : MonoBehaviour
         else
         {
             Debug.LogWarning("HUD is not assigned on UpdateHealth.");
+        }
+
+        deathSequenceCoroutine = null;
+    }
+
+    private void TriggerDeathAnimation()
+    {
+        if (movement == null)
+        {
+            return;
+        }
+
+        // Use reflection-only invocation to avoid compile-time dependency on
+        // Movement.PlayDeathAnimation (prevents CS1061 if editor compile order
+        // temporarily doesn't see the method).
+        var mi = movement.GetType().GetMethod("PlayDeathAnimation",
+            System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic);
+        if (mi != null)
+        {
+            mi.Invoke(movement, null);
+        }
+        else
+        {
+            Debug.LogWarning("PlayDeathAnimation not found on Movement. Falling back to animator trigger.");
+            Animator playerAnimator = movement.GetComponent<Animator>();
+            if (playerAnimator != null)
+            {
+                playerAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
+                playerAnimator.SetTrigger("Death");
+            }
+            else
+            {
+                Debug.LogWarning("No Animator found on player to play death animation.");
+            }
         }
     }
 
