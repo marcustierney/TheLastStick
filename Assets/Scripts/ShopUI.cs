@@ -35,6 +35,7 @@ public class ShopUI : MonoBehaviour
     private bool pausedAudioByShop;
     private InputSystem_Actions inputActions;
     private int openedFrame = -1;
+    public bool IsOpen => shopPanel != null && shopPanel.activeSelf;
 
     private void Awake()
     {

@@ -9,6 +9,8 @@ public class ShopInteractable : MonoBehaviour, IInteractable
 
     private void Update()
     {
+        UpdatePromptState();
+
         if (!playerInRange)
         {
             return;
@@ -51,6 +53,7 @@ public class ShopInteractable : MonoBehaviour, IInteractable
     public void Interact()
     {
         shopUI.Toggle();
+        UpdatePromptState();
     }
 
     public bool CanInteract() => playerInRange;
@@ -59,14 +62,25 @@ public class ShopInteractable : MonoBehaviour, IInteractable
     {
         if (!other.CompareTag("Player")) return;
         playerInRange = true;
-        if (interactionPrompt != null) interactionPrompt.SetActive(true);
+        UpdatePromptState();
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         if (!other.CompareTag("Player")) return;
         playerInRange = false;
-        if (interactionPrompt != null) interactionPrompt.SetActive(false);
+        UpdatePromptState();
         shopUI.Close();
+    }
+
+    private void UpdatePromptState()
+    {
+        if (interactionPrompt == null)
+        {
+            return;
+        }
+
+        bool shopOpen = shopUI != null && shopUI.IsOpen;
+        interactionPrompt.SetActive(playerInRange && !shopOpen);
     }
 }
