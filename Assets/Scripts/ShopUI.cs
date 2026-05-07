@@ -34,6 +34,7 @@ public class ShopUI : MonoBehaviour
     private bool pausedByShop;
     private bool pausedAudioByShop;
     private InputSystem_Actions inputActions;
+    private int openedFrame = -1;
 
     private void Awake()
     {
@@ -65,7 +66,9 @@ public class ShopUI : MonoBehaviour
         // Close the shop if interact button is pressed while shop is open
         if (shopPanel != null && shopPanel.activeSelf)
         {
-            if (inputActions != null && inputActions.Gameplay.Interact.WasPressedThisFrame())
+            if (Time.frameCount > openedFrame
+                && inputActions != null
+                && inputActions.Gameplay.Interact.WasPressedThisFrame())
             {
                 Close();
             }
@@ -97,6 +100,7 @@ public class ShopUI : MonoBehaviour
 
         if (shouldOpen)
         {
+            openedFrame = Time.frameCount;
             PauseGameplayForShop();
             StartCoroutine(SelectAfterFrame(shopDefaultSelectable));
             return;

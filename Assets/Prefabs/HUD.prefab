@@ -671,6 +671,7 @@ GameObject:
   - component: {fileID: 6431654080400234304}
   - component: {fileID: 8039973206060601059}
   - component: {fileID: 5866764089127775009}
+  - component: {fileID: 7408936183171569049}
   m_Layer: 5
   m_Name: CoinTrackerText
   m_TagString: Untagged
@@ -797,3 +798,16 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &7408936183171569049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8947523414208896703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba0e1022feaa5fa4e8e7978cab4290a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CoinTextUI
+  coinText: {fileID: 5866764089127775009}

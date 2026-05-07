@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2309937126843061241}
   - component: {fileID: 1131920011949147712}
+  - component: {fileID: 3466866255219014943}
+  - component: {fileID: 8274245644359889975}
   m_Layer: 10
   m_Name: EnemyWarningHitBox
   m_TagString: Enemy
@@ -34,6 +36,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1131920011949147712
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -79,6 +82,7 @@ SpriteRenderer:
   m_SortingLayerID: 237396399
   m_SortingLayer: 8
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 0.59607846}
   m_FlipX: 0
@@ -88,8 +92,68 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!61 &3466866255219014943
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 590462833257291432}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &8274245644359889975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 590462833257291432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3702b78ac8a50c49b0c7a1f451349d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitboxVisualizer
+  affectSpriteVisibility: 1
+  visibleAlpha: 0.5
+  hiddenAlpha: 0
 --- !u!1 &2543465489117012176
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,6 +194,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1840348974090946085
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -175,16 +240,16 @@ SpriteRenderer:
   m_SortingLayerID: 2126181457
   m_SortingLayer: 7
   m_SortingOrder: 0
-  m_Sprite: {fileID: 3326434354005741071, guid: 4a74bf26a2b5579429acc2493c6a5377, type: 3}
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 8285900329157140753, guid: 6121923b5ed16374c8c9f79d949ec01d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.5, y: 1.046875}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &2708448530913653753
 BoxCollider2D:
@@ -224,8 +289,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
+    oldSize: {x: 0.5, y: 1.046875}
+    newSize: {x: 0.5, y: 1.046875}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -283,7 +348,17 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  hitFlashDuration: 0.08
+  fatalHitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 6802183088965565074, guid: 249f27b1346834975a84f0a56d32fa50, type: 2}
   deathAudioSource: {fileID: 0}
+  deathClips:
+  - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
+  - {fileID: 8300000, guid: b7e0e3d10c170934b9d95f7797ecd15b, type: 3}
+  - {fileID: 8300000, guid: f480e51556057e541b2df122e2ee0f07, type: 3}
+  - {fileID: 8300000, guid: 52c81033aa5d83744a8bfc47f5142f9f, type: 3}
+  - {fileID: 8300000, guid: 34799525f4a08b4479825d8ea8fa46d6, type: 3}
+  damageableHurtboxes: []
 --- !u!95 &1431755503637792661
 Animator:
   serializedVersion: 7
@@ -331,7 +406,7 @@ Transform:
   m_GameObject: {fileID: 7694357727068465725}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.147, y: 0, z: 0}
+  m_LocalPosition: {x: -0.021, y: 0.16, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
