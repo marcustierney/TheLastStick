@@ -178,7 +178,12 @@ public class Sign : MonoBehaviour, IInteractable
             return;
         }
 
-        interactionPrompt.SetActive(CanInteract());
+        interactionPrompt.SetActive(CanInteract() && !IsSignShowing());
+    }
+
+    private bool IsSignShowing()
+    {
+        return signPanel != null && signPanel.activeSelf;
     }
 
     private void HideSignUI()
@@ -189,6 +194,7 @@ public class Sign : MonoBehaviour, IInteractable
         }
 
         hideAtTime = -1f;
+        UpdatePromptState();
     }
 
 }
