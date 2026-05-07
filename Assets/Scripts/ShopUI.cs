@@ -5,10 +5,13 @@ using UnityEngine.UI;
 
 public class ShopUI : MonoBehaviour
 {
+    private const float ResumeInputBlockSeconds = 0.12f;
+
     [Header("Shop Panel")]
     [SerializeField] private GameObject shopPanel;
     [SerializeField] private UIFocusGuard focusGuard;
     [SerializeField] private Selectable shopDefaultSelectable;
+    [SerializeField] private bool pauseGameplayWhileOpen = true;
 
     [Header("Speed Upgrade")]
     [SerializeField] private TMP_Text speedCostText;
@@ -28,10 +31,13 @@ public class ShopUI : MonoBehaviour
     [Header("Purchase Sound")]
     [SerializeField] private AudioSource purchaseAudioSource;
     [SerializeField] private AudioClip[] purchaseClips = new AudioClip[5];
+    private bool pausedByShop;
+    private bool pausedAudioByShop;
 
     private void Start()
     {
         CachePurchaseAudioSource();
+        ConfigurePurchaseAudioSource();
         if (shopPanel != null) shopPanel.SetActive(false);
         if (focusGuard == null)
         {
@@ -53,9 +59,12 @@ public class ShopUI : MonoBehaviour
 
         if (shouldOpen)
         {
+            PauseGameplayForShop();
             StartCoroutine(SelectAfterFrame(shopDefaultSelectable));
             return;
         }
+
+        ResumeGameplayFromShop();
 
         if (focusGuard != null)
         {
@@ -71,10 +80,53 @@ public class ShopUI : MonoBehaviour
         }
 
         shopPanel.SetActive(false);
+        ResumeGameplayFromShop();
         if (focusGuard != null)
         {
             focusGuard.ClearSelection();
         }
+    }
+
+    private void PauseGameplayForShop()
+    {
+        if (!pauseGameplayWhileOpen)
+        {
+            return;
+        }
+
+        if (Time.timeScale > 0f)
+        {
+            Time.timeScale = 0f;
+            pausedByShop = true;
+        }
+
+        if (!AudioListener.pause)
+        {
+            AudioListener.pause = true;
+            pausedAudioByShop = true;
+        }
+    }
+
+    private void ResumeGameplayFromShop()
+    {
+        if (!pauseGameplayWhileOpen || !pausedByShop)
+        {
+            if (pausedAudioByShop)
+            {
+                AudioListener.pause = false;
+                pausedAudioByShop = false;
+            }
+            return;
+        }
+
+        Time.timeScale = 1f;
+        pausedByShop = false;
+        if (pausedAudioByShop)
+        {
+            AudioListener.pause = false;
+            pausedAudioByShop = false;
+        }
+        GameplayInputGate.BlockForUnscaledSeconds(ResumeInputBlockSeconds);
     }
 
     // Called by the Speed upgrade button via OnClick in the Inspector
@@ -173,7 +225,18 @@ public class ShopUI : MonoBehaviour
         if (purchaseObject != null)
         {
             purchaseAudioSource = purchaseObject.GetComponent<AudioSource>();
+            ConfigurePurchaseAudioSource();
         }
+    }
+
+    private void ConfigurePurchaseAudioSource()
+    {
+        if (purchaseAudioSource == null)
+        {
+            return;
+        }
+
+        purchaseAudioSource.ignoreListenerPause = true;
     }
 
     private IEnumerator SelectAfterFrame(Selectable selectable)

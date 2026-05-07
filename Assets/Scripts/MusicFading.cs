@@ -9,6 +9,13 @@ public class MusicFading : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            return;
+        }
+
+        audioSource.ignoreListenerPause = true;
+
         audioSource.volume = 0f;
         StartCoroutine(Fade(true, 10f, .2f));
         StartCoroutine(Fade(false, 2f, 0f));

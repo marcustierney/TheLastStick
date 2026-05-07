@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 public class MusicPersistence : MonoBehaviour
 {
     private static MusicPersistence instance;
+    private AudioSource musicAudioSource;
 
     [SerializeField] private string[] menuSceneNames = { "MainMenu", "Options", "Credits" };
 
@@ -13,6 +14,7 @@ public class MusicPersistence : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+            CacheAndConfigureMusicAudioSource();
         }
         else
         {
@@ -37,10 +39,25 @@ public class MusicPersistence : MonoBehaviour
             return;
         }
 
+        CacheAndConfigureMusicAudioSource();
+
         if (!IsMenuScene(scene.name))
         {
             instance = null;
             Destroy(gameObject);
+        }
+    }
+
+    private void CacheAndConfigureMusicAudioSource()
+    {
+        if (musicAudioSource == null)
+        {
+            musicAudioSource = GetComponent<AudioSource>();
+        }
+
+        if (musicAudioSource != null)
+        {
+            musicAudioSource.ignoreListenerPause = true;
         }
     }
 

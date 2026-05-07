@@ -18,6 +18,7 @@ public class PauseManager : MonoBehaviour
     private InputAction uiCancelAction;
     private bool hasLoggedPauseFallbackWarning;
     private bool pauseTriggeredByGamepad;
+    private bool pausedAudioByPauseMenu;
     private const string GameplayActionMap = "Gameplay";
     private const string UiActionMap = "UI";
     private const string GamepadScheme = "Gamepad";
@@ -89,6 +90,11 @@ public class PauseManager : MonoBehaviour
         EnsureNonZeroPauseUiScale(pauseMenuUI);
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f; //freeze game
+        if (!AudioListener.pause)
+        {
+            AudioListener.pause = true;
+            pausedAudioByPauseMenu = true;
+        }
         isPaused = true;
         SwitchToUiInputContext();
         EnsurePauseActionEnabled();
@@ -99,6 +105,11 @@ public class PauseManager : MonoBehaviour
     {
         pauseMenuUI.SetActive(false); 
         Time.timeScale = 1f; //resume game
+        if (pausedAudioByPauseMenu)
+        {
+            AudioListener.pause = false;
+            pausedAudioByPauseMenu = false;
+        }
         GameplayInputGate.BlockForUnscaledSeconds(ResumeInputBlockSeconds);
         isPaused = false;
         isOptionsOpen = false;
@@ -115,6 +126,8 @@ public class PauseManager : MonoBehaviour
         isPaused = false;
         isOptionsOpen = false;
         Time.timeScale = 1f;
+        AudioListener.pause = false;
+        pausedAudioByPauseMenu = false;
 
         if (pauseMenuUI != null)
         {
@@ -149,6 +162,8 @@ public class PauseManager : MonoBehaviour
         isPaused = false;
         isOptionsOpen = false;
         Time.timeScale = 1f;
+        AudioListener.pause = false;
+        pausedAudioByPauseMenu = false;
 
         if (pauseMenuUI != null)
         {
