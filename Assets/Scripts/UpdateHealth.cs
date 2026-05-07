@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class UpdateHealth : MonoBehaviour
 {
@@ -33,6 +34,10 @@ public class UpdateHealth : MonoBehaviour
     private GameObject deathScreen;
     [SerializeField]
     private GameObject hud;
+    [SerializeField]
+    private UIFocusGuard focusGuard;
+    [SerializeField]
+    private Selectable deathDefaultSelectable;
 
     [SerializeField]
     [Tooltip("death screen delay in seconds")]
@@ -51,6 +56,7 @@ public class UpdateHealth : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         movement = GetComponent<Movement>();
         lastDamageTime = Time.time;
+        EnsureFocusGuard();
         
         if (rb == null)
             Debug.LogError("Rigidbody2D not found on player!");
@@ -221,6 +227,8 @@ public class UpdateHealth : MonoBehaviour
         {
             ConfigureDeathScreenAnimators();
             deathScreen.SetActive(true);
+            EnsureUiMapActiveForDeathScreen();
+            StartCoroutine(ApplyDeathScreenFocusAfterFrame());
         }
         else
         {
@@ -286,6 +294,82 @@ public class UpdateHealth : MonoBehaviour
                 animator.updateMode = AnimatorUpdateMode.UnscaledTime;
             }
         }
+    }
+
+    private static void EnsureUiMapActiveForDeathScreen()
+    {
+        PlayerInput playerInput = Object.FindAnyObjectByType<PlayerInput>();
+        if (playerInput == null || playerInput.actions == null)
+        {
+            return;
+        }
+
+        InputActionMap uiMap = playerInput.actions.FindActionMap("UI", throwIfNotFound: false);
+        if (uiMap == null)
+        {
+            return;
+        }
+
+        if (playerInput.currentActionMap == null || playerInput.currentActionMap.name != "UI")
+        {
+            playerInput.SwitchCurrentActionMap("UI");
+        }
+
+        if (!uiMap.enabled)
+        {
+            uiMap.Enable();
+        }
+    }
+
+    private IEnumerator ApplyDeathScreenFocusAfterFrame()
+    {
+        yield return null;
+
+        if (deathScreen == null || !deathScreen.activeInHierarchy)
+        {
+            yield break;
+        }
+
+        EnsureFocusGuard();
+        Selectable fallback = ResolveDeathDefaultSelectable();
+        if (focusGuard != null && fallback != null && fallback.gameObject.activeInHierarchy)
+        {
+            focusGuard.SetCurrentFallback(fallback);
+            focusGuard.ForceSelectCurrentFallback();
+        }
+    }
+
+    private void EnsureFocusGuard()
+    {
+        if (focusGuard == null)
+        {
+            focusGuard = Object.FindAnyObjectByType<UIFocusGuard>(FindObjectsInactive.Include);
+        }
+    }
+
+    private Selectable ResolveDeathDefaultSelectable()
+    {
+        if (deathDefaultSelectable != null)
+        {
+            return deathDefaultSelectable;
+        }
+
+        if (deathScreen == null)
+        {
+            return null;
+        }
+
+        Selectable[] selectables = deathScreen.GetComponentsInChildren<Selectable>(true);
+        for (int i = 0; i < selectables.Length; i++)
+        {
+            Selectable selectable = selectables[i];
+            if (selectable != null && selectable.IsInteractable() && selectable.gameObject.activeInHierarchy)
+            {
+                return selectable;
+            }
+        }
+
+        return selectables.Length > 0 ? selectables[0] : null;
     }
 
     private void PlayDamageSound()

@@ -8,9 +8,11 @@ using UnityEngine;
 public class MainMenuStatusBar : MonoBehaviour
 {
     private const string CurrentLevelKey = "CurrentLevel";
+    private const string HasPlayedBeforeKey = "HasPlayedBefore";
     // Keep in sync with CoinManager.CoinsKey
     private const string CoinsPrefsKey = "tls.coins";
 
+    [SerializeField] private TMP_Text levelLabelText;
     [SerializeField] private TMP_Text levelText;
     [SerializeField] private TMP_Text coinsText;
 
@@ -27,13 +29,32 @@ public class MainMenuStatusBar : MonoBehaviour
     public void Refresh()
     {
         int levelIndex = PlayerPrefs.GetInt(CurrentLevelKey, 0);
+        bool hasPlayedBefore = PlayerPrefs.GetInt(HasPlayedBeforeKey, 0) == 1;
         int coins = CoinManager.Instance != null
             ? CoinManager.Instance.Coins
             : PlayerPrefs.GetInt(CoinsPrefsKey, 0);
 
+        // Hide status bar for true first-time players.
+        gameObject.SetActive(hasPlayedBefore);
+
+        if (!hasPlayedBefore)
+        {
+            return;
+        }
+
         if (levelText != null)
         {
-            levelText.text = $"{levelIndex}";
+            bool isTutorial = levelIndex == 0;
+            levelText.gameObject.SetActive(!isTutorial);
+            if (!isTutorial)
+            {
+                levelText.text = $"{levelIndex}";
+            }
+        }
+
+        if (levelLabelText != null)
+        {
+            levelLabelText.text = levelIndex == 0 ? "Tutorial" : "Level";
         }
 
         if (coinsText != null)

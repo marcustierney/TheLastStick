@@ -8,9 +8,12 @@ public class UIFocusGuard : MonoBehaviour
 {
     [SerializeField] Selectable fallbackSelectable;
     [SerializeField] float restoreDebounceSeconds = 0.08f;
+    [SerializeField] float mouseMoveDeadzonePixels = 2.5f;
+    [SerializeField] float gamepadPrioritySeconds = 0.2f;
 
     private bool lastInputWasGamepad = false;
     private float lastSelectionLostTime = -1f;
+    private float lastGamepadInputTime = -1f;
 
     private void SetLastInputWasGamepad(bool isGamepad)
     {
@@ -21,6 +24,24 @@ public class UIFocusGuard : MonoBehaviour
 
         lastInputWasGamepad = isGamepad;
         Cursor.visible = !isGamepad;
+
+        if (isGamepad)
+        {
+            return;
+        }
+
+        EventSystem currentEventSystem = EventSystem.current;
+        if (currentEventSystem == null)
+        {
+            return;
+        }
+
+        if (currentEventSystem.currentSelectedGameObject != null)
+        {
+            currentEventSystem.SetSelectedGameObject(null);
+        }
+
+        lastSelectionLostTime = -1f;
     }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
@@ -142,15 +163,43 @@ public class UIFocusGuard : MonoBehaviour
 
     private void TrackLastInputDevice()
     {
+        float now = Time.unscaledTime;
+
+        Gamepad gamepad = Gamepad.current;
+        if (gamepad != null)
+        {
+            bool gamepadUsed =
+                gamepad.buttonSouth.wasPressedThisFrame
+                || gamepad.buttonNorth.wasPressedThisFrame
+                || gamepad.buttonWest.wasPressedThisFrame
+                || gamepad.buttonEast.wasPressedThisFrame
+                || gamepad.startButton.wasPressedThisFrame
+                || gamepad.selectButton.wasPressedThisFrame
+                || gamepad.leftShoulder.wasPressedThisFrame
+                || gamepad.rightShoulder.wasPressedThisFrame
+                || gamepad.dpad.ReadValue().sqrMagnitude > 0f
+                || gamepad.leftStick.ReadValue().sqrMagnitude > 0.0001f
+                || gamepad.rightStick.ReadValue().sqrMagnitude > 0.0001f;
+
+            if (gamepadUsed)
+            {
+                lastGamepadInputTime = now;
+                SetLastInputWasGamepad(true);
+                return;
+            }
+        }
+
         Mouse mouse = Mouse.current;
         if (mouse != null)
         {
+            bool gamepadRecentlyUsed = lastGamepadInputTime >= 0f && now - lastGamepadInputTime < gamepadPrioritySeconds;
+            bool mouseMoved = mouse.delta.ReadValue().sqrMagnitude > mouseMoveDeadzonePixels * mouseMoveDeadzonePixels;
             bool mouseUsed =
                 mouse.leftButton.wasPressedThisFrame
                 || mouse.rightButton.wasPressedThisFrame
                 || mouse.middleButton.wasPressedThisFrame
                 || mouse.scroll.ReadValue().sqrMagnitude > 0f
-                || mouse.delta.ReadValue().sqrMagnitude > 0f;
+                || (!gamepadRecentlyUsed && mouseMoved);
             if (mouseUsed)
             {
                 SetLastInputWasGamepad(false);
@@ -163,30 +212,6 @@ public class UIFocusGuard : MonoBehaviour
         {
             SetLastInputWasGamepad(false);
             return;
-        }
-
-        Gamepad gamepad = Gamepad.current;
-        if (gamepad == null)
-        {
-            return;
-        }
-
-        bool gamepadUsed =
-            gamepad.buttonSouth.wasPressedThisFrame
-            || gamepad.buttonNorth.wasPressedThisFrame
-            || gamepad.buttonWest.wasPressedThisFrame
-            || gamepad.buttonEast.wasPressedThisFrame
-            || gamepad.startButton.wasPressedThisFrame
-            || gamepad.selectButton.wasPressedThisFrame
-            || gamepad.leftShoulder.wasPressedThisFrame
-            || gamepad.rightShoulder.wasPressedThisFrame
-            || gamepad.dpad.ReadValue().sqrMagnitude > 0f
-            || gamepad.leftStick.ReadValue().sqrMagnitude > 0.0001f
-            || gamepad.rightStick.ReadValue().sqrMagnitude > 0.0001f;
-
-        if (gamepadUsed)
-        {
-            SetLastInputWasGamepad(true);
         }
     }
 }

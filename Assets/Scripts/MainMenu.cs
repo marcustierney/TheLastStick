@@ -76,6 +76,7 @@ public class MainMenu : MonoBehaviour
 
     public void PlayGame()
     {
+        PlayerPrefs.SetInt("HasPlayedBefore", 1);
         int level = PlayerPrefs.GetInt("CurrentLevel", 0);
 
         if (level == 0)
@@ -104,6 +105,7 @@ public class MainMenu : MonoBehaviour
 
     public void RestartGame()
     {
+        PlayerPrefs.SetInt("HasPlayedBefore", 1);
         CoinManager.ClearSavedProgress();
         SceneTransition.SetPendingNextScene("Tutorial", 4f);
         SceneManager.LoadScene("LoadingScreen");
