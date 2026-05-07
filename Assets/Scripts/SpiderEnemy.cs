@@ -22,11 +22,13 @@ public class SpiderEnemy : MonoBehaviour
     private bool isAttacking = false;
     protected SpriteRenderer spriteRenderer;
     [Header("Hit Flash")]
-    [SerializeField] private float hitFlashDuration = 0.08f;
+    [SerializeField] private float hitFlashDuration = 0.6f;
+    [SerializeField] private float fatalHitFlashDuration = 0.08f;
     [SerializeField] private Material whiteFlashMaterial;
     private SpriteRenderer[] flashRenderers;
     private Material[] originalMaterials;
     private Coroutine hitFlashRoutine;
+    private bool isDying;
     [Header("Ledge Detection")]
     [SerializeField] public float ledgeCheckDistance = 0.8f;  // Wider body detection
     [SerializeField] public float ledgeCheckDepth = 0.6f;    // Reduced for shorter body
@@ -73,18 +75,24 @@ public class SpiderEnemy : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (isDying)
+        {
+            return;
+        }
+
         currentHealth -= damage;
         Debug.Log("damage " + damage + " cCurrent hp " + currentHealth);
 
-        TriggerHitFlash();
+        bool isFatalHit = currentHealth <= 0;
+        TriggerHitFlash(isFatalHit ? fatalHitFlashDuration : hitFlashDuration);
 
-        if (currentHealth <= 0)
+        if (isFatalHit)
         {
             Die();
         }
     }
 
-    private void TriggerHitFlash()
+    private void TriggerHitFlash(float duration)
     {
         if (flashRenderers == null || flashRenderers.Length == 0)
         {
@@ -96,13 +104,13 @@ public class SpiderEnemy : MonoBehaviour
             StopCoroutine(hitFlashRoutine);
         }
 
-        hitFlashRoutine = StartCoroutine(HitFlashRoutine());
+        hitFlashRoutine = StartCoroutine(HitFlashRoutine(duration));
     }
 
-    private IEnumerator HitFlashRoutine()
+    private IEnumerator HitFlashRoutine(float duration)
     {
         ApplyFlashMaterial();
-        yield return new WaitForSeconds(hitFlashDuration);
+        yield return new WaitForSeconds(Mathf.Max(0f, duration));
         RestoreOriginalMaterials();
         hitFlashRoutine = null;
     }
@@ -143,6 +151,11 @@ public class SpiderEnemy : MonoBehaviour
 
     private void Update()
     {
+        if (isDying)
+        {
+            return;
+        }
+
         if (player == null) return;
 
         float distance = Vector2.Distance(transform.position, player.position);
@@ -246,11 +259,55 @@ public class SpiderEnemy : MonoBehaviour
 
     private void Die()
     {
+        if (isDying)
+        {
+            return;
+        }
+
+        isDying = true;
         Debug.Log("killed");
-        RestoreOriginalMaterials();
+        DisableCombatState();
+
         CoinManager.Instance?.AddCoins(2);
         PlayDeathSound();
-        Destroy(gameObject); 
+        StartCoroutine(DieAfterDelay()); 
+    }
+
+    private IEnumerator DieAfterDelay()
+    {
+        yield return new WaitForSeconds(0.5f);
+        RestoreOriginalMaterials();
+        Destroy(gameObject);
+    }
+
+    private void DisableCombatState()
+    {
+        isAttacking = false;
+
+        if (warningHitBox != null)
+        {
+            warningHitBox.SetActive(false);
+        }
+
+        if (swordHitbox != null)
+        {
+            swordHitbox.SetActive(false);
+        }
+
+        Collider2D[] colliders = GetComponentsInChildren<Collider2D>(true);
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            if (colliders[i] != null)
+            {
+                colliders[i].enabled = false;
+            }
+        }
+
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.simulated = false;
+        }
     }
 
     private void PlayDeathSound()

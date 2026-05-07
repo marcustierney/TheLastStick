@@ -25,6 +25,7 @@ public class SwordAttack : MonoBehaviour
     [SerializeField] private string dashAttackStateName = "Dash_Attack";
     [SerializeField] private string swordStandBoolName = "isSwordStanding";
     [SerializeField] private AudioSource attackAudioSource;
+    [SerializeField] private float attackCooldown = 0.3f;
     [SerializeField] private int comboLength = 4;
     [SerializeField] private float comboResetDelay = 0.7f;
     [SerializeField] private string comboStepIntName = "attackComboStep";
@@ -32,6 +33,7 @@ public class SwordAttack : MonoBehaviour
 
     private int comboStepIndex;
     private float lastAttackInputTime = float.NegativeInfinity;
+    private float nextAttackAllowedTime;
     private bool queuedComboAttack;
     private readonly HashSet<string> animatorParameterNames = new HashSet<string>();
     private bool wasDownInputHeld;
@@ -49,6 +51,7 @@ public class SwordAttack : MonoBehaviour
         animator = GetComponent<Animator>();
         CacheAnimatorParameters();
 
+        attackCooldown = Mathf.Max(0f, attackCooldown);
         comboLength = Mathf.Max(1, comboLength);
         comboResetDelay = Mathf.Max(0.01f, comboResetDelay);
     }
@@ -99,6 +102,11 @@ public class SwordAttack : MonoBehaviour
             {
                 queuedComboAttack = true;
             }
+            return;
+        }
+
+        if (!CanStartAttack())
+        {
             return;
         }
 
@@ -314,8 +322,27 @@ public class SwordAttack : MonoBehaviour
         isDashAttacking = false;
         
         isAttacking = false;
+        nextAttackAllowedTime = Time.time + attackCooldown;
 
         if (!dashAttack && queuedComboAttack && Time.time - lastAttackInputTime <= comboResetDelay)
+        {
+            StartCoroutine(WaitForCooldownAndAttack());
+        }
+    }
+
+    private bool CanStartAttack()
+    {
+        return Time.time >= nextAttackAllowedTime;
+    }
+
+    private IEnumerator WaitForCooldownAndAttack()
+    {
+        while (Time.time < nextAttackAllowedTime)
+        {
+            yield return null;
+        }
+
+        if (!isAttacking && !isDashAttacking)
         {
             StartCoroutine(Attack());
         }

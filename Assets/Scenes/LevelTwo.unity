@@ -1001,13 +1001,16 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  hitFlashDuration: 0.08
+  fatalHitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 6802183088965565074, guid: 249f27b1346834975a84f0a56d32fa50, type: 2}
   deathAudioSource: {fileID: 1693394383}
   deathClips:
-  - {fileID: 8300000, guid: e3b521793c492344db18bfe228ac7078, type: 3}
-  - {fileID: 8300000, guid: e7cb56638220d9548a5b4679711600cd, type: 3}
-  - {fileID: 8300000, guid: 01f4bd262376f5e47b68aae727e2e17b, type: 3}
-  - {fileID: 8300000, guid: d25bfd8234215e04a978f96a9b49baf5, type: 3}
-  - {fileID: 8300000, guid: 09c3460dbdf026a49b0183dab5974664, type: 3}
+  - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
+  - {fileID: 8300000, guid: b7e0e3d10c170934b9d95f7797ecd15b, type: 3}
+  - {fileID: 8300000, guid: f480e51556057e541b2df122e2ee0f07, type: 3}
+  - {fileID: 8300000, guid: 52c81033aa5d83744a8bfc47f5142f9f, type: 3}
+  - {fileID: 8300000, guid: 34799525f4a08b4479825d8ea8fa46d6, type: 3}
   damageableHurtboxes: []
 --- !u!50 &58670293
 Rigidbody2D:
@@ -1364,6 +1367,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  hitFlashDuration: 0.08
+  fatalHitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 6802183088965565074, guid: 249f27b1346834975a84f0a56d32fa50, type: 2}
   deathAudioSource: {fileID: 1693394383}
   deathClips:
   - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
@@ -1794,6 +1800,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  hitFlashDuration: 0.08
+  fatalHitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 6802183088965565074, guid: 249f27b1346834975a84f0a56d32fa50, type: 2}
   deathAudioSource: {fileID: 1693394383}
   deathClips:
   - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
@@ -3272,6 +3281,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  hitFlashDuration: 0.08
+  fatalHitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 6802183088965565074, guid: 249f27b1346834975a84f0a56d32fa50, type: 2}
   deathAudioSource: {fileID: 1693394383}
   deathClips:
   - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
@@ -4051,6 +4063,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  hitFlashDuration: 0.08
+  fatalHitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 6802183088965565074, guid: 249f27b1346834975a84f0a56d32fa50, type: 2}
   deathAudioSource: {fileID: 1693394383}
   deathClips:
   - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
@@ -4773,6 +4788,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  hitFlashDuration: 0.08
+  fatalHitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 6802183088965565074, guid: 249f27b1346834975a84f0a56d32fa50, type: 2}
   deathAudioSource: {fileID: 1693394383}
   deathClips:
   - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
@@ -5336,6 +5354,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  hitFlashDuration: 0.08
+  fatalHitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 6802183088965565074, guid: 249f27b1346834975a84f0a56d32fa50, type: 2}
   deathAudioSource: {fileID: 1693394383}
   deathClips:
   - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
@@ -6159,6 +6180,7 @@ MonoBehaviour:
   dashAttackStateName: Dash_Attack
   swordStandBoolName: isSwordStanding
   attackAudioSource: {fileID: 115237481}
+  attackCooldown: 0.3
   comboLength: 4
   comboResetDelay: 0.7
   comboStepIntName: attackComboStep
@@ -6187,6 +6209,7 @@ MonoBehaviour:
   damageSoundDuration: 0.5
   deathScreen: {fileID: 2019260828}
   hud: {fileID: 1373214351}
+  deathScreenDelaySeconds: 1.5
 --- !u!114 &365664722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6814,6 +6837,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecfd27c0b2fe726479f3d3d4b470d2b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopInteractable
+  interactKey: 101
   interactionPrompt: {fileID: 1147239811}
   shopUI: {fileID: 410673945}
 --- !u!61 &410673947
@@ -8337,6 +8361,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  hitFlashDuration: 0.08
+  fatalHitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 6802183088965565074, guid: 249f27b1346834975a84f0a56d32fa50, type: 2}
   deathAudioSource: {fileID: 1693394383}
   deathClips:
   - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
@@ -8536,13 +8563,16 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  hitFlashDuration: 0.08
+  fatalHitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 6802183088965565074, guid: 249f27b1346834975a84f0a56d32fa50, type: 2}
   deathAudioSource: {fileID: 1693394383}
   deathClips:
-  - {fileID: 8300000, guid: e3b521793c492344db18bfe228ac7078, type: 3}
-  - {fileID: 8300000, guid: e7cb56638220d9548a5b4679711600cd, type: 3}
-  - {fileID: 8300000, guid: 01f4bd262376f5e47b68aae727e2e17b, type: 3}
-  - {fileID: 8300000, guid: d25bfd8234215e04a978f96a9b49baf5, type: 3}
-  - {fileID: 8300000, guid: 09c3460dbdf026a49b0183dab5974664, type: 3}
+  - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
+  - {fileID: 8300000, guid: b7e0e3d10c170934b9d95f7797ecd15b, type: 3}
+  - {fileID: 8300000, guid: f480e51556057e541b2df122e2ee0f07, type: 3}
+  - {fileID: 8300000, guid: 52c81033aa5d83744a8bfc47f5142f9f, type: 3}
+  - {fileID: 8300000, guid: 34799525f4a08b4479825d8ea8fa46d6, type: 3}
   damageableHurtboxes: []
 --- !u!50 &503794337
 Rigidbody2D:
@@ -8938,6 +8968,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  hitFlashDuration: 0.08
+  fatalHitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 6802183088965565074, guid: 249f27b1346834975a84f0a56d32fa50, type: 2}
   deathAudioSource: {fileID: 1693394383}
   deathClips:
   - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
@@ -10068,6 +10101,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  hitFlashDuration: 0.08
+  fatalHitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 6802183088965565074, guid: 249f27b1346834975a84f0a56d32fa50, type: 2}
   deathAudioSource: {fileID: 1693394383}
   deathClips:
   - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
@@ -13942,6 +13978,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  hitFlashDuration: 0.08
+  fatalHitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 6802183088965565074, guid: 249f27b1346834975a84f0a56d32fa50, type: 2}
   deathAudioSource: {fileID: 1693394383}
   deathClips:
   - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
@@ -14636,13 +14675,16 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  hitFlashDuration: 0.08
+  fatalHitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 6802183088965565074, guid: 249f27b1346834975a84f0a56d32fa50, type: 2}
   deathAudioSource: {fileID: 1693394383}
   deathClips:
-  - {fileID: 8300000, guid: e3b521793c492344db18bfe228ac7078, type: 3}
-  - {fileID: 8300000, guid: e7cb56638220d9548a5b4679711600cd, type: 3}
-  - {fileID: 8300000, guid: 01f4bd262376f5e47b68aae727e2e17b, type: 3}
-  - {fileID: 8300000, guid: d25bfd8234215e04a978f96a9b49baf5, type: 3}
-  - {fileID: 8300000, guid: 09c3460dbdf026a49b0183dab5974664, type: 3}
+  - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
+  - {fileID: 8300000, guid: b7e0e3d10c170934b9d95f7797ecd15b, type: 3}
+  - {fileID: 8300000, guid: f480e51556057e541b2df122e2ee0f07, type: 3}
+  - {fileID: 8300000, guid: 52c81033aa5d83744a8bfc47f5142f9f, type: 3}
+  - {fileID: 8300000, guid: 34799525f4a08b4479825d8ea8fa46d6, type: 3}
   damageableHurtboxes: []
 --- !u!50 &1066661733
 Rigidbody2D:
@@ -15102,13 +15144,16 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  hitFlashDuration: 0.08
+  fatalHitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 6802183088965565074, guid: 249f27b1346834975a84f0a56d32fa50, type: 2}
   deathAudioSource: {fileID: 1693394383}
   deathClips:
-  - {fileID: 8300000, guid: e3b521793c492344db18bfe228ac7078, type: 3}
-  - {fileID: 8300000, guid: e7cb56638220d9548a5b4679711600cd, type: 3}
-  - {fileID: 8300000, guid: 01f4bd262376f5e47b68aae727e2e17b, type: 3}
-  - {fileID: 8300000, guid: d25bfd8234215e04a978f96a9b49baf5, type: 3}
-  - {fileID: 8300000, guid: 09c3460dbdf026a49b0183dab5974664, type: 3}
+  - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
+  - {fileID: 8300000, guid: b7e0e3d10c170934b9d95f7797ecd15b, type: 3}
+  - {fileID: 8300000, guid: f480e51556057e541b2df122e2ee0f07, type: 3}
+  - {fileID: 8300000, guid: 52c81033aa5d83744a8bfc47f5142f9f, type: 3}
+  - {fileID: 8300000, guid: 34799525f4a08b4479825d8ea8fa46d6, type: 3}
   damageableHurtboxes: []
 --- !u!50 &1095853778
 Rigidbody2D:
@@ -15851,6 +15896,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  hitFlashDuration: 0.08
+  fatalHitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 6802183088965565074, guid: 249f27b1346834975a84f0a56d32fa50, type: 2}
   deathAudioSource: {fileID: 1693394383}
   deathClips:
   - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
@@ -17625,13 +17673,16 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  hitFlashDuration: 0.08
+  fatalHitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 6802183088965565074, guid: 249f27b1346834975a84f0a56d32fa50, type: 2}
   deathAudioSource: {fileID: 1693394383}
   deathClips:
-  - {fileID: 8300000, guid: e3b521793c492344db18bfe228ac7078, type: 3}
-  - {fileID: 8300000, guid: e7cb56638220d9548a5b4679711600cd, type: 3}
-  - {fileID: 8300000, guid: 01f4bd262376f5e47b68aae727e2e17b, type: 3}
-  - {fileID: 8300000, guid: d25bfd8234215e04a978f96a9b49baf5, type: 3}
-  - {fileID: 8300000, guid: 09c3460dbdf026a49b0183dab5974664, type: 3}
+  - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
+  - {fileID: 8300000, guid: b7e0e3d10c170934b9d95f7797ecd15b, type: 3}
+  - {fileID: 8300000, guid: f480e51556057e541b2df122e2ee0f07, type: 3}
+  - {fileID: 8300000, guid: 52c81033aa5d83744a8bfc47f5142f9f, type: 3}
+  - {fileID: 8300000, guid: 34799525f4a08b4479825d8ea8fa46d6, type: 3}
   damageableHurtboxes: []
 --- !u!50 &1242375695
 Rigidbody2D:
@@ -18364,6 +18415,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HitboxVisualizationManager
   persistAcrossScenes: 1
+  useSavedState: 1
   showHitboxes: 1
   hitboxColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!4 &1271649634
@@ -23856,13 +23908,16 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  hitFlashDuration: 0.08
+  fatalHitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 6802183088965565074, guid: 249f27b1346834975a84f0a56d32fa50, type: 2}
   deathAudioSource: {fileID: 1693394383}
   deathClips:
-  - {fileID: 8300000, guid: e3b521793c492344db18bfe228ac7078, type: 3}
-  - {fileID: 8300000, guid: e7cb56638220d9548a5b4679711600cd, type: 3}
-  - {fileID: 8300000, guid: 01f4bd262376f5e47b68aae727e2e17b, type: 3}
-  - {fileID: 8300000, guid: d25bfd8234215e04a978f96a9b49baf5, type: 3}
-  - {fileID: 8300000, guid: 09c3460dbdf026a49b0183dab5974664, type: 3}
+  - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
+  - {fileID: 8300000, guid: b7e0e3d10c170934b9d95f7797ecd15b, type: 3}
+  - {fileID: 8300000, guid: f480e51556057e541b2df122e2ee0f07, type: 3}
+  - {fileID: 8300000, guid: 52c81033aa5d83744a8bfc47f5142f9f, type: 3}
+  - {fileID: 8300000, guid: 34799525f4a08b4479825d8ea8fa46d6, type: 3}
   damageableHurtboxes: []
 --- !u!50 &1674185677
 Rigidbody2D:
@@ -24595,6 +24650,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  hitFlashDuration: 0.08
+  fatalHitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 6802183088965565074, guid: 249f27b1346834975a84f0a56d32fa50, type: 2}
   deathAudioSource: {fileID: 1693394383}
   deathClips:
   - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
@@ -25099,13 +25157,16 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  hitFlashDuration: 0.08
+  fatalHitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 6802183088965565074, guid: 249f27b1346834975a84f0a56d32fa50, type: 2}
   deathAudioSource: {fileID: 1693394383}
   deathClips:
-  - {fileID: 8300000, guid: e3b521793c492344db18bfe228ac7078, type: 3}
-  - {fileID: 8300000, guid: e7cb56638220d9548a5b4679711600cd, type: 3}
-  - {fileID: 8300000, guid: 01f4bd262376f5e47b68aae727e2e17b, type: 3}
-  - {fileID: 8300000, guid: d25bfd8234215e04a978f96a9b49baf5, type: 3}
-  - {fileID: 8300000, guid: 09c3460dbdf026a49b0183dab5974664, type: 3}
+  - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
+  - {fileID: 8300000, guid: b7e0e3d10c170934b9d95f7797ecd15b, type: 3}
+  - {fileID: 8300000, guid: f480e51556057e541b2df122e2ee0f07, type: 3}
+  - {fileID: 8300000, guid: 52c81033aa5d83744a8bfc47f5142f9f, type: 3}
+  - {fileID: 8300000, guid: 34799525f4a08b4479825d8ea8fa46d6, type: 3}
   damageableHurtboxes: []
 --- !u!50 &1803093643
 Rigidbody2D:
@@ -28291,6 +28352,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  hitFlashDuration: 0.08
+  fatalHitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 6802183088965565074, guid: 249f27b1346834975a84f0a56d32fa50, type: 2}
   deathAudioSource: {fileID: 1693394383}
   deathClips:
   - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}

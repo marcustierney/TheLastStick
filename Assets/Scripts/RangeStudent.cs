@@ -25,6 +25,14 @@ public class ThrowEnemy : MonoBehaviour
     public float ledgeCheckDistance = 1f; 
     public float ledgeCheckDepth = 1f;   
     public LayerMask groundLayer;           
+    [Header("Hit Flash")]
+    [SerializeField] private float hitFlashDuration = 0.6f;
+    [SerializeField] private float fatalHitFlashDuration = 0.08f;
+    [SerializeField] private Material whiteFlashMaterial;
+    private SpriteRenderer[] flashRenderers;
+    private Material[] originalMaterials;
+    private Coroutine hitFlashRoutine;
+    private bool isDying;
     [Header("Death Sound")]
     [SerializeField] private AudioSource deathAudioSource;
     [SerializeField] private AudioClip[] deathClips = new AudioClip[5];
@@ -39,6 +47,20 @@ public class ThrowEnemy : MonoBehaviour
         currentHealth = maxHealth;
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        flashRenderers = GetComponentsInChildren<SpriteRenderer>(true);
+        if ((flashRenderers == null || flashRenderers.Length == 0) && spriteRenderer != null)
+        {
+            flashRenderers = new SpriteRenderer[] { spriteRenderer };
+        }
+
+        if (flashRenderers != null && flashRenderers.Length > 0)
+        {
+            originalMaterials = new Material[flashRenderers.Length];
+            for (int i = 0; i < flashRenderers.Length; i++)
+            {
+                originalMaterials[i] = flashRenderers[i] != null ? flashRenderers[i].sharedMaterial : null;
+            }
+        }
         CacheDamageableHurtboxes();
         
         // Prevent player from pushing the enemy - set to Kinematic
@@ -103,17 +125,87 @@ public class ThrowEnemy : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (isDying)
+        {
+            return;
+        }
+
         currentHealth -= damage;
         Debug.Log("damage " + damage + " cCurrent hp " + currentHealth);
 
-        if (currentHealth <= 0)
+        bool isFatalHit = currentHealth <= 0;
+        TriggerHitFlash(isFatalHit ? fatalHitFlashDuration : hitFlashDuration);
+
+        if (isFatalHit)
         {
             Die();
         }
     }
 
+    private void TriggerHitFlash(float duration)
+    {
+        if (flashRenderers == null || flashRenderers.Length == 0)
+        {
+            return;
+        }
+
+        if (hitFlashRoutine != null)
+        {
+            StopCoroutine(hitFlashRoutine);
+        }
+
+        hitFlashRoutine = StartCoroutine(HitFlashRoutine(duration));
+    }
+
+    private IEnumerator HitFlashRoutine(float duration)
+    {
+        ApplyFlashMaterial();
+        yield return new WaitForSeconds(Mathf.Max(0f, duration));
+        RestoreOriginalMaterials();
+        hitFlashRoutine = null;
+    }
+
+    private void ApplyFlashMaterial()
+    {
+        if (whiteFlashMaterial == null)
+        {
+            Debug.LogWarning("whiteFlashMaterial is not assigned.", this);
+            return;
+        }
+
+        for (int i = 0; i < flashRenderers.Length; i++)
+        {
+            if (flashRenderers[i] != null)
+            {
+                flashRenderers[i].material = whiteFlashMaterial;
+            }
+        }
+    }
+
+    private void RestoreOriginalMaterials()
+    {
+        if (flashRenderers == null || originalMaterials == null)
+        {
+            return;
+        }
+
+        int count = Mathf.Min(flashRenderers.Length, originalMaterials.Length);
+        for (int i = 0; i < count; i++)
+        {
+            if (flashRenderers[i] != null)
+            {
+                flashRenderers[i].material = originalMaterials[i];
+            }
+        }
+    }
+
     private void Update()
     {
+        if (isDying)
+        {
+            return;
+        }
+
         if (player == null) return;
 
         float distance = Vector2.Distance(transform.position, player.position);
@@ -128,9 +220,9 @@ public class ThrowEnemy : MonoBehaviour
             {
                 Vector2 direction = (player.position - transform.position).normalized;
                 if (direction.x > 0)
-                    spriteRenderer.flipX = true;
-                else
                     spriteRenderer.flipX = false;
+                else
+                    spriteRenderer.flipX = true;
             }
             
             if (!isAttacking && distance > attackRange)
@@ -154,7 +246,7 @@ public class ThrowEnemy : MonoBehaviour
             // Stop movement when out of range (idle)
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
             // Maintain flip when out of range
-            spriteRenderer.flipX = false;
+            spriteRenderer.flipX = true;
         }
     }
 
@@ -182,10 +274,60 @@ public class ThrowEnemy : MonoBehaviour
     }
     private void Die()
     {
+        if (isDying)
+        {
+            return;
+        }
+
+        isDying = true;
         Debug.Log("killed");
         CoinManager.Instance?.AddCoins(2);
         PlayDeathSound();
-        Destroy(gameObject); 
+
+        DisableCombatState();
+
+        if (animator != null)
+        {
+            animator.SetTrigger("Die");
+        }
+
+        StartCoroutine(DieAfterDelay(animator != null ? 0.5f : 0f));
+    }
+
+    private IEnumerator DieAfterDelay(float delay)
+    {
+        if (delay > 0f)
+        {
+            yield return new WaitForSeconds(delay);
+        }
+
+        RestoreOriginalMaterials();
+        Destroy(gameObject);
+    }
+
+    private void DisableCombatState()
+    {
+        isAttacking = false;
+
+        if (warningHitBox != null)
+        {
+            warningHitBox.SetActive(false);
+        }
+
+        Collider2D[] colliders = GetComponentsInChildren<Collider2D>(true);
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            if (colliders[i] != null)
+            {
+                colliders[i].enabled = false;
+            }
+        }
+
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.simulated = false;
+        }
     }
 
     private void PlayDeathSound()
@@ -249,6 +391,11 @@ public class ThrowEnemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
+        if (isDying)
+        {
+            return;
+        }
+
         if (collision.CompareTag("SwordHitBox") && IsSwordTouchingDamageableHurtbox(collision))
         {
             TakeDamage(1);

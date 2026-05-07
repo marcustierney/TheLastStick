@@ -1,45 +1,34 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class ShopInteractable : MonoBehaviour, IInteractable
 {
-    private InputSystem_Actions inputActions;
+    [SerializeField] private KeyCode interactKey = KeyCode.E;
     [SerializeField] private GameObject interactionPrompt;
     [SerializeField] private ShopUI shopUI;
-
     private bool playerInRange;
 
     private void Update()
     {
         if (!playerInRange) return;
-        if (GameplayInputGate.BlocksGameplayActions) return;
-        if (inputActions.Gameplay.Interact.WasPressedThisFrame() && CanInteract())
+        if (IsInteractPressed() && CanInteract())
             Interact();
     }
 
-    private void Awake()
+    private bool IsInteractPressed()
     {
-        inputActions = new InputSystem_Actions();
-        InputBindingOverrides.ApplySavedOverrides(inputActions.asset);
-        InputBindingOverrides.RegisterRuntimeGameplayAsset(inputActions.asset);
-    }
-
-    private void OnDestroy()
-    {
-        if (inputActions != null)
+        if (Keyboard.current == null)
         {
-            InputBindingOverrides.UnregisterRuntimeGameplayAsset(inputActions.asset);
+            return false;
         }
-    }
 
-    private void OnEnable()
-    {
-        inputActions?.Gameplay.Enable();
-    }
+        if (!Enum.TryParse(interactKey.ToString(), true, out Key key))
+        {
+            return false;
+        }
 
-    private void OnDisable()
-    {
-        inputActions?.Gameplay.Disable();
+        return Keyboard.current[key].wasPressedThisFrame;
     }
 
     public void Interact()

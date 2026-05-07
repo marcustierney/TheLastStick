@@ -23,11 +23,13 @@ public class Enemy : MonoBehaviour
     public float ledgeCheckDepth = 1f;   
     public LayerMask groundLayer;
     [Header("Hit Flash")]
-    [SerializeField] private float hitFlashDuration = 0.08f;
+    [SerializeField] private float hitFlashDuration = 0.6f;
+    [SerializeField] private float fatalHitFlashDuration = 0.08f;
     [SerializeField] private Material whiteFlashMaterial;
     private SpriteRenderer[] flashRenderers;
     private Material[] originalMaterials;
     private Coroutine hitFlashRoutine;
+    private bool isDying;
     [Header("Death Sound")]
     [SerializeField] private AudioSource deathAudioSource;
     [SerializeField] private AudioClip[] deathClips = new AudioClip[5];
@@ -70,18 +72,24 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (isDying)
+        {
+            return;
+        }
+
         currentHealth -= damage;
         Debug.Log("damage " + damage + " cCurrent hp " + currentHealth);
 
-        TriggerHitFlash();
+        bool isFatalHit = currentHealth <= 0;
+        TriggerHitFlash(isFatalHit ? fatalHitFlashDuration : hitFlashDuration);
 
-        if (currentHealth <= 0)
+        if (isFatalHit)
         {
             Die();
         }
     }
 
-    private void TriggerHitFlash()
+    private void TriggerHitFlash(float duration)
     {
         if (flashRenderers == null || flashRenderers.Length == 0)
         {
@@ -93,13 +101,13 @@ public class Enemy : MonoBehaviour
             StopCoroutine(hitFlashRoutine);
         }
 
-        hitFlashRoutine = StartCoroutine(HitFlashRoutine());
+        hitFlashRoutine = StartCoroutine(HitFlashRoutine(duration));
     }
 
-    private IEnumerator HitFlashRoutine()
+    private IEnumerator HitFlashRoutine(float duration)
     {
         ApplyFlashMaterial();
-        yield return new WaitForSeconds(hitFlashDuration);
+        yield return new WaitForSeconds(Mathf.Max(0f, duration));
         RestoreOriginalMaterials();
         hitFlashRoutine = null;
     }
@@ -140,6 +148,11 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
+        if (isDying)
+        {
+            return;
+        }
+
         if (player == null) return;
 
         float distance = Vector2.Distance(transform.position, player.position);
@@ -243,30 +256,65 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
+        if (isDying)
+        {
+            return;
+        }
+
+        isDying = true;
         Debug.Log("killed");
         CoinManager.Instance?.AddCoins(2);
         PlayDeathSound();
-        
-        // Restore original materials before stopping coroutines
-        RestoreOriginalMaterials();
+
+        DisableCombatState();
         
         // Trigger death animation if available
         if (animator != null)
         {
             animator.SetTrigger("Die");
         }
-        
-        // Stop all coroutines to ensure clean death
-        StopAllCoroutines();
-        
-        // Destroy after animation completes (or immediately if no animator)
-        if (animator != null)
+
+        StartCoroutine(DieAfterDelay(animator != null ? 0.5f : 0f));
+    }
+
+    private IEnumerator DieAfterDelay(float delay)
+    {
+        if (delay > 0f)
         {
-            Destroy(gameObject, 0.5f);
+            yield return new WaitForSeconds(delay);
         }
-        else
+
+        RestoreOriginalMaterials();
+        Destroy(gameObject);
+    }
+
+    private void DisableCombatState()
+    {
+        isAttacking = false;
+
+        if (warningHitBox != null)
         {
-            Destroy(gameObject);
+            warningHitBox.SetActive(false);
+        }
+
+        if (swordHitbox != null)
+        {
+            swordHitbox.SetActive(false);
+        }
+
+        Collider2D[] colliders = GetComponentsInChildren<Collider2D>(true);
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            if (colliders[i] != null)
+            {
+                colliders[i].enabled = false;
+            }
+        }
+
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.simulated = false;
         }
     }
 

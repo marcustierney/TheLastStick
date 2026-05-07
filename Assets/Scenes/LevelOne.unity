@@ -928,6 +928,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HitboxVisualizationManager
   persistAcrossScenes: 1
+  useSavedState: 1
   showHitboxes: 1
   hitboxColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!4 &216826762
@@ -2398,6 +2399,7 @@ MonoBehaviour:
   dashAttackStateName: Dash_Attack
   swordStandBoolName: isSwordStanding
   attackAudioSource: {fileID: 803604032}
+  attackCooldown: 0.2
   comboLength: 4
   comboResetDelay: 0.7
   comboStepIntName: attackComboStep
@@ -2426,6 +2428,7 @@ MonoBehaviour:
   damageSoundDuration: 0.5
   deathScreen: {fileID: 1003260068}
   hud: {fileID: 394362686}
+  deathScreenDelaySeconds: 1.5
 --- !u!114 &365664722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3623,7 +3626,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   hitFlashDuration: 0.08
-  whiteFlashMaterial: {fileID: 0}
+  fatalHitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 6802183088965565074, guid: 249f27b1346834975a84f0a56d32fa50, type: 2}
   deathAudioSource: {fileID: 537382964}
   deathClips:
   - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
@@ -3696,7 +3700,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 0.8125}
+    oldSize: {x: 0.5, y: 1.046875}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -3753,7 +3757,7 @@ SpriteRenderer:
   m_SortingLayer: 7
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -1238227573687895156, guid: 9226f74cff56bb34b98ee3fcb8966ac4, type: 3}
+  m_Sprite: {fileID: 4161799090012377812, guid: e7ef18d61851dc549b5cafa74c2a288e, type: 3}
   m_Color: {r: 0.990566, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -4108,6 +4112,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 0
+  hitFlashDuration: 0.08
+  fatalHitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 0}
   deathAudioSource: {fileID: 0}
   deathClips:
   - {fileID: 0}
@@ -5987,7 +5994,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   hitFlashDuration: 0.08
-  whiteFlashMaterial: {fileID: 0}
+  fatalHitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 6802183088965565074, guid: 249f27b1346834975a84f0a56d32fa50, type: 2}
   deathAudioSource: {fileID: 537382964}
   deathClips:
   - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
@@ -6060,7 +6068,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 0.8125}
+    oldSize: {x: 0.5, y: 1.046875}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -6117,7 +6125,7 @@ SpriteRenderer:
   m_SortingLayer: 7
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -1238227573687895156, guid: 9226f74cff56bb34b98ee3fcb8966ac4, type: 3}
+  m_Sprite: {fileID: 4161799090012377812, guid: e7ef18d61851dc549b5cafa74c2a288e, type: 3}
   m_Color: {r: 0.990566, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -6593,7 +6601,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   hitFlashDuration: 0.08
-  whiteFlashMaterial: {fileID: 0}
+  fatalHitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 6802183088965565074, guid: 249f27b1346834975a84f0a56d32fa50, type: 2}
   deathAudioSource: {fileID: 537382964}
   deathClips:
   - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
@@ -6666,7 +6675,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 0.8125}
+    oldSize: {x: 0.5, y: 1.046875}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -6723,7 +6732,7 @@ SpriteRenderer:
   m_SortingLayer: 7
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -1238227573687895156, guid: 9226f74cff56bb34b98ee3fcb8966ac4, type: 3}
+  m_Sprite: {fileID: 4161799090012377812, guid: e7ef18d61851dc549b5cafa74c2a288e, type: 3}
   m_Color: {r: 0.990566, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -7037,6 +7046,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  hitFlashDuration: 0.08
+  fatalHitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 6802183088965565074, guid: 249f27b1346834975a84f0a56d32fa50, type: 2}
   deathAudioSource: {fileID: 537382964}
   deathClips:
   - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
@@ -7110,7 +7122,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.5, y: 1.046875}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -7167,7 +7179,7 @@ SpriteRenderer:
   m_SortingLayer: 7
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 3326434354005741071, guid: 4a74bf26a2b5579429acc2493c6a5377, type: 3}
+  m_Sprite: {fileID: 8285900329157140753, guid: 6121923b5ed16374c8c9f79d949ec01d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -7486,7 +7498,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   hitFlashDuration: 0.08
-  whiteFlashMaterial: {fileID: 0}
+  fatalHitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 6802183088965565074, guid: 249f27b1346834975a84f0a56d32fa50, type: 2}
   deathAudioSource: {fileID: 537382964}
   deathClips:
   - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
@@ -7559,7 +7572,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 0.8125}
+    oldSize: {x: 0.5, y: 1.046875}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -7616,7 +7629,7 @@ SpriteRenderer:
   m_SortingLayer: 7
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -1238227573687895156, guid: 9226f74cff56bb34b98ee3fcb8966ac4, type: 3}
+  m_Sprite: {fileID: 4161799090012377812, guid: e7ef18d61851dc549b5cafa74c2a288e, type: 3}
   m_Color: {r: 0.990566, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -7902,7 +7915,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   hitFlashDuration: 0.08
-  whiteFlashMaterial: {fileID: 0}
+  fatalHitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 6802183088965565074, guid: 249f27b1346834975a84f0a56d32fa50, type: 2}
   deathAudioSource: {fileID: 537382964}
   deathClips:
   - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
@@ -7975,7 +7989,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 0.8125}
+    oldSize: {x: 0.5, y: 1.046875}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -8032,7 +8046,7 @@ SpriteRenderer:
   m_SortingLayer: 7
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -1238227573687895156, guid: 9226f74cff56bb34b98ee3fcb8966ac4, type: 3}
+  m_Sprite: {fileID: 4161799090012377812, guid: e7ef18d61851dc549b5cafa74c2a288e, type: 3}
   m_Color: {r: 0.990566, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -10047,7 +10061,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   hitFlashDuration: 0.08
-  whiteFlashMaterial: {fileID: 0}
+  fatalHitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 6802183088965565074, guid: 249f27b1346834975a84f0a56d32fa50, type: 2}
   deathAudioSource: {fileID: 537382964}
   deathClips:
   - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
@@ -10120,7 +10135,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 0.8125}
+    oldSize: {x: 0.5, y: 1.046875}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -10177,7 +10192,7 @@ SpriteRenderer:
   m_SortingLayer: 7
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -1238227573687895156, guid: 9226f74cff56bb34b98ee3fcb8966ac4, type: 3}
+  m_Sprite: {fileID: 4161799090012377812, guid: e7ef18d61851dc549b5cafa74c2a288e, type: 3}
   m_Color: {r: 0.990566, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -11243,6 +11258,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  hitFlashDuration: 0.08
+  fatalHitFlashDuration: 0.08
+  whiteFlashMaterial: {fileID: 6802183088965565074, guid: 249f27b1346834975a84f0a56d32fa50, type: 2}
   deathAudioSource: {fileID: 537382964}
   deathClips:
   - {fileID: 8300000, guid: 165b337ce49f6144e83aa40355685dd1, type: 3}
@@ -11316,7 +11334,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.5, y: 1.046875}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -11373,7 +11391,7 @@ SpriteRenderer:
   m_SortingLayer: 7
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 3326434354005741071, guid: 4a74bf26a2b5579429acc2493c6a5377, type: 3}
+  m_Sprite: {fileID: 8285900329157140753, guid: 6121923b5ed16374c8c9f79d949ec01d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -12001,7 +12019,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecfd27c0b2fe726479f3d3d4b470d2b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopInteractable
-  interactionPrompt: {fileID: 665841753}
+  interactKey: 101
+  interactionPrompt: {fileID: 298026649}
   shopUI: {fileID: 2131015804}
 --- !u!114 &2131015804
 MonoBehaviour:
@@ -12184,10 +12203,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1840348974090946085, guid: 5bb3250bcbb524df6acc68ca3eb5b975, type: 3}
+      propertyPath: m_Size.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1840348974090946085, guid: 5bb3250bcbb524df6acc68ca3eb5b975, type: 3}
+      propertyPath: m_Size.y
+      value: 1.046875
+      objectReference: {fileID: 0}
+    - target: {fileID: 1840348974090946085, guid: 5bb3250bcbb524df6acc68ca3eb5b975, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 8285900329157140753, guid: 6121923b5ed16374c8c9f79d949ec01d, type: 3}
     - target: {fileID: 2438577093027244426, guid: 5bb3250bcbb524df6acc68ca3eb5b975, type: 3}
       propertyPath: deathAudioSource
       value: 
       objectReference: {fileID: 537382964}
+    - target: {fileID: 2438577093027244426, guid: 5bb3250bcbb524df6acc68ca3eb5b975, type: 3}
+      propertyPath: hitFlashDuration
+      value: 0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 2438577093027244426, guid: 5bb3250bcbb524df6acc68ca3eb5b975, type: 3}
+      propertyPath: whiteFlashMaterial
+      value: 
+      objectReference: {fileID: 6802183088965565074, guid: 249f27b1346834975a84f0a56d32fa50, type: 2}
     - target: {fileID: 2438577093027244426, guid: 5bb3250bcbb524df6acc68ca3eb5b975, type: 3}
       propertyPath: 'deathClips.Array.data[0]'
       value: 
@@ -12211,6 +12250,22 @@ PrefabInstance:
     - target: {fileID: 2543465489117012176, guid: 5bb3250bcbb524df6acc68ca3eb5b975, type: 3}
       propertyPath: m_Name
       value: RangeStudent
+      objectReference: {fileID: 0}
+    - target: {fileID: 2708448530913653753, guid: 5bb3250bcbb524df6acc68ca3eb5b975, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2708448530913653753, guid: 5bb3250bcbb524df6acc68ca3eb5b975, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 1.046875
+      objectReference: {fileID: 0}
+    - target: {fileID: 2708448530913653753, guid: 5bb3250bcbb524df6acc68ca3eb5b975, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2708448530913653753, guid: 5bb3250bcbb524df6acc68ca3eb5b975, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1.046875
       objectReference: {fileID: 0}
     - target: {fileID: 7096831230748392342, guid: 5bb3250bcbb524df6acc68ca3eb5b975, type: 3}
       propertyPath: m_LocalPosition.x
@@ -12251,6 +12306,14 @@ PrefabInstance:
     - target: {fileID: 7096831230748392342, guid: 5bb3250bcbb524df6acc68ca3eb5b975, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9222037119620274083, guid: 5bb3250bcbb524df6acc68ca3eb5b975, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.021
+      objectReference: {fileID: 0}
+    - target: {fileID: 9222037119620274083, guid: 5bb3250bcbb524df6acc68ca3eb5b975, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -12299,6 +12362,10 @@ PrefabInstance:
       propertyPath: deathAudioSource
       value: 
       objectReference: {fileID: 537382964}
+    - target: {fileID: 7308374798395958328, guid: e9d3068383c6c4492b83308e4c2acd22, type: 3}
+      propertyPath: hitFlashDuration
+      value: 0.08
+      objectReference: {fileID: 0}
     - target: {fileID: 7308374798395958328, guid: e9d3068383c6c4492b83308e4c2acd22, type: 3}
       propertyPath: whiteFlashMaterial
       value: 
