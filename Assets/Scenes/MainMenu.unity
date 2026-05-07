@@ -3922,6 +3922,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: OptionsPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 832759317944707587, guid: cd581a789cac2104b9e402cc4e99a88c, type: 3}
+      propertyPath: m_IsOn
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1289663365942434124, guid: cd581a789cac2104b9e402cc4e99a88c, type: 3}
       propertyPath: playerInput
       value: 

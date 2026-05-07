@@ -33,6 +33,44 @@ public class ShopUI : MonoBehaviour
     [SerializeField] private AudioClip[] purchaseClips = new AudioClip[5];
     private bool pausedByShop;
     private bool pausedAudioByShop;
+    private InputSystem_Actions inputActions;
+
+    private void Awake()
+    {
+        inputActions = new InputSystem_Actions();
+        InputBindingOverrides.ApplySavedOverrides(inputActions.asset);
+        InputBindingOverrides.RegisterRuntimeGameplayAsset(inputActions.asset);
+    }
+
+    private void OnEnable()
+    {
+        inputActions?.Gameplay.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputActions?.Gameplay.Disable();
+    }
+
+    private void OnDestroy()
+    {
+        if (inputActions != null)
+        {
+            InputBindingOverrides.UnregisterRuntimeGameplayAsset(inputActions.asset);
+        }
+    }
+
+    private void Update()
+    {
+        // Close the shop if interact button is pressed while shop is open
+        if (shopPanel != null && shopPanel.activeSelf)
+        {
+            if (inputActions != null && inputActions.Gameplay.Interact.WasPressedThisFrame())
+            {
+                Close();
+            }
+        }
+    }
 
     private void Start()
     {
