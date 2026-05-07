@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,6 +6,62 @@ public static class InputBindingOverrides
 {
     private const string BindingKeyPrefix = "Binding_";
     private const string DefaultBindingKeyPrefix = "BindingDefault_";
+
+    /// <summary>
+    /// In-scene clones of <see cref="InputActionAsset"/> (e.g. <c>new InputSystem_Actions()</c>)
+    /// that should receive prefs-driven overrides alongside <see cref="PlayerInput"/>.
+    /// </summary>
+    private static readonly List<InputActionAsset> s_runtimeGameplayAssets = new List<InputActionAsset>();
+
+    public static void RegisterRuntimeGameplayAsset(InputActionAsset asset)
+    {
+        if (asset == null || s_runtimeGameplayAssets.Contains(asset))
+        {
+            return;
+        }
+
+        s_runtimeGameplayAssets.Add(asset);
+    }
+
+    public static void UnregisterRuntimeGameplayAsset(InputActionAsset asset)
+    {
+        if (asset == null)
+        {
+            return;
+        }
+
+        s_runtimeGameplayAssets.Remove(asset);
+    }
+
+    public static void RefreshAllRegisteredRuntimeAssetsFromPrefs()
+    {
+        for (int i = s_runtimeGameplayAssets.Count - 1; i >= 0; i--)
+        {
+            InputActionAsset asset = s_runtimeGameplayAssets[i];
+            if (asset == null)
+            {
+                s_runtimeGameplayAssets.RemoveAt(i);
+                continue;
+            }
+
+            ApplySavedOverrides(asset);
+        }
+    }
+
+    public static void ResetAllRegisteredRuntimeAssetsToCachedDefaults()
+    {
+        for (int i = s_runtimeGameplayAssets.Count - 1; i >= 0; i--)
+        {
+            InputActionAsset asset = s_runtimeGameplayAssets[i];
+            if (asset == null)
+            {
+                s_runtimeGameplayAssets.RemoveAt(i);
+                continue;
+            }
+
+            ResetToCachedDefaults(asset);
+        }
+    }
     
     public static string GetOverrideKey(InputBinding binding) => BindingKeyPrefix + binding.id;
     public static string GetOverrideKey(string bindingId) => BindingKeyPrefix + bindingId;
@@ -78,11 +135,6 @@ public static class InputBindingOverrides
                 }
 
                 string savedPath = PlayerPrefs.GetString(key);
-                if (string.IsNullOrWhiteSpace(savedPath))
-                {
-                    continue;
-                }
-
                 action.ApplyBindingOverride(new InputBinding
                 {
                     id = binding.id,

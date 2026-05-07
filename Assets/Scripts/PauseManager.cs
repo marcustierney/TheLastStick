@@ -86,6 +86,7 @@ public class PauseManager : MonoBehaviour
 
     public void PauseGame()
     {
+        EnsureNonZeroPauseUiScale(pauseMenuUI);
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f; //freeze game
         isPaused = true;
@@ -174,17 +175,23 @@ public class PauseManager : MonoBehaviour
         }
 
         pauseMenuUI.SetActive(false);
+        EnsureNonZeroPauseUiScale(optionsCanvas);
         optionsCanvas.SetActive(true);
         isOptionsOpen = true;
         SwitchActionMap(UiActionMap);
         EnsurePauseActionEnabled();
+
+        if (focusGuard == null)
+        {
+            focusGuard = Object.FindAnyObjectByType<UIFocusGuard>(FindObjectsInactive.Include);
+        }
 
         if (focusGuard != null)
         {
             focusGuard.ClearSelection();
         }
 
-        OptionsTabManager tabManager = optionsCanvas.GetComponent<OptionsTabManager>();
+        OptionsTabManager tabManager = optionsCanvas.GetComponentInChildren<OptionsTabManager>(true);
         if (tabManager != null)
         {
             tabManager.ShowGraphics();
@@ -406,6 +413,26 @@ public class PauseManager : MonoBehaviour
         }
     }
 
+    private static void EnsureNonZeroPauseUiScale(GameObject uiRoot)
+    {
+        if (uiRoot == null)
+        {
+            return;
+        }
+
+        RectTransform rect = uiRoot.transform as RectTransform;
+        if (rect == null)
+        {
+            return;
+        }
+
+        Vector3 ls = rect.localScale;
+        if (Mathf.Abs(ls.x) < 1e-5f || Mathf.Abs(ls.y) < 1e-5f)
+        {
+            rect.localScale = Vector3.one;
+        }
+    }
+
     private static Selectable FindFirstSelectable(GameObject root)
     {
         if (root == null)
@@ -414,6 +441,14 @@ public class PauseManager : MonoBehaviour
         }
 
         Selectable[] selectables = root.GetComponentsInChildren<Selectable>(true);
+        foreach (Selectable selectable in selectables)
+        {
+            if (selectable != null && selectable.IsInteractable() && selectable.gameObject.activeInHierarchy)
+            {
+                return selectable;
+            }
+        }
+
         return selectables.Length > 0 ? selectables[0] : null;
     }
 }

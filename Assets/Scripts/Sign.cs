@@ -95,6 +95,15 @@ public class Sign : MonoBehaviour, IInteractable
     {
         inputActions = new InputSystem_Actions();
         InputBindingOverrides.ApplySavedOverrides(inputActions.asset);
+        InputBindingOverrides.RegisterRuntimeGameplayAsset(inputActions.asset);
+    }
+
+    private void OnDestroy()
+    {
+        if (inputActions != null)
+        {
+            InputBindingOverrides.UnregisterRuntimeGameplayAsset(inputActions.asset);
+        }
     }
 
     private void OnEnable()

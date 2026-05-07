@@ -12,6 +12,17 @@ public class UIFocusGuard : MonoBehaviour
     private bool lastInputWasGamepad = false;
     private float lastSelectionLostTime = -1f;
 
+    private void SetLastInputWasGamepad(bool isGamepad)
+    {
+        if (lastInputWasGamepad == isGamepad)
+        {
+            return;
+        }
+
+        lastInputWasGamepad = isGamepad;
+        Cursor.visible = !isGamepad;
+    }
+
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void EnsureInstance()
     {
@@ -142,7 +153,7 @@ public class UIFocusGuard : MonoBehaviour
                 || mouse.delta.ReadValue().sqrMagnitude > 0f;
             if (mouseUsed)
             {
-                lastInputWasGamepad = false;
+                SetLastInputWasGamepad(false);
                 return;
             }
         }
@@ -150,7 +161,7 @@ public class UIFocusGuard : MonoBehaviour
         Keyboard keyboard = Keyboard.current;
         if (keyboard != null && keyboard.anyKey.wasPressedThisFrame)
         {
-            lastInputWasGamepad = false;
+            SetLastInputWasGamepad(false);
             return;
         }
 
@@ -175,7 +186,7 @@ public class UIFocusGuard : MonoBehaviour
 
         if (gamepadUsed)
         {
-            lastInputWasGamepad = true;
+            SetLastInputWasGamepad(true);
         }
     }
 }

@@ -221,12 +221,8 @@ public class Movement : MonoBehaviour
             }
         }
 
-        // Handle crouch input
+        // Handle crouch input strictly through the remappable action.
         bool crouchPressed = inputActions.Gameplay.Crouch.IsPressed();
-        if (!crouchPressed && Gamepad.current != null)
-        {
-            crouchPressed = Gamepad.current.buttonEast.isPressed || Gamepad.current.leftStick.down.isPressed;
-        }
 
         if (CanMoveHorizontally && crouchPressed && areGrounded)
         {
@@ -276,6 +272,7 @@ public class Movement : MonoBehaviour
     {
         inputActions = new InputSystem_Actions();
         InputBindingOverrides.ApplySavedOverrides(inputActions.asset);
+        InputBindingOverrides.RegisterRuntimeGameplayAsset(inputActions.asset);
         CacheHorizontalControlBindings();
         if (rb == null) rb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<Collider2D>();
@@ -290,6 +287,14 @@ public class Movement : MonoBehaviour
     private void OnDisable()
     {
         inputActions?.Gameplay.Disable();
+    }
+
+    private void OnDestroy()
+    {
+        if (inputActions != null)
+        {
+            InputBindingOverrides.UnregisterRuntimeGameplayAsset(inputActions.asset);
+        }
     }
 
     // bool for dashing checks

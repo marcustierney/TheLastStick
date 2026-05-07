@@ -47,7 +47,11 @@ public class InputRemapper : MonoBehaviour
 
         if (applyButton != null)
         {
-            applyButton.onClick.RemoveAllListeners();
+            applyButton.onClick.AddListener(ApplySavedBindings);
+        }
+        else
+        {
+            Debug.LogWarning("[InputRemapper] Apply button is not assigned.");
         }
 
         if (resetButton != null)
@@ -149,11 +153,16 @@ public class InputRemapper : MonoBehaviour
                 }
 
                 string bindingId = binding.id.ToString();
+                UnbindConflictingBindings(newPath, binding.id);
                 action.ApplyBindingOverride(new InputBinding { id = binding.id, overridePath = newPath });
                 PlayerPrefs.SetString(InputBindingOverrides.GetOverrideKey(bindingId), newPath);
                 PlayerPrefs.Save();
 
-                _activeButton.UpdateLabel(newPath);
+                // Propagate immediately so duplicate unbinds are visible/active
+                // as soon as the rebind completes (without waiting for Apply).
+                InputBindingOverrides.RefreshAllRegisteredRuntimeAssetsFromPrefs();
+                foreach (var rb in FindObjectsByType<RemapButton>(FindObjectsInactive.Include))
+                    rb.RefreshLabel(_asset);
             }
             else
             {
@@ -169,11 +178,61 @@ public class InputRemapper : MonoBehaviour
         _activeButton = null;
     }
 
+    private void UnbindConflictingBindings(string selectedPath, System.Guid targetBindingId)
+    {
+        if (string.IsNullOrEmpty(selectedPath) || _asset == null)
+        {
+            return;
+        }
+
+        foreach (InputAction otherAction in _asset)
+        {
+            var bindings = otherAction.bindings;
+            for (int i = 0; i < bindings.Count; i++)
+            {
+                InputBinding otherBinding = bindings[i];
+                if (otherBinding.id == targetBindingId)
+                {
+                    continue;
+                }
+
+                if (!string.Equals(otherBinding.effectivePath, selectedPath, System.StringComparison.OrdinalIgnoreCase))
+                {
+                    continue;
+                }
+
+                otherAction.ApplyBindingOverride(new InputBinding
+                {
+                    id = otherBinding.id,
+                    overridePath = string.Empty
+                });
+
+                PlayerPrefs.SetString(InputBindingOverrides.GetOverrideKey(otherBinding.id.ToString()), string.Empty);
+            }
+        }
+    }
+
+    private void ApplySavedBindings()
+    {
+        CancelListening();
+
+        InputBindingOverrides.ApplySavedOverrides(_asset);
+        InputBindingOverrides.RefreshAllRegisteredRuntimeAssetsFromPrefs();
+
+        PlayerPrefs.Save();
+
+        foreach (var rb in FindObjectsByType<RemapButton>(FindObjectsInactive.Include))
+            rb.RefreshLabel(_asset);
+
+        Debug.Log("[InputRemapper] Applied saved control bindings.");
+    }
+
     private void ResetAllOverrides()
     {
         CancelListening();
 
         InputBindingOverrides.ResetToCachedDefaults(_asset);
+        InputBindingOverrides.ResetAllRegisteredRuntimeAssetsToCachedDefaults();
 
         PlayerPrefs.Save();
 

@@ -44,6 +44,7 @@ public class SwordAttack : MonoBehaviour
     {
         inputActions = new InputSystem_Actions();
         InputBindingOverrides.ApplySavedOverrides(inputActions.asset);
+        InputBindingOverrides.RegisterRuntimeGameplayAsset(inputActions.asset);
         movement = GetComponent<Movement>();
         animator = GetComponent<Animator>();
         CacheAnimatorParameters();
@@ -60,6 +61,14 @@ public class SwordAttack : MonoBehaviour
     private void OnDisable()
     {
         inputActions?.Gameplay.Disable();
+    }
+
+    private void OnDestroy()
+    {
+        if (inputActions != null)
+        {
+            InputBindingOverrides.UnregisterRuntimeGameplayAsset(inputActions.asset);
+        }
     }
 
     void Update()
