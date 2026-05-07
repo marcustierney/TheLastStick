@@ -139,7 +139,8 @@ public class PauseManager : MonoBehaviour
         UnityEditor.Selection.activeObject = null;
 #endif
 
-        SceneManager.LoadScene("MainMenu");
+        SceneTransition.SetPendingNextScene("MainMenu", 2.5f);
+        SceneManager.LoadScene("LoadingScreen");
     }
 
     public void Restart()
