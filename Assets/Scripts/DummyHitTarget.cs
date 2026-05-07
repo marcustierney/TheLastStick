@@ -11,13 +11,14 @@ public class DummyHitTarget : MonoBehaviour, IHittable
     [SerializeField] private Animator animator;
     [SerializeField] private string hitBoolParameter = "Hit";
     [SerializeField] private float hitAnimationDuration = 0.2f;
-    [SerializeField] private SlashFeedback slashFeedback;
 
+    private SlashFeedback slashFeedback;
     private int currentHealth;
     private Coroutine resetHitRoutine;
 
     private void Awake()
     {
+        slashFeedback = GetComponent<SlashFeedback>();
         currentHealth = maxHealth;
 
         if (animator == null)

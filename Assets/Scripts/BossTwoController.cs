@@ -28,10 +28,11 @@ public class BossTwoController : MonoBehaviour, IHittable
     private float lastDashTime = -999f;
     // private bool lockedChargeDirection = false;
     private bool facingRight = false;
-    [SerializeField] private SlashFeedback slashFeedback;
+    private SlashFeedback slashFeedback;
 
     private void Awake()
     {
+        slashFeedback = GetComponent<SlashFeedback>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();

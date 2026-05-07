@@ -36,10 +36,12 @@ public class SpiderEnemy : MonoBehaviour, IHittable
     [Header("Death Sound")]
     [SerializeField] private AudioSource deathAudioSource;
     [SerializeField] private AudioClip[] deathClips = new AudioClip[5];
-    [SerializeField] private SlashFeedback slashFeedback;
+
+    private SlashFeedback slashFeedback;
 
     private void Awake()
     {
+        slashFeedback = GetComponent<SlashFeedback>();
         currentHealth = maxHealth;
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player").transform;

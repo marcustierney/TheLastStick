@@ -10,6 +10,7 @@ public class SwordAttack : MonoBehaviour
     [SerializeField] private GameObject swordStandHitbox;
     [SerializeField] private GameObject dashAttackHitbox;
     private float attackDuration = 0.2f;
+    [SerializeField] private bool meleeHitboxUsesAnimationEvents = true;
     private Vector2 rightOffset = new Vector2(0.8f, 0f);
     private Vector2 leftOffset = new Vector2(-0.8f, 0f);
     [SerializeField] private Vector2 dashAttackRightOffset = new Vector2(1.2f, 0f);
@@ -37,6 +38,8 @@ public class SwordAttack : MonoBehaviour
     private bool queuedComboAttack;
     private readonly HashSet<string> animatorParameterNames = new HashSet<string>();
     private bool wasDownInputHeld;
+    private int pendingMeleeComboStep;
+    private bool meleeHitboxAnimWindowConsumed;
 
     public bool IsAttacking => isAttacking;
     public bool IsSwordStanding => isSwordStanding;
@@ -229,6 +232,7 @@ public class SwordAttack : MonoBehaviour
     private IEnumerator Attack()
     {
         isAttacking = true;
+        meleeHitboxAnimWindowConsumed = false;
         PlayAttackSound();
         bool dashAttack = movement.IsDashing;
         isDashAttacking = dashAttack;
@@ -278,15 +282,21 @@ public class SwordAttack : MonoBehaviour
         DisableAttackHitbox(swordStandHitbox);
         DisableAttackHitbox(dashAttackHitbox);
 
+        pendingMeleeComboStep = currentComboStep;
+        bool deferMeleeHitboxToAnimEvents = meleeHitboxUsesAnimationEvents && !dashAttack;
+
         if (activeAttackHitbox != null)
         {
             PositionAttackHitbox(activeAttackHitbox, facingRight, dashAttack);
-            activeAttackHitbox.SetActive(true);
-            SwordHitbox hitbox = activeAttackHitbox.GetComponent<SwordHitbox>();
-            if (hitbox != null)
+            if (!deferMeleeHitboxToAnimEvents)
             {
-                hitbox.currentComboIndex = currentComboStep;
-                hitbox.EnableAttack();
+                activeAttackHitbox.SetActive(true);
+                SwordHitbox hitbox = activeAttackHitbox.GetComponent<SwordHitbox>();
+                if (hitbox != null)
+                {
+                    hitbox.currentComboIndex = currentComboStep;
+                    hitbox.EnableAttack();
+                }
             }
         }
 
@@ -303,9 +313,9 @@ public class SwordAttack : MonoBehaviour
             yield return new WaitForSeconds(attackDuration);
         }
 
-        DisableAttackHitbox(activeAttackHitbox);
         if (activeAttackHitbox != null)
         {
+            DisableAttackHitbox(activeAttackHitbox);
             activeAttackHitbox.transform.localPosition = Vector3.zero;
         }
         activeAttackHitbox = null;
@@ -438,6 +448,44 @@ public class SwordAttack : MonoBehaviour
 
         swordStandTouchGround = true;
         ExitSwordStand();
+    }
+
+    /// Animation events 
+    public void Anim_AttackHitboxOn()
+    {
+        if (!meleeHitboxUsesAnimationEvents || !isAttacking || isDashAttacking || activeAttackHitbox == null)
+        {
+            return;
+        }
+
+        if (meleeHitboxAnimWindowConsumed)
+        {
+            return;
+        }
+
+        meleeHitboxAnimWindowConsumed = true;
+
+        bool facingRight = movement.FacingRight;
+        PositionAttackHitbox(activeAttackHitbox, facingRight, false);
+        activeAttackHitbox.SetActive(true);
+        SwordHitbox hitbox = activeAttackHitbox.GetComponent<SwordHitbox>();
+        if (hitbox == null)
+        {
+            return;
+        }
+
+        hitbox.currentComboIndex = pendingMeleeComboStep;
+        hitbox.EnableAttack();
+    }
+
+    public void Anim_AttackHitboxOff()
+    {
+        if (!meleeHitboxUsesAnimationEvents || !isAttacking || isDashAttacking || activeAttackHitbox == null)
+        {
+            return;
+        }
+
+        DisableAttackHitbox(activeAttackHitbox);
     }
 
     private void SetSwordStandAnimation(bool value)

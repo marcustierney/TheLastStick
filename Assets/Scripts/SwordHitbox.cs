@@ -25,9 +25,19 @@ public class SwordHitbox : MonoBehaviour
 
     public void EnableAttack()
     {
-        boxCollider.enabled = true;
-        boxCollider.isTrigger = true; 
+        if (boxCollider == null)
+        {
+            boxCollider = GetComponent<BoxCollider2D>();
+        }
+
+        if (boxCollider == null)
+        {
+            return;
+        }
+
         gameObject.SetActive(true);
+        boxCollider.enabled = true;
+        boxCollider.isTrigger = true;
     }
     public void Disable()
     {

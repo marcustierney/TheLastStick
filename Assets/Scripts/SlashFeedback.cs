@@ -8,6 +8,18 @@ public class SlashFeedback : MonoBehaviour
 
     private Coroutine hideRoutine;
 
+    private void Awake()
+    {
+        if (overlayRenderer == null)
+        {
+            Transform overlay = transform.Find("SlashOverlay");
+            if (overlay != null)
+            {
+                overlayRenderer = overlay.GetComponent<SpriteRenderer>();
+            }
+        }
+    }
+
     public void PlaySlash(int comboIndex)
     {
         if (overlayRenderer == null || slashSprites == null || slashSprites.Length == 0)
@@ -24,7 +36,7 @@ public class SlashFeedback : MonoBehaviour
             StopCoroutine(hideRoutine);
         }
 
-        hideRoutine = StartCoroutine(HideAfterDelay(0.12f));
+        hideRoutine = StartCoroutine(HideAfterDelay(.5f));
     }
 
     private IEnumerator HideAfterDelay(float seconds)

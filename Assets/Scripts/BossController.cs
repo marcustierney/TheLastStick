@@ -41,10 +41,12 @@ public class BossController : MonoBehaviour, IHittable
     [SerializeField] private AudioSource walkAudioSource;
     [SerializeField] private AudioSource slamAudioSource;
     [SerializeField] private AudioSource throwAudioSource;
-    [SerializeField] private SlashFeedback slashFeedback;
+
+    private SlashFeedback slashFeedback;
 
     void Awake()
     {
+        slashFeedback = GetComponent<SlashFeedback>();
         rb = GetComponent<Rigidbody2D>();
         bossCollider = GetComponent<Collider2D>();
         maxHealth = 100;

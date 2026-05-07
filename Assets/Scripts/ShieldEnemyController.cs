@@ -29,8 +29,8 @@ public class ShieldEnemyController : MonoBehaviour, IHittable
     [SerializeField] private string runningAttackBoolName = "isRunningAttack";
 
     [SerializeField] private AudioSource deathAudioSource;
-    [SerializeField] private SlashFeedback slashFeedback;
 
+    private SlashFeedback slashFeedback;
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
@@ -45,6 +45,7 @@ public class ShieldEnemyController : MonoBehaviour, IHittable
 
     private void Awake()
     {
+        slashFeedback = GetComponent<SlashFeedback>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();

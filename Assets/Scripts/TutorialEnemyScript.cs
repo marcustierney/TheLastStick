@@ -1,15 +1,22 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
+
 public class TutorialEnemy : MonoBehaviour, IHittable
 {
-    public int maxHealth = 3;
-    private int currentHealth;
-    [SerializeField] private AudioSource deathAudioSource;
-    [SerializeField] private SlashFeedback slashFeedback;
+    private SlashFeedback slashFeedback;
+    [SerializeField] private Animator animator;
+    [SerializeField] private string hitBoolParameter = "Hit";
+    [SerializeField] private float hitAnimationDuration = 0.52f;
+
+    private Coroutine resetHitRoutine;
 
     private void Awake()
     {
-        currentHealth = maxHealth;
+        slashFeedback = GetComponent<SlashFeedback>();
+        if (animator == null)
+        {
+            animator = GetComponent<Animator>();
+        }
     }
 
     public void ReceiveHit(PlayerMeleeHit hit)
@@ -19,34 +26,35 @@ public class TutorialEnemy : MonoBehaviour, IHittable
             slashFeedback.PlaySlash(hit.ComboIndex);
         }
 
-        TutorialTakeDamage(hit.Damage);
+        PlayHitReaction();
     }
 
-    public void TutorialTakeDamage(int damage)
+    private void PlayHitReaction()
     {
-        currentHealth -= damage;
-        Debug.Log("damage " + damage + " cCurrent hp " + currentHealth);
-
-        if (currentHealth <= 0)
-        {
-            Die();
-        }
-    }
-
-    private void Die()
-    {
-        Debug.Log("killed");
-        PlayDeathSound();
-        Destroy(gameObject);
-    }
-
-    private void PlayDeathSound()
-    {
-        if (deathAudioSource == null || deathAudioSource.clip == null)
+        if (animator == null)
         {
             return;
         }
 
-        AudioSource.PlayClipAtPoint(deathAudioSource.clip, transform.position);
+        animator.SetBool(hitBoolParameter, true);
+
+        if (resetHitRoutine != null)
+        {
+            StopCoroutine(resetHitRoutine);
+        }
+
+        resetHitRoutine = StartCoroutine(ResetHitBoolAfterDelay());
+    }
+
+    private IEnumerator ResetHitBoolAfterDelay()
+    {
+        yield return new WaitForSeconds(hitAnimationDuration);
+
+        if (animator != null)
+        {
+            animator.SetBool(hitBoolParameter, false);
+        }
+
+        resetHitRoutine = null;
     }
 }
