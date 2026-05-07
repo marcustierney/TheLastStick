@@ -80,22 +80,22 @@ public class MainMenu : MonoBehaviour
 
         if (level == 0)
         {
-            SceneTransition.SetPendingNextScene("Tutorial", 3f);
+            SceneTransition.SetPendingNextScene("Tutorial", 4f);
             SceneManager.LoadScene("LoadingScreen");
         }
         else if (level == 1)
         {
-            SceneTransition.SetPendingNextScene("LevelOne", 3f);
+            SceneTransition.SetPendingNextScene("LevelOne", 4f);
             SceneManager.LoadScene("LoadingScreen");
         }
         else if (level == 2)
         {
-            SceneTransition.SetPendingNextScene("LevelTwo", 3f);
+            SceneTransition.SetPendingNextScene("LevelTwo", 4f);
             SceneManager.LoadScene("LoadingScreen");
         }
         else if (level == 3)
         {
-            SceneTransition.SetPendingNextScene("LevelThree", 3f);
+            SceneTransition.SetPendingNextScene("LevelThree", 4f);
             SceneManager.LoadScene("LoadingScreen");
         }
 
@@ -105,7 +105,7 @@ public class MainMenu : MonoBehaviour
     public void RestartGame()
     {
         CoinManager.ClearSavedProgress();
-        SceneTransition.SetPendingNextScene("Tutorial", 3f);
+        SceneTransition.SetPendingNextScene("Tutorial", 4f);
         SceneManager.LoadScene("LoadingScreen");
         PlayerPrefs.SetInt("CurrentLevel", 0);
         PlayerPrefs.Save();

@@ -7,20 +7,14 @@ public class SceneTransition : MonoBehaviour
 {
     public string nextScene;
     public float minimumTime = 5f;
-    //public TMP_Text progressText;
+
+    [SerializeField] private TMP_Text statusText;
+    [SerializeField] private float savingToLoadingDelay = 1f;
 
     private static string pendingNextScene;
     private static bool hasPendingNextScene;
     private static float? pendingMinimumTime;
 
-    /// <summary>
-    /// Call before <see cref="SceneManager.LoadScene"/> for the loading screen scene.
-    /// On awake, <see cref="SceneTransition"/> applies pending <c>nextScene</c> and optional <c>minimumTime</c> once, then clears them.
-    /// </summary>
-    /// <param name="sceneName">Destination scene after the loading screen.</param>
-    /// <param name="minimumTime">
-    /// If set, replaces inspector <see cref="minimumTime"/> for this load only. Omit to keep the scene default.
-    /// </param>
     public static void SetPendingNextScene(string sceneName, float? minimumTime = null)
     {
         if (string.IsNullOrEmpty(sceneName))
@@ -48,26 +42,41 @@ public class SceneTransition : MonoBehaviour
             minimumTime = Mathf.Max(0f, pendingMinimumTime.Value);
             pendingMinimumTime = null;
         }
+
+        if (statusText != null)
+            statusText.text = savingToLoadingDelay > 0f ? "Saving" : "Loading";
     }
 
-    void Start()
+    private void Start()
     {
         StartCoroutine(LoadNextScene());
     }
 
-    IEnumerator LoadNextScene()
+    private IEnumerator LoadNextScene()
     {
         AsyncOperation loadOperation = SceneManager.LoadSceneAsync(nextScene);
         loadOperation.allowSceneActivation = false;
 
+        yield return null;
+        float switchToLoadingAt = Time.unscaledTime + savingToLoadingDelay;
+        bool labelSwitched = savingToLoadingDelay <= 0f;
+
         float timer = 0f;
         while (timer < minimumTime || loadOperation.progress < 0.9f)
         {
-            timer += Time.deltaTime;
-            //float progress = loadOperation.progress / 0.9f;
-            //progressText.text = "Loading " + Mathf.RoundToInt(progress * 100f) + "%";
+            timer += Time.unscaledDeltaTime;
+
+            if (!labelSwitched && statusText != null && Time.unscaledTime >= switchToLoadingAt)
+            {
+                statusText.text = "Loading";
+                labelSwitched = true;
+            }
+
             yield return null;
         }
+
+        if (!labelSwitched && statusText != null)
+            statusText.text = "Loading";
 
         loadOperation.allowSceneActivation = true;
     }

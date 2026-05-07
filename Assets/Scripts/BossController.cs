@@ -304,7 +304,8 @@ public class BossController : MonoBehaviour
         Debug.Log("killed");
         PlayerPrefs.SetInt("CurrentLevel", 2);
         PlayerPrefs.Save();
-        SceneManager.LoadScene("TransitionLevelTwo");
+        SceneTransition.SetPendingNextScene("LevelTwo", 3f);
+        SceneManager.LoadScene("LoadingScreen");
         Destroy(gameObject);
     }
 

@@ -847,6 +847,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SceneTransition
   nextScene: LevelOneBoss
   minimumTime: 3
+  statusText: {fileID: 52568508}
+  savingToLoadingDelay: 1
 --- !u!4 &1599797700
 Transform:
   m_ObjectHideFlags: 0

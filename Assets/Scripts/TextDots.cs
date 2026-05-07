@@ -4,21 +4,38 @@ using TMPro;
 public class LoadingDotsTMP : MonoBehaviour
 {
     public TMP_Text loadingText;
-    private float timer = 0f;
-    private int dotCount = 0;
-
     public float interval = 0.5f;
 
-    void Update()
+    private float timer;
+    private int dotCount;
+    private string lastBase;
+
+    private void Update()
     {
-        timer += Time.deltaTime;
+        if (loadingText == null) return;
 
-        if (timer >= interval)
+        string base_ = GetBase(loadingText.text);
+        if (base_ == null) return;
+
+        if (base_ != lastBase)
         {
+            lastBase = base_;
+            dotCount = 0;
             timer = 0f;
-            dotCount = (dotCount + 1) % 4;
-
-            loadingText.text = "Loading" + new string('.', dotCount);
         }
+
+        timer += Time.deltaTime;
+        if (timer < interval) return;
+
+        timer = 0f;
+        dotCount = (dotCount + 1) % 4;
+        loadingText.text = lastBase + new string('.', dotCount);
+    }
+
+    private static string GetBase(string text)
+    {
+        if (text.StartsWith("Saving", System.StringComparison.Ordinal))  return "Saving";
+        if (text.StartsWith("Loading", System.StringComparison.Ordinal)) return "Loading";
+        return null;
     }
 }
