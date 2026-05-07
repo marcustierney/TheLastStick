@@ -1,174 +1,148 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIFocusGuard : MonoBehaviour
 {
     [SerializeField] Selectable fallbackSelectable;
+
+    [Header("Focus Restore")]
+    [Tooltip("Seconds after losing selection before the fallback is re-selected.")]
     [SerializeField] float restoreDebounceSeconds = 0.08f;
-    [SerializeField] float mouseMoveDeadzonePixels = 2.5f;
-    [SerializeField] float gamepadPrioritySeconds = 0.2f;
 
-    private bool lastInputWasGamepad = false;
-    private float lastSelectionLostTime = -1f;
-    private float lastGamepadInputTime = -1f;
+    [Header("Input Source Switching")]
+    [Tooltip("Mouse delta below this sqr-magnitude per frame is treated as driver noise.")]
+    [SerializeField] float mouseMoveDeadzonePixels = 4f;
 
-    private void SetLastInputWasGamepad(bool isGamepad)
-    {
-        if (lastInputWasGamepad == isGamepad)
-        {
-            return;
-        }
+    [Tooltip("Minimum seconds between input-source switches. Prevents ghost-delta bounce.")]
+    [SerializeField] float inputSwitchDebounceSeconds = 0.25f;
 
-        lastInputWasGamepad = isGamepad;
-        Cursor.visible = !isGamepad;
+    // -------------------------------------------------------------------------
+    // State
+    // -------------------------------------------------------------------------
 
-        if (isGamepad)
-        {
-            return;
-        }
+    private bool        lastInputWasGamepad  = false;
+    private float       lastSelectionLostTime = -1f;
+    private float       lastInputSwitchTime   = float.NegativeInfinity;
 
-        EventSystem currentEventSystem = EventSystem.current;
-        if (currentEventSystem == null)
-        {
-            return;
-        }
+    // Flag set by onEvent callback; consumed in LateUpdate on the main thread.
+    private bool        pendingMouseReengage = false;
 
-        if (currentEventSystem.currentSelectedGameObject != null)
-        {
-            currentEventSystem.SetSelectedGameObject(null);
-        }
-
-        lastSelectionLostTime = -1f;
-    }
+    // -------------------------------------------------------------------------
+    // Singleton bootstrap
+    // -------------------------------------------------------------------------
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void EnsureInstance()
     {
-        UIFocusGuard existingGuard = FindAnyObjectByType<UIFocusGuard>(FindObjectsInactive.Include);
-        if (existingGuard != null)
-        {
+        if (FindAnyObjectByType<UIFocusGuard>(FindObjectsInactive.Include) != null)
             return;
-        }
 
-        GameObject guardObject = new GameObject("UIFocusGuard");
-        DontDestroyOnLoad(guardObject);
-        guardObject.AddComponent<UIFocusGuard>();
+        GameObject go = new GameObject("UIFocusGuard");
+        DontDestroyOnLoad(go);
+        go.AddComponent<UIFocusGuard>();
     }
+
+    // -------------------------------------------------------------------------
+    // Unity messages
+    // -------------------------------------------------------------------------
 
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
+        InputSystem.onEvent      += OnInputSystemEvent;
     }
 
     private void OnDisable()
     {
+        InputSystem.onEvent      -= OnInputSystemEvent;
         SceneManager.sceneLoaded -= OnSceneLoaded;
+
+        // Always restore cursor on disable so the player is never stuck.
+        SetCursorForMode(isGamepad: false);
     }
 
-    // When a new scene loads, the old fallback reference is invalid and the
-    // EventSystem has been replaced. Clear stale state so LateUpdate doesn't
-    // attempt to force-select a destroyed object, which corrupts navigation.
+    private void OnDestroy()
+    {
+        SetCursorForMode(isGamepad: false);
+    }
+
+    private void OnApplicationFocus(bool hasFocus)
+    {
+        if (hasFocus)
+            SetCursorForMode(lastInputWasGamepad);
+    }
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        fallbackSelectable = null;
+        fallbackSelectable   = null;
         lastSelectionLostTime = -1f;
-    }
+        pendingMouseReengage  = false;
 
-    public void SetCurrentFallback(Selectable selectable)
-    {
-        fallbackSelectable = selectable;
-    }
-
-    public void ForceSelectCurrentFallback()
-    {
-        if (!lastInputWasGamepad)
-        {
-            return;
-        }
-
-        if (fallbackSelectable == null || !fallbackSelectable.IsInteractable() || !fallbackSelectable.gameObject.activeInHierarchy)
-        {
-            return;
-        }
-
-        EventSystem currentEventSystem = EventSystem.current;
-        if (currentEventSystem == null)
-        {
-            return;
-        }
-
-        currentEventSystem.SetSelectedGameObject(null);
-        currentEventSystem.SetSelectedGameObject(fallbackSelectable.gameObject);
-    }
-
-    public void ClearSelection()
-    {
-        if (EventSystem.current == null)
-        {
-            return;
-        }
-
-        EventSystem.current.SetSelectedGameObject(null);
+        // Re-apply cursor state — new EventSystem was created.
+        SetCursorForMode(lastInputWasGamepad);
     }
 
     private void LateUpdate()
     {
-        TrackLastInputDevice();
-
-        if (fallbackSelectable == null || EventSystem.current == null)
+        // Consume the flag raised by the onEvent callback.
+        if (pendingMouseReengage)
         {
-            return;
+            pendingMouseReengage = false;
+            TrySetInputSource(isGamepad: false);
         }
 
-        GameObject selectedObject = EventSystem.current.currentSelectedGameObject;
-        if (selectedObject != null && selectedObject.activeInHierarchy)
-        {
-            if (!lastInputWasGamepad)
-            {
-                EventSystem.current.SetSelectedGameObject(null);
-                lastSelectionLostTime = -1f;
-                return;
-            }
-
-            lastSelectionLostTime = -1f;
-            return;
-        }
-
-        if (!lastInputWasGamepad)
-        {
-            return;
-        }
-
-        if (lastSelectionLostTime < 0f)
-        {
-            lastSelectionLostTime = Time.unscaledTime;
-            return;
-        }
-
-        if (Time.unscaledTime - lastSelectionLostTime < restoreDebounceSeconds)
-        {
-            return;
-        }
-
-        if (!fallbackSelectable.gameObject.activeInHierarchy || !fallbackSelectable.IsInteractable())
-        {
-            return;
-        }
-
-        EventSystem.current.SetSelectedGameObject(fallbackSelectable.gameObject);
+        TrackGamepadAndKeyboard();
+        RestoreFallbackSelectionIfNeeded();
     }
 
-    private void TrackLastInputDevice()
-    {
-        float now = Time.unscaledTime;
+    // -------------------------------------------------------------------------
+    // Low-level event listener (runs on input thread, keep it minimal)
+    // -------------------------------------------------------------------------
 
+    /// <summary>
+    /// Listens at the InputSystem backend level, which fires regardless of
+    /// whether the device is enabled.  We only set a flag here; the actual
+    /// mode switch happens on the main thread in LateUpdate.
+    /// </summary>
+    private void OnInputSystemEvent(InputEventPtr eventPtr, InputDevice device)
+    {
+        // Only interested in mouse re-engagement while in gamepad mode.
+        if (!lastInputWasGamepad) return;
+        if (!(device is Mouse mouse)) return;
+        if (!eventPtr.IsA<StateEvent>() && !eventPtr.IsA<DeltaStateEvent>()) return;
+
+        // Intentional clicks always re-engage mouse regardless of movement.
+        bool click =
+            mouse.leftButton.ReadValueFromEvent(eventPtr)   > 0.5f
+            || mouse.rightButton.ReadValueFromEvent(eventPtr)  > 0.5f
+            || mouse.middleButton.ReadValueFromEvent(eventPtr) > 0.5f;
+
+        if (click)
+        {
+            pendingMouseReengage = true;
+            return;
+        }
+
+        // Movement re-engages only when delta is above the noise threshold.
+        Vector2 delta = mouse.delta.ReadValueFromEvent(eventPtr);
+        if (delta.sqrMagnitude > mouseMoveDeadzonePixels * mouseMoveDeadzonePixels)
+            pendingMouseReengage = true;
+    }
+
+    // -------------------------------------------------------------------------
+    // Per-frame tracking (gamepad + keyboard only; mouse is handled by onEvent)
+    // -------------------------------------------------------------------------
+
+    private void TrackGamepadAndKeyboard()
+    {
         Gamepad gamepad = Gamepad.current;
         if (gamepad != null)
         {
-            bool gamepadUsed =
+            bool used =
                 gamepad.buttonSouth.wasPressedThisFrame
                 || gamepad.buttonNorth.wasPressedThisFrame
                 || gamepad.buttonWest.wasPressedThisFrame
@@ -177,41 +151,172 @@ public class UIFocusGuard : MonoBehaviour
                 || gamepad.selectButton.wasPressedThisFrame
                 || gamepad.leftShoulder.wasPressedThisFrame
                 || gamepad.rightShoulder.wasPressedThisFrame
+                || gamepad.leftTrigger.wasPressedThisFrame
+                || gamepad.rightTrigger.wasPressedThisFrame
                 || gamepad.dpad.ReadValue().sqrMagnitude > 0f
-                || gamepad.leftStick.ReadValue().sqrMagnitude > 0.0001f
-                || gamepad.rightStick.ReadValue().sqrMagnitude > 0.0001f;
+                || gamepad.leftStick.ReadValue().sqrMagnitude  > 0.01f
+                || gamepad.rightStick.ReadValue().sqrMagnitude > 0.01f;
 
-            if (gamepadUsed)
+            if (used)
             {
-                lastGamepadInputTime = now;
-                SetLastInputWasGamepad(true);
-                return;
-            }
-        }
-
-        Mouse mouse = Mouse.current;
-        if (mouse != null)
-        {
-            bool gamepadRecentlyUsed = lastGamepadInputTime >= 0f && now - lastGamepadInputTime < gamepadPrioritySeconds;
-            bool mouseMoved = mouse.delta.ReadValue().sqrMagnitude > mouseMoveDeadzonePixels * mouseMoveDeadzonePixels;
-            bool mouseUsed =
-                mouse.leftButton.wasPressedThisFrame
-                || mouse.rightButton.wasPressedThisFrame
-                || mouse.middleButton.wasPressedThisFrame
-                || mouse.scroll.ReadValue().sqrMagnitude > 0f
-                || (!gamepadRecentlyUsed && mouseMoved);
-            if (mouseUsed)
-            {
-                SetLastInputWasGamepad(false);
+                TrySetInputSource(isGamepad: true);
                 return;
             }
         }
 
         Keyboard keyboard = Keyboard.current;
         if (keyboard != null && keyboard.anyKey.wasPressedThisFrame)
+            TrySetInputSource(isGamepad: false);
+    }
+
+    // -------------------------------------------------------------------------
+    // Input source switching
+    // -------------------------------------------------------------------------
+
+    private void TrySetInputSource(bool isGamepad)
+    {
+        if (lastInputWasGamepad == isGamepad) return;
+
+        float now = Time.unscaledTime;
+        bool  firstInput = lastInputSwitchTime == float.NegativeInfinity;
+        if (!firstInput && now - lastInputSwitchTime < inputSwitchDebounceSeconds)
+            return;
+
+        lastInputSwitchTime  = now;
+        lastInputWasGamepad  = isGamepad;
+
+        if (isGamepad)
         {
-            SetLastInputWasGamepad(false);
+            EnterGamepadMode();
+        }
+        else
+        {
+            EnterMouseMode();
+        }
+    }
+
+    // -------------------------------------------------------------------------
+    // Mode transitions
+    // -------------------------------------------------------------------------
+
+    private void EnterGamepadMode()
+    {
+        // 1. Warp the cursor off-screen BEFORE locking.
+        //    This forces InputSystemUIInputModule to process one final
+        //    pointer-move at an off-screen position, sending OnPointerExit to
+        //    whatever element was hovered — clearing its highlight state.
+        Mouse mouse = Mouse.current;
+        if (mouse != null)
+            Mouse.current.WarpCursorPosition(new Vector2(-1f, -1f));
+
+        // 2. Lock + hide.  Locked cursor stops all UI raycasting.
+        SetCursorForMode(isGamepad: true);
+    }
+
+    private void EnterMouseMode()
+    {
+        // Unlock and show first so the cursor appears at its last real position.
+        SetCursorForMode(isGamepad: false);
+
+        // Drop any lingering gamepad selection so highlight states don't overlap.
+        EventSystem es = EventSystem.current;
+        if (es != null && es.currentSelectedGameObject != null)
+            es.SetSelectedGameObject(null);
+
+        lastSelectionLostTime = -1f;
+    }
+
+    // -------------------------------------------------------------------------
+    // Cursor state
+    // -------------------------------------------------------------------------
+
+    private static void SetCursorForMode(bool isGamepad)
+    {
+        if (isGamepad)
+        {
+            Cursor.lockState = CursorLockMode.Locked; // stops UI raycasting
+            Cursor.visible   = false;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible   = true;
+        }
+    }
+
+    // -------------------------------------------------------------------------
+    // Public API
+    // -------------------------------------------------------------------------
+
+    public void SetCurrentFallback(Selectable selectable)
+    {
+        fallbackSelectable = selectable;
+    }
+
+    /// <summary>
+    /// Immediately selects the fallback when in gamepad mode.
+    /// Call after opening a panel so navigation focus is never lost.
+    /// </summary>
+    public void ForceSelectCurrentFallback()
+    {
+        if (!lastInputWasGamepad) return;
+        if (fallbackSelectable == null
+            || !fallbackSelectable.IsInteractable()
+            || !fallbackSelectable.gameObject.activeInHierarchy) return;
+
+        EventSystem es = EventSystem.current;
+        if (es == null) return;
+
+        es.SetSelectedGameObject(null);
+        es.SetSelectedGameObject(fallbackSelectable.gameObject);
+    }
+
+    /// <summary>Clears the EventSystem selection. Safe to call at any time.</summary>
+    public void ClearSelection()
+    {
+        if (EventSystem.current == null) return;
+        EventSystem.current.SetSelectedGameObject(null);
+    }
+
+    // -------------------------------------------------------------------------
+    // Fallback selection restore
+    // -------------------------------------------------------------------------
+
+    private void RestoreFallbackSelectionIfNeeded()
+    {
+        if (fallbackSelectable == null || EventSystem.current == null) return;
+
+        GameObject selected = EventSystem.current.currentSelectedGameObject;
+
+        if (selected != null && selected.activeInHierarchy)
+        {
+            // In mouse mode there should be no persistent selection.
+            if (!lastInputWasGamepad)
+            {
+                EventSystem.current.SetSelectedGameObject(null);
+                lastSelectionLostTime = -1f;
+            }
+            else
+            {
+                lastSelectionLostTime = -1f;
+            }
             return;
         }
+
+        if (!lastInputWasGamepad) return;
+
+        if (lastSelectionLostTime < 0f)
+        {
+            lastSelectionLostTime = Time.unscaledTime;
+            return;
+        }
+
+        if (Time.unscaledTime - lastSelectionLostTime < restoreDebounceSeconds)
+            return;
+
+        if (!fallbackSelectable.gameObject.activeInHierarchy
+            || !fallbackSelectable.IsInteractable()) return;
+
+        EventSystem.current.SetSelectedGameObject(fallbackSelectable.gameObject);
     }
 }
