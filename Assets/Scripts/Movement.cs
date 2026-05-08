@@ -514,10 +514,9 @@ public class Movement : MonoBehaviour
         InputAction moveAction = inputActions.Gameplay.Move;
         Vector2 moveInput = moveAction.ReadValue<Vector2>();
 
-        if (horizontalControlBindings.Count == 0)
-        {
-            CacheHorizontalControlBindings();
-        }
+        // Rebuild from effective controls every frame so runtime rebind/apply
+        // updates are reflected immediately (no stale cached controls).
+        CacheHorizontalControlBindings();
 
         bool leftPressed = false;
         bool rightPressed = false;

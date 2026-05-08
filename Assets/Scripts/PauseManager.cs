@@ -284,6 +284,11 @@ public class PauseManager : MonoBehaviour
 
     private bool IsPausePressedThisFrame()
     {
+        if (InputRemapper.IsRebindingInProgress)
+        {
+            return false;
+        }
+
         bool gamepadStartPressed = Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame;
         bool keyboardEscapePressed = Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame;
 
@@ -326,6 +331,11 @@ public class PauseManager : MonoBehaviour
 
     private bool IsUiCancelPressedThisFrame()
     {
+        if (InputRemapper.IsRebindingInProgress)
+        {
+            return false;
+        }
+
         if (uiCancelAction == null)
         {
             CacheUiCancelAction();

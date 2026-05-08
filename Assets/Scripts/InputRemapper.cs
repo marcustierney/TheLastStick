@@ -8,6 +8,8 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class InputRemapper : MonoBehaviour
 {
+    public static bool IsRebindingInProgress { get; private set; }
+
     [Header("Input")]
     [Tooltip("The PlayerInput component that owns your InputActionAsset.")]
     public PlayerInput playerInput;
@@ -18,12 +20,16 @@ public class InputRemapper : MonoBehaviour
 
     [Header("Listening State Visuals")]
     public string listeningText = "...";
+    [Header("Debug")]
+    public bool logDuplicateResolution = true;
 
     public InputActionAsset Asset => _asset;
 
     private InputActionAsset _asset;
     private InputActionRebindingExtensions.RebindingOperation _rebindOp;
     private RemapButton _activeButton;
+    private InputActionMap _uiActionMap;
+    private bool _uiMapWasEnabledBeforeListening;
 
     private void Awake()
     {
@@ -70,12 +76,16 @@ public class InputRemapper : MonoBehaviour
 
     private void OnDestroy()
     {
+        IsRebindingInProgress = false;
+        GateUiActionsForRebind(enableGate: false);
         _rebindOp?.Dispose();
     }
 
     public void StartListening(RemapButton button)
     {
         CancelListening();
+        IsRebindingInProgress = false;
+        GateUiActionsForRebind(enableGate: true);
 
         _activeButton = button;
         _activeButton.SetListeningVisual(listeningText);
@@ -120,11 +130,18 @@ public class InputRemapper : MonoBehaviour
         _rebindOp.OnComplete(op => FinishListening(op, cancelled: false))
                  .OnCancel(op  => FinishListening(op, cancelled: true))
                  .Start();
+        IsRebindingInProgress = true;
     }
 
     public void CancelListening()
     {
-        if (_rebindOp == null) return;
+        if (_rebindOp == null)
+        {
+            IsRebindingInProgress = false;
+            GateUiActionsForRebind(enableGate: false);
+            return;
+        }
+
         _rebindOp.Cancel();
     }
 
@@ -142,9 +159,10 @@ public class InputRemapper : MonoBehaviour
 
             if (newPath != null && action != null)
             {
-                if (!_activeButton.TryResolveBinding(action, out _, out InputBinding binding))
+                if (!_activeButton.TryResolveBinding(action, out int targetBindingIndex, out InputBinding binding))
                 {
-                    Debug.LogError($"[InputRemapper] Could not resolve binding index {_activeButton.bindingIndex} for action '{_activeButton.actionName}' during apply.");
+                    Debug.LogError($"[InputRemapper] Could not resolve binding index " +
+                                   $"{_activeButton.bindingIndex} for action '{_activeButton.actionName}' during apply.");
                     action.Enable();
                     _rebindOp?.Dispose();
                     _rebindOp = null;
@@ -152,14 +170,25 @@ public class InputRemapper : MonoBehaviour
                     return;
                 }
 
-                string bindingId = binding.id.ToString();
-                UnbindConflictingBindings(newPath, binding.id);
-                action.ApplyBindingOverride(new InputBinding { id = binding.id, overridePath = newPath });
-                PlayerPrefs.SetString(InputBindingOverrides.GetOverrideKey(bindingId), newPath);
+                // Normalize using the TARGET binding's original path as context.
+                string normalizedPath = InputBindingOverrides.NormalizeOverridePath(newPath, binding.path);
+
+                // *** FIX: Unbind BEFORE applying the new override so conflict
+                //     checks read the pre-rebind state of all other bindings. ***
+                UnbindConflictingBindings(action, targetBindingIndex, normalizedPath, binding.id);
+
+                string bindingId       = binding.id.ToString();
+                string actionIndexKey  = InputBindingOverrides.GetOverrideActionIndexKey(action, targetBindingIndex);
+
+                action.ApplyBindingOverride(
+                    new InputBinding { id = binding.id, overridePath = normalizedPath });
+
+                PlayerPrefs.SetString(InputBindingOverrides.GetOverrideKey(bindingId), normalizedPath);
+                if (!string.IsNullOrEmpty(actionIndexKey))
+                    PlayerPrefs.SetString(actionIndexKey, normalizedPath);
+
                 PlayerPrefs.Save();
 
-                // Propagate immediately so duplicate unbinds are visible/active
-                // as soon as the rebind completes (without waiting for Apply).
                 InputBindingOverrides.RefreshAllRegisteredRuntimeAssetsFromPrefs();
                 foreach (var rb in FindObjectsByType<RemapButton>(FindObjectsInactive.Include))
                     rb.RefreshLabel(_asset);
@@ -172,44 +201,83 @@ public class InputRemapper : MonoBehaviour
         }
 
         action?.Enable();
-
         _rebindOp?.Dispose();
         _rebindOp = null;
         _activeButton = null;
+        IsRebindingInProgress = false;
+        GateUiActionsForRebind(enableGate: false);
     }
 
-    private void UnbindConflictingBindings(string selectedPath, System.Guid targetBindingId)
+    private void UnbindConflictingBindings(
+        InputAction targetAction,
+        int targetBindingIndex,
+        string incomingPath,
+        System.Guid targetBindingId)
     {
-        if (string.IsNullOrEmpty(selectedPath) || _asset == null)
-        {
-            return;
-        }
+        if (string.IsNullOrEmpty(incomingPath) || _asset == null) return;
 
-        foreach (InputAction otherAction in _asset)
+        // Only scan within the same action map to avoid clearing UI bindings etc.
+        var actionsToScan = targetAction?.actionMap?.actions
+            ?? (System.Collections.Generic.IEnumerable<InputAction>)_asset;
+
+        if (logDuplicateResolution)
+            Debug.Log($"[InputRemapper] DuplicateScan START | " +
+                      $"target={targetAction?.name}, idx={targetBindingIndex}, " +
+                      $"id={targetBindingId}, path={incomingPath}", this);
+
+        foreach (InputAction otherAction in actionsToScan)
         {
             var bindings = otherAction.bindings;
             for (int i = 0; i < bindings.Count; i++)
             {
-                InputBinding otherBinding = bindings[i];
-                if (otherBinding.id == targetBindingId)
-                {
-                    continue;
-                }
+                InputBinding other = bindings[i];
 
-                if (!string.Equals(otherBinding.effectivePath, selectedPath, System.StringComparison.OrdinalIgnoreCase))
-                {
-                    continue;
-                }
+                // ── Skip the binding we are about to assign ──────────────────
+                if (other.id == targetBindingId) continue;
+                if (otherAction == targetAction && i == targetBindingIndex) continue;
 
-                otherAction.ApplyBindingOverride(new InputBinding
-                {
-                    id = otherBinding.id,
-                    overridePath = string.Empty
-                });
+                // ── Skip composite GROUP headers (isPartOfComposite == false
+                //    AND isComposite == true means it's the parent row, which
+                //    has no path of its own and must not be cleared). ─────────
+                if (other.isComposite) continue;
 
-                PlayerPrefs.SetString(InputBindingOverrides.GetOverrideKey(otherBinding.id.ToString()), string.Empty);
+                // ── Build the single authoritative "current" path for this
+                //    binding.  Prefer the override if one is set, else fall
+                //    back to the default path.  Do NOT use effectivePath here
+                //    because Unity may not have flushed it yet. ───────────────
+                string effectivePath = string.IsNullOrEmpty(other.overridePath) ? other.path : other.overridePath;
+
+                if (string.IsNullOrEmpty(effectivePath)) continue;
+
+                bool isConflict = string.Equals(effectivePath, incomingPath,
+                                      System.StringComparison.OrdinalIgnoreCase);
+
+                if (logDuplicateResolution)
+                    Debug.Log($"[InputRemapper] DuplicateScan CANDIDATE | " +
+                              $"action={otherAction.name}, i={i}, id={other.id}, " +
+                              $"effectivePath={effectivePath}, incoming={incomingPath}, " +
+                              $"isConflict={isConflict}", this);
+
+                if (!isConflict) continue;
+
+                // ── Clear the conflict ────────────────────────────────────────
+                otherAction.ApplyBindingOverride(i, string.Empty);
+
+                string otherId        = other.id.ToString();
+                string otherIdxKey    = InputBindingOverrides.GetOverrideActionIndexKey(otherAction, i);
+
+                PlayerPrefs.SetString(InputBindingOverrides.GetOverrideKey(otherId), string.Empty);
+                if (!string.IsNullOrEmpty(otherIdxKey))
+                    PlayerPrefs.SetString(otherIdxKey, string.Empty);
+
+                if (logDuplicateResolution)
+                    Debug.Log($"[InputRemapper] Clearing conflict: action={otherAction.name} " +
+                              $"binding[{i}] path={effectivePath}", this);
             }
         }
+
+        if (logDuplicateResolution)
+            Debug.Log("[InputRemapper] DuplicateScan END", this);
     }
 
     private void ApplySavedBindings()
@@ -246,5 +314,39 @@ public class InputRemapper : MonoBehaviour
     {
         InputBindingOverrides.RebuildDefaultsCache(_asset);
         Debug.Log("[InputRemapper] Rebuilt cached binding defaults from current input asset.");
+    }
+
+    private void GateUiActionsForRebind(bool enableGate)
+    {
+        if (playerInput == null || playerInput.actions == null)
+        {
+            return;
+        }
+
+        if (_uiActionMap == null)
+        {
+            _uiActionMap = playerInput.actions.FindActionMap("UI", throwIfNotFound: false);
+        }
+
+        if (_uiActionMap == null)
+        {
+            return;
+        }
+
+        if (enableGate)
+        {
+            _uiMapWasEnabledBeforeListening = _uiActionMap.enabled;
+            if (_uiActionMap.enabled)
+            {
+                _uiActionMap.Disable();
+            }
+            return;
+        }
+
+        if (_uiMapWasEnabledBeforeListening && !_uiActionMap.enabled)
+        {
+            _uiActionMap.Enable();
+        }
+        _uiMapWasEnabledBeforeListening = false;
     }
 }

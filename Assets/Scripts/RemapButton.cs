@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.InputSystem;
-using System.Globalization;
 
 /// <summary>
 /// Add this to every KeyboardButton and ControllerButton prefab.
@@ -70,13 +69,16 @@ public class RemapButton : MonoBehaviour
         InputAction action = _manager.Asset?.FindAction(actionName);
         if (action != null)
         {
-            if (TryResolveBinding(action, out _, out InputBinding binding))
+            if (TryResolveBinding(action, out int resolvedBindingIndex, out InputBinding binding))
             {
                 string id = binding.id.ToString();
-                string overrideKey = InputBindingOverrides.GetOverrideKey(id);
-                if (PlayerPrefs.HasKey(overrideKey))
+                string overrideKeyById = InputBindingOverrides.GetOverrideKey(id);
+                string overrideKeyByActionIndex = InputBindingOverrides.GetOverrideActionIndexKey(action, resolvedBindingIndex);
+                if (PlayerPrefs.HasKey(overrideKeyById) || (!string.IsNullOrEmpty(overrideKeyByActionIndex) && PlayerPrefs.HasKey(overrideKeyByActionIndex)))
                 {
-                    string savedPath = PlayerPrefs.GetString(overrideKey);
+                    string savedPath = PlayerPrefs.HasKey(overrideKeyById)
+                        ? PlayerPrefs.GetString(overrideKeyById)
+                        : PlayerPrefs.GetString(overrideKeyByActionIndex);
                     action.ApplyBindingOverride(new InputBinding { id = binding.id, overridePath = savedPath });
                 }
             }
@@ -126,14 +128,15 @@ public class RemapButton : MonoBehaviour
         InputAction action = asset.FindAction(actionName);
         if (action == null) return;
 
-        if (!TryResolveBinding(action, out _, out InputBinding binding))
+        if (!TryResolveBinding(action, out int resolvedBindingIndex, out _))
         {
             label.text = "—";
             Debug.LogWarning($"[RemapButton] '{gameObject.name}' has invalid binding index {bindingIndex} for action '{actionName}'.");
             return;
         }
 
-        label.text = FormatBindingDisplay(binding.effectivePath);
+        InputBindingDisplayInfo displayInfo = InputBindingDisplayHelper.Build(action, resolvedBindingIndex);
+        label.text = displayInfo.Alias;
 
     }
 
@@ -204,84 +207,8 @@ public class RemapButton : MonoBehaviour
             return;
         }
 
-        label.text = FormatBindingDisplay(path);
-    }
-
-    private static string FormatBindingDisplay(string path)
-    {
-        if (string.IsNullOrWhiteSpace(path))
-        {
-            return "—";
-        }
-
-        string normalizedPath = path.ToLowerInvariant();
-        if (normalizedPath.Contains("/dpad/"))
-        {
-            string direction = FormatDirection(path);
-            return string.IsNullOrEmpty(direction) ? "D-Pad" : $"D-Pad {direction}";
-        }
-
-        if (normalizedPath.Contains("/leftstick/"))
-        {
-            string direction = FormatDirection(path);
-            return string.IsNullOrEmpty(direction) ? "Left Stick" : $"Left Stick {direction}";
-        }
-
-        if (normalizedPath.EndsWith("/leftstick"))
-        {
-            return "Left Stick";
-        }
-
-        if (normalizedPath.Contains("/rightstick/"))
-        {
-            string direction = FormatDirection(path);
-            return string.IsNullOrEmpty(direction) ? "Right Stick" : $"Right Stick {direction}";
-        }
-
-        if (normalizedPath.EndsWith("/rightstick"))
-        {
-            return "Right Stick";
-        }
-
-        string displayName = InputControlPath.ToHumanReadableString(
-            path,
-            InputControlPath.HumanReadableStringOptions.OmitDevice);
-
-        return string.IsNullOrEmpty(displayName) ? "—" : CapitalizeWords(displayName);
-    }
-
-    private static string FormatDirection(string path)
-    {
-        if (string.IsNullOrWhiteSpace(path))
-        {
-            return string.Empty;
-        }
-
-        string[] segments = path.Split('/');
-        if (segments.Length == 0)
-        {
-            return string.Empty;
-        }
-
-        string direction = segments[segments.Length - 1].ToLowerInvariant();
-        return direction switch
-        {
-            "left" => "Left",
-            "right" => "Right",
-            "up" => "Up",
-            "down" => "Down",
-            _ => string.Empty
-        };
-    }
-
-    private static string CapitalizeWords(string value)
-    {
-        if (string.IsNullOrWhiteSpace(value))
-        {
-            return value;
-        }
-
-        return CultureInfo.InvariantCulture.TextInfo.ToTitleCase(value.ToLowerInvariant());
+        InputBindingDisplayInfo displayInfo = InputBindingDisplayHelper.BuildFromPath(path);
+        label.text = displayInfo.Alias;
     }
 
     public void SetListeningVisual(string text)

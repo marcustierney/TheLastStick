@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 798a93d41b005a841b5759959da6a743
+guid: 2e1a7dd5c6461384eb927fa8ce2ba525
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6405573885527902725
-    second: XButtonFill_0
+      213: 7228479579958016333
+    second: XButton_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -113,7 +113,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: XButtonFill_0
+      name: XButton_0
       rect:
         serializedVersion: 2
         x: 4
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: bf537924d74da17a0800000000000000
-      internalID: -6405573885527902725
+      spriteID: d49ff8d31e7b05460800000000000000
+      internalID: 7228479579958016333
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      XButtonFill_0: -6405573885527902725
+      XButton_0: 7228479579958016333
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 38887d2d0d004b545af317c6d31cd707
+guid: aee1fbfef5ede2246af77803b5580f6d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7662797276612400276
-    second: YButtonFill_0
+      213: 2014726721796865516
+    second: keyCap_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: YButtonFill_0
+      name: keyCap_0
       rect:
         serializedVersion: 2
-        x: 4
-        y: 5
-        width: 15
-        height: 16
+        x: 0
+        y: 0
+        width: 24
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 494105a1689b75a60800000000000000
-      internalID: 7662797276612400276
+      spriteID: ced703c674fb5fb10800000000000000
+      internalID: 2014726721796865516
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      YButtonFill_0: 7662797276612400276
+      keyCap_0: 2014726721796865516
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

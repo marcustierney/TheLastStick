@@ -85,10 +85,6 @@ public class SwordAttack : MonoBehaviour
         }
 
         bool attackKeyPressed = inputActions.Gameplay.Attack.WasPressedThisFrame();
-        if (!attackKeyPressed && Mouse.current != null)
-        {
-            attackKeyPressed = Mouse.current.leftButton.wasPressedThisFrame;
-        }
         if (attackKeyPressed)
         {
             lastAttackInputTime = Time.time;
@@ -115,10 +111,6 @@ public class SwordAttack : MonoBehaviour
 
         Vector2 moveInput = inputActions.Gameplay.Move.ReadValue<Vector2>();
         bool downInputHeld = moveInput.y < -0.5f;
-        if (!downInputHeld && Keyboard.current != null)
-        {
-            downInputHeld = Keyboard.current.sKey.isPressed;
-        }
 
         if (!movement.IsGrounded() && attackKeyPressed && downInputHeld)
         {

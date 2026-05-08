@@ -120,6 +120,7 @@
     <Compile Include="Assets\Scripts\DisplayModeDropdown.cs" />
     <Compile Include="Assets\Scripts\ResetPosition.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
+    <Compile Include="Assets\Scripts\InputBindingDisplayHelper.cs" />
     <Compile Include="Assets\Scripts\HitboxVisualizationManager.cs" />
     <Compile Include="Assets\Scripts\SceneTransition.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
