@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 
+[DefaultExecutionOrder(50)]
 public class Sign : MonoBehaviour, IInteractable
 {
     private InputSystem_Actions inputActions;
@@ -23,6 +25,11 @@ public class Sign : MonoBehaviour, IInteractable
     public bool IsInteracted { get; private set; } = false;
     private bool playerInRange;
     private float hideAtTime = -1f;
+    private TMP_Text interactionPromptGlyphLabel;
+    private UIFocusGuard uiFocusGuard;
+    private PlayerInput playerInput;
+
+    private const string GamepadSchemeName = "Gamepad";
 
     void Update()
     {
@@ -96,6 +103,45 @@ public class Sign : MonoBehaviour, IInteractable
         inputActions = new InputSystem_Actions();
         InputBindingOverrides.ApplySavedOverrides(inputActions.asset);
         InputBindingOverrides.RegisterRuntimeGameplayAsset(inputActions.asset);
+
+        if (interactionPrompt != null)
+        {
+            interactionPromptGlyphLabel = interactionPrompt.GetComponentInChildren<TMP_Text>(true);
+        }
+
+        uiFocusGuard = FindAnyObjectByType<UIFocusGuard>(FindObjectsInactive.Include);
+        playerInput = FindAnyObjectByType<PlayerInput>(FindObjectsInactive.Include);
+    }
+
+    private void LateUpdate()
+    {
+        RefreshInteractionPromptGlyphIfNeeded();
+    }
+
+    private void RefreshInteractionPromptGlyphIfNeeded()
+    {
+        if (interactionPromptGlyphLabel == null || interactionPrompt == null || !interactionPrompt.activeSelf)
+        {
+            return;
+        }
+
+        bool gamepad = ShouldShowGamepadInteractGlyph();
+        interactionPromptGlyphLabel.text = gamepad ? "Y or △" : "E";
+    }
+
+    private bool ShouldShowGamepadInteractGlyph()
+    {
+        if (playerInput == null)
+        {
+            playerInput = FindAnyObjectByType<PlayerInput>(FindObjectsInactive.Include);
+        }
+
+        if (playerInput != null && !string.IsNullOrEmpty(playerInput.currentControlScheme))
+        {
+            return string.Equals(playerInput.currentControlScheme, GamepadSchemeName, StringComparison.Ordinal);
+        }
+
+        return uiFocusGuard != null && uiFocusGuard.IsGamepadInputActive;
     }
 
     private void OnDestroy()
@@ -179,6 +225,7 @@ public class Sign : MonoBehaviour, IInteractable
         }
 
         interactionPrompt.SetActive(CanInteract() && !IsSignShowing());
+        RefreshInteractionPromptGlyphIfNeeded();
     }
 
     private bool IsSignShowing()

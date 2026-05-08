@@ -5,6 +5,7 @@ using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+[DefaultExecutionOrder(-50)]
 public class UIFocusGuard : MonoBehaviour
 {
     [SerializeField] Selectable fallbackSelectable;
@@ -139,9 +140,15 @@ public class UIFocusGuard : MonoBehaviour
 
     private void TrackGamepadAndKeyboard()
     {
-        Gamepad gamepad = Gamepad.current;
-        if (gamepad != null)
+        // Prefer scanning all gamepads: Gamepad.current can stay null while input still
+        // reaches PlayerInput / gameplay actions on another polled device.
+        foreach (Gamepad gamepad in Gamepad.all)
         {
+            if (gamepad == null)
+            {
+                continue;
+            }
+
             bool used =
                 gamepad.buttonSouth.wasPressedThisFrame
                 || gamepad.buttonNorth.wasPressedThisFrame
@@ -248,15 +255,13 @@ public class UIFocusGuard : MonoBehaviour
     // Public API
     // -------------------------------------------------------------------------
 
+    public bool IsGamepadInputActive => lastInputWasGamepad;
+
     public void SetCurrentFallback(Selectable selectable)
     {
         fallbackSelectable = selectable;
     }
 
-    /// <summary>
-    /// Immediately selects the fallback when in gamepad mode.
-    /// Call after opening a panel so navigation focus is never lost.
-    /// </summary>
     public void ForceSelectCurrentFallback()
     {
         if (!lastInputWasGamepad) return;
