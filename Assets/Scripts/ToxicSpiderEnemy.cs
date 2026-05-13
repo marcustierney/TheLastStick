@@ -466,7 +466,7 @@ public class ToxicSpiderEnemy : MonoBehaviour, IHittable
             animator.SetTrigger("Die");
         }
 
-        StartCoroutine(DieAfterDelay(animator != null ? 0.5f : 0f));
+        StartCoroutine(DieAfterDelay(animator != null ? .9f : 0f));
     }
 
     private IEnumerator DieAfterDelay(float delay)

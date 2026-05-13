@@ -18062,7 +18062,7 @@ MonoBehaviour:
     m_Bits: 64
   trajectorySamples: 10
   trajectoryTimeStep: 0.12
-  hitFlashDuration: 0.6
+  hitFlashDuration: 0.08
   fatalHitFlashDuration: 0.08
   whiteFlashMaterial: {fileID: 6802183088965565074, guid: 249f27b1346834975a84f0a56d32fa50, type: 2}
   ledgeCheckDistance: 0.8
