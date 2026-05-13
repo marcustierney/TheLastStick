@@ -4,18 +4,24 @@ public class ToxicSpitProjectile : MonoBehaviour
 {
     [SerializeField] private float damage = 8f;
     [SerializeField] private float lifetime = 6f;
+    [SerializeField] private float gravityScale = 1.65f;
     [SerializeField] private GameObject poisonPuddlePrefab;
     [SerializeField] private LayerMask impactLayers;
+    [SerializeField] private string lowShotAnimationName = "Spit";
+    [SerializeField] private string highShotAnimationName = "LongSpit";
 
     private Rigidbody2D rb;
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
     private bool hasImpacted;
 
-    private void Awake()
-    {
+    private void Awake(){
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         if (rb != null)
         {
-            rb.gravityScale = 1.25f;
+            rb.gravityScale = gravityScale;
         }
     }
 
@@ -34,6 +40,26 @@ public class ToxicSpitProjectile : MonoBehaviour
         if (rb != null)
         {
             rb.linearVelocity = launchVelocity;
+        }
+
+        // Flip sprite based on launch direction
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.flipX = launchVelocity.x > 0f;
+        }
+    }
+
+    public void PlayAnimationForShotMode(ToxicSpiderEnemy.ShotMode shotMode)
+    {
+        if (animator == null)
+        {
+            return;
+        }
+
+        string stateName = shotMode == ToxicSpiderEnemy.ShotMode.High ? highShotAnimationName : lowShotAnimationName;
+        if (!string.IsNullOrWhiteSpace(stateName))
+        {
+            animator.Play(stateName, 0, 0f);
         }
     }
 

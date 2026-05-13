@@ -21,8 +21,10 @@ public class ToxicSpiderEnemy : MonoBehaviour, IHittable
     [SerializeField] private float spitWarningDuration = 0.45f;
     [SerializeField] private float lowLobSpeed = 8.5f;
     [SerializeField] private float highLobSpeed = 7f;
-    [SerializeField] private float lowLobArcBias = 0.25f;
-    [SerializeField] private float highLobArcBias = 0.72f;
+    [SerializeField] private float lowLobArcBias = 0.4f;
+    [SerializeField] private float highLobArcBias = 0.9f;
+    [SerializeField] private float lowLobTargetJitter = 1.5f;
+    [SerializeField] private float highLobTargetJitter = 2.5f;
     [SerializeField] private float sameLevelTolerance = 0.75f;
     [SerializeField] private float highArcVerticalThreshold = 1.2f;
     [SerializeField] private LayerMask arcBlockerLayers;
@@ -232,7 +234,7 @@ public class ToxicSpiderEnemy : MonoBehaviour, IHittable
         }
 
         Vector2 direction = (player.position - transform.position).normalized;
-        spriteRenderer.flipX = direction.x <= 0f;
+        spriteRenderer.flipX = direction.x > 0f;
     }
 
     private void SetIdle()
@@ -311,8 +313,8 @@ public class ToxicSpiderEnemy : MonoBehaviour, IHittable
             return ShotMode.High;
         }
         
-        // Default to preferred mode even if clearance check fails (will still shoot)
-        return preferredMode;
+        // Don't shoot if neither arc has clearance - wait for better positioning
+        return ShotMode.None;
     }
 
     private bool HasArcClearance(float launchSpeed, float arcBias)
@@ -382,12 +384,23 @@ public class ToxicSpiderEnemy : MonoBehaviour, IHittable
 
         if (toxicSpitPrefab != null && spitPoint != null)
         {
-            GameObject spitObject = Instantiate(toxicSpitPrefab, spitPoint.position, Quaternion.identity);
+            Vector2 launchVelocity = BuildLaunchVelocity(shotMode);
+            Vector3 spawnPosition = spitPoint.position;
+            
+            // Mirror spawn position if spider is flipped
+            if (spriteRenderer != null && spriteRenderer.flipX)
+            {
+                Vector3 offset = spitPoint.localPosition;
+                spawnPosition = transform.position + new Vector3(-offset.x, offset.y, offset.z);
+            }
+            
+            GameObject spitObject = Instantiate(toxicSpitPrefab, spawnPosition, Quaternion.identity);
             ToxicSpitProjectile projectile = spitObject.GetComponent<ToxicSpitProjectile>();
 
             if (projectile != null)
             {
-                projectile.Launch(BuildLaunchVelocity(shotMode));
+                projectile.Launch(launchVelocity);
+                projectile.PlayAnimationForShotMode(shotMode);
             }
         }
 
@@ -403,7 +416,7 @@ public class ToxicSpiderEnemy : MonoBehaviour, IHittable
     private Vector2 BuildLaunchVelocity(ShotMode shotMode)
     {
         Vector2 startPosition = spitPoint != null ? (Vector2)spitPoint.position : (Vector2)transform.position;
-        Vector2 targetPosition = player != null ? (Vector2)player.position : startPosition;
+        Vector2 targetPosition = GetRandomAimPoint(shotMode, startPosition);
         Vector2 baseDirection = (targetPosition - startPosition).normalized;
 
         if (shotMode == ShotMode.High)
@@ -412,6 +425,28 @@ public class ToxicSpiderEnemy : MonoBehaviour, IHittable
         }
 
         return (baseDirection + Vector2.up * lowLobArcBias).normalized * lowLobSpeed;
+    }
+
+    private Vector2 GetRandomAimPoint(ShotMode shotMode, Vector2 startPosition)
+    {
+        if (player == null)
+        {
+            return startPosition;
+        }
+
+        Vector2 playerPosition = player.position;
+        float jitter = shotMode == ShotMode.High ? highLobTargetJitter : lowLobTargetJitter;
+        float randomX = Random.Range(-jitter, jitter);
+        float randomY = Random.Range(-jitter * 0.35f, jitter * 0.35f);
+
+        Vector2 aimPoint = playerPosition + new Vector2(randomX, randomY);
+
+        if (shotMode == ShotMode.Low)
+        {
+            aimPoint.y = Mathf.Min(aimPoint.y, playerPosition.y + jitter * 0.2f);
+        }
+
+        return aimPoint;
     }
 
     private void Die()
@@ -501,7 +536,7 @@ public class ToxicSpiderEnemy : MonoBehaviour, IHittable
         return null;
     }
 
-    private enum ShotMode
+    public enum ShotMode
     {
         None,
         Low,

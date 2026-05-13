@@ -4582,6 +4582,79 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1001 &470541253
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1875402686281269397, guid: 1b9a48be2718ee04996ef3119d5f04db, type: 3}
+      propertyPath: m_Name
+      value: PoisonPuddle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1875402686281269397, guid: 1b9a48be2718ee04996ef3119d5f04db, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4865693840027054016, guid: 1b9a48be2718ee04996ef3119d5f04db, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4865693840027054016, guid: 1b9a48be2718ee04996ef3119d5f04db, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4865693840027054016, guid: 1b9a48be2718ee04996ef3119d5f04db, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4865693840027054016, guid: 1b9a48be2718ee04996ef3119d5f04db, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 58.961
+      objectReference: {fileID: 0}
+    - target: {fileID: 4865693840027054016, guid: 1b9a48be2718ee04996ef3119d5f04db, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -66.098816
+      objectReference: {fileID: 0}
+    - target: {fileID: 4865693840027054016, guid: 1b9a48be2718ee04996ef3119d5f04db, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4865693840027054016, guid: 1b9a48be2718ee04996ef3119d5f04db, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4865693840027054016, guid: 1b9a48be2718ee04996ef3119d5f04db, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4865693840027054016, guid: 1b9a48be2718ee04996ef3119d5f04db, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4865693840027054016, guid: 1b9a48be2718ee04996ef3119d5f04db, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4865693840027054016, guid: 1b9a48be2718ee04996ef3119d5f04db, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4865693840027054016, guid: 1b9a48be2718ee04996ef3119d5f04db, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4865693840027054016, guid: 1b9a48be2718ee04996ef3119d5f04db, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1b9a48be2718ee04996ef3119d5f04db, type: 3}
 --- !u!1 &470672244
 GameObject:
   m_ObjectHideFlags: 0
@@ -17969,22 +18042,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ToxicSpiderEnemy
   maxHealth: 4
   moveSpeed: 4
-  chaseRange: 13
-  stopRange: 10
+  chaseRange: 12
+  stopRange: 7
   warningHitBox: {fileID: 0}
   toxicSpitPrefab: {fileID: 2906422090551394204, guid: 1b3f1877935b79d4d94762b1ad945b86, type: 3}
   spitPoint: {fileID: 2107720406}
   spitCooldown: 1.9
   spitWarningDuration: 0.45
-  lowLobSpeed: 8.5
-  highLobSpeed: 7
-  lowLobArcBias: 0.25
-  highLobArcBias: 0.72
+  lowLobSpeed: 10
+  highLobSpeed: 15
+  lowLobArcBias: 1
+  highLobArcBias: 2
+  lowLobTargetJitter: 3
+  highLobTargetJitter: 5
   sameLevelTolerance: 0.75
   highArcVerticalThreshold: 1.2
   arcBlockerLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   trajectorySamples: 10
   trajectoryTimeStep: 0.12
   hitFlashDuration: 0.6
@@ -17994,7 +18069,7 @@ MonoBehaviour:
   ledgeCheckDepth: 0.6
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   deathAudioSource: {fileID: 0}
   deathClips:
   - {fileID: 0}
@@ -18148,7 +18223,7 @@ SpriteRenderer:
   m_MaskInteraction: 0
   m_Sprite: {fileID: -2134515381725696932, guid: e38d5abe779498a48bb04b95f19e394b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
@@ -19824,6 +19899,79 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1001 &1910700638
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 611389282565252965, guid: 1b3f1877935b79d4d94762b1ad945b86, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 611389282565252965, guid: 1b3f1877935b79d4d94762b1ad945b86, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 611389282565252965, guid: 1b3f1877935b79d4d94762b1ad945b86, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 611389282565252965, guid: 1b3f1877935b79d4d94762b1ad945b86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 55.561825
+      objectReference: {fileID: 0}
+    - target: {fileID: 611389282565252965, guid: 1b3f1877935b79d4d94762b1ad945b86, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -65.171776
+      objectReference: {fileID: 0}
+    - target: {fileID: 611389282565252965, guid: 1b3f1877935b79d4d94762b1ad945b86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 611389282565252965, guid: 1b3f1877935b79d4d94762b1ad945b86, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 611389282565252965, guid: 1b3f1877935b79d4d94762b1ad945b86, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 611389282565252965, guid: 1b3f1877935b79d4d94762b1ad945b86, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 611389282565252965, guid: 1b3f1877935b79d4d94762b1ad945b86, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 611389282565252965, guid: 1b3f1877935b79d4d94762b1ad945b86, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 611389282565252965, guid: 1b3f1877935b79d4d94762b1ad945b86, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 611389282565252965, guid: 1b3f1877935b79d4d94762b1ad945b86, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2906422090551394204, guid: 1b3f1877935b79d4d94762b1ad945b86, type: 3}
+      propertyPath: m_Name
+      value: ToxicSpit
+      objectReference: {fileID: 0}
+    - target: {fileID: 2906422090551394204, guid: 1b3f1877935b79d4d94762b1ad945b86, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1b3f1877935b79d4d94762b1ad945b86, type: 3}
 --- !u!1 &1918769189
 GameObject:
   m_ObjectHideFlags: 0
@@ -22591,7 +22739,7 @@ Transform:
   m_GameObject: {fileID: 2107720405}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.528, y: 0, z: 0}
+  m_LocalPosition: {x: -0.528, y: 0.17, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -22898,3 +23046,5 @@ SceneRoots:
   - {fileID: 374294620}
   - {fileID: 1861718990}
   - {fileID: 1775016904}
+  - {fileID: 1910700638}
+  - {fileID: 470541253}
