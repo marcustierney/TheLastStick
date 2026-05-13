@@ -59,8 +59,12 @@ public class ToxicSpitProjectile : MonoBehaviour
                 playerHealth.TakeDamage(damage, transform.position);
             }
         }
+        else
+        {
+            // Only spawn puddle on ground/wall impact, not on player
+            SpawnPoisonPuddle(collision);
+        }
 
-        SpawnPoisonPuddle(collision);
         Destroy(gameObject);
     }
 
@@ -91,6 +95,9 @@ public class ToxicSpitProjectile : MonoBehaviour
         {
             spawnPosition = collision.ClosestPoint(transform.position);
         }
+        
+        // Offset slightly above ground to ensure visibility
+        spawnPosition.y += 0.2f;
 
         Instantiate(poisonPuddlePrefab, spawnPosition, Quaternion.identity);
     }
