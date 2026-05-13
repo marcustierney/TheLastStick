@@ -1,34 +1,34 @@
 fileFormatVersion: 2
-guid: 00889a4d3d4ff3140ad70040d24773eb
+guid: 00f445ab83209ff4a8d7ec8fe890542f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -9192638271177797499
-    second: death_0
+      213: -3557085165735018827
+    second: death (6)_0
   - first:
-      213: 8559509556701815258
-    second: death_1
+      213: 4614705905582537039
+    second: death (6)_1
   - first:
-      213: -5286180679089938723
-    second: death_2
+      213: 5077864920951741152
+    second: death (6)_2
   - first:
-      213: -1891855120789479077
-    second: death_3
+      213: -3853101488308029186
+    second: death (6)_3
   - first:
-      213: -5582970244224541034
-    second: death_4
+      213: -2922098537261654935
+    second: death (6)_4
   - first:
-      213: 830680230883465780
-    second: death_5
+      213: 3030690538725681113
+    second: death (6)_5
   - first:
-      213: 6596258498841548387
-    second: death_6
+      213: -4742429918290781786
+    second: death (6)_6
   - first:
-      213: -4147321062969920389
-    second: death_7
+      213: 5795577635502099452
+    second: death (6)_7
   - first:
-      213: 2602597460433512539
-    second: death_8
+      213: -1070646703026499437
+    second: death (6)_8
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -120,24 +120,11 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: death_0
+      name: death (6)_0
       rect:
         serializedVersion: 2
         x: 0
@@ -152,14 +139,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 58059c172303d6080800000000000000
-      internalID: -9192638271177797499
+      spriteID: 5be7d8453e1b2aec0800000000000000
+      internalID: -3557085165735018827
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: death_1
+      name: death (6)_1
       rect:
         serializedVersion: 2
         x: 128
@@ -174,14 +161,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ad1e5c2779c79c670800000000000000
-      internalID: 8559509556701815258
+      spriteID: f49f425429aba0040800000000000000
+      internalID: 4614705905582537039
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: death_2
+      name: death (6)_2
       rect:
         serializedVersion: 2
         x: 256
@@ -196,14 +183,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: dde9f440ea6b3a6b0800000000000000
-      internalID: -5286180679089938723
+      spriteID: 0eadebeed33387640800000000000000
+      internalID: 5077864920951741152
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: death_3
+      name: death (6)_3
       rect:
         serializedVersion: 2
         x: 384
@@ -218,14 +205,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b51e6d68ac7ceb5e0800000000000000
-      internalID: -1891855120789479077
+      spriteID: ef8fed96c98078ac0800000000000000
+      internalID: -3853101488308029186
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: death_4
+      name: death (6)_4
       rect:
         serializedVersion: 2
         x: 512
@@ -240,14 +227,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 69e9b69842e4582b0800000000000000
-      internalID: -5582970244224541034
+      spriteID: 96c94dfbcde9277d0800000000000000
+      internalID: -2922098537261654935
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: death_5
+      name: death (6)_5
       rect:
         serializedVersion: 2
         x: 640
@@ -262,14 +249,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 43a9fb3d44b278b00800000000000000
-      internalID: 830680230883465780
+      spriteID: 9d7a1e8dcfc2f0a20800000000000000
+      internalID: 3030690538725681113
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: death_6
+      name: death (6)_6
       rect:
         serializedVersion: 2
         x: 768
@@ -284,14 +271,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3661a1ef72e9a8b50800000000000000
-      internalID: 6596258498841548387
+      spriteID: 6a9d714ad118f2eb0800000000000000
+      internalID: -4742429918290781786
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: death_7
+      name: death (6)_7
       rect:
         serializedVersion: 2
         x: 896
@@ -306,14 +293,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b74be287771c176c0800000000000000
-      internalID: -4147321062969920389
+      spriteID: cfb0d4837270e6050800000000000000
+      internalID: 5795577635502099452
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: death_8
+      name: death (6)_8
       rect:
         serializedVersion: 2
         x: 1024
@@ -328,8 +315,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b582972e9984e1420800000000000000
-      internalID: 2602597460433512539
+      spriteID: 39099220f7c4421f0800000000000000
+      internalID: -1070646703026499437
       vertices: []
       indices: 
       edges: []
@@ -338,7 +325,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: fc69557f351b53c4d86e697de66aaa15
+    spriteID: c3b4621b2f386f44d9d1a15ef10a8248
     internalID: 0
     vertices: []
     indices: 
@@ -350,15 +337,15 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":128.0,"y":108.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      death_0: -9192638271177797499
-      death_1: 8559509556701815258
-      death_2: -5286180679089938723
-      death_3: -1891855120789479077
-      death_4: -5582970244224541034
-      death_5: 830680230883465780
-      death_6: 6596258498841548387
-      death_7: -4147321062969920389
-      death_8: 2602597460433512539
+      death (6)_0: -3557085165735018827
+      death (6)_1: 4614705905582537039
+      death (6)_2: 5077864920951741152
+      death (6)_3: -3853101488308029186
+      death (6)_4: -2922098537261654935
+      death (6)_5: 3030690538725681113
+      death (6)_6: -4742429918290781786
+      death (6)_7: 5795577635502099452
+      death (6)_8: -1070646703026499437
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

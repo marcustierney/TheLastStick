@@ -279,6 +279,10 @@ public class SpiderEnemy : MonoBehaviour, IHittable
 
         isDying = true;
         Debug.Log("killed");
+        if (animator != null)
+        {
+            animator.SetTrigger("isDying");
+        }
         DisableCombatState();
 
         CoinManager.Instance?.AddCoins(2);
@@ -288,7 +292,7 @@ public class SpiderEnemy : MonoBehaviour, IHittable
 
     private IEnumerator DieAfterDelay()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.9f);
         RestoreOriginalMaterials();
         Destroy(gameObject);
     }
