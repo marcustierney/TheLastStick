@@ -110,7 +110,8 @@ public class SwordAttack : MonoBehaviour
         }
 
         Vector2 moveInput = inputActions.Gameplay.Move.ReadValue<Vector2>();
-        bool downInputHeld = moveInput.y < -0.5f;
+        float crouchVal = inputActions.Gameplay.Crouch.ReadValue<float>();
+        bool downInputHeld = moveInput.y < -0.5f || crouchVal > 0.5f;
 
         if (!movement.IsGrounded() && attackKeyPressed && downInputHeld)
         {
@@ -556,7 +557,8 @@ public class SwordAttack : MonoBehaviour
 
     private bool IsDownAttackPressedThisFrame(Vector2 moveInput)
     {
-        bool downInputHeld = moveInput.y < -0.5f;
+        float crouchVal = inputActions.Gameplay.Crouch.ReadValue<float>();
+        bool downInputHeld = moveInput.y < -0.5f || crouchVal > 0.5f;
         bool downInputPressed = downInputHeld && !wasDownInputHeld;
         wasDownInputHeld = downInputHeld;
         return downInputPressed;
