@@ -352,6 +352,7 @@ MonoBehaviour:
   focusGuard: {fileID: 0}
   mainMenuDefaultSelection: {fileID: 0}
   creditsDefaultSelection: {fileID: 0}
+  playButtonText: {fileID: 1226708219}
 --- !u!4 &225710460
 Transform:
   m_ObjectHideFlags: 0
@@ -561,7 +562,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'QUIT GAME
+  m_text: 'QUIT
 
 '
   m_isRightToLeft: 0
@@ -700,7 +701,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'RESTART
+  m_text: 'NEW GAME
 
 '
   m_isRightToLeft: 0
@@ -2668,7 +2669,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -284.50244, y: -183.6016}
+  m_AnchoredPosition: {x: -296, y: -183.6016}
   m_SizeDelta: {x: 349, y: 91}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1528943408

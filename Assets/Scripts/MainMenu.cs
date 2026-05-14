@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -16,6 +17,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] UIFocusGuard focusGuard;
     [SerializeField] Selectable mainMenuDefaultSelection;
     [SerializeField] Selectable creditsDefaultSelection;
+    [SerializeField] TMP_Text playButtonText;
 
     private bool lastCancelHeld;
 
@@ -51,6 +53,19 @@ public class MainMenu : MonoBehaviour
             focusGuard.SetCurrentFallback(mainMenuDefaultSelection);
             focusGuard.ForceSelectCurrentFallback();
         }
+
+        RefreshPlayButtonLabel();
+    }
+
+    private void RefreshPlayButtonLabel()
+    {
+        if (playButtonText == null)
+        {
+            return;
+        }
+
+        bool hasPlayedBefore = PlayerPrefs.GetInt("HasPlayedBefore", 0) == 1;
+        playButtonText.text = hasPlayedBefore ? "Continue" : "Play Game";
     }
 
     private void Update()
