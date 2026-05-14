@@ -54,6 +54,7 @@
     <Compile Include="Assets\Scripts\SpiderAttackHitbox.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
+    <Compile Include="Assets\Scripts\ToxicPoisonPuddle.cs" />
     <Compile Include="Assets\Scripts\FlyingSwordEnemy.cs" />
     <Compile Include="Assets\Scripts\InputRemapper.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Assets\Scripts\UIInputBootstrap.cs" />
     <Compile Include="Assets\Scripts\DummyHitTarget.cs" />
     <Compile Include="Assets\Scripts\AfterImage.cs" />
+    <Compile Include="Assets\Scripts\ToxicSpiderEnemy.cs" />
     <Compile Include="Assets\Scripts\OptionsAudioUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
@@ -76,6 +78,7 @@
     <Compile Include="Assets\Scripts\GreyscaleManager.cs" />
     <Compile Include="Assets\Scripts\SwordHitboxVisualizer.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
+    <Compile Include="Assets\Scripts\ToxicSpitProjectile.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />

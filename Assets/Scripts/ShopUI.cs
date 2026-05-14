@@ -234,7 +234,7 @@ public class ShopUI : MonoBehaviour
 
     private void SetUpgradeText(TMP_Text costText, TMP_Text levelText, int level, int cost)
     {
-        if (costText != null) costText.text = $"Cost: {cost} coins";
+        if (costText != null) costText.text = $"{cost} coins";
         if (levelText != null) levelText.text = $"Level {level}";
     }
 
