@@ -14,7 +14,7 @@ public class Movement : MonoBehaviour
     private float speed = 5f;
     private float runSpeed = 15f;
     private float baseSpeed = 5f;
-    private float baseRunSpeed = 15f;
+    private float baseRunSpeed = 10f;
     private float jumpHeight = 15f;
     private bool isFacingRight = true;
 
