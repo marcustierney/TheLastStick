@@ -13,6 +13,8 @@ public class Movement : MonoBehaviour
     private float horizontal;
     private float speed = 5f;
     private float runSpeed = 15f;
+    private float baseSpeed = 5f;
+    private float baseRunSpeed = 15f;
     private float jumpHeight = 15f;
     private bool isFacingRight = true;
 
@@ -277,6 +279,8 @@ public class Movement : MonoBehaviour
         if (rb == null) rb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<Collider2D>();
         animator = GetComponent<Animator>();
+        baseSpeed = speed;
+        baseRunSpeed = runSpeed;
     }
 
     private void OnEnable()
@@ -297,11 +301,12 @@ public class Movement : MonoBehaviour
         }
     }
 
-    // bool for dashing checks
-    public void AddSpeed(float amount)
+    // Apply a total speed bonus measured in percent points from the base values.
+    public void ApplySpeedPercent(float percent)
     {
-        speed += amount;
-        runSpeed += amount;
+        float multiplier = 1f + (percent / 100f);
+        speed = baseSpeed * multiplier;
+        runSpeed = baseRunSpeed * multiplier;
     }
 
     public bool IsDashing

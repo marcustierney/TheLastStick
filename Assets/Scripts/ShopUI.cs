@@ -13,17 +13,17 @@ public class ShopUI : MonoBehaviour
     [SerializeField] private Selectable shopDefaultSelectable;
     [SerializeField] private bool pauseGameplayWhileOpen = true;
 
-    [Header("Speed Upgrade")]
+    [Header("Speed Upgrade (%)")]
     [SerializeField] private TMP_Text speedCostText;
     [SerializeField] private TMP_Text speedLevelText;
-    [SerializeField] private float speedIncreasePerUpgrade = 1f;
+    [SerializeField] private float speedIncreasePerUpgrade = 10f;
 
-    [Header("Damage Upgrade")]
+    [Header("Damage Upgrade (%)")]
     [SerializeField] private TMP_Text damageCostText;
     [SerializeField] private TMP_Text damageLevelText;
-    [SerializeField] private int damageIncreasePerUpgrade = 1;
+    [SerializeField] private int damageIncreasePerUpgrade = 50;
 
-    [Header("Health Upgrade")]
+    [Header("Health Upgrade (%)")]
     [SerializeField] private TMP_Text healthCostText;
     [SerializeField] private TMP_Text healthLevelText;
     [SerializeField] private float healthIncreasePerUpgrade = 10f;
@@ -227,15 +227,15 @@ public class ShopUI : MonoBehaviour
         int damageCost = CoinManager.Instance != null ? CoinManager.Instance.GetDamageUpgradeCost() : 5;
         int healthCost = CoinManager.Instance != null ? CoinManager.Instance.GetHealthUpgradeCost() : 5;
 
-        SetUpgradeText(speedCostText, speedLevelText, speedLevel, speedCost);
-        SetUpgradeText(damageCostText, damageLevelText, damageLevel, damageCost);
-        SetUpgradeText(healthCostText, healthLevelText, healthLevel, healthCost);
+        SetUpgradeText(speedCostText, speedLevelText, speedLevel, speedCost, speedIncreasePerUpgrade);
+        SetUpgradeText(damageCostText, damageLevelText, damageLevel, damageCost, damageIncreasePerUpgrade);
+        SetUpgradeText(healthCostText, healthLevelText, healthLevel, healthCost, healthIncreasePerUpgrade);
     }
 
-    private void SetUpgradeText(TMP_Text costText, TMP_Text levelText, int level, int cost)
+    private void SetUpgradeText(TMP_Text costText, TMP_Text levelText, int level, int cost, float percentIncrease)
     {
         if (costText != null) costText.text = $"{cost} coins";
-        if (levelText != null) levelText.text = $"Level {level}";
+        if (levelText != null) levelText.text = $"Level {level} (+{percentIncrease:0.#}%)";
     }
 
     private void PlayRandomPurchaseSound()

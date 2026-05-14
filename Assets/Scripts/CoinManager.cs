@@ -22,9 +22,9 @@ public class CoinManager : MonoBehaviour
     public int DamageLevel { get; private set; }
     public int HealthLevel { get; private set; }
 
-    private float totalSpeedBonus;
-    private int totalDamageBonus;
-    private float totalHealthBonus;
+    private float totalSpeedPercent;
+    private int totalDamagePercent;
+    private float totalHealthPercent;
     private GameObject lastAppliedPlayer;
 
     private void Awake()
@@ -117,9 +117,9 @@ public class CoinManager : MonoBehaviour
         }
 
         SpeedLevel++;
-        totalSpeedBonus += amount;
+        totalSpeedPercent += amount;
         SaveState();
-        ApplyUpgradePurchaseToCurrentPlayer(amount, 0, 0f);
+        ApplyStoredUpgradesToCurrentPlayer(true);
         return true;
     }
 
@@ -132,9 +132,9 @@ public class CoinManager : MonoBehaviour
         }
 
         DamageLevel++;
-        totalDamageBonus += amount;
+        totalDamagePercent += amount;
         SaveState();
-        ApplyUpgradePurchaseToCurrentPlayer(0f, amount, 0f);
+        ApplyStoredUpgradesToCurrentPlayer(true);
         return true;
     }
 
@@ -147,9 +147,9 @@ public class CoinManager : MonoBehaviour
         }
 
         HealthLevel++;
-        totalHealthBonus += amount;
+        totalHealthPercent += amount;
         SaveState();
-        ApplyUpgradePurchaseToCurrentPlayer(0f, 0, amount);
+        ApplyStoredUpgradesToCurrentPlayer(true);
         return true;
     }
 
@@ -165,9 +165,9 @@ public class CoinManager : MonoBehaviour
         SpeedLevel = 0;
         DamageLevel = 0;
         HealthLevel = 0;
-        totalSpeedBonus = 0f;
-        totalDamageBonus = 0;
-        totalHealthBonus = 0f;
+        totalSpeedPercent = 0f;
+        totalDamagePercent = 0;
+        totalHealthPercent = 0f;
         lastAppliedPlayer = null;
         SaveState();
         RefreshText();
@@ -204,72 +204,41 @@ public class CoinManager : MonoBehaviour
         Debug.Log($"Scene loaded: {scene.name}. Stored upgrades - Speed:{SpeedLevel} Damage:{DamageLevel} Health:{HealthLevel}");
     }
 
-    private void ApplyStoredUpgradesToCurrentPlayer()
+    private void ApplyStoredUpgradesToCurrentPlayer(bool force = false)
     {
         if (!TryGetUpgradeablePlayer(out GameObject player, out Movement movement, out UpdateHealth health, out SwordHitbox[] swordHitboxes))
         {
             return;
         }
 
-        if (player == lastAppliedPlayer)
+        if (!force && player == lastAppliedPlayer)
         {
             return;
         }
 
-        if (movement != null && totalSpeedBonus > 0f)
+        if (movement != null)
         {
-            movement.AddSpeed(totalSpeedBonus);
+            movement.ApplySpeedPercent(totalSpeedPercent);
         }
 
-        if (health != null && totalHealthBonus > 0f)
+        if (health != null)
         {
-            health.IncreaseMaxHealth(totalHealthBonus);
+            health.ApplyHealthPercent(totalHealthPercent);
         }
 
-        if (swordHitboxes != null && totalDamageBonus > 0)
+        if (swordHitboxes != null)
         {
             foreach (SwordHitbox hitbox in swordHitboxes)
             {
                 if (hitbox != null)
                 {
-                    hitbox.damage += totalDamageBonus;
+                    hitbox.ApplyDamagePercent(totalDamagePercent);
                 }
             }
         }
 
         lastAppliedPlayer = player;
-        Debug.Log($"Applied upgrades to player in scene {SceneManager.GetActiveScene().name}: +Speed {totalSpeedBonus}, +Damage {totalDamageBonus}, +Health {totalHealthBonus}");
-    }
-
-    private void ApplyUpgradePurchaseToCurrentPlayer(float speedAmount, int damageAmount, float healthAmount)
-    {
-        if (!TryGetUpgradeablePlayer(out GameObject player, out Movement movement, out UpdateHealth health, out SwordHitbox[] swordHitboxes))
-        {
-            return;
-        }
-
-        if (movement != null && speedAmount > 0f)
-        {
-            movement.AddSpeed(speedAmount);
-        }
-
-        if (health != null && healthAmount > 0f)
-        {
-            health.IncreaseMaxHealth(healthAmount);
-        }
-
-        if (swordHitboxes != null && damageAmount > 0)
-        {
-            foreach (SwordHitbox hitbox in swordHitboxes)
-            {
-                if (hitbox != null)
-                {
-                    hitbox.damage += damageAmount;
-                }
-            }
-        }
-
-        lastAppliedPlayer = player;
+        Debug.Log($"Applied upgrades to player in scene {SceneManager.GetActiveScene().name}: +Speed {totalSpeedPercent}%, +Damage {totalDamagePercent}%, +Health {totalHealthPercent}%");
     }
 
     private bool TryGetUpgradeablePlayer(out GameObject player, out Movement movement, out UpdateHealth health, out SwordHitbox[] swordHitboxes)
@@ -331,9 +300,9 @@ public class CoinManager : MonoBehaviour
         PlayerPrefs.SetInt(SpeedLevelKey, SpeedLevel);
         PlayerPrefs.SetInt(DamageLevelKey, DamageLevel);
         PlayerPrefs.SetInt(HealthLevelKey, HealthLevel);
-        PlayerPrefs.SetFloat(SpeedBonusKey, totalSpeedBonus);
-        PlayerPrefs.SetInt(DamageBonusKey, totalDamageBonus);
-        PlayerPrefs.SetFloat(HealthBonusKey, totalHealthBonus);
+        PlayerPrefs.SetFloat(SpeedBonusKey, totalSpeedPercent);
+        PlayerPrefs.SetInt(DamageBonusKey, totalDamagePercent);
+        PlayerPrefs.SetFloat(HealthBonusKey, totalHealthPercent);
         PlayerPrefs.Save();
     }
 
@@ -343,8 +312,8 @@ public class CoinManager : MonoBehaviour
         SpeedLevel = PlayerPrefs.GetInt(SpeedLevelKey, 0);
         DamageLevel = PlayerPrefs.GetInt(DamageLevelKey, 0);
         HealthLevel = PlayerPrefs.GetInt(HealthLevelKey, 0);
-        totalSpeedBonus = PlayerPrefs.GetFloat(SpeedBonusKey, 0f);
-        totalDamageBonus = PlayerPrefs.GetInt(DamageBonusKey, 0);
-        totalHealthBonus = PlayerPrefs.GetFloat(HealthBonusKey, 0f);
+        totalSpeedPercent = PlayerPrefs.GetFloat(SpeedBonusKey, 0f);
+        totalDamagePercent = PlayerPrefs.GetInt(DamageBonusKey, 0);
+        totalHealthPercent = PlayerPrefs.GetFloat(HealthBonusKey, 0f);
     }
 }

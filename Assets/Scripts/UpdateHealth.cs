@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 public class UpdateHealth : MonoBehaviour
 {
     public float Health, MaxHealth;
+    private float baseMaxHealth;
 
     [SerializeField]
     private HealthBarUI healthBar;
@@ -48,6 +49,11 @@ public class UpdateHealth : MonoBehaviour
     private Rigidbody2D rb;
     private Movement movement;
     private bool isDead;
+
+    private void Awake()
+    {
+        baseMaxHealth = MaxHealth;
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -118,6 +124,21 @@ public class UpdateHealth : MonoBehaviour
             healthBar.SetMaxHealth(MaxHealth);
         }
         SetHealth(amount); // also give the player the new HP
+    }
+
+    public void ApplyHealthPercent(float percent)
+    {
+        float previousMaxHealth = MaxHealth;
+        float multiplier = 1f + (percent / 100f);
+        MaxHealth = baseMaxHealth * multiplier;
+
+        if (healthBar != null)
+        {
+            healthBar.SetMaxHealth(MaxHealth);
+        }
+
+        float gainedHealth = Mathf.Max(0f, MaxHealth - previousMaxHealth);
+        SetHealth(gainedHealth);
     }
 
     private void HandleSceneLoaded(Scene scene, LoadSceneMode mode)

@@ -4,6 +4,7 @@ using UnityEngine;
 public class SwordHitbox : MonoBehaviour
 {
     public int damage = 1;
+    private int baseDamage = 1;
     public int currentComboIndex;
     private BoxCollider2D boxCollider;
     private SwordAttack swordAttack;
@@ -14,7 +15,15 @@ public class SwordHitbox : MonoBehaviour
         swordAttack = GetComponentInParent<SwordAttack>();
         boxCollider = GetComponent<BoxCollider2D>();
         boxCollider.enabled = false;
+        baseDamage = damage;
     }
+
+    public void ApplyDamagePercent(int percent)
+    {
+        float multiplier = 1f + (percent / 100f);
+        damage = Mathf.Max(1, Mathf.RoundToInt(baseDamage * multiplier));
+    }
+
     public void EnablePlatform()
     {
         if (boxCollider == null) return;
