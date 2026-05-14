@@ -3,10 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 
-/// <summary>
-/// On same object as the assist UI: toggles <see cref="CanvasGroup"/> (adds if missing) from
-/// <see cref="UIFocusGuard"/> gamepad mode; fills first two TMP labels from UI Submit/Cancel.
-/// </summary>
+
 [DefaultExecutionOrder(10)]
 public sealed class ControlAssist : MonoBehaviour
 {

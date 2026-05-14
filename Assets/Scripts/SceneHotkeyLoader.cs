@@ -48,6 +48,7 @@ public class SceneHotkeyLoader : MonoBehaviour
         {
             if (keyboard[SceneHotkeys[i].key].wasPressedThisFrame)
             {
+                GameAnalytics.FlushIfReady();
                 SceneManager.LoadScene(SceneHotkeys[i].sceneName);
                 return;
             }

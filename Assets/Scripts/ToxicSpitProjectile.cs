@@ -82,7 +82,7 @@ public class ToxicSpitProjectile : MonoBehaviour
             UpdateHealth playerHealth = collision.GetComponent<UpdateHealth>();
             if (playerHealth != null)
             {
-                playerHealth.TakeDamage(damage, transform.position);
+                playerHealth.TakeDamage(damage, transform.position, AnalyticsKeys.DeathCauseToxicSpit);
             }
         }
         else

@@ -49,6 +49,7 @@ public class UpdateHealth : MonoBehaviour
     private Rigidbody2D rb;
     private Movement movement;
     private bool isDead;
+    private string lastDeathCauseForAnalytics;
 
     private void Awake()
     {
@@ -143,6 +144,7 @@ public class UpdateHealth : MonoBehaviour
 
     private void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        lastDeathCauseForAnalytics = null;
         RefreshHealthBar();
     }
 
@@ -157,10 +159,15 @@ public class UpdateHealth : MonoBehaviour
         healthBar.SetHealth(Mathf.Clamp(Health, 0f, MaxHealth));
     }
 
-    public void TakeDamage(float damage, Vector2 hitSourcePosition) // Apply damage to the player, trigger knockback, and start I-frames
+    public void TakeDamage(float damage, Vector2 hitSourcePosition, string deathCause = null) // Apply damage to the player, trigger knockback, and start I-frames
     {
         if (isDead || IsInvulnerable())
             return;
+
+        if (!string.IsNullOrEmpty(deathCause))
+        {
+            lastDeathCauseForAnalytics = deathCause;
+        }
 
         SetHealth(-damage);
         lastDamageTime = Time.time;
@@ -214,7 +221,7 @@ public class UpdateHealth : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        TakeDamage(damage, transform.position);
+        TakeDamage(damage, transform.position, null);
     }
 
     private void Die()
@@ -224,6 +231,15 @@ public class UpdateHealth : MonoBehaviour
 
         isDead = true;
         Debug.Log("Player died");
+
+        if (LevelRunStats.Instance != null)
+        {
+            LevelRunStats.Instance.RegisterDeath();
+            string cause = string.IsNullOrEmpty(lastDeathCauseForAnalytics)
+                ? AnalyticsKeys.DeathCauseUnknown
+                : lastDeathCauseForAnalytics;
+            LevelRunStats.Instance.EmitPlayerDeathAndRunExit(this, cause);
+        }
 
         if (deathSequenceCoroutine != null)
         {

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BossTwoController : MonoBehaviour, IHittable
 {
@@ -157,6 +158,9 @@ public class BossTwoController : MonoBehaviour, IHittable
     {
         isDead = true;
         Debug.Log("Boss dead");
+        UpdateHealth playerHealth = UnityEngine.Object.FindAnyObjectByType<UpdateHealth>();
+        LevelRunStats.Instance?.EmitLevelCompleted(playerHealth, SceneManager.GetActiveScene().name);
+        GameAnalytics.FlushIfReady();
         Destroy(gameObject);
     }
 
@@ -169,7 +173,7 @@ public class BossTwoController : MonoBehaviour, IHittable
             UpdateHealth health = collision.gameObject.GetComponent<UpdateHealth>();
             if (health != null)
             {
-                health.TakeDamage(dashDamage, transform.position);
+                health.TakeDamage(dashDamage, transform.position, AnalyticsKeys.DeathCauseBossTwoDash);
             }
         }
     }

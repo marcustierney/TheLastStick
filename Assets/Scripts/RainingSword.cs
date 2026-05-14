@@ -59,7 +59,7 @@ public class RainingSword : MonoBehaviour
             UpdateHealth health = collision.GetComponent<UpdateHealth>();
             if (health != null)
             {
-                health.TakeDamage(damage, transform.position);
+                health.TakeDamage(damage, transform.position, AnalyticsKeys.DeathCauseRainingSword);
             }
             Destroy(gameObject);
         }

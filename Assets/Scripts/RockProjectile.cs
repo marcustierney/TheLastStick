@@ -41,7 +41,7 @@ public class BallProjectile : MonoBehaviour
             UpdateHealth health = collision.GetComponent<UpdateHealth>();
             if (health != null)
             {
-                health.TakeDamage(10, transform.position); // Pass the position of the hit for knockback direction
+                health.TakeDamage(10, transform.position, AnalyticsKeys.DeathCauseRock);
             }
 
             Destroy(gameObject);

@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 [DefaultExecutionOrder(50)]
 public class Sign : MonoBehaviour, IInteractable
@@ -23,6 +25,8 @@ public class Sign : MonoBehaviour, IInteractable
 
     [Header("Display")]
     [SerializeField, Min(0f)] private float autoHideAfterSeconds = 0f;
+
+    [SerializeField] private string signId = "";
 
     public bool IsInteracted { get; private set; } = false;
     private bool playerInRange;
@@ -153,6 +157,15 @@ public class Sign : MonoBehaviour, IInteractable
 
         IsInteracted = true;
 
+        if (!string.IsNullOrEmpty(signId))
+        {
+            TutorialSignProgress.MarkRead(signId);
+            GameAnalytics.RecordCustom(AnalyticsKeys.EventTutorialSignRead, new Dictionary<string, object>
+            {
+                { AnalyticsKeys.ParamSignId, signId },
+            });
+        }
+
         if (signPanel != null)
         {
             signPanel.SetActive(true);
@@ -177,6 +190,12 @@ public class Sign : MonoBehaviour, IInteractable
         uiFocusGuard = FindAnyObjectByType<UIFocusGuard>(FindObjectsInactive.Include);
         playerInput = FindAnyObjectByType<PlayerInput>(FindObjectsInactive.Include);
         CachePlayerInteractAction();
+
+        if (string.Equals(SceneManager.GetActiveScene().name, AnalyticsKeys.SceneTutorial, StringComparison.Ordinal)
+            && !string.IsNullOrEmpty(signId))
+        {
+            TutorialSignProgress.Register(signId);
+        }
     }
 
     void CacheInteractionPromptVisualReferences()

@@ -665,7 +665,13 @@ PlayerSettings:
   XboxOneOverrideIdentityName: 
   XboxOneOverrideIdentityPublisher: 
   vrEditorSettings: {}
-  cloudServicesEnabled: {}
+  cloudServicesEnabled:
+    Build: 0
+    Game Performance: 0
+    Legacy Analytics: 0
+    Purchasing: 0
+    UDP: 0
+    Unity Ads: 0
   luminIcon:
     m_Name: 
     m_ModelFolderPath: 
@@ -688,11 +694,11 @@ PlayerSettings:
   activeInputHandler: 1
   windowsGamepadBackendHint: 0
   enableDirectStorage: 0
-  cloudProjectId: 168850b3-3a2f-44ed-8d6f-1c17a6517711
+  cloudProjectId: 67be3390-044b-43bf-9d7d-12d6655b49cc
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
   projectName: TheLastStick
-  organizationId: marcustierney
+  organizationId: abj104
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}

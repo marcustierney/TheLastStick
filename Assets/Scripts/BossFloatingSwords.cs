@@ -86,7 +86,7 @@ public class BossFloatingSwords : MonoBehaviour
             UpdateHealth health = collision.gameObject.GetComponent<UpdateHealth>();
             if (health != null)
             {
-                health.TakeDamage(damage, transform.position);
+                health.TakeDamage(damage, transform.position, AnalyticsKeys.DeathCauseBossFloatingSwords);
             }
         }
     }

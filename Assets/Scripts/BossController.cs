@@ -315,6 +315,14 @@ public class BossController : MonoBehaviour, IHittable
             Destroy(bossSword.gameObject);
         }
         Debug.Log("killed");
+        UpdateHealth playerHealth = player != null ? player.GetComponent<UpdateHealth>() : null;
+        if (playerHealth == null && player != null)
+        {
+            playerHealth = player.GetComponentInChildren<UpdateHealth>();
+        }
+
+        LevelRunStats.Instance?.EmitLevelCompleted(playerHealth, null);
+        GameAnalytics.FlushIfReady();
         PlayerPrefs.SetInt("CurrentLevel", 2);
         PlayerPrefs.Save();
         SceneTransition.SetPendingNextScene("LevelTwo", 3f);
@@ -449,7 +457,7 @@ public class BossController : MonoBehaviour, IHittable
 
             if (playerHealth != null && !IsMovementDashing(playerHealth))
             {
-                playerHealth.TakeDamage(slamDamage, transform.position);
+                playerHealth.TakeDamage(slamDamage, transform.position, AnalyticsKeys.DeathCauseBossSlam);
                 return true;
             }
         }
@@ -459,7 +467,7 @@ public class BossController : MonoBehaviour, IHittable
             UpdateHealth playerHealth = player.GetComponent<UpdateHealth>();
             if (playerHealth != null && !IsMovementDashing(playerHealth))
             {
-                playerHealth.TakeDamage(slamDamage, transform.position);
+                playerHealth.TakeDamage(slamDamage, transform.position, AnalyticsKeys.DeathCauseBossSlam);
                 return true;
             }
         }

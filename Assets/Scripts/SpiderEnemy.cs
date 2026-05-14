@@ -398,7 +398,7 @@ public class SpiderEnemy : MonoBehaviour, IHittable
         UpdateHealth playerHealth = player.GetComponent<UpdateHealth>();
         if (playerHealth != null)
         {
-            playerHealth.TakeDamage(20);
+            playerHealth.TakeDamage(20, transform.position, AnalyticsKeys.DeathCauseSpiderEnemy);
         }
     }
 }

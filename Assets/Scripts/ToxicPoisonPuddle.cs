@@ -31,7 +31,7 @@ public class ToxicPoisonPuddle : MonoBehaviour
             return;
         }
 
-        playerHealth.TakeDamage(damagePerTick, transform.position);
+        playerHealth.TakeDamage(damagePerTick, transform.position, AnalyticsKeys.DeathCauseToxicPuddle);
         nextDamageTime = Time.time + damageInterval;
     }
 }

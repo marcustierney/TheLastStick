@@ -147,6 +147,8 @@ public class PauseManager : MonoBehaviour
             focusGuard.ClearSelection();
         }
 
+        GameAnalytics.FlushIfReady();
+
 #if UNITY_EDITOR
         // Prevent Inspector preview from trying to repaint a scene object that
         // is about to be destroyed by the scene load (editor-only warning).
@@ -175,6 +177,7 @@ public class PauseManager : MonoBehaviour
             optionsCanvas.SetActive(false);
         }
 
+        GameAnalytics.FlushIfReady();
         CoinManager.ClearSavedProgress();
         SceneManager.LoadScene("Tutorial");
         PlayerPrefs.SetInt("CurrentLevel", 0);

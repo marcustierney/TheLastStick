@@ -183,6 +183,7 @@ public class ShopUI : MonoBehaviour
 
         if (!CoinManager.Instance.TryBuySpeedUpgrade(speedIncreasePerUpgrade)) return;
 
+        LevelRunStats.Instance?.EmitUpgradeTaken(AnalyticsKeys.UpgradeIdShopSpeed, "Speed");
         PlayRandomPurchaseSound();
         RefreshUI();
     }
@@ -198,6 +199,7 @@ public class ShopUI : MonoBehaviour
 
         if (!CoinManager.Instance.TryBuyDamageUpgrade(damageIncreasePerUpgrade)) return;
 
+        LevelRunStats.Instance?.EmitUpgradeTaken(AnalyticsKeys.UpgradeIdShopDamage, "Damage");
         PlayRandomPurchaseSound();
         RefreshUI();
     }
@@ -213,6 +215,7 @@ public class ShopUI : MonoBehaviour
 
         if (!CoinManager.Instance.TryBuyHealthUpgrade(healthIncreasePerUpgrade)) return;
 
+        LevelRunStats.Instance?.EmitUpgradeTaken(AnalyticsKeys.UpgradeIdShopHealth, "Health");
         PlayRandomPurchaseSound();
         RefreshUI();
     }

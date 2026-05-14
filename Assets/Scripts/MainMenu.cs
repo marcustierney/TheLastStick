@@ -96,21 +96,25 @@ public class MainMenu : MonoBehaviour
 
         if (level == 0)
         {
+            GameAnalytics.FlushIfReady();
             SceneTransition.SetPendingNextScene("Tutorial", 4f);
             SceneManager.LoadScene("LoadingScreen");
         }
         else if (level == 1)
         {
+            GameAnalytics.FlushIfReady();
             SceneTransition.SetPendingNextScene("LevelOne", 4f);
             SceneManager.LoadScene("LoadingScreen");
         }
         else if (level == 2)
         {
+            GameAnalytics.FlushIfReady();
             SceneTransition.SetPendingNextScene("LevelTwo", 4f);
             SceneManager.LoadScene("LoadingScreen");
         }
         else if (level == 3)
         {
+            GameAnalytics.FlushIfReady();
             SceneTransition.SetPendingNextScene("LevelThree", 4f);
             SceneManager.LoadScene("LoadingScreen");
         }
@@ -122,6 +126,7 @@ public class MainMenu : MonoBehaviour
     {
         PlayerPrefs.SetInt("HasPlayedBefore", 1);
         CoinManager.ClearSavedProgress();
+        GameAnalytics.FlushIfReady();
         SceneTransition.SetPendingNextScene("Tutorial", 4f);
         SceneManager.LoadScene("LoadingScreen");
         PlayerPrefs.SetInt("CurrentLevel", 0);

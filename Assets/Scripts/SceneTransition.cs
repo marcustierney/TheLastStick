@@ -78,6 +78,7 @@ public class SceneTransition : MonoBehaviour
         if (!labelSwitched && statusText != null)
             statusText.text = "Loading";
 
+        GameAnalytics.FlushIfReady();
         loadOperation.allowSceneActivation = true;
     }
 }

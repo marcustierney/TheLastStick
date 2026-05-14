@@ -448,7 +448,7 @@ public class ThrowEnemy : MonoBehaviour, IHittable
         UpdateHealth playerHealth = playerObject.GetComponent<UpdateHealth>();
         if (playerHealth != null)
         {
-            playerHealth.TakeDamage((int)damageToPlayer);
+            playerHealth.TakeDamage((int)damageToPlayer, transform.position, AnalyticsKeys.DeathCauseRangeStudent);
         }
 
     }

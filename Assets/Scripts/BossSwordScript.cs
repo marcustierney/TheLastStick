@@ -113,7 +113,7 @@ public class BossSword : MonoBehaviour
         if (isFlying && collision.CompareTag("Player"))
         {
             UpdateHealth health = collision.GetComponent<UpdateHealth>();
-            health.TakeDamage(damage);
+            health.TakeDamage(damage, transform.position, AnalyticsKeys.DeathCauseBossThrownSword);
         }
         if (isStuck && collision.CompareTag("Boss"))
         {

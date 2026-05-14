@@ -219,7 +219,7 @@ public class ShieldEnemyController : MonoBehaviour, IHittable
             return;
         }
 
-        health.TakeDamage(rushDamage, transform.position);
+        health.TakeDamage(rushDamage, transform.position, AnalyticsKeys.DeathCauseShieldEnemy);
         hasHitPlayerThisRush = true;
     }
 

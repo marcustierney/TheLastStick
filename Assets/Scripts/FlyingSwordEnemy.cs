@@ -168,7 +168,7 @@ public class FlyingSwordEnemy : MonoBehaviour
             UpdateHealth health = other.GetComponent<UpdateHealth>();
             if (health != null)
             {
-                health.TakeDamage((int)damage, transform.position);
+                health.TakeDamage((int)damage, transform.position, AnalyticsKeys.DeathCauseFlyingSword);
             }
         }
     }

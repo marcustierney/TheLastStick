@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ResetPosition : MonoBehaviour
 {
@@ -9,6 +11,11 @@ public class ResetPosition : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            if (string.Equals(SceneManager.GetActiveScene().name, AnalyticsKeys.SceneLevelTwo, StringComparison.Ordinal))
+            {
+                LevelRunStats.Instance?.RegisterLevelTwoFallReset();
+            }
+
             collision.gameObject.transform.position = new Vector3(-0, -2, 0);
             if (swordOne != null)
             {

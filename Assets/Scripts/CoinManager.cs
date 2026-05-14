@@ -73,6 +73,7 @@ public class CoinManager : MonoBehaviour
     public void AddCoins(int amount)
     {
         Coins += amount;
+        LevelRunStats.Instance?.RegisterCoinPickup(amount);
         Debug.Log($"Coins added: {amount}. Total coins: {Coins}");
         SaveState();
         RefreshText();
