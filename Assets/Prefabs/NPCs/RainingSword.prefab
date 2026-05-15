@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 470075348097797783}
   - component: {fileID: 6067642124521056371}
   - component: {fileID: 7399061459138967621}
-  - component: {fileID: -7567552208341623810}
   m_Layer: 0
   m_Name: RainingSword
   m_TagString: Untagged
@@ -28,13 +27,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7753180692939811231}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.38268343, w: 0.92387956}
+  m_LocalRotation: {x: 0, y: 0, z: 0.70710677, w: -0.70710677}
   m_LocalPosition: {x: 17.7, y: 12.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 270}
 --- !u!212 &470075348097797783
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -156,38 +155,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 7753180692939811231}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb7b078197a414948b74d45704cc9d36, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RainingSword
-  fallSpeed: 50
-  warningDuration: 1.2
+  m_EditorClassIdentifier: Assembly-CSharp::DownwardRainingSword
+  fallSpeed: 100
+  hoverDuration: 1
+  hoverBobAmount: 0.18
+  hoverBobSpeed: 5
   damage: 25
   targetX: 0
   spawnY: 0
---- !u!50 &-7567552208341623810
-Rigidbody2D:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7753180692939811231}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
+  groundLayer:
     serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+    m_Bits: 64
+  maxFallDistance: 500

@@ -8,36 +8,72 @@ public class RainingSword : MonoBehaviour
     public int damage = 25;
     public float targetX;
     public float spawnY;
+    public float facingDownRotationZ = -90f;
+    public LayerMask groundLayer;
+    public float groundCheckRadius = 0.08f;
+    public float maxFallDistance = 40f;
     private bool isFalling = false;
+    private bool hasStarted = false;
     private SpriteRenderer spriteRenderer;
+    private Collider2D swordCollider;
+    private float startFallY;
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        transform.rotation = Quaternion.Euler(0f, 0f, 45f);
+        swordCollider = GetComponent<Collider2D>();
+        transform.rotation = Quaternion.Euler(0f, 0f, facingDownRotationZ);
+        SetArmedState(false);
     }
 
     public void StartFall()
     {
+        if (hasStarted)
+        {
+            return;
+        }
+
+        hasStarted = true;
         StartCoroutine(FallSequence());
     }
 
     private IEnumerator FallSequence()
     {
-        transform.position = new Vector2(targetX, spawnY + 1000f);
-        if (spriteRenderer != null)
-            spriteRenderer.enabled = false;
-        yield return new WaitForSeconds(warningDuration);
         transform.position = new Vector2(targetX, spawnY);
-        if (spriteRenderer != null)
-            spriteRenderer.enabled = true;
+        SetArmedState(false);
+
+        yield return new WaitForSeconds(warningDuration);
+
+        transform.position = new Vector2(targetX, spawnY);
+        startFallY = transform.position.y;
+        SetArmedState(true);
         isFalling = true;
     }
 
     private void Update()
     {
         if (!isFalling) return;
-        transform.position += Vector3.down * fallSpeed * Time.deltaTime;
+
+        Vector3 nextPosition = transform.position + (Vector3.down * fallSpeed * Time.deltaTime);
+        nextPosition.x = targetX;
+        transform.position = nextPosition;
+
+        if (groundLayer.value != 0)
+        {
+            Collider2D groundHit = Physics2D.OverlapCircle(transform.position, groundCheckRadius, groundLayer);
+            if (groundHit != null)
+            {
+                Destroy(gameObject);
+                return;
+            }
+        }
+
+        if (startFallY - transform.position.y >= maxFallDistance)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         if (transform.position.y < -20f)
         {
             Destroy(gameObject);
@@ -75,11 +111,23 @@ public class RainingSword : MonoBehaviour
         if (!isFalling) return;
         if (collision.gameObject.CompareTag("Roof"))
         {
-            print("roof collision");
             Destroy(gameObject);
         }
         if (collision.gameObject.CompareTag("Ground"))
             Destroy(gameObject);
+    }
+
+    private void SetArmedState(bool armed)
+    {
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.enabled = armed;
+        }
+
+        if (swordCollider != null)
+        {
+            swordCollider.enabled = armed;
+        }
     }
 
 }

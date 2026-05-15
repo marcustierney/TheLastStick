@@ -13,9 +13,8 @@ GameObject:
   - component: {fileID: 6320274730360414695}
   - component: {fileID: 7224809379667383497}
   - component: {fileID: 4769185698412302628}
-  - component: {fileID: -5333933792041359543}
   m_Layer: 10
-  m_Name: FlyingSwordEnemy
+  m_Name: FlyingSwordEnemy 1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -195,26 +194,3 @@ MonoBehaviour:
   yRandomRange: 2
   damage: 1
   maxPlayerLeadDistance: 100
---- !u!114 &-5333933792041359543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 96541649214089779}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DownwardRainingSword
-  fallSpeed: 50
-  hoverDuration: 1
-  hoverBobAmount: 0.18
-  hoverBobSpeed: 5
-  damage: 25
-  targetX: 0
-  spawnY: 200
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  maxFallDistance: 500

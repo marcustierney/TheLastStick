@@ -20,6 +20,12 @@ public class FlyingSwordEnemy : MonoBehaviour
 
     private void Awake()
     {
+        if (GetComponent<DownwardRainingSword>() != null)
+        {
+            enabled = false;
+            return;
+        }
+
         hitbox = GetComponent<Collider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
