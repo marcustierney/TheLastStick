@@ -179,7 +179,7 @@ public class PauseManager : MonoBehaviour
 
         GameAnalytics.FlushIfReady();
         CoinManager.ClearSavedProgress();
-        SceneManager.LoadScene("Tutorial");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         PlayerPrefs.SetInt("CurrentLevel", 0);
         PlayerPrefs.Save();
     }
