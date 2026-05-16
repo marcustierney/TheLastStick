@@ -276,7 +276,9 @@ public class SwordAttack : MonoBehaviour
         DisableAttackHitbox(dashAttackHitbox);
 
         pendingMeleeComboStep = currentComboStep;
-        bool deferMeleeHitboxToAnimEvents = meleeHitboxUsesAnimationEvents && !dashAttack;
+        // Always activate hitbox immediately for both melee and dash attacks
+        // This ensures hitbox appears even if damage animation interrupts the attack animation
+        bool deferMeleeHitboxToAnimEvents = false;
 
         if (activeAttackHitbox != null)
         {

@@ -49,6 +49,7 @@ public class BossTwoController : MonoBehaviour, IHittable
 
         StartCoroutine(SummonAttackLoop());
     }
+
     private void OnSummonChargingChanged(bool charging)
     {
         isSummonCharging = charging;
@@ -57,10 +58,16 @@ public class BossTwoController : MonoBehaviour, IHittable
             animator.SetBool("isCharging", charging);
         }
     }
+
+    private bool IsBusyAttacking()
+    {
+        return isDashing || isChargingDash || isDazed || isSummonCharging;
+    }
+
     private void Update()
     {
         if (isDead || player == null) return;
-        if (isDashing || isChargingDash || isDazed || isSummonCharging) return; 
+        if (IsBusyAttacking()) return; 
         float distance = Vector2.Distance(transform.position, player.position);
         spriteRenderer.flipX = player.position.x > transform.position.x;
         if (distance <= dashAttackRange && Time.time >= lastDashTime + dashCooldown)
@@ -126,10 +133,17 @@ public class BossTwoController : MonoBehaviour, IHittable
         yield return new WaitForSeconds(6f);
         while (!isDead)
         {
+            yield return new WaitUntil(() => isDead || !IsBusyAttacking());
+            if (isDead)
+            {
+                yield break;
+            }
+
             if (summoningSwords != null)
             {
                 summoningSwords.TriggerSummonAttack();
             }
+
             yield return new WaitForSeconds(summonAttackCooldown);
         }
     }
@@ -164,7 +178,7 @@ public class BossTwoController : MonoBehaviour, IHittable
         Destroy(gameObject);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
         if (!isDealingDashDamage) return;
 
