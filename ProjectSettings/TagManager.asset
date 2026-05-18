@@ -16,6 +16,7 @@ TagManager:
   - Roof
   - BossTwo
   - CameraShift
+  - Rope
   layers:
   - Default
   - TransparentFX
