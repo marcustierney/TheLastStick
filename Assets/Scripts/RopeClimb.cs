@@ -10,6 +10,8 @@ public class RopeClimb : MonoBehaviour, IInteractable
     [SerializeField] private float climbSpeed = 3f;
     [SerializeField] private float dismountJumpVelocity = 15f;
     [SerializeField] private float promptOffsetX = 0.5f;
+    [SerializeField] private float promptYOffset = 0.5f;
+    [SerializeField] private float promptSmooth = 12f;
 
     private InputSystem_Actions inputActions;
     private bool playerInRange = false;
@@ -18,12 +20,21 @@ public class RopeClimb : MonoBehaviour, IInteractable
     private Movement playerMovement;
     private float originalGravity = 1f;
     private bool isClimbing = false;
+    private Collider2D ropeCollider;
+    [SerializeField] private float promptVerticalMargin = 0.2f;
+    private float dismountCooldownTimer = 0f;
+    [SerializeField] private float dismountCooldown = 0.3f;
 
     void Awake()
     {
         inputActions = new InputSystem_Actions();
         InputBindingOverrides.ApplySavedOverrides(inputActions.asset);
         InputBindingOverrides.RegisterRuntimeGameplayAsset(inputActions.asset);
+    }
+
+    void Start()
+    {
+        ropeCollider = GetComponent<Collider2D>();
     }
 
     void OnEnable()
@@ -44,6 +55,10 @@ public class RopeClimb : MonoBehaviour, IInteractable
 
     void Update()
     {
+        // Decrement dismount cooldown
+        if (dismountCooldownTimer > 0f)
+            dismountCooldownTimer -= Time.deltaTime;
+
         UpdatePromptState();
 
         if (GameplayInputGate.BlocksGameplayActions)
@@ -54,10 +69,26 @@ public class RopeClimb : MonoBehaviour, IInteractable
             Interact();
         }
 
+        // Block Jump only when in range, not climbing, and in the air
+        if (playerMovement != null)
+        {
+            bool isGrounded = playerMovement.IsGrounded();
+            playerMovement.CanJump = isClimbing || !playerInRange || isGrounded;
+        }
+
         if (isClimbing && playerTransform != null && playerRb != null)
         {
             Vector2 move = inputActions.Gameplay.Move.ReadValue<Vector2>();
             float vy = move.y;
+
+            // Fallback for digital down input (S or down-arrow) which may be bound to Crouch
+            if (Mathf.Abs(vy) < 0.01f)
+            {
+                if (inputActions.Gameplay.Crouch.IsPressed())
+                    vy = -1f;
+                else if (UnityEngine.InputSystem.Keyboard.current != null && UnityEngine.InputSystem.Keyboard.current.downArrowKey.isPressed)
+                    vy = -1f;
+            }
 
             // Lock player to rope X position and apply vertical velocity
             Vector3 p = playerTransform.position;
@@ -91,9 +122,11 @@ public class RopeClimb : MonoBehaviour, IInteractable
 
     public bool CanInteract() => playerInRange;
 
+    public bool CanStartClimbing() => playerInRange && dismountCooldownTimer <= 0f;
+
     private void StartClimbing()
     {
-        if (playerTransform == null)
+        if (playerTransform == null || !CanStartClimbing())
             return;
 
         isClimbing = true;
@@ -113,6 +146,7 @@ public class RopeClimb : MonoBehaviour, IInteractable
     private void StopClimbing()
     {
         isClimbing = false;
+        dismountCooldownTimer = dismountCooldown;
         if (playerMovement != null)
             playerMovement.CanMoveHorizontally = true;
 
@@ -143,6 +177,8 @@ public class RopeClimb : MonoBehaviour, IInteractable
         UpdatePromptState();
         if (isClimbing)
             StopClimbing();
+        if (playerMovement != null)
+            playerMovement.CanJump = true;
         playerTransform = null;
         playerRb = null;
         playerMovement = null;
@@ -153,13 +189,39 @@ public class RopeClimb : MonoBehaviour, IInteractable
         if (interactionPrompt == null)
             return;
 
-        bool show = playerInRange && !isClimbing;
-        interactionPrompt.SetActive(show);
+        bool withinVerticalRange = true;
+        if (ropeCollider != null && playerTransform != null)
+        {
+            float minY = ropeCollider.bounds.min.y - promptVerticalMargin;
+            float maxY = ropeCollider.bounds.max.y + promptVerticalMargin;
+            withinVerticalRange = playerTransform.position.y >= minY && playerTransform.position.y <= maxY;
+        }
 
-        if (show && playerTransform != null)
+        bool show = playerInRange && !isClimbing && withinVerticalRange;
+
+        // If we are about to show the prompt and it was previously inactive, snap it to the target
+        bool wasActive = interactionPrompt.activeSelf;
+        if (show)
         {
             Vector3 pos = interactionPrompt.transform.position;
-            interactionPrompt.transform.position = new Vector3(transform.position.x + promptOffsetX, playerTransform.position.y, pos.z);
+            float targetY = (playerTransform != null) ? (playerTransform.position.y + promptYOffset) : pos.y;
+
+            if (!wasActive)
+            {
+                // snap immediately to avoid visible falling animation on first show
+                interactionPrompt.transform.position = new Vector3(transform.position.x + promptOffsetX, targetY, pos.z);
+            }
+            else
+            {
+                float smoothY = Mathf.Lerp(pos.y, targetY, Time.deltaTime * promptSmooth);
+                interactionPrompt.transform.position = new Vector3(transform.position.x + promptOffsetX, smoothY, pos.z);
+            }
+
+            interactionPrompt.SetActive(true);
+        }
+        else
+        {
+            interactionPrompt.SetActive(false);
         }
     }
 }

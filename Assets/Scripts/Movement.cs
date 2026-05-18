@@ -35,6 +35,7 @@ public class Movement : MonoBehaviour
     private bool isCrouchWalking = false;
 
     private bool canMoveHorizontally = true;
+    private bool canJump = true;
     [SerializeField] private AudioSource groundedMoveAudioSource;
     [SerializeField] private float walkMovePitch = 1f;
     [SerializeField] private float runMovePitch = 1.3f;
@@ -52,6 +53,18 @@ public class Movement : MonoBehaviour
         set
         {
             canMoveHorizontally = value;
+        }
+    }
+
+    public bool CanJump
+    {
+        get
+        {
+            return canJump;
+        }
+        set
+        {
+            canJump = value;
         }
     }
 
@@ -214,7 +227,7 @@ public class Movement : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f); // maintain vertical velocity
         }
 
-        if (CanMoveHorizontally && !isDashing && inputActions.Gameplay.Jump.WasPressedThisFrame())
+        if (CanMoveHorizontally && !isDashing && inputActions.Gameplay.Jump.WasPressedThisFrame() && CanJump)
         {
             spacebarPressed = true;
             if (Grounded() && !isJumping)
