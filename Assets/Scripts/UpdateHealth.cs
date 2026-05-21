@@ -48,6 +48,7 @@ public class UpdateHealth : MonoBehaviour
     private Coroutine deathSequenceCoroutine;
     private Rigidbody2D rb;
     private Movement movement;
+    private CameraController cameraController;
     private bool isDead;
     private string lastDeathCauseForAnalytics;
 
@@ -69,6 +70,11 @@ public class UpdateHealth : MonoBehaviour
             Debug.LogError("Rigidbody2D not found on player!");
         if (movement == null)
             Debug.LogError("Movement script not found on player!");
+
+        if (Camera.main != null)
+        {
+            cameraController = Camera.main.GetComponent<CameraController>();
+        }
     }
 
     private void OnEnable()
@@ -208,6 +214,8 @@ public class UpdateHealth : MonoBehaviour
             movement.PlayDamageAnimation();
         }
 
+        cameraController?.OnPlayerDamaged();
+
         if (Health <= 0f)
         {
             Die();
@@ -230,6 +238,7 @@ public class UpdateHealth : MonoBehaviour
             return;
 
         isDead = true;
+        GameFeelTimeScale.Instance?.CancelSlowMo();
         Debug.Log("Player died");
 
         if (LevelRunStats.Instance != null)

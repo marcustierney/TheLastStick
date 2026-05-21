@@ -42,6 +42,10 @@ public class Movement : MonoBehaviour
     [SerializeField] private AudioSource dashAudioSource;
     [SerializeField] private AudioSource jumpAudioSource;
     private bool wasGroundedMoving = false;
+    private bool wasGrounded = false;
+    private float previousVelocityY;
+    private CameraController cameraController;
+    [SerializeField] private float dashSlowMoTimeScale = 0.55f;
     private readonly List<HorizontalControlBinding> horizontalControlBindings = new List<HorizontalControlBinding>();
 
     public bool CanMoveHorizontally
@@ -146,6 +150,8 @@ public class Movement : MonoBehaviour
                 isDashing = false;
                 EndDashIgnoreCollisions();
                 rb.gravityScale = 5f;
+                cameraController?.OnDashEnded();
+                GameFeelTimeScale.Instance?.CancelSlowMo();
             }
         }
 
@@ -180,7 +186,13 @@ public class Movement : MonoBehaviour
         shiftHold = !isDashing && shiftHeld && Mathf.Abs(horizontal) > 0f;
 
         // Update animator
+        previousVelocityY = rb != null ? rb.linearVelocity.y : 0f;
         areGrounded = Grounded();
+        if (!wasGrounded && areGrounded && cameraController != null)
+        {
+            cameraController.OnPlayerLanded(Mathf.Abs(previousVelocityY));
+        }
+        wasGrounded = areGrounded;
         if (animator != null)
         {
             animator.SetBool("isDashing", isDashing);
@@ -225,6 +237,8 @@ public class Movement : MonoBehaviour
             StartDashIgnoreCollisions();
             rb.gravityScale = 0f;
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f); // maintain vertical velocity
+            cameraController?.OnDashStarted();
+            GameFeelTimeScale.Instance?.RequestSlowMo(dashSlowMoTimeScale, dashTime);
         }
 
         if (CanMoveHorizontally && !isDashing && inputActions.Gameplay.Jump.WasPressedThisFrame() && CanJump)
@@ -294,6 +308,13 @@ public class Movement : MonoBehaviour
         animator = GetComponent<Animator>();
         baseSpeed = speed;
         baseRunSpeed = runSpeed;
+
+        if (Camera.main != null)
+        {
+            cameraController = Camera.main.GetComponent<CameraController>();
+        }
+
+        wasGrounded = Grounded();
     }
 
     private void OnEnable()
