@@ -179,7 +179,7 @@ Transform:
   m_GameObject: {fileID: 3319430399098621110}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.505, z: 0}
+  m_LocalPosition: {x: -0.062, y: -0.505, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -305,6 +305,21 @@ MonoBehaviour:
   runMovePitch: 1.3
   dashAudioSource: {fileID: 0}
   jumpAudioSource: {fileID: 0}
+  dashSlowMoTimeScale: 0.55
+  coyoteTimeDuration: 0.2
+  jumpBufferDuration: 0.08
+  maxCoyoteRiseVelocity: 8
+  cornerCorrectionEnabled: 1
+  cornerProbeDistance: 0.3
+  cornerStepHorizontal: 0.03
+  cornerStepVertical: 0.03
+  cornerMaxStepsPerFrame: 2
+  gizmoShowGroundCheck: 1
+  gizmoShowJumpForgiveness: 1
+  gizmoShowCornerProbes: 1
+  gizmoShowCornerNudges: 1
+  gizmoShowCornerOverlapChecks: 1
+  groundCheckHeight: 0.1
   rb: {fileID: 56745174543419415}
   groundCheck: {fileID: 6801082569955095745}
   groundLayer:
@@ -387,7 +402,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   m_Size: {x: 0.5, y: 1}
-  m_EdgeRadius: 0
+  m_EdgeRadius: 0.06
 --- !u!95 &444766117933183183
 Animator:
   serializedVersion: 7

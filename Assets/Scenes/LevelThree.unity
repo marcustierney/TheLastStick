@@ -9795,6 +9795,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2984864910127111888, guid: 7a99470ad4dc848c3a56bf7b52160394, type: 3}
+      propertyPath: coyoteTimeDuration
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2984864910127111888, guid: 7a99470ad4dc848c3a56bf7b52160394, type: 3}
+      propertyPath: cornerProbeDistance
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2984864910127111888, guid: 7a99470ad4dc848c3a56bf7b52160394, type: 3}
+      propertyPath: gizmoShowGroundCheck
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2984864910127111888, guid: 7a99470ad4dc848c3a56bf7b52160394, type: 3}
+      propertyPath: gizmoShowCornerNudges
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2984864910127111888, guid: 7a99470ad4dc848c3a56bf7b52160394, type: 3}
+      propertyPath: gizmoShowCornerProbes
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2984864910127111888, guid: 7a99470ad4dc848c3a56bf7b52160394, type: 3}
+      propertyPath: gizmoShowJumpForgiveness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2984864910127111888, guid: 7a99470ad4dc848c3a56bf7b52160394, type: 3}
+      propertyPath: gizmoShowCornerOverlapChecks
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5202093419847142063, guid: 7a99470ad4dc848c3a56bf7b52160394, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6755033120058342033, guid: 7a99470ad4dc848c3a56bf7b52160394, type: 3}
       propertyPath: m_Name
       value: Player

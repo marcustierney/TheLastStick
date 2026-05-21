@@ -25,6 +25,8 @@ public class Movement : MonoBehaviour
     private float dashCooldown = 0.5f;
     private float dashTimeLeft;
     private bool isDashing;
+    private bool jumpBufferedDuringDash;
+    private bool dashEndedThisFrame;
     private float dashCooldownTimer = 0f; 
     private Collider2D playerCollider; 
     private List<Collider2D> ignoredEnemyColliders = new List<Collider2D>(); // Colliders ignored during dash
@@ -125,6 +127,25 @@ public class Movement : MonoBehaviour
     }
 
 
+    [Header("Jump Forgiveness")]
+    [SerializeField] private float coyoteTimeDuration = 0.12f;
+    [SerializeField] private float jumpBufferDuration = 0.08f;
+    [SerializeField] private float maxCoyoteRiseVelocity = 8f;
+
+    [Header("Jump Corner Correction")]
+    [SerializeField] private bool cornerCorrectionEnabled = true;
+    [SerializeField] private float cornerProbeDistance = 0.1f;
+    [SerializeField] private float cornerStepHorizontal = 0.03f;
+    [SerializeField] private float cornerStepVertical = 0.03f;
+    [SerializeField] private int cornerMaxStepsPerFrame = 2;
+
+    [SerializeField] private float groundCheckHeight = 0.1f;
+    [SerializeField] private float jumpGroundSeparation = 0.06f;
+
+    private float coyoteTimeRemaining;
+    private float jumpBufferRemaining;
+    private bool hasLeftGroundSinceJump;
+
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
@@ -141,6 +162,8 @@ public class Movement : MonoBehaviour
             return;
         }
 
+        dashEndedThisFrame = false;
+
         // Update dash timers even if knockback is active
         if (isDashing)
         {
@@ -148,6 +171,7 @@ public class Movement : MonoBehaviour
             if (dashTimeLeft <= 0f)
             {
                 isDashing = false;
+                dashEndedThisFrame = true;
                 EndDashIgnoreCollisions();
                 rb.gravityScale = 5f;
                 cameraController?.OnDashEnded();
@@ -188,6 +212,14 @@ public class Movement : MonoBehaviour
         // Update animator
         previousVelocityY = rb != null ? rb.linearVelocity.y : 0f;
         areGrounded = Grounded();
+        if (dashEndedThisFrame)
+        {
+            if (areGrounded && jumpBufferedDuringDash)
+                jumpBufferRemaining = 0f;
+            jumpBufferedDuringDash = false;
+        }
+        if (!areGrounded)
+            hasLeftGroundSinceJump = true;
         if (!wasGrounded && areGrounded && cameraController != null)
         {
             cameraController.OnPlayerLanded(Mathf.Abs(previousVelocityY));
@@ -198,6 +230,7 @@ public class Movement : MonoBehaviour
             animator.SetBool("isDashing", isDashing);
             animator.SetBool("isWalking", isWalking);
             animator.SetBool("areGrounded", areGrounded);
+            animator.SetBool("hasLeftGroundSinceJump", hasLeftGroundSinceJump);
             animator.SetBool("shiftHold", shiftHold);
             animator.SetBool("isCrouching", isCrouching);
             animator.SetBool("isCrouchWalking", isCrouchWalking);
@@ -237,18 +270,14 @@ public class Movement : MonoBehaviour
             StartDashIgnoreCollisions();
             rb.gravityScale = 0f;
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f); // maintain vertical velocity
+            if (areGrounded)
+                jumpBufferRemaining = 0f;
             cameraController?.OnDashStarted();
             GameFeelTimeScale.Instance?.RequestSlowMo(dashSlowMoTimeScale, dashTime);
         }
 
-        if (CanMoveHorizontally && !isDashing && inputActions.Gameplay.Jump.WasPressedThisFrame() && CanJump)
-        {
-            spacebarPressed = true;
-            if (Grounded() && !isJumping)
-            {
-                StartCoroutine(JumpWithDelay());
-            }
-        }
+        RefreshJumpForgivenessTimers();
+        TryExecuteJump();
 
         // Handle crouch input strictly through the remappable action.
         bool crouchPressed = inputActions.Gameplay.Crouch.IsPressed();
@@ -272,6 +301,9 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!GameplayInputGate.BlocksGameplayActions)
+            TryJumpCornerCorrection();
+
         // Don't override velocity during knockback
         if (knockbackTimer > 0f)
             return;
@@ -304,7 +336,9 @@ public class Movement : MonoBehaviour
         InputBindingOverrides.RegisterRuntimeGameplayAsset(inputActions.asset);
         CacheHorizontalControlBindings();
         if (rb == null) rb = GetComponent<Rigidbody2D>();
-        playerCollider = GetComponent<Collider2D>();
+        playerCollider = GetComponent<BoxCollider2D>();
+        if (playerCollider == null)
+            playerCollider = GetComponent<Collider2D>();
         animator = GetComponent<Animator>();
         baseSpeed = speed;
         baseRunSpeed = runSpeed;
@@ -315,6 +349,8 @@ public class Movement : MonoBehaviour
         }
 
         wasGrounded = Grounded();
+        if (wasGrounded)
+            coyoteTimeRemaining = coyoteTimeDuration;
     }
 
     private void OnEnable()
@@ -439,9 +475,172 @@ public class Movement : MonoBehaviour
         ignoredColliders.Add(targetCollider);
     }
 
-    private bool Grounded() // check if player is on the ground by checking for overlap with ground layer at the position of the groundCheck transform
+    private void RefreshJumpForgivenessTimers()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        if (areGrounded)
+            coyoteTimeRemaining = coyoteTimeDuration;
+        else
+            coyoteTimeRemaining -= Time.deltaTime;
+
+        if (inputActions.Gameplay.Jump.WasPressedThisFrame())
+        {
+            jumpBufferRemaining = jumpBufferDuration;
+            if (isDashing)
+                jumpBufferedDuringDash = true;
+        }
+        else if (jumpBufferRemaining > 0f)
+            jumpBufferRemaining -= Time.deltaTime;
+    }
+
+    private bool CanPerformJump()
+    {
+        if (!CanMoveHorizontally || isDashing || !CanJump || isJumping || knockbackTimer > 0f)
+            return false;
+
+        if (jumpBufferRemaining <= 0f)
+            return false;
+
+        bool coyoteValid = coyoteTimeRemaining > 0f
+            && rb != null
+            && rb.linearVelocity.y <= maxCoyoteRiseVelocity;
+
+        return areGrounded || coyoteValid;
+    }
+
+    private void TryExecuteJump()
+    {
+        if (!CanPerformJump())
+            return;
+
+        spacebarPressed = true;
+        jumpBufferRemaining = 0f;
+        coyoteTimeRemaining = 0f;
+        hasLeftGroundSinceJump = false;
+        jumpBufferedDuringDash = false;
+        StartCoroutine(JumpWithDelay());
+    }
+
+    private void TryJumpCornerCorrection()
+    {
+        if (!cornerCorrectionEnabled || playerCollider == null || Grounded() || isDashing || knockbackTimer > 0f)
+            return;
+
+        for (int step = 0; step < cornerMaxStepsPerFrame; step++)
+        {
+            if (!IsCornerClipBlocked(out bool blockedAbove, out bool blockedSide))
+                break;
+
+            if (!TryApplyCornerNudge(blockedAbove, blockedSide))
+                break;
+        }
+    }
+
+    private bool IsCornerClipBlocked(out bool blockedAbove, out bool blockedSide)
+    {
+        blockedAbove = false;
+        blockedSide = false;
+
+        Bounds bounds = playerCollider.bounds;
+        float probe = cornerProbeDistance;
+        float sign = GetCornerNudgeSign();
+
+        Vector2 topLeft = new Vector2(bounds.min.x + 0.02f, bounds.max.y);
+        Vector2 topRight = new Vector2(bounds.max.x - 0.02f, bounds.max.y);
+        blockedAbove = RaycastHitsGround(topLeft, Vector2.up, probe)
+            || RaycastHitsGround(topRight, Vector2.up, probe);
+
+        float midY = (bounds.min.y + bounds.max.y) * 0.5f;
+        float footY = bounds.min.y + bounds.size.y * 0.2f;
+        Vector2 midOrigin = new Vector2(sign > 0f ? bounds.max.x : bounds.min.x, midY);
+        Vector2 footOrigin = new Vector2(sign > 0f ? bounds.max.x : bounds.min.x, footY);
+        Vector2 sideDirection = sign > 0f ? Vector2.right : Vector2.left;
+        blockedSide = RaycastHitsGround(midOrigin, sideDirection, probe)
+            || RaycastHitsGround(footOrigin, sideDirection, probe);
+
+        return blockedAbove || blockedSide;
+    }
+
+    private bool TryApplyCornerNudge(bool blockedAbove, bool blockedSide)
+    {
+        if (!blockedAbove && !blockedSide)
+            return false;
+
+        float sign = GetCornerNudgeSign();
+        Vector2[] candidates =
+        {
+            new Vector2(sign * cornerStepHorizontal, 0f),
+            new Vector2(-sign * cornerStepHorizontal, 0f),
+            new Vector2(0f, cornerStepVertical),
+            new Vector2(sign * cornerStepHorizontal, cornerStepVertical),
+            new Vector2(-sign * cornerStepHorizontal, cornerStepVertical),
+        };
+
+        foreach (Vector2 offset in candidates)
+        {
+            if (offset.sqrMagnitude > cornerProbeDistance * cornerProbeDistance)
+                continue;
+
+            if (!IsCornerOffsetClear(offset))
+                continue;
+
+            bool horizontalPrimary = Mathf.Abs(offset.x) > 0.001f && Mathf.Abs(offset.y) < 0.001f;
+            if (horizontalPrimary && !HasLedgeSupportAfterOffset(offset))
+                continue;
+
+            transform.position += (Vector3)offset;
+            return true;
+        }
+
+        return false;
+    }
+
+    private float GetCornerNudgeSign()
+    {
+        if (Mathf.Abs(horizontal) > 0.01f)
+            return Mathf.Sign(horizontal);
+
+        return isFacingRight ? 1f : -1f;
+    }
+
+    private bool RaycastHitsGround(Vector2 origin, Vector2 direction, float distance)
+    {
+        return Physics2D.Raycast(origin, direction, distance, groundLayer).collider != null;
+    }
+
+    private bool IsCornerOffsetClear(Vector2 offset)
+    {
+        Bounds bounds = playerCollider.bounds;
+        Vector2 center = (Vector2)bounds.center + offset;
+        Vector2 size = bounds.size * 0.9f;
+        return Physics2D.OverlapBox(center, size, 0f, groundLayer) == null;
+    }
+
+    private bool HasLedgeSupportAfterOffset(Vector2 offset)
+    {
+        Bounds bounds = playerCollider.bounds;
+        Vector2 footProbe = new Vector2(bounds.center.x + offset.x, bounds.min.y + offset.y + 0.02f);
+        return Physics2D.Raycast(footProbe, Vector2.down, cornerProbeDistance, groundLayer).collider != null;
+    }
+
+    private float GetPlayerColliderWidth()
+    {
+        Collider2D col = playerCollider != null ? playerCollider : GetComponent<Collider2D>();
+        if (col == null)
+            return 0.4f;
+
+        return col.bounds.size.x;
+    }
+
+    private void GetGroundCheckBox(out Vector2 center, out Vector2 size)
+    {
+        center = groundCheck != null ? (Vector2)groundCheck.position : (Vector2)transform.position;
+        size = new Vector2(GetPlayerColliderWidth(), groundCheckHeight);
+    }
+
+    private bool Grounded()
+    {
+        GetGroundCheckBox(out Vector2 center, out Vector2 size);
+        return Physics2D.OverlapBox(center, size, 0f, groundLayer);
     }
 
     private void Flip() // flip player sprite based on movement direction
@@ -469,7 +668,7 @@ public class Movement : MonoBehaviour
 
     public bool IsGrounded() 
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        return Grounded();
     }
 
     public void SwordJump()
@@ -482,9 +681,18 @@ public class Movement : MonoBehaviour
     {
         isJumping = true;
         yield return new WaitForSeconds(0f);
+        ApplyJumpGroundSeparation();
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpHeight);
         PlayJumpSound();
         isJumping = false;
+    }
+
+    private void ApplyJumpGroundSeparation()
+    {
+        if (!Grounded() || jumpGroundSeparation <= 0f)
+            return;
+
+        transform.position += Vector3.up * jumpGroundSeparation;
     }
 
     private void PlayGroundedMoveSound()
