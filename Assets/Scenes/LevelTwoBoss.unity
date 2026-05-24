@@ -2405,6 +2405,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2984864910127111888, guid: 7a99470ad4dc848c3a56bf7b52160394, type: 3}
+      propertyPath: rb
+      value: 
+      objectReference: {fileID: 987681509}
+    - target: {fileID: 2984864910127111888, guid: 7a99470ad4dc848c3a56bf7b52160394, type: 3}
+      propertyPath: groundCheck
+      value: 
+      objectReference: {fileID: 987681510}
+    - target: {fileID: 2984864910127111888, guid: 7a99470ad4dc848c3a56bf7b52160394, type: 3}
       propertyPath: dashAudioSource
       value: 
       objectReference: {fileID: 2079218730}
@@ -2413,8 +2421,32 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1104353089}
     - target: {fileID: 2984864910127111888, guid: 7a99470ad4dc848c3a56bf7b52160394, type: 3}
-      propertyPath: dashIgnoreTags.Array.size
+      propertyPath: jumpClips.Array.size
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2984864910127111888, guid: 7a99470ad4dc848c3a56bf7b52160394, type: 3}
+      propertyPath: 'jumpClips.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: e80a6e283ab69734a8a83120b7913b65, type: 3}
+    - target: {fileID: 2984864910127111888, guid: 7a99470ad4dc848c3a56bf7b52160394, type: 3}
+      propertyPath: 'jumpClips.Array.data[1]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 8840f31fc97c069438e8e43ea1bed3ea, type: 3}
+    - target: {fileID: 2984864910127111888, guid: 7a99470ad4dc848c3a56bf7b52160394, type: 3}
+      propertyPath: 'jumpClips.Array.data[2]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 181e87b805248eb4491ad22c998535de, type: 3}
+    - target: {fileID: 2984864910127111888, guid: 7a99470ad4dc848c3a56bf7b52160394, type: 3}
+      propertyPath: 'jumpClips.Array.data[3]'
+      value: 
+      objectReference: {fileID: 8300000, guid: abd52f5d54f07e24ba31cb827bf19169, type: 3}
+    - target: {fileID: 2984864910127111888, guid: 7a99470ad4dc848c3a56bf7b52160394, type: 3}
+      propertyPath: 'jumpClips.Array.data[4]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 07802262d9165714fb07000e3d29fde0, type: 3}
+    - target: {fileID: 2984864910127111888, guid: 7a99470ad4dc848c3a56bf7b52160394, type: 3}
+      propertyPath: dashIgnoreTags.Array.size
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2984864910127111888, guid: 7a99470ad4dc848c3a56bf7b52160394, type: 3}
       propertyPath: 'dashIgnoreTags.Array.data[4]'
@@ -2457,6 +2489,16 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a99470ad4dc848c3a56bf7b52160394, type: 3}
+--- !u!50 &987681509 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 56745174543419415, guid: 7a99470ad4dc848c3a56bf7b52160394, type: 3}
+  m_PrefabInstance: {fileID: 987681508}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &987681510 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6801082569955095745, guid: 7a99470ad4dc848c3a56bf7b52160394, type: 3}
+  m_PrefabInstance: {fileID: 987681508}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1051449199
 PrefabInstance:
   m_ObjectHideFlags: 0

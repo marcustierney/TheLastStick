@@ -43,6 +43,8 @@ public class Movement : MonoBehaviour
     [SerializeField] private float runMovePitch = 1.3f;
     [SerializeField] private AudioSource dashAudioSource;
     [SerializeField] private AudioSource jumpAudioSource;
+    [SerializeField] private List<AudioClip> jumpClips = new List<AudioClip>();
+    [SerializeField] private float jumpClipVolume = 1f;
     private bool wasGroundedMoving = false;
     private bool wasGrounded = false;
     private float previousVelocityY;
@@ -743,7 +745,17 @@ public class Movement : MonoBehaviour
             return;
         }
 
-        jumpAudioSource.Play();
+        if (jumpClips != null && jumpClips.Count > 0)
+        {
+            int i = Random.Range(0, jumpClips.Count);
+            AudioClip clip = jumpClips[i];
+            if (clip != null)
+                jumpAudioSource.PlayOneShot(clip, jumpClipVolume);
+        }
+        else
+        {
+            jumpAudioSource.Play();
+        }
     }
 
     private bool IsSprintHeld()
