@@ -17,7 +17,7 @@ public class MusicFading : MonoBehaviour
         audioSource.ignoreListenerPause = true;
 
         audioSource.volume = 0f;
-        StartCoroutine(Fade(true, 10f, .2f));
+        StartCoroutine(Fade(true, 10f, .1f));
         StartCoroutine(Fade(false, 2f, 0f));
     }
 
