@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-[RequireComponent(typeof(AudioSource))]
+// Uses shared UISfxPlayer singleton; no per-button AudioSource required]
 public class UIButtonSoundPlayer : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, ISelectHandler, ISubmitHandler
 {
     [Header("Audio Clips")]
@@ -17,15 +17,7 @@ public class UIButtonSoundPlayer : MonoBehaviour, IPointerEnterHandler, IPointer
     [Header("Behavior")]
     [SerializeField] private bool playHoverOnSelect = true;
 
-    private AudioSource audioSource;
-
-    private void Awake()
-    {
-        audioSource = GetComponent<AudioSource>();
-        audioSource.playOnAwake = false;
-        audioSource.loop = false;
-        audioSource.ignoreListenerPause = true;
-    }
+    // No local AudioSource required; UISfxPlayer handles playback.
 
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -62,17 +54,14 @@ public class UIButtonSoundPlayer : MonoBehaviour, IPointerEnterHandler, IPointer
 
     private void PlaySound(AudioClip clip, float volume)
     {
-        if (clip == null || audioSource == null)
+        if (clip == null)
         {
             return;
         }
 
-        float sfxScale = 1f;
-        if (AudioSettingsManager.Instance != null)
+        if (UISfxPlayer.Instance != null)
         {
-            sfxScale = AudioSettingsManager.Instance.SfxVolume01;
+            UISfxPlayer.Instance.PlayOneShot(clip, volume);
         }
-
-        audioSource.PlayOneShot(clip, volume * sfxScale);
     }
 }
