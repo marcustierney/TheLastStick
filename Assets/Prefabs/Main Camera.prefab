@@ -177,12 +177,12 @@ MonoBehaviour:
   smoothTimeYDown: 0.08
   facingLookahead: 1.2
   facingLookaheadSmoothTime: 0.12
-  enableBossShift: 0
+  enableBossShift: 1
   shiftTargetTag: CameraShift
   maxShift: 3
   influenceDistance: 6
   shiftSmoothTime: 0.2
-  damageTrauma: 0.35
+  damageTrauma: 1
   landingTrauma: 0.12
   landingMinFallSpeed: 4
   maxShakeOffset: 0.4
@@ -191,8 +191,8 @@ MonoBehaviour:
   landingBumpYOffset: 0.15
   bumpDecayPerSecond: 4
   defaultOrthographicSize: 5
-  dashOrthographicSize: 4.25
-  zoomSmoothTime: 0.05
+  dashOrthographicSize: 4.5
+  zoomSmoothTime: 0.5
   enableSceneFadeIn: 1
   fadeInDuration: 2
   fadeColor: {r: 0, g: 0, b: 0, a: 1}
