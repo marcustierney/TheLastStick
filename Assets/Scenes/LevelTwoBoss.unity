@@ -838,6 +838,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  attackAudioSource: {fileID: 0}
+  walkAudioSource: {fileID: 0}
   damageableHurtboxes: []
 --- !u!70 &593678446
 CapsuleCollider2D:
@@ -2424,6 +2426,10 @@ PrefabInstance:
       propertyPath: jumpClips.Array.size
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 2984864910127111888, guid: 7a99470ad4dc848c3a56bf7b52160394, type: 3}
+      propertyPath: groundedMoveAudioSource
+      value: 
+      objectReference: {fileID: 2130338572}
     - target: {fileID: 2984864910127111888, guid: 7a99470ad4dc848c3a56bf7b52160394, type: 3}
       propertyPath: 'jumpClips.Array.data[0]'
       value: 

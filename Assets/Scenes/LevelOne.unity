@@ -1422,6 +1422,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2984864910127111888, guid: 7a99470ad4dc848c3a56bf7b52160394, type: 3}
+      propertyPath: groundedMoveAudioSource
+      value: 
+      objectReference: {fileID: 1024429231}
+    - target: {fileID: 2984864910127111888, guid: 7a99470ad4dc848c3a56bf7b52160394, type: 3}
       propertyPath: 'jumpClips.Array.data[0]'
       value: 
       objectReference: {fileID: 8300000, guid: e80a6e283ab69734a8a83120b7913b65, type: 3}
@@ -1441,6 +1445,10 @@ PrefabInstance:
       propertyPath: 'jumpClips.Array.data[4]'
       value: 
       objectReference: {fileID: 8300000, guid: 07802262d9165714fb07000e3d29fde0, type: 3}
+    - target: {fileID: 5124962704141061011, guid: 7a99470ad4dc848c3a56bf7b52160394, type: 3}
+      propertyPath: attackAudioSource
+      value: 
+      objectReference: {fileID: 803604032}
     - target: {fileID: 5662521931142475820, guid: 7a99470ad4dc848c3a56bf7b52160394, type: 3}
       propertyPath: hitDamageAudioSource
       value: 
@@ -1485,6 +1493,10 @@ PrefabInstance:
     - target: {fileID: 2894481730121197630, guid: e9d3068383c6c4492b83308e4c2acd22, type: 3}
       propertyPath: m_Name
       value: DojoStudent (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7308374798395958328, guid: e9d3068383c6c4492b83308e4c2acd22, type: 3}
+      propertyPath: attackAudioSource
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7845751950952677389, guid: e9d3068383c6c4492b83308e4c2acd22, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2360,6 +2372,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2438577093027244426, guid: 5bb3250bcbb524df6acc68ca3eb5b975, type: 3}
+      propertyPath: attackClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 7b4ffb4951e9ee84e946fe169eba9fe8, type: 3}
+    - target: {fileID: 2438577093027244426, guid: 5bb3250bcbb524df6acc68ca3eb5b975, type: 3}
+      propertyPath: deathAudioSource
+      value: 
+      objectReference: {fileID: 537382964}
+    - target: {fileID: 2438577093027244426, guid: 5bb3250bcbb524df6acc68ca3eb5b975, type: 3}
+      propertyPath: attackAudioSource
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2543465489117012176, guid: 5bb3250bcbb524df6acc68ca3eb5b975, type: 3}
       propertyPath: m_Name
       value: RangeStudent (2)
@@ -2404,7 +2428,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 453820947, guid: 5bb3250bcbb524df6acc68ca3eb5b975, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -2439,7 +2464,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 589431d0ef40f0d4eac5becc069053bf, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.139
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -2961,6 +2986,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DojoStudent (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7308374798395958328, guid: e9d3068383c6c4492b83308e4c2acd22, type: 3}
+      propertyPath: attackAudioSource
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7845751950952677389, guid: e9d3068383c6c4492b83308e4c2acd22, type: 3}
       propertyPath: m_LocalPosition.x
       value: 46.499
@@ -3014,6 +3043,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2438577093027244426, guid: 5bb3250bcbb524df6acc68ca3eb5b975, type: 3}
+      propertyPath: attackClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 7b4ffb4951e9ee84e946fe169eba9fe8, type: 3}
+    - target: {fileID: 2438577093027244426, guid: 5bb3250bcbb524df6acc68ca3eb5b975, type: 3}
+      propertyPath: deathAudioSource
+      value: 
+      objectReference: {fileID: 537382964}
+    - target: {fileID: 2438577093027244426, guid: 5bb3250bcbb524df6acc68ca3eb5b975, type: 3}
+      propertyPath: attackAudioSource
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2543465489117012176, guid: 5bb3250bcbb524df6acc68ca3eb5b975, type: 3}
       propertyPath: m_Name
       value: RangeStudent (1)
@@ -3058,7 +3099,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 453820947, guid: 5bb3250bcbb524df6acc68ca3eb5b975, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -3250,6 +3292,10 @@ PrefabInstance:
     - target: {fileID: 2894481730121197630, guid: e9d3068383c6c4492b83308e4c2acd22, type: 3}
       propertyPath: m_Name
       value: DojoStudent (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7308374798395958328, guid: e9d3068383c6c4492b83308e4c2acd22, type: 3}
+      propertyPath: attackAudioSource
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7845751950952677389, guid: e9d3068383c6c4492b83308e4c2acd22, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3830,6 +3876,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DojoStudent (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 7308374798395958328, guid: e9d3068383c6c4492b83308e4c2acd22, type: 3}
+      propertyPath: attackAudioSource
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7845751950952677389, guid: e9d3068383c6c4492b83308e4c2acd22, type: 3}
       propertyPath: m_LocalPosition.x
       value: 106.98
@@ -4145,6 +4195,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DojoStudent (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 7308374798395958328, guid: e9d3068383c6c4492b83308e4c2acd22, type: 3}
+      propertyPath: attackAudioSource
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7845751950952677389, guid: e9d3068383c6c4492b83308e4c2acd22, type: 3}
       propertyPath: m_LocalPosition.x
       value: 109.3
@@ -4216,7 +4270,7 @@ AudioSource:
   m_GameObject: {fileID: 1919877206}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 5148463774940904718, guid: b937f504e11073e4c8a015f7480885a5, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
@@ -4702,6 +4756,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DojoStudent (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 7308374798395958328, guid: e9d3068383c6c4492b83308e4c2acd22, type: 3}
+      propertyPath: attackAudioSource
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7845751950952677389, guid: e9d3068383c6c4492b83308e4c2acd22, type: 3}
       propertyPath: m_LocalPosition.x
       value: 93.22
@@ -5064,9 +5122,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2438577093027244426, guid: 5bb3250bcbb524df6acc68ca3eb5b975, type: 3}
+      propertyPath: attackClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 7b4ffb4951e9ee84e946fe169eba9fe8, type: 3}
+    - target: {fileID: 2438577093027244426, guid: 5bb3250bcbb524df6acc68ca3eb5b975, type: 3}
       propertyPath: deathAudioSource
       value: 
       objectReference: {fileID: 537382964}
+    - target: {fileID: 2438577093027244426, guid: 5bb3250bcbb524df6acc68ca3eb5b975, type: 3}
+      propertyPath: attackAudioSource
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2543465489117012176, guid: 5bb3250bcbb524df6acc68ca3eb5b975, type: 3}
       propertyPath: m_Name
       value: RangeStudent
@@ -5111,7 +5177,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 453820947, guid: 5bb3250bcbb524df6acc68ca3eb5b975, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -5132,6 +5199,10 @@ PrefabInstance:
       propertyPath: deathAudioSource
       value: 
       objectReference: {fileID: 537382964}
+    - target: {fileID: 7308374798395958328, guid: e9d3068383c6c4492b83308e4c2acd22, type: 3}
+      propertyPath: attackAudioSource
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7845751950952677389, guid: e9d3068383c6c4492b83308e4c2acd22, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.589

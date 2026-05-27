@@ -36,6 +36,10 @@ public class ThrowEnemy : MonoBehaviour, IHittable
     [Header("Death Sound")]
     [SerializeField] private AudioSource deathAudioSource;
     [SerializeField] private AudioClip[] deathClips = new AudioClip[5];
+    [Header("Attack Sound")]
+    [SerializeField] private AudioSource attackAudioSource;
+    [Header("Walk Sound")]
+    [SerializeField] private AudioSource walkAudioSource;
     [SerializeField] private Collider2D[] damageableHurtboxes;
 
     private SlashFeedback slashFeedback;
@@ -245,6 +249,7 @@ public class ThrowEnemy : MonoBehaviour, IHittable
             else if (!isAttacking && distance <= attackRange)
             {
                 //check cooldown
+                StopWalkSound();
                 if (Time.time >= lastThrowTime + throwCooldown)
                 {
                     StartCoroutine(ThrowBall());
@@ -256,6 +261,7 @@ public class ThrowEnemy : MonoBehaviour, IHittable
         {
             animator.SetBool("canSeePlayer", false);
             animator.SetBool("isMoving", false);
+            StopWalkSound();
             // Stop movement when out of range (idle)
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
             // Maintain flip when out of range
@@ -278,11 +284,13 @@ public class ThrowEnemy : MonoBehaviour, IHittable
         {
             rb.linearVelocity = new Vector2(direction.x * moveSpeed, rb.linearVelocity.y);
             animator.SetBool("isMoving", true);
+            PlayWalkSound();
         }
         else
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
             animator.SetBool("isMoving", false);
+            StopWalkSound();
         }
     }
     private void Die()
@@ -321,6 +329,7 @@ public class ThrowEnemy : MonoBehaviour, IHittable
     private void DisableCombatState()
     {
         isAttacking = false;
+        StopWalkSound();
 
         if (warningHitBox != null)
         {
@@ -354,6 +363,38 @@ public class ThrowEnemy : MonoBehaviour, IHittable
         AudioSource.PlayClipAtPoint(clipToPlay, transform.position);
     }
 
+    private void PlayAttackSound()
+    {
+        if (attackAudioSource == null || attackAudioSource.clip == null)
+        {
+            return;
+        }
+
+        attackAudioSource.Play();
+    }
+
+    private void PlayWalkSound()
+    {
+        if (walkAudioSource == null)
+        {
+            return;
+        }
+
+        walkAudioSource.loop = true;
+        if (!walkAudioSource.isPlaying)
+        {
+            walkAudioSource.Play();
+        }
+    }
+
+    private void StopWalkSound()
+    {
+        if (walkAudioSource != null && walkAudioSource.isPlaying)
+        {
+            walkAudioSource.Stop();
+        }
+    }
+
     private AudioClip GetRandomDeathClip()
     {
         if (deathClips != null && deathClips.Length > 0)
@@ -379,6 +420,8 @@ public class ThrowEnemy : MonoBehaviour, IHittable
         isAttacking = true;
         animator.SetBool("isMoving", false);
         animator.SetBool("isThrowing", true);
+        StopWalkSound();
+        PlayAttackSound();
         rb.linearVelocity = Vector2.zero;
         Vector2 targetPosition = player.position;
         if (warningHitBox != null)

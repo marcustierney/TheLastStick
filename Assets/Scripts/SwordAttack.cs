@@ -26,6 +26,7 @@ public class SwordAttack : MonoBehaviour
     [SerializeField] private string dashAttackStateName = "Dash_Attack";
     [SerializeField] private string swordStandBoolName = "isSwordStanding";
     [SerializeField] private AudioSource attackAudioSource;
+    [SerializeField] private AudioClip[] attackClips = new AudioClip[4];
     [SerializeField] private float attackCooldown = 0.3f;
     [SerializeField] private int comboLength = 4;
     [SerializeField] private float comboResetDelay = 0.7f;
@@ -510,7 +511,38 @@ public class SwordAttack : MonoBehaviour
             return;
         }
 
+        AudioClip clipToPlay = GetRandomAttackClip();
+        if (clipToPlay != null)
+        {
+            attackAudioSource.PlayOneShot(clipToPlay);
+            return;
+        }
+
         attackAudioSource.Play();
+    }
+
+    private AudioClip GetRandomAttackClip()
+    {
+        if (attackClips != null && attackClips.Length > 0)
+        {
+            int startIndex = Random.Range(0, attackClips.Length);
+            for (int i = 0; i < attackClips.Length; i++)
+            {
+                int clipIndex = (startIndex + i) % attackClips.Length;
+                AudioClip clip = attackClips[clipIndex];
+                if (clip != null)
+                {
+                    return clip;
+                }
+            }
+        }
+
+        if (attackAudioSource.clip != null)
+        {
+            return attackAudioSource.clip;
+        }
+
+        return null;
     }
 
     private void CacheAnimatorParameters()

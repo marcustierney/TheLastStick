@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour, IHittable
     // private float damageToPlayer = 20f;
     protected float moveSpeed = 3f;
     protected float chaseRange = 8f;
-    protected float attackRange = 1.2f;
+    protected float attackRange = 1.3f;
     protected Transform player;
     protected Rigidbody2D rb;
     public GameObject swordHitbox;
@@ -33,6 +33,11 @@ public class Enemy : MonoBehaviour, IHittable
     [Header("Death Sound")]
     [SerializeField] private AudioSource deathAudioSource;
     [SerializeField] private AudioClip[] deathClips = new AudioClip[5];
+    [Header("Attack Sound")]
+    [SerializeField] private AudioSource attackAudioSource;
+    [SerializeField] private AudioClip[] attackClips = new AudioClip[4];
+    [Header("Walk Sound")]
+    [SerializeField] private AudioSource walkAudioSource;
 
     private SlashFeedback slashFeedback;
 
@@ -191,6 +196,7 @@ public class Enemy : MonoBehaviour, IHittable
             }
             else if (!isAttacking && distance <= attackRange)
             {
+                StopWalkSound();
                 StartCoroutine(Attack());
             }
         }
@@ -198,6 +204,7 @@ public class Enemy : MonoBehaviour, IHittable
         {
             animator.SetBool("canSeePlayer", false);
             animator.SetBool("isMoving", false);
+            StopWalkSound();
             // Stop movement when out of range (idle)
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
             // Maintain flip when out of range
@@ -223,6 +230,7 @@ public class Enemy : MonoBehaviour, IHittable
             {
                 animator.SetBool("isMoving", true);
             }
+            PlayWalkSound();
         }
         else
         {
@@ -231,6 +239,7 @@ public class Enemy : MonoBehaviour, IHittable
             {
                 animator.SetBool("isMoving", false);
             }
+            StopWalkSound();
         }
     }
 
@@ -239,6 +248,8 @@ public class Enemy : MonoBehaviour, IHittable
         isAttacking = true;
         animator.SetBool("isMoving", false);
         animator.SetBool("isAttacking", true);
+        StopWalkSound();
+        PlayAttackSound();
         rb.linearVelocity = Vector2.zero;
         //position sword in front of enemy
         Vector3 offset;
@@ -304,6 +315,7 @@ public class Enemy : MonoBehaviour, IHittable
     private void DisableCombatState()
     {
         isAttacking = false;
+        StopWalkSound();
 
         if (warningHitBox != null)
         {
@@ -357,6 +369,69 @@ public class Enemy : MonoBehaviour, IHittable
         if (deathAudioSource != null && deathAudioSource.clip != null)
         {
             return deathAudioSource.clip;
+        }
+
+        return null;
+    }
+
+    private void PlayAttackSound()
+    {
+        if (attackAudioSource == null)
+        {
+            return;
+        }
+
+        AudioClip clipToPlay = GetRandomAttackClip();
+        if (clipToPlay != null)
+        {
+            attackAudioSource.PlayOneShot(clipToPlay);
+            return;
+        }
+
+        attackAudioSource.Play();
+    }
+
+    private void PlayWalkSound()
+    {
+        if (walkAudioSource == null)
+        {
+            return;
+        }
+
+        walkAudioSource.loop = true;
+        if (!walkAudioSource.isPlaying)
+        {
+            walkAudioSource.Play();
+        }
+    }
+
+    private void StopWalkSound()
+    {
+        if (walkAudioSource != null && walkAudioSource.isPlaying)
+        {
+            walkAudioSource.Stop();
+        }
+    }
+
+    private AudioClip GetRandomAttackClip()
+    {
+        if (attackClips != null && attackClips.Length > 0)
+        {
+            int startIndex = Random.Range(0, attackClips.Length);
+            for (int i = 0; i < attackClips.Length; i++)
+            {
+                int clipIndex = (startIndex + i) % attackClips.Length;
+                AudioClip clip = attackClips[clipIndex];
+                if (clip != null)
+                {
+                    return clip;
+                }
+            }
+        }
+
+        if (attackAudioSource.clip != null)
+        {
+            return attackAudioSource.clip;
         }
 
         return null;
