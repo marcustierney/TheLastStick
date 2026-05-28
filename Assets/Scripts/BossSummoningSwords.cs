@@ -23,6 +23,7 @@ public class BossSummoningSwords : MonoBehaviour
     public float swordScaleMultiplier = 1.35f;
 
     public System.Action<bool> onChargingChanged;
+    public System.Action onSwordsDescending;
     private bool isAttackRunning = false;
 
     public void TriggerSummonAttack()
@@ -55,6 +56,8 @@ public class BossSummoningSwords : MonoBehaviour
 
         for (int wave = 0; wave < Mathf.Max(1, wavesPerAttack); wave++)
         {
+            onSwordsDescending?.Invoke();
+
             int safeStartLane = Random.Range(0, lanePositions.Count - clampedSafeLaneSpan + 1);
 
             for (int lane = 0; lane < lanePositions.Count; lane++)

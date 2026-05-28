@@ -30,6 +30,15 @@ public class BossTwoController : MonoBehaviour, IHittable
     // private bool lockedChargeDirection = false;
     private bool facingRight = false;
     private SlashFeedback slashFeedback;
+    [Header("Audio")]
+    [SerializeField] private AudioSource walkAudioSource;
+    [SerializeField] private AudioSource sfxAudioSource;
+    [SerializeField] private AudioClip walkLoopClip;
+    [SerializeField] private AudioClip summonChargeClip;
+    [SerializeField] private AudioClip swordDropClip;
+    [SerializeField] private float swordDropSoundDelay = 1f;
+    [SerializeField] private AudioClip dashChargeUpClip;
+    [SerializeField] private AudioClip dashAttackClip;
 
     private void Awake()
     {
@@ -38,6 +47,10 @@ public class BossTwoController : MonoBehaviour, IHittable
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
+
+        AutoAssignAudioSources();
+        ConfigureAudioSource(walkAudioSource, walkLoopClip, true, 0.25f);
+        ConfigureAudioSource(sfxAudioSource, null, false, 0.35f);
     }
 
     private void Start()
@@ -45,9 +58,19 @@ public class BossTwoController : MonoBehaviour, IHittable
         if (summoningSwords != null)
         {
             summoningSwords.onChargingChanged += OnSummonChargingChanged;
+            summoningSwords.onSwordsDescending += OnSwordsDescending;
         }
 
         StartCoroutine(SummonAttackLoop());
+    }
+
+    private void OnDestroy()
+    {
+        if (summoningSwords != null)
+        {
+            summoningSwords.onChargingChanged -= OnSummonChargingChanged;
+            summoningSwords.onSwordsDescending -= OnSwordsDescending;
+        }
     }
 
     private void OnSummonChargingChanged(bool charging)
@@ -56,6 +79,11 @@ public class BossTwoController : MonoBehaviour, IHittable
         if (animator != null)
         {
             animator.SetBool("isCharging", charging);
+        }
+
+        if (charging)
+        {
+            PlaySummonChargeSound();
         }
     }
 
@@ -66,8 +94,20 @@ public class BossTwoController : MonoBehaviour, IHittable
 
     private void Update()
     {
-        if (isDead || player == null) return;
-        if (IsBusyAttacking()) return; 
+        if (isDead || player == null)
+        {
+            StopWalkSound();
+            return;
+        }
+
+        if (IsBusyAttacking())
+        {
+            StopWalkSound();
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            animator.SetBool("isMoving", false);
+            return;
+        }
+
         float distance = Vector2.Distance(transform.position, player.position);
         spriteRenderer.flipX = player.position.x > transform.position.x;
         if (distance <= dashAttackRange && Time.time >= lastDashTime + dashCooldown)
@@ -90,6 +130,7 @@ public class BossTwoController : MonoBehaviour, IHittable
         Vector2 direction = (player.position - transform.position).normalized;
         rb.linearVelocity = new Vector2(direction.x * moveSpeed, rb.linearVelocity.y);
         animator.SetBool("isMoving", true);
+        PlayWalkSound();
     }
 
     private IEnumerator DashAttack()
@@ -102,12 +143,15 @@ public class BossTwoController : MonoBehaviour, IHittable
         rb.linearVelocity = Vector2.zero;
         animator.SetBool("isMoving", false);
         animator.SetBool("isChargingDash", true);
+        StopWalkSound();
+        PlayDashChargeUpSound();
         yield return new WaitForSeconds(dashChargeUpDuration);
         animator.SetBool("isChargingDash", false);
         isChargingDash = false;
         isDashing = true;
         isDealingDashDamage = true;
         animator.SetBool("isDashing", true);
+        PlayDashSound();
         Vector2 dashDirection = facingRight ? Vector2.right : Vector2.left;
         float dashTimer = 0f;
         while (dashTimer < dashDuration)
@@ -171,6 +215,7 @@ public class BossTwoController : MonoBehaviour, IHittable
     private void Die()
     {
         isDead = true;
+        StopWalkSound();
         Debug.Log("Boss dead");
         UpdateHealth playerHealth = UnityEngine.Object.FindAnyObjectByType<UpdateHealth>();
         LevelRunStats.Instance?.EmitLevelCompleted(playerHealth, SceneManager.GetActiveScene().name);
@@ -190,5 +235,142 @@ public class BossTwoController : MonoBehaviour, IHittable
                 health.TakeDamage(dashDamage, transform.position, AnalyticsKeys.DeathCauseBossTwoDash);
             }
         }
+    }
+
+    private void PlayWalkSound()
+    {
+        AudioSource source = GetWalkAudioSource();
+        if (source == null || walkLoopClip == null)
+        {
+            return;
+        }
+
+        source.loop = true;
+        if (source.clip == null)
+        {
+            source.clip = walkLoopClip;
+        }
+
+        if (!source.isPlaying)
+        {
+            source.Play();
+        }
+    }
+
+    private void StopWalkSound()
+    {
+        AudioSource source = GetWalkAudioSource();
+        if (source != null && source.isPlaying)
+        {
+            source.Stop();
+        }
+    }
+
+    private void AutoAssignAudioSources()
+    {
+        AudioSource[] audioSources = GetComponentsInChildren<AudioSource>(true);
+        for (int i = 0; i < audioSources.Length; i++)
+        {
+            AudioSource source = audioSources[i];
+            if (source == null)
+            {
+                continue;
+            }
+
+            string sourceName = source.gameObject.name;
+            if (walkAudioSource == null && sourceName.IndexOf("Walk", System.StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                walkAudioSource = source;
+                continue;
+            }
+
+            if (sfxAudioSource == null && sourceName.IndexOf("SFX", System.StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                sfxAudioSource = source;
+            }
+        }
+
+        if (sfxAudioSource == null && audioSources.Length > 0)
+        {
+            sfxAudioSource = audioSources[0];
+        }
+
+        if (walkAudioSource == null)
+        {
+            walkAudioSource = sfxAudioSource;
+        }
+    }
+
+    private void ConfigureAudioSource(AudioSource source, AudioClip defaultClip, bool loop, float volume)
+    {
+        if (source == null)
+        {
+            return;
+        }
+
+        source.playOnAwake = false;
+        source.loop = loop;
+        source.spatialBlend = 0f;
+        source.volume = volume;
+        source.ignoreListenerPause = true;
+        source.dopplerLevel = 0f;
+        source.rolloffMode = AudioRolloffMode.Linear;
+        source.minDistance = 1f;
+        source.maxDistance = 20f;
+
+        if (defaultClip != null && source.clip == null)
+        {
+            source.clip = defaultClip;
+        }
+    }
+
+    private AudioSource GetWalkAudioSource()
+    {
+        return walkAudioSource != null ? walkAudioSource : sfxAudioSource;
+    }
+
+    private void PlayOneShot(AudioClip clip)
+    {
+        if (sfxAudioSource == null || clip == null)
+        {
+            return;
+        }
+
+        sfxAudioSource.PlayOneShot(clip);
+    }
+
+    private void PlaySummonChargeSound()
+    {
+        PlayOneShot(summonChargeClip);
+    }
+
+    private void PlaySwordDropSound()
+    {
+        PlayOneShot(swordDropClip);
+    }
+
+    private void OnSwordsDescending()
+    {
+        StartCoroutine(PlaySwordDropSoundAfterDelay());
+    }
+
+    private IEnumerator PlaySwordDropSoundAfterDelay()
+    {
+        if (swordDropSoundDelay > 0f)
+        {
+            yield return new WaitForSeconds(swordDropSoundDelay);
+        }
+
+        PlaySwordDropSound();
+    }
+
+    private void PlayDashChargeUpSound()
+    {
+        PlayOneShot(dashChargeUpClip);
+    }
+
+    private void PlayDashSound()
+    {
+        PlayOneShot(dashAttackClip);
     }
 }

@@ -15,6 +15,7 @@ TagManager:
   - LevelOneDoor
   - Roof
   - BossTwo
+  - SFX
   - CameraShift
   - Rope
   layers:
