@@ -22910,6 +22910,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 57135424212590336, guid: 3b24a56168c772b40a5c324f5cf4e610, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 57135424212590336, guid: 3b24a56168c772b40a5c324f5cf4e610, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2026122546282316141, guid: 3b24a56168c772b40a5c324f5cf4e610, type: 3}
       propertyPath: m_LocalPosition.x
       value: 217.1
@@ -22953,6 +22961,30 @@ PrefabInstance:
     - target: {fileID: 5086145036385747572, guid: 3b24a56168c772b40a5c324f5cf4e610, type: 3}
       propertyPath: m_Name
       value: WolfSpider
+      objectReference: {fileID: 0}
+    - target: {fileID: 8395707062036298456, guid: 3b24a56168c772b40a5c324f5cf4e610, type: 3}
+      propertyPath: swarmMoveSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8395707062036298456, guid: 3b24a56168c772b40a5c324f5cf4e610, type: 3}
+      propertyPath: swarmDashCooldown
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 8395707062036298456, guid: 3b24a56168c772b40a5c324f5cf4e610, type: 3}
+      propertyPath: swarmDashDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8395707062036298456, guid: 3b24a56168c772b40a5c324f5cf4e610, type: 3}
+      propertyPath: swarmDashAttackRange
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8395707062036298456, guid: 3b24a56168c772b40a5c324f5cf4e610, type: 3}
+      propertyPath: swarmDashChargeDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8395707062036298456, guid: 3b24a56168c772b40a5c324f5cf4e610, type: 3}
+      propertyPath: swarmDashRecoveryDuration
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

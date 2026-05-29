@@ -1,0 +1,665 @@
+fileFormatVersion: 2
+guid: 51e1edbaaa742f94eaa42720b5859485
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7460097287370652587
+    second: babydeath_0
+  - first:
+      213: 7805416998677269656
+    second: babydeath_1
+  - first:
+      213: 7174804000509697441
+    second: babydeath_2
+  - first:
+      213: -8685582879748508288
+    second: babydeath_3
+  - first:
+      213: -1379978855781136201
+    second: babydeath_4
+  - first:
+      213: 3015088747821529058
+    second: babydeath_5
+  - first:
+      213: 3794361921777801403
+    second: babydeath_6
+  - first:
+      213: -1833920947285304775
+    second: babydeath_7
+  - first:
+      213: -4620236840716535203
+    second: babydeath_8
+  - first:
+      213: 3856855293211541381
+    second: babydeath_9
+  - first:
+      213: -51587887136945134
+    second: babydeath_10
+  - first:
+      213: 1434155921357088129
+    second: babydeath_11
+  - first:
+      213: -4586276268337994617
+    second: babydeath_12
+  - first:
+      213: 1682231609361144422
+    second: babydeath_13
+  - first:
+      213: -2158086323306976651
+    second: babydeath_14
+  - first:
+      213: 1694678702134291956
+    second: babydeath_15
+  - first:
+      213: -1784827465012119823
+    second: babydeath_16
+  - first:
+      213: 4408429364467886669
+    second: babydeath_17
+  - first:
+      213: -4789471185245094555
+    second: babydeath_18
+  - first:
+      213: 1239542590404919342
+    second: babydeath_19
+  - first:
+      213: -5210478821843510826
+    second: babydeath_20
+  - first:
+      213: 6143212684189067527
+    second: babydeath_21
+  - first:
+      213: -935761400311766602
+    second: babydeath_22
+  - first:
+      213: -5416884360675382392
+    second: babydeath_23
+  - first:
+      213: -5755125268288130763
+    second: babydeath_24
+  - first:
+      213: -6721639996485583123
+    second: babydeath_25
+  - first:
+      213: -6323708127119504238
+    second: babydeath_26
+  - first:
+      213: -2160659330853487166
+    second: babydeath_27
+  - first:
+      213: 3334839133730662691
+    second: babydeath_28
+  - first:
+      213: 4291572932976083892
+    second: babydeath_29
+  - first:
+      213: -706304050650877886
+    second: babydeath_30
+  - first:
+      213: 7990438670515178914
+    second: babydeath_31
+  - first:
+      213: -1517864281482303097
+    second: babydeath_32
+  - first:
+      213: -5005241220762356153
+    second: babydeath_33
+  - first:
+      213: -971319082074765665
+    second: babydeath_34
+  - first:
+      213: 7758984618501000895
+    second: babydeath_35
+  - first:
+      213: 7627305512764906486
+    second: babydeath_36
+  - first:
+      213: 7508146826857835372
+    second: babydeath_37
+  - first:
+      213: 8603594675180175614
+    second: babydeath_38
+  - first:
+      213: -7144600003302248560
+    second: babydeath_39
+  - first:
+      213: 512796296830710854
+    second: babydeath_40
+  - first:
+      213: 6281111517302190841
+    second: babydeath_41
+  - first:
+      213: -2040143493511908641
+    second: babydeath_42
+  - first:
+      213: 4434447725802338549
+    second: babydeath_43
+  - first:
+      213: 8651384988469022748
+    second: babydeath_44
+  - first:
+      213: 3904955164438707577
+    second: babydeath_45
+  - first:
+      213: -5030382261635554051
+    second: babydeath_46
+  - first:
+      213: -3608705879637383013
+    second: babydeath_47
+  - first:
+      213: -2943139557627570081
+    second: babydeath_48
+  - first:
+      213: 8737540843172618360
+    second: babydeath_49
+  - first:
+      213: 1267948453045211020
+    second: babydeath_50
+  - first:
+      213: 4606587054473539473
+    second: babydeath_51
+  - first:
+      213: -1285976988358510333
+    second: babydeath_52
+  - first:
+      213: -2849755770299143454
+    second: babydeath_53
+  - first:
+      213: 5896906185883798846
+    second: babydeath_54
+  - first:
+      213: -3871721674440086046
+    second: babydeath_55
+  - first:
+      213: -8304054417605494092
+    second: babydeath_56
+  - first:
+      213: -3912808565625161562
+    second: babydeath_57
+  - first:
+      213: -3156259915184665829
+    second: babydeath_58
+  - first:
+      213: -8304044517872343762
+    second: babydeath_59
+  - first:
+      213: 3764646600099419501
+    second: babydeath_60
+  - first:
+      213: -8362381291353120943
+    second: babydeath_61
+  - first:
+      213: 4200184295114474415
+    second: babydeath_62
+  - first:
+      213: 4110692781498198365
+    second: babydeath_63
+  - first:
+      213: -2147626216998158934
+    second: babydeath_64
+  - first:
+      213: 6542968729728832110
+    second: babydeath_65
+  - first:
+      213: -3349748863628036591
+    second: babydeath_66
+  - first:
+      213: 4533963239408389172
+    second: babydeath_67
+  - first:
+      213: -5431438380503833575
+    second: babydeath_68
+  - first:
+      213: -4274662239378651658
+    second: babydeath_69
+  - first:
+      213: -775420531002936287
+    second: babydeath_70
+  - first:
+      213: 9002480633603971725
+    second: babydeath_71
+  - first:
+      213: -8944007482109778370
+    second: babydeath_72
+  - first:
+      213: -7717346237905624356
+    second: babydeath_73
+  - first:
+      213: 4587640258804100637
+    second: babydeath_74
+  - first:
+      213: 5629118750568457399
+    second: babydeath_75
+  - first:
+      213: 7621626274697117074
+    second: babydeath_76
+  - first:
+      213: 6914218176994505720
+    second: babydeath_77
+  - first:
+      213: 5639395350909813487
+    second: babydeath_78
+  - first:
+      213: 7258655208963805514
+    second: babydeath_79
+  - first:
+      213: -4350983701256754377
+    second: babydeath_80
+  - first:
+      213: 4996017916740192255
+    second: babydeath_81
+  - first:
+      213: 1142363100108060182
+    second: babydeath_82
+  - first:
+      213: 858357569539323178
+    second: babydeath_83
+  - first:
+      213: -5227691365303216664
+    second: babydeath_84
+  - first:
+      213: -3686973063062931682
+    second: babydeath_85
+  - first:
+      213: 5509677818285388649
+    second: babydeath_86
+  - first:
+      213: -2272873344510073654
+    second: babydeath_87
+  - first:
+      213: -2951862864782363603
+    second: babydeath_88
+  - first:
+      213: 3440414094267198746
+    second: babydeath_89
+  - first:
+      213: -2489563472639858796
+    second: babydeath_90
+  - first:
+      213: -4117665852833915805
+    second: babydeath_91
+  - first:
+      213: 4116923843487599556
+    second: babydeath_92
+  - first:
+      213: -5173050541859188705
+    second: babydeath_93
+  - first:
+      213: -5091448382170137823
+    second: babydeath_94
+  - first:
+      213: 8439776706870592682
+    second: babydeath_95
+  - first:
+      213: 6235439212979338011
+    second: babydeath_96
+  - first:
+      213: 8594968101335907983
+    second: babydeath_97
+  - first:
+      213: -3331731343159179240
+    second: babydeath_98
+  - first:
+      213: 4235441580740364507
+    second: babydeath_99
+  - first:
+      213: 3374787523247779887
+    second: babydeath_100
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: babydeath_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 554ca6cda09687890800000000000000
+      internalID: -7460097287370652587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: babydeath_1
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89c44f9c769625c60800000000000000
+      internalID: 7805416998677269656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: babydeath_2
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ad9e678936029360800000000000000
+      internalID: 7174804000509697441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: babydeath_3
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0853069936c967780800000000000000
+      internalID: -8685582879748508288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: babydeath_4
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b88d97ca8459dce0800000000000000
+      internalID: -1379978855781136201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: babydeath_5
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e7fd24dd3fb7d920800000000000000
+      internalID: 3015088747821529058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: babydeath_6
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb895d0801848a430800000000000000
+      internalID: 3794361921777801403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: babydeath_7
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93a59ee6d9a9c86e0800000000000000
+      internalID: -1833920947285304775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: babydeath_8
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5afaea821f91efb0800000000000000
+      internalID: -4620236840716535203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: babydeath_9
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58f75f5647d468530800000000000000
+      internalID: 3856855293211541381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: d16d0824fe4324a46adc6abcaf8e2055
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":128.0,"y":128.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      babydeath_0: -7460097287370652587
+      babydeath_1: 7805416998677269656
+      babydeath_2: 7174804000509697441
+      babydeath_3: -8685582879748508288
+      babydeath_4: -1379978855781136201
+      babydeath_5: 3015088747821529058
+      babydeath_6: 3794361921777801403
+      babydeath_7: -1833920947285304775
+      babydeath_8: -4620236840716535203
+      babydeath_9: 3856855293211541381
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

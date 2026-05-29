@@ -3,6 +3,7 @@ using System.Collections;
 public class WolfSpiderEnemy : MonoBehaviour, IHittable
 {
     public int maxHealth = 9;
+    [SerializeField] private int swarmMaxHealth = 5;
     private int currentHealth;
 
     // [SerializeField]
@@ -22,6 +23,10 @@ public class WolfSpiderEnemy : MonoBehaviour, IHittable
     private float attackCooldown = .5f;
     protected Animator animator;
     private bool isAttacking = false;
+    private bool isSwarmPhase;
+    private bool isChargingSwarmDash;
+    private bool isSwarmDashing;
+    private bool isSwarmRecovering;
     protected SpriteRenderer spriteRenderer;
     [Header("Hit Flash")]
     [SerializeField] private float hitFlashDuration = 0.6f;
@@ -39,12 +44,26 @@ public class WolfSpiderEnemy : MonoBehaviour, IHittable
     [SerializeField] private AudioSource deathAudioSource;
     [SerializeField] private AudioClip[] deathClips = new AudioClip[5];
 
-    [Header("Future Spawnlings")]
-    [SerializeField] private bool spawnOnDeath = false;
-    [SerializeField] private GameObject spawnlingPrefab;
-    [SerializeField] private int spawnlingCount = 0;
+    [Header("Swarm Charge Attack")]
+    [SerializeField] private float swarmMoveSpeed = 1.8f;
+    [SerializeField] private float swarmDashAttackRange = 5f;
+    [SerializeField] private float swarmDashChargeDuration = 0.85f;
+    [SerializeField] private float swarmDashSpeed = 6.5f;
+    [SerializeField] private float swarmDashDuration = 0.35f;
+    [SerializeField] private float swarmDashRecoveryDuration = 0.6f;
+    [SerializeField] private float swarmDashCooldown = 2.2f;
+    [SerializeField] private int swarmDashDamage = 10;
+
+    [Header("Swarm Animator Params")]
+    [SerializeField] private string swarmPhaseBoolParam = "isSwarm";
+    [SerializeField] private string swarmAttackBoolParam = "isDashing";
+    [SerializeField] private string swarmTransitionTriggerParam = "toSwarm";
 
     private SlashFeedback slashFeedback;
+    private float lastSwarmDashTime = -999f;
+    private Coroutine meleeAttackRoutine;
+    private Coroutine swarmDashRoutine;
+    private bool isDealingSwarmDashDamage;
 
     private void Awake()
     {
@@ -109,7 +128,14 @@ public class WolfSpiderEnemy : MonoBehaviour, IHittable
 
         if (isFatalHit)
         {
-            Die();
+            if (!isSwarmPhase)
+            {
+                EnterSwarmPhase();
+            }
+            else
+            {
+                Die();
+            }
         }
     }
 
@@ -184,10 +210,13 @@ public class WolfSpiderEnemy : MonoBehaviour, IHittable
         // Always face the player direction when in range
         if (distance <= chaseRange)
         {
-            animator.SetBool("canSeePlayer", true);
+            if (animator != null)
+            {
+                animator.SetBool("canSeePlayer", true);
+            }
             
             // Update facing direction - only flip when not attacking
-            if (!isAttacking)
+            if (!IsBusyAttacking())
             {
                 Vector2 direction = (player.position - transform.position).normalized;
                 if (direction.x > 0)
@@ -195,25 +224,55 @@ public class WolfSpiderEnemy : MonoBehaviour, IHittable
                 else
                     spriteRenderer.flipX = false;
             }
-            
-            if (!isAttacking && distance > attackRange)
+
+            if (isSwarmPhase)
+            {
+                UpdateSwarmPhase(distance);
+            }
+            else if (!isAttacking && distance > attackRange)
             {
                 MoveTowardsPlayer();
             }
             else if (!isAttacking && distance <= attackRange)
             {
-                StartCoroutine(Attack());
+                if (meleeAttackRoutine == null)
+                {
+                    meleeAttackRoutine = StartCoroutine(Attack());
+                }
             }
         }
         else
         {
-            animator.SetBool("canSeePlayer", false);
-            animator.SetBool("isMoving", false);
+            if (animator != null)
+            {
+                animator.SetBool("canSeePlayer", false);
+                animator.SetBool("isMoving", false);
+            }
             // Stop movement when out of range (idle)
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
             // Maintain flip when out of range
             spriteRenderer.flipX = false;
         }
+    }
+
+    private void UpdateSwarmPhase(float distance)
+    {
+        if (isChargingSwarmDash || isSwarmDashing || isSwarmRecovering)
+        {
+            return;
+        }
+
+        bool canDash = distance <= swarmDashAttackRange && Time.time >= lastSwarmDashTime + swarmDashCooldown;
+        if (canDash)
+        {
+            if (swarmDashRoutine == null)
+            {
+                swarmDashRoutine = StartCoroutine(SwarmDashAttack());
+            }
+            return;
+        }
+
+        MoveTowardsPlayer(swarmMoveSpeed);
     }
 
     private bool IsGroundAhead(float moveDirectionX)
@@ -240,11 +299,16 @@ public class WolfSpiderEnemy : MonoBehaviour, IHittable
 
     protected virtual void MoveTowardsPlayer()
     {
+        MoveTowardsPlayer(moveSpeed);
+    }
+
+    private void MoveTowardsPlayer(float speed)
+    {
         Vector2 direction = (player.position - transform.position).normalized;
 
         if (IsGroundAhead(direction.x))
         {
-            rb.linearVelocity = new Vector2(direction.x * moveSpeed, rb.linearVelocity.y);
+            rb.linearVelocity = new Vector2(direction.x * speed, rb.linearVelocity.y);
             if (animator != null)
             {
                 animator.SetBool("isMoving", true);
@@ -262,9 +326,18 @@ public class WolfSpiderEnemy : MonoBehaviour, IHittable
 
         private IEnumerator Attack()
     {
+        if (isSwarmPhase)
+        {
+            meleeAttackRoutine = null;
+            yield break;
+        }
+
         isAttacking = true;
-        animator.SetBool("isMoving", false);
-        animator.SetBool("isAttacking", true);
+        if (animator != null)
+        {
+            animator.SetBool("isMoving", false);
+            animator.SetBool("isAttacking", true);
+        }
         rb.linearVelocity = Vector2.zero;
         //position sword in front of enemy
         Vector3 offset;
@@ -278,19 +351,114 @@ public class WolfSpiderEnemy : MonoBehaviour, IHittable
         }
         
         // Show warning box first
-        warningHitBox.transform.localPosition = offset;
-        warningHitBox.SetActive(true);
+        if (warningHitBox != null)
+        {
+            warningHitBox.transform.localPosition = offset;
+            warningHitBox.SetActive(true);
+        }
         yield return new WaitForSeconds(warningDuration);
-        warningHitBox.SetActive(false);
+        if (warningHitBox != null)
+        {
+            warningHitBox.SetActive(false);
+        }
         
         // Then show actual hitbox
-        swordHitbox.transform.localPosition = offset;
-        swordHitbox.SetActive(true);
+        if (swordHitbox != null)
+        {
+            swordHitbox.transform.localPosition = offset;
+            swordHitbox.SetActive(true);
+        }
         yield return new WaitForSeconds(attackDuration);
-        swordHitbox.SetActive(false);
+        if (swordHitbox != null)
+        {
+            swordHitbox.SetActive(false);
+        }
         yield return new WaitForSeconds(attackCooldown);
         isAttacking = false;
-        animator.SetBool("isAttacking", false);
+        if (animator != null)
+        {
+            animator.SetBool("isAttacking", false);
+        }
+        meleeAttackRoutine = null;
+    }
+
+    private IEnumerator SwarmDashAttack()
+    {
+        lastSwarmDashTime = Time.time;
+        isChargingSwarmDash = true;
+        rb.linearVelocity = Vector2.zero;
+
+        if (animator != null)
+        {
+            animator.SetBool("isMoving", false);
+        }
+
+        SetAnimatorBoolIfExists(swarmAttackBoolParam, true);
+        yield return new WaitForSeconds(swarmDashChargeDuration);
+
+        isChargingSwarmDash = false;
+        isSwarmDashing = true;
+        isDealingSwarmDashDamage = true;
+
+        float dashDirectionX = spriteRenderer != null && spriteRenderer.flipX ? 1f : -1f;
+        float dashTimer = 0f;
+        while (dashTimer < swarmDashDuration)
+        {
+            if (!IsGroundAhead(dashDirectionX))
+            {
+                break;
+            }
+
+            rb.linearVelocity = new Vector2(dashDirectionX * swarmDashSpeed, rb.linearVelocity.y);
+            dashTimer += Time.deltaTime;
+            yield return null;
+        }
+
+        rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+        isSwarmDashing = false;
+        isDealingSwarmDashDamage = false;
+        SetAnimatorBoolIfExists(swarmAttackBoolParam, false);
+
+        isSwarmRecovering = true;
+        yield return new WaitForSeconds(swarmDashRecoveryDuration);
+        isSwarmRecovering = false;
+        swarmDashRoutine = null;
+    }
+
+    private bool IsBusyAttacking()
+    {
+        return isAttacking || isChargingSwarmDash || isSwarmDashing || isSwarmRecovering;
+    }
+
+    private void EnterSwarmPhase()
+    {
+        isSwarmPhase = true;
+        currentHealth = Mathf.Max(1, swarmMaxHealth);
+        isAttacking = false;
+
+        if (meleeAttackRoutine != null)
+        {
+            StopCoroutine(meleeAttackRoutine);
+            meleeAttackRoutine = null;
+        }
+
+        if (warningHitBox != null)
+        {
+            warningHitBox.SetActive(false);
+        }
+
+        if (swordHitbox != null)
+        {
+            swordHitbox.SetActive(false);
+        }
+
+        if (animator != null)
+        {
+            animator.SetBool("isAttacking", false);
+        }
+
+        SetAnimatorBoolIfExists(swarmPhaseBoolParam, true);
+        SetAnimatorTriggerIfExists(swarmTransitionTriggerParam);
     }
 
     private void Die()
@@ -304,17 +472,14 @@ public class WolfSpiderEnemy : MonoBehaviour, IHittable
         Debug.Log("killed");
         if (animator != null)
         {
+            SetAnimatorBoolIfExists(swarmPhaseBoolParam, false);
+            SetAnimatorBoolIfExists(swarmAttackBoolParam, false);
             animator.SetTrigger("isDying");
         }
         DisableCombatState();
 
         CoinManager.Instance?.AddCoins(2);
         PlayDeathSound();
-
-        if (spawnOnDeath && spawnlingPrefab != null && spawnlingCount > 0)
-        {
-            // Placeholder for future implementation once spawnling assets are ready.
-        }
 
         StartCoroutine(DieAfterDelay()); 
     }
@@ -329,6 +494,22 @@ public class WolfSpiderEnemy : MonoBehaviour, IHittable
     private void DisableCombatState()
     {
         isAttacking = false;
+        isChargingSwarmDash = false;
+        isSwarmDashing = false;
+        isSwarmRecovering = false;
+        isDealingSwarmDashDamage = false;
+
+        if (meleeAttackRoutine != null)
+        {
+            StopCoroutine(meleeAttackRoutine);
+            meleeAttackRoutine = null;
+        }
+
+        if (swarmDashRoutine != null)
+        {
+            StopCoroutine(swarmDashRoutine);
+            swarmDashRoutine = null;
+        }
 
         if (warningHitBox != null)
         {
@@ -387,6 +568,47 @@ public class WolfSpiderEnemy : MonoBehaviour, IHittable
         return null;
     }
 
+    private void SetAnimatorBoolIfExists(string parameterName, bool value)
+    {
+        if (animator == null || string.IsNullOrEmpty(parameterName))
+        {
+            return;
+        }
+
+        if (AnimatorHasParameter(parameterName, AnimatorControllerParameterType.Bool))
+        {
+            animator.SetBool(parameterName, value);
+        }
+    }
+
+    private void SetAnimatorTriggerIfExists(string parameterName)
+    {
+        if (animator == null || string.IsNullOrEmpty(parameterName))
+        {
+            return;
+        }
+
+        if (AnimatorHasParameter(parameterName, AnimatorControllerParameterType.Trigger))
+        {
+            animator.SetTrigger(parameterName);
+        }
+    }
+
+    private bool AnimatorHasParameter(string parameterName, AnimatorControllerParameterType parameterType)
+    {
+        AnimatorControllerParameter[] parameters = animator.parameters;
+        for (int i = 0; i < parameters.Length; i++)
+        {
+            AnimatorControllerParameter parameter = parameters[i];
+            if (parameter.type == parameterType && parameter.name == parameterName)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 ///THIS TABBED OUT CODE IS FOR IF WE WANT TO PLAYER TOUCHING THE ENEMEY TO DO DAMAGE OR ONLY THE ENEMY WEAPON
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -413,6 +635,20 @@ public class WolfSpiderEnemy : MonoBehaviour, IHittable
         if (collision.CompareTag("Player") && collision.gameObject.name != "SwordHitbox")
         {
             // DealDamageToPlayer(collision.gameObject);
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (!isDealingSwarmDashDamage) return;
+
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            UpdateHealth health = collision.gameObject.GetComponent<UpdateHealth>();
+            if (health != null)
+            {
+                health.TakeDamage(swarmDashDamage, transform.position, AnalyticsKeys.DeathCauseSpiderEnemy);
+            }
         }
     }
 
