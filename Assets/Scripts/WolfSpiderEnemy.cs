@@ -53,6 +53,8 @@ public class WolfSpiderEnemy : MonoBehaviour, IHittable
     [SerializeField] private float swarmDashRecoveryDuration = 0.6f;
     [SerializeField] private float swarmDashCooldown = 2.2f;
     [SerializeField] private int swarmDashDamage = 10;
+    [SerializeField] private float swarmStartupDelay = .8f;
+    [SerializeField] private float swarmAttackLockoutAfterStartup = 1f;
 
     [Header("Swarm Animator Params")]
     [SerializeField] private string swarmPhaseBoolParam = "isSwarm";
@@ -64,6 +66,7 @@ public class WolfSpiderEnemy : MonoBehaviour, IHittable
     private Coroutine meleeAttackRoutine;
     private Coroutine swarmDashRoutine;
     private bool isDealingSwarmDashDamage;
+    private float swarmPhaseStartTime = -999f;
 
     private void Awake()
     {
@@ -257,6 +260,19 @@ public class WolfSpiderEnemy : MonoBehaviour, IHittable
 
     private void UpdateSwarmPhase(float distance)
     {
+        float swarmAttackStartTime = swarmPhaseStartTime + swarmStartupDelay + swarmAttackLockoutAfterStartup;
+
+        if (Time.time < swarmAttackStartTime)
+        {
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+            if (animator != null)
+            {
+                animator.SetBool("isMoving", false);
+            }
+
+            return;
+        }
+
         if (isChargingSwarmDash || isSwarmDashing || isSwarmRecovering)
         {
             return;
@@ -417,11 +433,11 @@ public class WolfSpiderEnemy : MonoBehaviour, IHittable
         rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
         isSwarmDashing = false;
         isDealingSwarmDashDamage = false;
-        SetAnimatorBoolIfExists(swarmAttackBoolParam, false);
 
         isSwarmRecovering = true;
         yield return new WaitForSeconds(swarmDashRecoveryDuration);
         isSwarmRecovering = false;
+        SetAnimatorBoolIfExists(swarmAttackBoolParam, false);
         swarmDashRoutine = null;
     }
 
@@ -433,6 +449,7 @@ public class WolfSpiderEnemy : MonoBehaviour, IHittable
     private void EnterSwarmPhase()
     {
         isSwarmPhase = true;
+        swarmPhaseStartTime = Time.time;
         currentHealth = Mathf.Max(1, swarmMaxHealth);
         isAttacking = false;
 

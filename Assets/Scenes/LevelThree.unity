@@ -22968,11 +22968,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8395707062036298456, guid: 3b24a56168c772b40a5c324f5cf4e610, type: 3}
       propertyPath: swarmDashCooldown
-      value: 0.75
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8395707062036298456, guid: 3b24a56168c772b40a5c324f5cf4e610, type: 3}
       propertyPath: swarmDashDuration
-      value: 1
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 8395707062036298456, guid: 3b24a56168c772b40a5c324f5cf4e610, type: 3}
       propertyPath: swarmDashAttackRange
@@ -22984,7 +22984,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8395707062036298456, guid: 3b24a56168c772b40a5c324f5cf4e610, type: 3}
       propertyPath: swarmDashRecoveryDuration
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
