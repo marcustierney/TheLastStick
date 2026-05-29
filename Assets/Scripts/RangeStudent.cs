@@ -370,7 +370,16 @@ public class ThrowEnemy : MonoBehaviour, IHittable
             return;
         }
 
-        attackAudioSource.Play();
+        StartCoroutine(PlayAttackSoundDelayed(0.3f));
+    }
+
+    private IEnumerator PlayAttackSoundDelayed(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (attackAudioSource != null && attackAudioSource.clip != null)
+        {
+            attackAudioSource.Play();
+        }
     }
 
     private void PlayWalkSound()
