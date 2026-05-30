@@ -1333,11 +1333,11 @@ MonoBehaviour:
   healthIncreasePerUpgrade: 10
   purchaseAudioSource: {fileID: 0}
   purchaseClips:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 6b530f6e7f53b1e41a9345f1d26193a8, type: 3}
+  - {fileID: 8300000, guid: 3fd84c830bb7dd5469e8bf831ea4dbe2, type: 3}
+  - {fileID: 8300000, guid: a122ade7de79a3b488d4c4f93eaae48c, type: 3}
+  - {fileID: 8300000, guid: 66ecf86999d84774fa440a060d72c325, type: 3}
+  - {fileID: 8300000, guid: 9836c97c1f148a04dbca0409c46dae5c, type: 3}
 --- !u!114 &2666611740252902450
 MonoBehaviour:
   m_ObjectHideFlags: 0
