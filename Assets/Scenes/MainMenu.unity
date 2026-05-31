@@ -556,6 +556,7 @@ MonoBehaviour:
   mainMenuDefaultSelection: {fileID: 0}
   creditsDefaultSelection: {fileID: 0}
   playButtonText: {fileID: 1226708219}
+  fadeOutDuration: 0.35
 --- !u!4 &225710460
 Transform:
   m_ObjectHideFlags: 0
@@ -1558,7 +1559,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 5148463774940904718, guid: b937f504e11073e4c8a015f7480885a5, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -2433,7 +2434,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIButtonSoundPlayer
   hoverClip: {fileID: 8300000, guid: 8e3d8f8d0bce4884bad7792c1443290e, type: 3}
-  clickClip: {fileID: 8300000, guid: a2ca6cbaa2fab9e4ebc8e37c4f30bc2a, type: 3}
+  clickClip: {fileID: 8300000, guid: 3a4798a3c571c3240a1b2899189e99b3, type: 3}
   hoverVolume: 1
   clickVolume: 0.5
   playHoverOnSelect: 0
@@ -3347,7 +3348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIButtonSoundPlayer
   hoverClip: {fileID: 8300000, guid: 8e3d8f8d0bce4884bad7792c1443290e, type: 3}
-  clickClip: {fileID: 8300000, guid: a2ca6cbaa2fab9e4ebc8e37c4f30bc2a, type: 3}
+  clickClip: {fileID: 8300000, guid: 3a4798a3c571c3240a1b2899189e99b3, type: 3}
   hoverVolume: 1
   clickVolume: 0.5
   playHoverOnSelect: 0

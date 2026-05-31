@@ -10,6 +10,7 @@ using UnityEngine.UI;
 public class MainMenu : MonoBehaviour
 {
     private const string UiActionMap = "UI";
+    private const string LoadingScreenSceneName = "LoadingScreen";
 
     [SerializeField] CanvasGroup mainMenuPanel;
     [SerializeField] CanvasGroup optionsPanel;
@@ -18,8 +19,12 @@ public class MainMenu : MonoBehaviour
     [SerializeField] Selectable mainMenuDefaultSelection;
     [SerializeField] Selectable creditsDefaultSelection;
     [SerializeField] TMP_Text playButtonText;
+    [SerializeField] private float fadeOutDuration = 0.35f;
 
     private bool lastCancelHeld;
+    private bool isTransitioning;
+    private CanvasGroup fadeOverlayGroup;
+    private Image fadeOverlayImage;
 
     private void Awake()
     {
@@ -91,46 +96,39 @@ public class MainMenu : MonoBehaviour
 
     public void PlayGame()
     {
+        if (isTransitioning)
+        {
+            return;
+        }
+
         PlayerPrefs.SetInt("HasPlayedBefore", 1);
         int level = PlayerPrefs.GetInt("CurrentLevel", 0);
-
-        if (level == 0)
+        if (!TryGetSceneForLevel(level, out string nextScene))
         {
-            GameAnalytics.FlushIfReady();
-            SceneTransition.SetPendingNextScene("Tutorial", 4f);
-            SceneManager.LoadScene("LoadingScreen");
-        }
-        else if (level == 1)
-        {
-            GameAnalytics.FlushIfReady();
-            SceneTransition.SetPendingNextScene("LevelOne", 4f);
-            SceneManager.LoadScene("LoadingScreen");
-        }
-        else if (level == 2)
-        {
-            GameAnalytics.FlushIfReady();
-            SceneTransition.SetPendingNextScene("LevelTwo", 4f);
-            SceneManager.LoadScene("LoadingScreen");
-        }
-        else if (level == 3)
-        {
-            GameAnalytics.FlushIfReady();
-            SceneTransition.SetPendingNextScene("LevelThree", 4f);
-            SceneManager.LoadScene("LoadingScreen");
+            PlayerPrefs.Save();
+            return;
         }
 
+        GameAnalytics.FlushIfReady();
+        SceneTransition.SetPendingNextScene(nextScene, 4f);
         PlayerPrefs.Save();
+        BeginLoadingScreenTransition();
     }
 
     public void RestartGame()
     {
+        if (isTransitioning)
+        {
+            return;
+        }
+
         PlayerPrefs.SetInt("HasPlayedBefore", 1);
         CoinManager.ClearSavedProgress();
         GameAnalytics.FlushIfReady();
         SceneTransition.SetPendingNextScene("Tutorial", 4f);
-        SceneManager.LoadScene("LoadingScreen");
         PlayerPrefs.SetInt("CurrentLevel", 0);
         PlayerPrefs.Save();
+        BeginLoadingScreenTransition();
     }
 
     public void OpenOptions()
@@ -209,6 +207,125 @@ public class MainMenu : MonoBehaviour
         cg.alpha          = on ? 1f : 0f;
         cg.interactable   = on;
         cg.blocksRaycasts = on;
+    }
+
+    private static void SetPanelInteractable(CanvasGroup cg, bool on)
+    {
+        if (cg == null)
+        {
+            return;
+        }
+
+        cg.interactable = on;
+        cg.blocksRaycasts = on;
+    }
+
+    private void BeginLoadingScreenTransition()
+    {
+        if (isTransitioning)
+        {
+            return;
+        }
+
+        isTransitioning = true;
+        if (focusGuard != null)
+        {
+            focusGuard.ClearSelection();
+        }
+
+        SetPanelInteractable(mainMenuPanel, false);
+        SetPanelInteractable(optionsPanel, false);
+        SetPanelInteractable(creditsPanel, false);
+        StartCoroutine(FadeOutAndLoadLoadingScreen());
+    }
+
+    private IEnumerator FadeOutAndLoadLoadingScreen()
+    {
+        EnsureFadeOverlay();
+
+        if (fadeOutDuration <= 0f)
+        {
+            SceneManager.LoadScene(LoadingScreenSceneName);
+            yield break;
+        }
+
+        SetFadeOverlayAlpha(0f);
+
+        float elapsed = 0f;
+        while (elapsed < fadeOutDuration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            SetFadeOverlayAlpha(Mathf.Clamp01(elapsed / fadeOutDuration));
+            yield return null;
+        }
+
+        SetFadeOverlayAlpha(1f);
+        SceneManager.LoadScene(LoadingScreenSceneName);
+    }
+
+    private void EnsureFadeOverlay()
+    {
+        if (fadeOverlayGroup != null)
+        {
+            return;
+        }
+
+        GameObject overlayObject = new GameObject("MenuFadeOverlay", typeof(RectTransform), typeof(Canvas), typeof(CanvasGroup), typeof(Image));
+        Canvas canvas = overlayObject.GetComponent<Canvas>();
+        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        canvas.sortingOrder = 32767;
+
+        fadeOverlayGroup = overlayObject.GetComponent<CanvasGroup>();
+        fadeOverlayGroup.alpha = 0f;
+        fadeOverlayGroup.interactable = false;
+        fadeOverlayGroup.blocksRaycasts = true;
+
+        fadeOverlayImage = overlayObject.GetComponent<Image>();
+        fadeOverlayImage.color = Color.black;
+        fadeOverlayImage.raycastTarget = true;
+
+        RectTransform rectTransform = overlayObject.GetComponent<RectTransform>();
+        rectTransform.anchorMin = Vector2.zero;
+        rectTransform.anchorMax = Vector2.one;
+        rectTransform.offsetMin = Vector2.zero;
+        rectTransform.offsetMax = Vector2.zero;
+    }
+
+    private void SetFadeOverlayAlpha(float alpha)
+    {
+        if (fadeOverlayGroup != null)
+        {
+            fadeOverlayGroup.alpha = alpha;
+        }
+
+        if (fadeOverlayImage != null)
+        {
+            Color color = fadeOverlayImage.color;
+            color.a = alpha;
+            fadeOverlayImage.color = color;
+        }
+    }
+
+    private static bool TryGetSceneForLevel(int level, out string sceneName)
+    {
+        switch (level)
+        {
+            case 0:
+                sceneName = "Tutorial";
+                return true;
+            case 1:
+                sceneName = "LevelOne";
+                return true;
+            case 2:
+                sceneName = "LevelTwo";
+                return true;
+            case 3:
+                sceneName = "LevelThree";
+                return true;
+            default:
+                sceneName = null;
+                return false;
+        }
     }
 
     private static GreyscaleManager EnsureGreyscaleManager()
