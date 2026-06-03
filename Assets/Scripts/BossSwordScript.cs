@@ -14,7 +14,6 @@ public class BossSword : MonoBehaviour
     private Vector2 startPosition;
     public int boomerangDistance = 25;
     private bool returning = false;
-    private Collider2D[] ignoredPlayerColliders;
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -55,8 +54,6 @@ public class BossSword : MonoBehaviour
         returning = false;
         isFlying = true;
         isStuck = false;
-        CachePlayerColliders();
-        SetPlayerCollisionIgnored(true);
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.linearVelocity = direction * 10f; //dir * speed
         physicsCollider.enabled = true;
@@ -103,7 +100,6 @@ public class BossSword : MonoBehaviour
 
         rb.linearVelocity = Vector2.zero;
         rb.bodyType = RigidbodyType2D.Kinematic;
-        SetPlayerCollisionIgnored(false);
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), boss.GetComponent<Collider2D>(), true);
         transform.parent = handPosition;
         transform.position = handPosition.position;
@@ -133,7 +129,6 @@ public class BossSword : MonoBehaviour
         rb.linearVelocity = Vector2.zero;
         rb.angularVelocity = 0f;
         rb.bodyType = RigidbodyType2D.Kinematic;
-        SetPlayerCollisionIgnored(false);
         float directionX = Mathf.Sign(boss.transform.localScale.x);
         Vector3 groundPosition = boss.transform.position;
         groundPosition.x += directionX * 2.5f;
@@ -151,39 +146,6 @@ public class BossSword : MonoBehaviour
         physicsCollider.enabled = true;
         playerTrigger.enabled = true;
         isStuck = true;
-    }
-
-    private void CachePlayerColliders()
-    {
-        if (boss == null || boss.player == null)
-        {
-            ignoredPlayerColliders = null;
-            return;
-        }
-
-        ignoredPlayerColliders = boss.player.GetComponentsInChildren<Collider2D>(true);
-    }
-
-    private void SetPlayerCollisionIgnored(bool ignore)
-    {
-        if (physicsCollider == null)
-        {
-            physicsCollider = GetComponent<Collider2D>();
-        }
-
-        if (physicsCollider == null || ignoredPlayerColliders == null)
-        {
-            return;
-        }
-
-        for (int i = 0; i < ignoredPlayerColliders.Length; i++)
-        {
-            Collider2D playerCollider = ignoredPlayerColliders[i];
-            if (playerCollider != null)
-            {
-                Physics2D.IgnoreCollision(physicsCollider, playerCollider, ignore);
-            }
-        }
     }
 
     public IEnumerator RotateSwordTo(float targetZ, float duration) //Sword spin for ground slam
