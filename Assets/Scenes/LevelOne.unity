@@ -5035,6 +5035,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 2316554393384959498, guid: 41724dd4486a74b448e855f26af32144, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4453108762749026721, guid: 41724dd4486a74b448e855f26af32144, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -5119,6 +5123,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 669001182}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 705290419562264245, guid: 41724dd4486a74b448e855f26af32144, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 8807839956274543077, guid: 41724dd4486a74b448e855f26af32144, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1553833724}
@@ -5294,9 +5301,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 937401111
-  m_SortingLayer: 3
-  m_SortingOrder: 0
+  m_SortingLayerID: 1359259917
+  m_SortingLayer: 2
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: -4995552576415429368, guid: dd0d38f2a684a6f47ad022680f87e5f4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
