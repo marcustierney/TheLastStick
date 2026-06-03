@@ -3367,8 +3367,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34d3fcba5db57c245bd60cfcf5812b37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossHealthBarUI
-  Health: 50
-  MaxHealth: 50
+  Health: 40
+  MaxHealth: 40
   healthBar: {fileID: 1100043780}
 --- !u!1 &1103346430
 GameObject:
@@ -4820,8 +4820,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34d3fcba5db57c245bd60cfcf5812b37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossHealthBarUI
-  Health: 3
-  MaxHealth: 3
+  Health: 40
+  MaxHealth: 40
   healthBar: {fileID: 1100043780}
 --- !u!114 &1550443492
 MonoBehaviour:
@@ -6451,6 +6451,14 @@ PrefabInstance:
       propertyPath: throwAudioSource
       value: 
       objectReference: {fileID: 1949506606}
+    - target: {fileID: 6930152519596686992, guid: c70446a2a0039c44ab4c8f919500c494, type: 3}
+      propertyPath: Health
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6930152519596686992, guid: c70446a2a0039c44ab4c8f919500c494, type: 3}
+      propertyPath: MaxHealth
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 6930152519596686992, guid: c70446a2a0039c44ab4c8f919500c494, type: 3}
       propertyPath: healthBar
       value: 
