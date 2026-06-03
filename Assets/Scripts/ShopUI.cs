@@ -1,11 +1,16 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
 public class ShopUI : MonoBehaviour
 {
     private const float ResumeInputBlockSeconds = 0.12f;
+    private const string GameplayActionMap = "Gameplay";
+    private const string UiActionMap = "UI";
 
     [Header("Shop Panel")]
     [SerializeField] private GameObject shopPanel;
@@ -102,6 +107,8 @@ public class ShopUI : MonoBehaviour
         if (shouldOpen)
         {
             openedFrame = Time.frameCount;
+            EnsureUiActionMapActive();
+            EnsureUiInputModuleReady();
             PauseGameplayForShop();
             StartCoroutine(SelectAfterFrame(shopDefaultSelectable));
             return;
@@ -152,6 +159,8 @@ public class ShopUI : MonoBehaviour
 
     private void ResumeGameplayFromShop()
     {
+        SwitchActionMap(GameplayActionMap);
+
         if (!pauseGameplayWhileOpen || !pausedByShop)
         {
             if (pausedAudioByShop)
@@ -170,6 +179,115 @@ public class ShopUI : MonoBehaviour
             pausedAudioByShop = false;
         }
         GameplayInputGate.BlockForUnscaledSeconds(ResumeInputBlockSeconds);
+    }
+
+    private static void EnsureUiActionMapActive()
+    {
+        PlayerInput playerInput = Object.FindAnyObjectByType<PlayerInput>();
+        if (playerInput == null)
+        {
+            return;
+        }
+
+        InputActionMap uiMap = playerInput.actions != null
+            ? playerInput.actions.FindActionMap(UiActionMap, throwIfNotFound: false)
+            : null;
+        if (uiMap == null)
+        {
+            return;
+        }
+
+        if (playerInput.currentActionMap == null || playerInput.currentActionMap.name != UiActionMap)
+        {
+            playerInput.SwitchCurrentActionMap(UiActionMap);
+        }
+
+        if (!uiMap.enabled)
+        {
+            uiMap.Enable();
+        }
+    }
+
+    private static void EnsureUiInputModuleReady()
+    {
+        EventSystem eventSystem = EventSystem.current;
+        if (eventSystem == null)
+        {
+            return;
+        }
+
+        InputSystemUIInputModule uiModule = eventSystem.GetComponent<InputSystemUIInputModule>();
+        if (uiModule == null)
+        {
+            return;
+        }
+
+        PlayerInput playerInput = Object.FindAnyObjectByType<PlayerInput>();
+        InputActionAsset asset = playerInput != null ? playerInput.actions : uiModule.actionsAsset;
+        if (asset == null)
+        {
+            return;
+        }
+
+        uiModule.actionsAsset = asset;
+        uiModule.move = ActionRef(asset, "UI/Navigate");
+        uiModule.submit = ActionRef(asset, "UI/Submit");
+        uiModule.cancel = ActionRef(asset, "UI/Cancel");
+        uiModule.point = ActionRef(asset, "UI/Point");
+        uiModule.leftClick = ActionRef(asset, "UI/Click");
+        uiModule.rightClick = ActionRef(asset, "UI/RightClick");
+        uiModule.middleClick = ActionRef(asset, "UI/MiddleClick");
+        uiModule.scrollWheel = ActionRef(asset, "UI/ScrollWheel");
+        uiModule.trackedDevicePosition = ActionRef(asset, "UI/TrackedDevicePosition");
+        uiModule.trackedDeviceOrientation = ActionRef(asset, "UI/TrackedDeviceOrientation");
+
+        EnableActionReference(uiModule.move);
+        EnableActionReference(uiModule.submit);
+        EnableActionReference(uiModule.cancel);
+        EnableActionReference(uiModule.point);
+        EnableActionReference(uiModule.leftClick);
+        EnableActionReference(uiModule.rightClick);
+        EnableActionReference(uiModule.middleClick);
+        EnableActionReference(uiModule.scrollWheel);
+    }
+
+    private static InputActionReference ActionRef(InputActionAsset asset, string actionPath)
+    {
+        InputAction action = asset.FindAction(actionPath, throwIfNotFound: false);
+        return action != null ? InputActionReference.Create(action) : null;
+    }
+
+    private static void EnableActionReference(InputActionReference actionReference)
+    {
+        if (actionReference?.action != null && !actionReference.action.enabled)
+        {
+            actionReference.action.Enable();
+        }
+    }
+
+    private static void SwitchActionMap(string actionMapName)
+    {
+        PlayerInput playerInput = Object.FindAnyObjectByType<PlayerInput>();
+        if (playerInput == null || playerInput.actions == null)
+        {
+            return;
+        }
+
+        InputActionMap actionMap = playerInput.actions.FindActionMap(actionMapName, throwIfNotFound: false);
+        if (actionMap == null)
+        {
+            return;
+        }
+
+        if (playerInput.currentActionMap == null || playerInput.currentActionMap.name != actionMapName)
+        {
+            playerInput.SwitchCurrentActionMap(actionMapName);
+        }
+
+        if (!actionMap.enabled)
+        {
+            actionMap.Enable();
+        }
     }
 
     // Called by the Speed upgrade button via OnClick in the Inspector
