@@ -17,7 +17,7 @@ public class WolfSpiderEnemy : MonoBehaviour, IHittable
     public GameObject swordHitbox;
     public GameObject warningHitBox;
     [Header("Attack")]
-    [SerializeField] private float swordOffsetX = 0.5f;  // Adjust if needed for wider sprite
+    [SerializeField] private float swordOffsetX = 0.65f;  // Adjust if needed for wider sprite
     [SerializeField] private float warningDuration = 0.7f;
     private float attackDuration = 0.14f;
     private float attackCooldown = .5f;
@@ -43,6 +43,12 @@ public class WolfSpiderEnemy : MonoBehaviour, IHittable
     [Header("Death Sound")]
     [SerializeField] private AudioSource deathAudioSource;
     [SerializeField] private AudioClip[] deathClips = new AudioClip[5];
+
+    [Header("Audio")]
+    [SerializeField] private AudioSource attackAudioSource;
+    [SerializeField] private AudioClip[] attackClips = new AudioClip[2];
+    [SerializeField] private AudioSource moveAudioSource;
+    [SerializeField] private AudioClip moveClip;
 
     [Header("Swarm Charge Attack")]
     [SerializeField] private float swarmMoveSpeed = 1.8f;
@@ -100,6 +106,8 @@ public class WolfSpiderEnemy : MonoBehaviour, IHittable
                 originalMaterials[i] = flashRenderers[i] != null ? flashRenderers[i].sharedMaterial : null;
             }
         }
+
+        ConfigureMoveAudioSource();
 
         // Prevent player from pushing the enemy - set to Kinematic
         //rb.bodyType = RigidbodyType2D.Kinematic;
@@ -255,7 +263,10 @@ public class WolfSpiderEnemy : MonoBehaviour, IHittable
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
             // Maintain flip when out of range
             spriteRenderer.flipX = false;
+            StopMoveSound();
         }
+
+        SyncMoveAudioToVelocity();
     }
 
     private void UpdateSwarmPhase(float distance)
@@ -269,6 +280,8 @@ public class WolfSpiderEnemy : MonoBehaviour, IHittable
             {
                 animator.SetBool("isMoving", false);
             }
+
+            StopMoveSound();
 
             return;
         }
@@ -329,6 +342,8 @@ public class WolfSpiderEnemy : MonoBehaviour, IHittable
             {
                 animator.SetBool("isMoving", true);
             }
+
+            StartMoveSound();
         }
         else
         {
@@ -337,6 +352,8 @@ public class WolfSpiderEnemy : MonoBehaviour, IHittable
             {
                 animator.SetBool("isMoving", false);
             }
+
+            StopMoveSound();
         }
     }
 
@@ -355,6 +372,7 @@ public class WolfSpiderEnemy : MonoBehaviour, IHittable
             animator.SetBool("isAttacking", true);
         }
         rb.linearVelocity = Vector2.zero;
+        StopMoveSound();
         //position sword in front of enemy
         Vector3 offset;
         if (spriteRenderer.flipX)
@@ -452,6 +470,7 @@ public class WolfSpiderEnemy : MonoBehaviour, IHittable
         swarmPhaseStartTime = Time.time;
         currentHealth = Mathf.Max(1, swarmMaxHealth);
         isAttacking = false;
+        StopMoveSound();
 
         if (meleeAttackRoutine != null)
         {
@@ -552,6 +571,8 @@ public class WolfSpiderEnemy : MonoBehaviour, IHittable
             rb.linearVelocity = Vector2.zero;
             rb.simulated = false;
         }
+
+        StopMoveSound();
     }
 
     private void PlayDeathSound()
@@ -562,7 +583,106 @@ public class WolfSpiderEnemy : MonoBehaviour, IHittable
             return;
         }
 
-        AudioSource.PlayClipAtPoint(clipToPlay, transform.position);
+        GameObject soundObject = new GameObject("WolfSpiderDeathSound");
+        soundObject.transform.position = transform.position;
+
+        AudioSource source = soundObject.AddComponent<AudioSource>();
+        source.clip = clipToPlay;
+        source.spatialBlend = 0f;
+        source.Play();
+
+        Destroy(soundObject, clipToPlay.length + 0.1f);
+    }
+
+    private void PlayAttackSound()
+    {
+        AudioClip clipToPlay = null;
+        if (attackClips != null && attackClips.Length > 0)
+        {
+            int idx = Random.Range(0, attackClips.Length);
+            clipToPlay = attackClips[idx];
+        }
+
+        if (clipToPlay == null && attackAudioSource != null && attackAudioSource.clip != null)
+        {
+            clipToPlay = attackAudioSource.clip;
+        }
+
+        if (clipToPlay == null) return;
+
+        GameObject s = new GameObject("WolfSpiderAttackSound");
+        s.transform.position = transform.position;
+        AudioSource src = s.AddComponent<AudioSource>();
+        src.clip = clipToPlay;
+        src.spatialBlend = 0f;
+        src.Play();
+        Destroy(s, clipToPlay.length + 0.1f);
+    }
+
+    private void ConfigureMoveAudioSource()
+    {
+        if (moveAudioSource == null)
+        {
+            moveAudioSource = GetComponent<AudioSource>();
+        }
+
+        if (moveAudioSource == null)
+        {
+            return;
+        }
+
+        if (moveAudioSource.clip == null && moveClip != null)
+        {
+            moveAudioSource.clip = moveClip;
+        }
+
+        moveAudioSource.playOnAwake = false;
+        moveAudioSource.loop = true;
+        moveAudioSource.spatialBlend = 0f;
+    }
+
+    private void StartMoveSound()
+    {
+        if (moveAudioSource == null || moveAudioSource.clip == null)
+        {
+            return;
+        }
+
+        if (!moveAudioSource.isPlaying)
+        {
+            moveAudioSource.Play();
+        }
+    }
+
+    private void StopMoveSound()
+    {
+        if (moveAudioSource == null)
+        {
+            return;
+        }
+
+        if (moveAudioSource.isPlaying)
+        {
+            moveAudioSource.Stop();
+        }
+    }
+
+    private void SyncMoveAudioToVelocity()
+    {
+        if (moveAudioSource == null || rb == null)
+        {
+            return;
+        }
+
+        bool isMovingHorizontally = Mathf.Abs(rb.linearVelocity.x) > 0.05f;
+        if (isMovingHorizontally)
+        {
+            StartMoveSound();
+        }
+        else
+        {
+            StopMoveSound();
+        }
     }
 
     private AudioClip GetRandomDeathClip()

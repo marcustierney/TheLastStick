@@ -6444,6 +6444,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1962936320}
     - target: {fileID: 3669627961215150427, guid: c70446a2a0039c44ab4c8f919500c494, type: 3}
+      propertyPath: maxHealth
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 3669627961215150427, guid: c70446a2a0039c44ab4c8f919500c494, type: 3}
       propertyPath: slamAudioSource
       value: 
       objectReference: {fileID: 107164840}

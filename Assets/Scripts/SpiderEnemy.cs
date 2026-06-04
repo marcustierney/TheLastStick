@@ -35,7 +35,13 @@ public class SpiderEnemy : MonoBehaviour, IHittable
     public LayerMask groundLayer;
     [Header("Death Sound")]
     [SerializeField] private AudioSource deathAudioSource;
-    [SerializeField] private AudioClip[] deathClips = new AudioClip[5];
+    [SerializeField] private AudioClip[] deathClips = new AudioClip[4];
+
+    [Header("Audio")]
+    [SerializeField] private AudioSource attackAudioSource;
+    [SerializeField] private AudioClip[] attackClips = new AudioClip[2];
+    [SerializeField] private AudioSource moveAudioSource;
+    [SerializeField] private AudioClip moveClip;
 
     private SlashFeedback slashFeedback;
 
@@ -70,6 +76,8 @@ public class SpiderEnemy : MonoBehaviour, IHittable
                 originalMaterials[i] = flashRenderers[i] != null ? flashRenderers[i].sharedMaterial : null;
             }
         }
+
+        ConfigureMoveAudioSource();
 
         // Prevent player from pushing the enemy - set to Kinematic
         //rb.bodyType = RigidbodyType2D.Kinematic;
@@ -205,7 +213,10 @@ public class SpiderEnemy : MonoBehaviour, IHittable
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
             // Maintain flip when out of range
             spriteRenderer.flipX = false;
+            StopMoveSound();
         }
+
+        SyncMoveAudioToVelocity();
     }
 
     private bool IsGroundAhead(float moveDirectionX)
@@ -226,6 +237,8 @@ public class SpiderEnemy : MonoBehaviour, IHittable
             {
                 animator.SetBool("isMoving", true);
             }
+
+            StartMoveSound();
         }
         else
         {
@@ -234,6 +247,8 @@ public class SpiderEnemy : MonoBehaviour, IHittable
             {
                 animator.SetBool("isMoving", false);
             }
+
+            StopMoveSound();
         }
     }
 
@@ -243,6 +258,7 @@ public class SpiderEnemy : MonoBehaviour, IHittable
         animator.SetBool("isMoving", false);
         animator.SetBool("isAttacking", true);
         rb.linearVelocity = Vector2.zero;
+        StopMoveSound();
         //position sword in front of enemy
         Vector3 offset;
         if (spriteRenderer.flipX)
@@ -261,6 +277,9 @@ public class SpiderEnemy : MonoBehaviour, IHittable
         warningHitBox.SetActive(false);
         
         // Then show actual hitbox
+        // play attack sound variation when attack starts
+        PlayAttackSound();
+
         swordHitbox.transform.localPosition = offset;
         swordHitbox.SetActive(true);
         yield return new WaitForSeconds(attackDuration);
@@ -325,6 +344,8 @@ public class SpiderEnemy : MonoBehaviour, IHittable
             rb.linearVelocity = Vector2.zero;
             rb.simulated = false;
         }
+
+        StopMoveSound();
     }
 
     private void PlayDeathSound()
@@ -335,7 +356,106 @@ public class SpiderEnemy : MonoBehaviour, IHittable
             return;
         }
 
-        AudioSource.PlayClipAtPoint(clipToPlay, transform.position);
+        GameObject soundObject = new GameObject("SpiderDeathSound");
+        soundObject.transform.position = transform.position;
+
+        AudioSource source = soundObject.AddComponent<AudioSource>();
+        source.clip = clipToPlay;
+        source.spatialBlend = 0f;
+        source.Play();
+
+        Destroy(soundObject, clipToPlay.length + 0.1f);
+    }
+
+    private void PlayAttackSound()
+    {
+        AudioClip clipToPlay = null;
+        if (attackClips != null && attackClips.Length > 0)
+        {
+            int idx = Random.Range(0, attackClips.Length);
+            clipToPlay = attackClips[idx];
+        }
+
+        if (clipToPlay == null && attackAudioSource != null && attackAudioSource.clip != null)
+        {
+            clipToPlay = attackAudioSource.clip;
+        }
+
+        if (clipToPlay == null) return;
+
+        GameObject s = new GameObject("SpiderAttackSound");
+        s.transform.position = transform.position;
+        AudioSource src = s.AddComponent<AudioSource>();
+        src.clip = clipToPlay;
+        src.spatialBlend = 0f;
+        src.Play();
+        Destroy(s, clipToPlay.length + 0.1f);
+    }
+
+    private void ConfigureMoveAudioSource()
+    {
+        if (moveAudioSource == null)
+        {
+            moveAudioSource = GetComponent<AudioSource>();
+        }
+
+        if (moveAudioSource == null)
+        {
+            return;
+        }
+
+        if (moveAudioSource.clip == null && moveClip != null)
+        {
+            moveAudioSource.clip = moveClip;
+        }
+
+        moveAudioSource.playOnAwake = false;
+        moveAudioSource.loop = true;
+        moveAudioSource.spatialBlend = 0f;
+    }
+
+    private void StartMoveSound()
+    {
+        if (moveAudioSource == null || moveAudioSource.clip == null)
+        {
+            return;
+        }
+
+        if (!moveAudioSource.isPlaying)
+        {
+            moveAudioSource.Play();
+        }
+    }
+
+    private void StopMoveSound()
+    {
+        if (moveAudioSource == null)
+        {
+            return;
+        }
+
+        if (moveAudioSource.isPlaying)
+        {
+            moveAudioSource.Stop();
+        }
+    }
+
+    private void SyncMoveAudioToVelocity()
+    {
+        if (moveAudioSource == null || rb == null)
+        {
+            return;
+        }
+
+        bool isMovingHorizontally = Mathf.Abs(rb.linearVelocity.x) > 0.05f;
+        if (isMovingHorizontally)
+        {
+            StartMoveSound();
+        }
+        else
+        {
+            StopMoveSound();
+        }
     }
 
     private AudioClip GetRandomDeathClip()

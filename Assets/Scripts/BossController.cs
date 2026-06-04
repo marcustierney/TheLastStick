@@ -28,8 +28,8 @@ public class BossController : MonoBehaviour, IHittable
     [SerializeField] private float swordThrowPriorityMinDistance = 8f;
     [SerializeField] private float swordThrowSpawnDelay = 0.5f;
     [SerializeField] private float swordThrowRecoveryDelay = 0.35f;
-    private int currentHealth = 100;
-    public int maxHealth = 100;
+    private int currentHealth = 40;
+    public int maxHealth = 40;
     public GameObject bossSword;
     private BossHealth health;
     private Animator animator;
@@ -49,9 +49,13 @@ public class BossController : MonoBehaviour, IHittable
         slashFeedback = GetComponent<SlashFeedback>();
         rb = GetComponent<Rigidbody2D>();
         bossCollider = GetComponent<Collider2D>();
-        maxHealth = 100;
         currentHealth = maxHealth;
         health = GetComponent<BossHealth>();
+        if (health != null)
+        {
+            health.MaxHealth = maxHealth;
+            health.Health = maxHealth;
+        }
         animator = GetComponent<Animator>();
         cachedConstraints = rb.constraints;
         AutoAssignSlamDamageZone();
