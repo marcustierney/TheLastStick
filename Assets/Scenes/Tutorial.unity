@@ -7286,6 +7286,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RoofNoWall
       objectReference: {fileID: 0}
+    - target: {fileID: 8984319627136730808, guid: b58b40985c4bcb04a8c7bed4bdbc6e8d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 994000958286764637, guid: b58b40985c4bcb04a8c7bed4bdbc6e8d, type: 3}

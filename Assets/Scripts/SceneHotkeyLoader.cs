@@ -10,7 +10,8 @@ public class SceneHotkeyLoader : MonoBehaviour
         (Key.Digit2, "LevelOne"),
         (Key.Digit3, "LevelOneBoss"),
         (Key.Digit4, "LevelTwo"),
-        (Key.Digit5, "LevelTwoBoss")
+        (Key.Digit5, "LevelTwoBoss"),
+        (Key.Digit6, "LevelThree")
     };
 
     private static SceneHotkeyLoader instance;

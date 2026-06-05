@@ -7,7 +7,7 @@ public class SpiderEnemy : MonoBehaviour, IHittable
 
     // [SerializeField]
     // private float damageToPlayer = 20f;
-    protected float moveSpeed = 10f;
+    protected float moveSpeed = 7f;
     protected float chaseRange = 10f;
     protected float attackRange = 1.6f;  // Increased so sword hits before body does
     protected Transform player;
