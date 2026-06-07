@@ -48,5 +48,9 @@ public class DoorTrigger : MonoBehaviour
             PlayerPrefs.Save();
             SceneManager.LoadScene("LevelOne");
         }
+        if (other.CompareTag("MenuDoor"))
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
     }
 }

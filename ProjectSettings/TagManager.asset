@@ -18,6 +18,8 @@ TagManager:
   - SFX
   - CameraShift
   - Rope
+  - MenuDoor
+  - Sign
   layers:
   - Default
   - TransparentFX

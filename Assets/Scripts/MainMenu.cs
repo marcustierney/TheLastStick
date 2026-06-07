@@ -11,6 +11,7 @@ public class MainMenu : MonoBehaviour
 {
     private const string UiActionMap = "UI";
     private const string LoadingScreenSceneName = "LoadingScreen";
+    private const string ReplayableTutorialSceneName = "Replayable Tutorial";
 
     [SerializeField] CanvasGroup mainMenuPanel;
     [SerializeField] CanvasGroup optionsPanel;
@@ -128,6 +129,18 @@ public class MainMenu : MonoBehaviour
         SceneTransition.SetPendingNextScene("Tutorial", 4f);
         PlayerPrefs.SetInt("CurrentLevel", 0);
         PlayerPrefs.Save();
+        BeginLoadingScreenTransition();
+    }
+
+    public void LoadReplayableTutorialScene()
+    {
+        if (isTransitioning)
+        {
+            return;
+        }
+
+        GameAnalytics.FlushIfReady();
+        SceneTransition.SetPendingNextScene(ReplayableTutorialSceneName, 4f);
         BeginLoadingScreenTransition();
     }
 
