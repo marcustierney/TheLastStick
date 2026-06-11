@@ -178,6 +178,7 @@ public class PauseManager : MonoBehaviour
         }
 
         GameAnalytics.FlushIfReady();
+        LevelRunStats.Instance?.ResetSpeedrun();
         CoinManager.ClearSavedProgress();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         PlayerPrefs.SetInt("CurrentLevel", 0);

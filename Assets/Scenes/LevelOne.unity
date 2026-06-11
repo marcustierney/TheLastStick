@@ -3070,9 +3070,25 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1690810557}
+    - target: {fileID: 3206376805640969455, guid: 1203bdd494393974d8a9165a11bbfee3, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 3452243080198253673, guid: 1203bdd494393974d8a9165a11bbfee3, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4430591732332106878, guid: 1203bdd494393974d8a9165a11bbfee3, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 7670346355077028604, guid: 1203bdd494393974d8a9165a11bbfee3, type: 3}
       propertyPath: m_Name
       value: DeathScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 7670346355077028604, guid: 1203bdd494393974d8a9165a11bbfee3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8575127166854091965, guid: 1203bdd494393974d8a9165a11bbfee3, type: 3}
       propertyPath: m_Pivot.x
@@ -3136,11 +3152,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575127166854091965, guid: 1203bdd494393974d8a9165a11bbfee3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1091.147
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8575127166854091965, guid: 1203bdd494393974d8a9165a11bbfee3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 640.70624
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8575127166854091965, guid: 1203bdd494393974d8a9165a11bbfee3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -5123,9 +5139,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 669001182}
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 705290419562264245, guid: 41724dd4486a74b448e855f26af32144, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 8807839956274543077, guid: 41724dd4486a74b448e855f26af32144, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1553833724}

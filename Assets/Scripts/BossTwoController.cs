@@ -40,6 +40,10 @@ public class BossTwoController : MonoBehaviour, IHittable
     [SerializeField] private AudioClip dashChargeUpClip;
     [SerializeField] private AudioClip dashAttackClip;
 
+    [Header("UI")]
+    [SerializeField] private GameObject winScreen;
+    [SerializeField] private GameObject hud;
+
     private void Awake()
     {
         slashFeedback = GetComponent<SlashFeedback>();
@@ -218,8 +222,22 @@ public class BossTwoController : MonoBehaviour, IHittable
         StopWalkSound();
         Debug.Log("Boss dead");
         UpdateHealth playerHealth = UnityEngine.Object.FindAnyObjectByType<UpdateHealth>();
+        LevelRunStats.Instance?.FinishSpeedrun();
         LevelRunStats.Instance?.EmitLevelCompleted(playerHealth, SceneManager.GetActiveScene().name);
         GameAnalytics.FlushIfReady();
+
+        Time.timeScale = 0f;
+
+        if (hud != null)
+        {
+            hud.SetActive(false);
+        }
+
+        if (winScreen != null)
+        {
+            winScreen.SetActive(true);
+        }
+
         Destroy(gameObject);
     }
 

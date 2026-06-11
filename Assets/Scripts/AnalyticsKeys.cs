@@ -15,6 +15,7 @@ public static class AnalyticsKeys
 
     public const string ParamLevelName = "level_name";
     public const string ParamTimeSeconds = "time_seconds";
+    public const string ParamSpeedrunTimeSeconds = "speedrun_time_seconds";
     public const string ParamDeathsThisRun = "deaths_this_run";
     public const string ParamCoinsThisRun = "coins_this_run";
     public const string ParamFinalHealth = "final_health";

@@ -20,12 +20,26 @@ public class LevelRunStats : MonoBehaviour
         AnalyticsKeys.SceneLevelThree,
     };
 
+    static readonly HashSet<string> SpeedrunScenes = new HashSet<string>(StringComparer.Ordinal)
+    {
+        AnalyticsKeys.SceneLevelOne,
+        AnalyticsKeys.SceneLevelOneBoss,
+        AnalyticsKeys.SceneLevelTwo,
+        AnalyticsKeys.SceneLevelTwoBoss,
+    };
+
     string _lastSceneName = string.Empty;
     float _levelStartRealtime;
     int _deathsThisRun;
     int _coinsThisRun;
     int _levelTwoFallRestarts;
     int _snapshotLevelTwoFallsWhenLeftLevelTwo;
+
+    float _speedrunAccumulated;
+    float _speedrunSegmentStart = -1f;
+    bool _speedrunActive;
+    bool _speedrunFinished;
+    float _speedrunFinalSeconds;
 
     void Awake()
     {
@@ -87,7 +101,118 @@ public class LevelRunStats : MonoBehaviour
             _levelTwoFallRestarts = 0;
         }
 
+        HandleSpeedrunSceneTransition(prev, cur);
+
         _lastSceneName = cur;
+    }
+
+    static bool IsSpeedrunScene(string sceneName)
+    {
+        return SpeedrunScenes.Contains(sceneName);
+    }
+
+    void HandleSpeedrunSceneTransition(string prev, string cur)
+    {
+        if (IsSpeedrunScene(prev))
+        {
+            PauseSpeedrunSegment();
+        }
+
+        if (string.Equals(cur, AnalyticsKeys.SceneTutorial, StringComparison.Ordinal)
+            || string.Equals(cur, "MainMenu", StringComparison.Ordinal))
+        {
+            ResetSpeedrun();
+            return;
+        }
+
+        if (string.Equals(cur, AnalyticsKeys.SceneLevelOne, StringComparison.Ordinal))
+        {
+            ResetSpeedrun();
+            BeginSpeedrun();
+            return;
+        }
+
+        if (IsSpeedrunScene(cur) && _speedrunActive && !_speedrunFinished)
+        {
+            ResumeSpeedrunSegment();
+        }
+    }
+
+    void PauseSpeedrunSegment()
+    {
+        if (_speedrunSegmentStart < 0f)
+        {
+            return;
+        }
+
+        _speedrunAccumulated += Time.realtimeSinceStartup - _speedrunSegmentStart;
+        _speedrunSegmentStart = -1f;
+    }
+
+    void ResumeSpeedrunSegment()
+    {
+        if (_speedrunFinished || _speedrunSegmentStart >= 0f)
+        {
+            return;
+        }
+
+        _speedrunSegmentStart = Time.realtimeSinceStartup;
+    }
+
+    void BeginSpeedrun()
+    {
+        _speedrunActive = true;
+        _speedrunFinished = false;
+        _speedrunAccumulated = 0f;
+        _speedrunFinalSeconds = 0f;
+        ResumeSpeedrunSegment();
+    }
+
+    public void ResetSpeedrun()
+    {
+        _speedrunActive = false;
+        _speedrunFinished = false;
+        _speedrunAccumulated = 0f;
+        _speedrunFinalSeconds = 0f;
+        _speedrunSegmentStart = -1f;
+    }
+
+    public void FinishSpeedrun()
+    {
+        if (!_speedrunActive || _speedrunFinished)
+        {
+            return;
+        }
+
+        PauseSpeedrunSegment();
+        _speedrunFinished = true;
+        _speedrunFinalSeconds = _speedrunAccumulated;
+        _speedrunActive = false;
+    }
+
+    public bool IsSpeedrunActive => _speedrunActive;
+
+    public bool IsSpeedrunFinished => _speedrunFinished;
+
+    public float GetSpeedrunSeconds()
+    {
+        if (_speedrunFinished)
+        {
+            return _speedrunFinalSeconds;
+        }
+
+        if (_speedrunSegmentStart >= 0f)
+        {
+            return _speedrunAccumulated + (Time.realtimeSinceStartup - _speedrunSegmentStart);
+        }
+
+        return _speedrunAccumulated;
+    }
+
+    public static string FormatMmSs(float seconds)
+    {
+        int total = Mathf.FloorToInt(Mathf.Max(0f, seconds));
+        return $"{total / 60}:{total % 60:00}";
     }
 
     public bool IsCurrentSceneTracked()
@@ -154,6 +279,11 @@ public class LevelRunStats : MonoBehaviour
             { AnalyticsKeys.ParamDeathsThisRun, deaths },
             { AnalyticsKeys.ParamCoinsThisRun, coins },
         };
+
+        if (_speedrunFinished)
+        {
+            common[AnalyticsKeys.ParamSpeedrunTimeSeconds] = GetSpeedrunSeconds();
+        }
 
         if (string.Equals(levelName, AnalyticsKeys.SceneLevelTwo, StringComparison.Ordinal))
         {
