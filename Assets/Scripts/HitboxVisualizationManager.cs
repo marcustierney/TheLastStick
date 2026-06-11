@@ -13,7 +13,7 @@ public class HitboxVisualizationManager : MonoBehaviour
     [SerializeField] private bool persistAcrossScenes = true;
     [SerializeField] private bool useSavedState = true;
 
-    [SerializeField] private bool showHitboxes = true;
+    [SerializeField] private bool showHitboxes = false;
     [SerializeField] private Color hitboxColor = Color.red;
     
     public event System.Action<bool> HitboxVisualizationStateChanged;

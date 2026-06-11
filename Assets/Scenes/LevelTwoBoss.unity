@@ -5466,7 +5466,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HitboxVisualizationManager
   persistAcrossScenes: 1
   useSavedState: 1
-  showHitboxes: 1
+  showHitboxes: 0
   hitboxColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!4 &1966780057
 Transform:
