@@ -276,6 +276,32 @@ public class UIFocusGuard : MonoBehaviour
         es.SetSelectedGameObject(fallbackSelectable.gameObject);
     }
 
+    public void EnterGamepadModeAndSelect(Selectable selectable)
+    {
+        if (selectable == null
+            || !selectable.IsInteractable()
+            || !selectable.gameObject.activeInHierarchy)
+        {
+            return;
+        }
+
+        lastInputWasGamepad = true;
+        lastInputSwitchTime = Time.unscaledTime;
+        EnterGamepadMode();
+
+        fallbackSelectable = selectable;
+        lastSelectionLostTime = -1f;
+
+        EventSystem es = EventSystem.current;
+        if (es == null)
+        {
+            return;
+        }
+
+        es.SetSelectedGameObject(null);
+        es.SetSelectedGameObject(selectable.gameObject);
+    }
+
     /// <summary>Clears the EventSystem selection. Safe to call at any time.</summary>
     public void ClearSelection()
     {
@@ -290,6 +316,11 @@ public class UIFocusGuard : MonoBehaviour
     private void RestoreFallbackSelectionIfNeeded()
     {
         if (fallbackSelectable == null || EventSystem.current == null) return;
+
+        if (DropdownGamepadSupport.IsAnyExpanded())
+        {
+            return;
+        }
 
         GameObject selected = EventSystem.current.currentSelectedGameObject;
 

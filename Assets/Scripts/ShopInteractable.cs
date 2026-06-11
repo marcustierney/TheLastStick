@@ -5,6 +5,7 @@ public class ShopInteractable : MonoBehaviour, IInteractable
     [SerializeField] private GameObject interactionPrompt;
     [SerializeField] private ShopUI shopUI;
     private InputSystem_Actions inputActions;
+    private InteractPromptDisplay interactPromptDisplay;
     private bool playerInRange;
 
     private void Update()
@@ -30,6 +31,11 @@ public class ShopInteractable : MonoBehaviour, IInteractable
         inputActions = new InputSystem_Actions();
         InputBindingOverrides.ApplySavedOverrides(inputActions.asset);
         InputBindingOverrides.RegisterRuntimeGameplayAsset(inputActions.asset);
+
+        if (interactionPrompt != null)
+        {
+            interactPromptDisplay = interactionPrompt.GetComponent<InteractPromptDisplay>();
+        }
     }
 
     private void OnEnable()
@@ -81,6 +87,13 @@ public class ShopInteractable : MonoBehaviour, IInteractable
         }
 
         bool shopOpen = shopUI != null && shopUI.IsOpen;
-        interactionPrompt.SetActive(playerInRange && !shopOpen);
+        bool showPrompt = playerInRange && !shopOpen;
+        interactionPrompt.SetActive(showPrompt);
+
+        if (showPrompt)
+        {
+            interactPromptDisplay ??= interactionPrompt.GetComponent<InteractPromptDisplay>();
+            interactPromptDisplay?.Refresh();
+        }
     }
 }

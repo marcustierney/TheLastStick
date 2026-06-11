@@ -53,6 +53,11 @@ public class PauseManager : MonoBehaviour
     {
         if ((isPaused || isOptionsOpen) && IsUiCancelPressedThisFrame())
         {
+            if (DropdownGamepadSupport.TryCloseExpandedDropdown())
+            {
+                return;
+            }
+
             if (isOptionsOpen)
             {
                 CloseOptions();
@@ -68,6 +73,11 @@ public class PauseManager : MonoBehaviour
 
         if (pausePressed)
         {
+            if (DropdownGamepadSupport.TryCloseExpandedDropdown())
+            {
+                return;
+            }
+
             // If options are open, close them
             if (isOptionsOpen)
             {
@@ -96,8 +106,16 @@ public class PauseManager : MonoBehaviour
             pausedAudioByPauseMenu = true;
         }
         isPaused = true;
+        LevelRunStats.Instance?.PauseSpeedrun();
         SwitchToUiInputContext();
+        UIInputBootstrap.Refresh();
         EnsurePauseActionEnabled();
+        EnsureUiCancelActionEnabled();
+        EnsurePauseMenuNavigation();
+        if (pauseDefaultSelectable == null || !pauseDefaultSelectable.gameObject.activeInHierarchy)
+        {
+            pauseDefaultSelectable = FindFirstSelectable(pauseMenuUI);
+        }
         StartCoroutine(SelectAfterFrame(pauseDefaultSelectable));
     }
 
@@ -114,6 +132,7 @@ public class PauseManager : MonoBehaviour
         isPaused = false;
         isOptionsOpen = false;
         pauseTriggeredByGamepad = false;
+        LevelRunStats.Instance?.ResumeSpeedrun();
         SwitchActionMap(GameplayActionMap);
         if (focusGuard != null)
         {
@@ -197,8 +216,10 @@ public class PauseManager : MonoBehaviour
         EnsureNonZeroPauseUiScale(optionsCanvas);
         optionsCanvas.SetActive(true);
         isOptionsOpen = true;
-        SwitchActionMap(UiActionMap);
+        SwitchToUiInputContext();
+        UIInputBootstrap.Refresh();
         EnsurePauseActionEnabled();
+        EnsureUiCancelActionEnabled();
 
         if (focusGuard == null)
         {
@@ -231,8 +252,11 @@ public class PauseManager : MonoBehaviour
         optionsCanvas.SetActive(false);
         pauseMenuUI.SetActive(true);
         isOptionsOpen = false;
-        SwitchActionMap(UiActionMap);
+        SwitchToUiInputContext();
+        UIInputBootstrap.Refresh();
         EnsurePauseActionEnabled();
+        EnsureUiCancelActionEnabled();
+        EnsurePauseMenuNavigation();
         StartCoroutine(SelectAfterFrame(pauseDefaultSelectable));
     }
 
@@ -363,9 +387,10 @@ public class PauseManager : MonoBehaviour
             return;
         }
 
-        if (pauseTriggeredByGamepad && Gamepad.current != null)
+        Gamepad gamepad = PickGamepad();
+        if (pauseTriggeredByGamepad && gamepad != null)
         {
-            playerInput.SwitchCurrentControlScheme(GamepadScheme, Gamepad.current);
+            playerInput.SwitchCurrentControlScheme(GamepadScheme, gamepad);
             return;
         }
 
@@ -424,22 +449,120 @@ public class PauseManager : MonoBehaviour
             next = optionsDefaultSelectable;
         }
 
-        if (focusGuard != null && next != null && next.gameObject.activeInHierarchy)
-        {
-            focusGuard.SetCurrentFallback(next);
-            focusGuard.ForceSelectCurrentFallback();
-        }
+        ApplyPauseFocus(next);
     }
 
     private IEnumerator SelectAfterFrame(Selectable selectable)
     {
         yield return null;
 
-        if (focusGuard != null && selectable != null && selectable.gameObject.activeInHierarchy)
+        ApplyPauseFocus(selectable);
+    }
+
+    private void ApplyPauseFocus(Selectable selectable)
+    {
+        if (focusGuard == null)
         {
-            focusGuard.SetCurrentFallback(selectable);
-            focusGuard.ForceSelectCurrentFallback();
+            focusGuard = Object.FindAnyObjectByType<UIFocusGuard>(FindObjectsInactive.Include);
         }
+
+        if (focusGuard == null || selectable == null || !selectable.gameObject.activeInHierarchy)
+        {
+            return;
+        }
+
+        focusGuard.SetCurrentFallback(selectable);
+
+        if (pauseTriggeredByGamepad || focusGuard.IsGamepadInputActive)
+        {
+            focusGuard.EnterGamepadModeAndSelect(selectable);
+            return;
+        }
+
+        focusGuard.ForceSelectCurrentFallback();
+    }
+
+    private void EnsurePauseMenuNavigation()
+    {
+        if (pauseMenuUI == null)
+        {
+            return;
+        }
+
+        Button resume = FindButton(pauseMenuUI.transform, "ResumeButton");
+        Button options = FindButton(pauseMenuUI.transform, "OptionsButton");
+        Button mainMenu = FindButton(pauseMenuUI.transform, "MainMenuButton");
+
+        WireVerticalNavigation(resume, options, mainMenu);
+
+        if (pauseDefaultSelectable == null && resume != null)
+        {
+            pauseDefaultSelectable = resume;
+        }
+    }
+
+    private static Button FindButton(Transform root, string buttonName)
+    {
+        if (root == null)
+        {
+            return null;
+        }
+
+        Button[] buttons = root.GetComponentsInChildren<Button>(true);
+        foreach (Button button in buttons)
+        {
+            if (button != null && button.gameObject.name == buttonName)
+            {
+                return button;
+            }
+        }
+
+        return null;
+    }
+
+    private static void WireVerticalNavigation(params Selectable[] chain)
+    {
+        Selectable previous = null;
+        foreach (Selectable current in chain)
+        {
+            if (current == null)
+            {
+                continue;
+            }
+
+            Navigation navigation = current.navigation;
+            navigation.mode = Navigation.Mode.Explicit;
+            navigation.selectOnUp = previous;
+            navigation.selectOnDown = null;
+            current.navigation = navigation;
+
+            if (previous != null)
+            {
+                Navigation previousNavigation = previous.navigation;
+                previousNavigation.selectOnDown = current;
+                previous.navigation = previousNavigation;
+            }
+
+            previous = current;
+        }
+    }
+
+    private static Gamepad PickGamepad()
+    {
+        if (Gamepad.current != null)
+        {
+            return Gamepad.current;
+        }
+
+        foreach (Gamepad gamepad in Gamepad.all)
+        {
+            if (gamepad != null)
+            {
+                return gamepad;
+            }
+        }
+
+        return null;
     }
 
     private static void EnsureNonZeroPauseUiScale(GameObject uiRoot)

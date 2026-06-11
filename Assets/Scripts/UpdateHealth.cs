@@ -241,7 +241,7 @@ public class UpdateHealth : MonoBehaviour
         GameFeelTimeScale.Instance?.CancelSlowMo();
         Debug.Log("Player died");
 
-        LevelRunStats.Instance?.FinishSpeedrun();
+        LevelRunStats.Instance?.PauseSpeedrun();
 
         if (LevelRunStats.Instance != null)
         {

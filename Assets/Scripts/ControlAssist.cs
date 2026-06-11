@@ -23,11 +23,8 @@ public sealed class ControlAssist : MonoBehaviour
         if (canvasGroup == null)
             canvasGroup = gameObject.AddComponent<CanvasGroup>();
 
-        TMP_Text[] tmps = GetComponentsInChildren<TMP_Text>(true);
-        if (tmps.Length > 0)
-            confirmLabel = tmps[0];
-        if (tmps.Length > 1)
-            backLabel = tmps[1];
+        ConfigureRootLayout();
+        CacheLabels();
     }
 
     void OnEnable()
@@ -64,6 +61,87 @@ public sealed class ControlAssist : MonoBehaviour
         RefreshLabels();
     }
 
+    void CacheLabels()
+    {
+        Transform confirmRoot = transform.Find("Confirm");
+        Transform backRoot = transform.Find("Back");
+
+        confirmLabel = confirmRoot != null
+            ? confirmRoot.GetComponentInChildren<TMP_Text>(true)
+            : null;
+        backLabel = backRoot != null
+            ? backRoot.GetComponentInChildren<TMP_Text>(true)
+            : null;
+
+        if (confirmLabel == null || backLabel == null)
+        {
+            TMP_Text[] tmps = GetComponentsInChildren<TMP_Text>(true);
+            if (confirmLabel == null && tmps.Length > 0)
+                confirmLabel = tmps[0];
+            if (backLabel == null && tmps.Length > 1)
+                backLabel = tmps[1];
+        }
+
+        ConfigureHintRoot(confirmRoot, -45f);
+        ConfigureHintRoot(backRoot, 45f);
+        ConfigureLabelLayout(confirmLabel);
+        ConfigureLabelLayout(backLabel);
+    }
+
+    void ConfigureRootLayout()
+    {
+        RectTransform root = transform as RectTransform;
+        if (root == null)
+            return;
+
+        root.anchorMin = Vector2.zero;
+        root.anchorMax = Vector2.one;
+        root.pivot = new Vector2(0.5f, 0.5f);
+        root.anchoredPosition = Vector2.zero;
+        root.sizeDelta = Vector2.zero;
+        root.offsetMin = Vector2.zero;
+        root.offsetMax = Vector2.zero;
+    }
+
+    static void ConfigureHintRoot(Transform hintRoot, float xOffset)
+    {
+        if (hintRoot == null)
+            return;
+
+        RectTransform rect = hintRoot as RectTransform;
+        if (rect == null)
+            return;
+
+        rect.anchorMin = new Vector2(0.5f, 0f);
+        rect.anchorMax = new Vector2(0.5f, 0f);
+        rect.pivot = new Vector2(0.5f, 0f);
+        rect.anchoredPosition = new Vector2(xOffset, 24f);
+    }
+
+    static void ConfigureLabelLayout(TMP_Text label)
+    {
+        if (label == null)
+            return;
+
+        label.textWrappingMode = TextWrappingModes.NoWrap;
+        label.overflowMode = TextOverflowModes.Overflow;
+        label.enableAutoSizing = false;
+        label.margin = Vector4.zero;
+        label.horizontalAlignment = HorizontalAlignmentOptions.Center;
+        label.verticalAlignment = VerticalAlignmentOptions.Top;
+
+        RectTransform rect = label.rectTransform;
+        float parentScale = rect.parent != null ? rect.parent.localScale.x : 1f;
+        if (parentScale <= 0f)
+            parentScale = 1f;
+        rect.localScale = Vector3.one / parentScale;
+        rect.anchorMin = new Vector2(0.5f, 1f);
+        rect.anchorMax = new Vector2(0.5f, 1f);
+        rect.pivot = new Vector2(0.5f, 1f);
+        rect.anchoredPosition = new Vector2(0f, -44f);
+        rect.sizeDelta = new Vector2(320f, 72f);
+    }
+
     void ApplyPanel(bool show)
     {
         lastShown = show;
@@ -77,11 +155,26 @@ public sealed class ControlAssist : MonoBehaviour
         Gamepad pad = PickGamepad();
         ResolveUiActions(out InputAction submit, out InputAction cancel);
 
-        if (confirmLabel != null)
-            confirmLabel.text = FormatHint("Confirm", LabelFromActionOrFallback(submit, pad, g => g.buttonSouth));
+        ApplyLabelText(confirmLabel, "Confirm", LabelFromActionOrFallback(submit, pad, g => g.buttonSouth));
+        ApplyLabelText(backLabel, "Back", LabelFromActionOrFallback(cancel, pad, g => g.buttonEast));
+    }
 
-        if (backLabel != null)
-            backLabel.text = FormatHint("Back", LabelFromActionOrFallback(cancel, pad, g => g.buttonEast));
+    static void ApplyLabelText(TMP_Text label, string title, string button)
+    {
+        if (label == null)
+            return;
+
+        string text = FormatHint(title, button);
+        if (label.text == text)
+            return;
+
+        label.text = text;
+        label.ForceMeshUpdate();
+
+        RectTransform rect = label.rectTransform;
+        float width = Mathf.Max(label.preferredWidth + 8f, 120f);
+        float height = Mathf.Max(label.preferredHeight + 4f, 36f);
+        rect.sizeDelta = new Vector2(width, height);
     }
 
     static string FormatHint(string title, string button)

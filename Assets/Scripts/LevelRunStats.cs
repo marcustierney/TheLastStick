@@ -177,6 +177,26 @@ public class LevelRunStats : MonoBehaviour
         _speedrunSegmentStart = -1f;
     }
 
+    public void PauseSpeedrun()
+    {
+        if (!_speedrunActive || _speedrunFinished)
+        {
+            return;
+        }
+
+        PauseSpeedrunSegment();
+    }
+
+    public void ResumeSpeedrun()
+    {
+        if (!_speedrunActive || _speedrunFinished)
+        {
+            return;
+        }
+
+        ResumeSpeedrunSegment();
+    }
+
     public void FinishSpeedrun()
     {
         if (!_speedrunActive || _speedrunFinished)

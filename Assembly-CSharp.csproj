@@ -51,10 +51,12 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\UgsAnalyticsBootstrap.cs" />
     <Compile Include="Assets\Scripts\AudioSettingsManager.cs" />
+    <Compile Include="Assets\Scripts\DropdownGamepadSupport.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\Scripts\SpiderAttackHitbox.cs" />
     <Compile Include="Assets\Scripts\DownwardRainingSword.cs" />
     <Compile Include="Assets\Scripts\WolfSpiderEnemy.cs" />
+    <Compile Include="Assets\Scripts\EndScreenActions.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\Scripts\UIButtonSoundPlayer.cs" />
@@ -99,6 +101,7 @@
     <Compile Include="Assets\Scripts\EnemySwordHitbox.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <Compile Include="Assets\Scripts\NavDiagnostic.cs" />
+    <Compile Include="Assets\Scripts\InteractPromptDisplay.cs" />
     <Compile Include="Assets\Scripts\SwordHitbox.cs" />
     <Compile Include="Assets\Scripts\MainMenuStatusBar.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />

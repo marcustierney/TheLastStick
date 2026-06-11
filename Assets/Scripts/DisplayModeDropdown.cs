@@ -14,6 +14,14 @@ public class DisplayModeDropdown : MonoBehaviour
 
     FullScreenMode pendingMode;
 
+    void Awake()
+    {
+        if (dropdown != null)
+        {
+            DropdownGamepadSupport.EnsureOn(dropdown);
+        }
+    }
+
     void Start()
     {
         pendingMode = Screen.fullScreenMode;

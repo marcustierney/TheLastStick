@@ -8,6 +8,11 @@ public static class UIInputBootstrap
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void WireUiInputModule()
     {
+        Refresh();
+    }
+
+    public static void Refresh()
+    {
         EventSystem eventSystem = EventSystem.current;
         if (eventSystem == null)
             return;
@@ -32,6 +37,23 @@ public static class UIInputBootstrap
         uiModule.scrollWheel = ActionRef(asset, "UI/ScrollWheel");
         uiModule.trackedDevicePosition = ActionRef(asset, "UI/TrackedDevicePosition");
         uiModule.trackedDeviceOrientation = ActionRef(asset, "UI/TrackedDeviceOrientation");
+
+        EnableActionReference(uiModule.move);
+        EnableActionReference(uiModule.submit);
+        EnableActionReference(uiModule.cancel);
+        EnableActionReference(uiModule.point);
+        EnableActionReference(uiModule.leftClick);
+        EnableActionReference(uiModule.rightClick);
+        EnableActionReference(uiModule.middleClick);
+        EnableActionReference(uiModule.scrollWheel);
+    }
+
+    private static void EnableActionReference(InputActionReference actionReference)
+    {
+        if (actionReference?.action != null && !actionReference.action.enabled)
+        {
+            actionReference.action.Enable();
+        }
     }
 
     private static InputActionReference ActionRef(InputActionAsset asset, string actionPath)

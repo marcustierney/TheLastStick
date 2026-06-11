@@ -501,7 +501,7 @@ MonoBehaviour:
   pauseMenuUI: {fileID: 8896310361599964538}
   optionsCanvas: {fileID: 2649232827811149245}
   focusGuard: {fileID: 0}
-  pauseDefaultSelectable: {fileID: 0}
+  pauseDefaultSelectable: {fileID: 4062322268204137912}
   optionsDefaultSelectable: {fileID: 0}
 --- !u!1 &3534114542512368349
 GameObject:

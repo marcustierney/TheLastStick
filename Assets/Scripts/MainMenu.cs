@@ -87,6 +87,11 @@ public class MainMenu : MonoBehaviour
             return;
         }
 
+        if (DropdownGamepadSupport.TryCloseExpandedDropdown())
+        {
+            return;
+        }
+
         bool isOptionsOpen = optionsPanel != null && optionsPanel.interactable;
         bool isCreditsOpen = creditsPanel != null && creditsPanel.interactable;
         if (isOptionsOpen || isCreditsOpen)

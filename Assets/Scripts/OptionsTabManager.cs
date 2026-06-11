@@ -1,8 +1,12 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class OptionsTabManager : MonoBehaviour
 {
+    const int TabCount = 4;
+
     [SerializeField] CanvasGroup graphicsPanel;
     [SerializeField] CanvasGroup soundPanel;
     [SerializeField] CanvasGroup controlsPanel;
@@ -14,6 +18,15 @@ public class OptionsTabManager : MonoBehaviour
     [SerializeField] UIFocusGuard focusGuard;
 
     private Selectable currentDefaultSelectable;
+    private int currentTabIndex;
+    private Button[] tabButtons;
+    private CanvasGroup panelCanvasGroup;
+
+    void Awake()
+    {
+        panelCanvasGroup = GetComponent<CanvasGroup>();
+        CacheTabButtons();
+    }
 
     void OnEnable()
     {
@@ -23,6 +36,49 @@ public class OptionsTabManager : MonoBehaviour
         }
 
         ShowTab(graphicsPanel);
+    }
+
+    void Update()
+    {
+        if (!IsOptionsPanelOpen())
+        {
+            return;
+        }
+
+        if (DropdownGamepadSupport.IsAnyExpanded())
+        {
+            return;
+        }
+
+        if (InputRemapper.IsRebindingInProgress)
+        {
+            return;
+        }
+
+        foreach (Gamepad gamepad in Gamepad.all)
+        {
+            if (gamepad == null)
+            {
+                continue;
+            }
+
+            bool prev = gamepad.leftShoulder.wasPressedThisFrame
+                     || gamepad.leftTrigger.wasPressedThisFrame;
+            bool next = gamepad.rightShoulder.wasPressedThisFrame
+                     || gamepad.rightTrigger.wasPressedThisFrame;
+
+            if (prev)
+            {
+                CycleTab(-1);
+                return;
+            }
+
+            if (next)
+            {
+                CycleTab(1);
+                return;
+            }
+        }
     }
 
     public void ShowGraphics()  => ShowTab(graphicsPanel);
@@ -37,7 +93,13 @@ public class OptionsTabManager : MonoBehaviour
         SetPanel(controlsPanel,  selected == controlsPanel);
         SetPanel(accessPanel,    selected == accessPanel);
         EnsureSlidersUseAutomaticNavigation(selected);
+        if (selected == graphicsPanel)
+        {
+            EnsureGraphicsPanelNavigation();
+        }
 
+        currentTabIndex = GetTabIndex(selected);
+        UpdateTabButtonVisuals(currentTabIndex);
         currentDefaultSelectable = GetDefaultForPanel(selected);
 
         // Selection is driven by MainMenu.SelectAfterFrame so the nav graph
@@ -48,6 +110,85 @@ public class OptionsTabManager : MonoBehaviour
         {
             focusGuard.SetCurrentFallback(currentDefaultSelectable);
             focusGuard.ForceSelectCurrentFallback();
+        }
+    }
+
+    void CycleTab(int direction)
+    {
+        int nextIndex = (currentTabIndex + direction + TabCount) % TabCount;
+        ShowTabByIndex(nextIndex);
+    }
+
+    void ShowTabByIndex(int index)
+    {
+        switch (index)
+        {
+            case 0: ShowGraphics(); break;
+            case 1: ShowSound(); break;
+            case 2: ShowControls(); break;
+            case 3: ShowAccess(); break;
+        }
+    }
+
+    int GetTabIndex(CanvasGroup selected)
+    {
+        if (selected == graphicsPanel) return 0;
+        if (selected == soundPanel) return 1;
+        if (selected == controlsPanel) return 2;
+        if (selected == accessPanel) return 3;
+        return 0;
+    }
+
+    bool IsOptionsPanelOpen()
+    {
+        if (panelCanvasGroup != null)
+        {
+            return panelCanvasGroup.interactable;
+        }
+
+        return isActiveAndEnabled;
+    }
+
+    void CacheTabButtons()
+    {
+        Transform tabsRoot = transform.Find("Tabs");
+        if (tabsRoot == null)
+        {
+            tabButtons = new Button[0];
+            return;
+        }
+
+        tabButtons = new Button[TabCount];
+        string[] tabNames = { "Graphics", "Sound", "Controls", "Accesibility" };
+        for (int i = 0; i < TabCount; i++)
+        {
+            tabButtons[i] = tabsRoot.Find(tabNames[i])?.GetComponent<Button>();
+        }
+    }
+
+    void UpdateTabButtonVisuals(int activeIndex)
+    {
+        if (tabButtons == null)
+        {
+            return;
+        }
+
+        for (int i = 0; i < tabButtons.Length; i++)
+        {
+            Button button = tabButtons[i];
+            if (button == null)
+            {
+                continue;
+            }
+
+            if (i == activeIndex)
+            {
+                button.OnSelect(null);
+            }
+            else
+            {
+                button.OnDeselect(null);
+            }
         }
     }
 
@@ -114,5 +255,93 @@ public class OptionsTabManager : MonoBehaviour
             navigation.mode = Navigation.Mode.Automatic;
             slider.navigation = navigation;
         }
+    }
+
+    private void EnsureGraphicsPanelNavigation()
+    {
+        if (graphicsPanel == null)
+        {
+            return;
+        }
+
+        TMP_Dropdown resolution = graphicsPanel.GetComponentInChildren<ResolutionDropdown>(true)?.dropdown;
+        TMP_Dropdown displayMode = graphicsPanel.GetComponentInChildren<DisplayModeDropdown>(true)?.dropdown;
+        TMP_Dropdown fpsCap = graphicsPanel.GetComponentInChildren<FPSCapDropdown>(true)?.dropdown;
+        Toggle vSync = graphicsPanel.GetComponentInChildren<VSyncToggle>(true)?.toggle;
+        Button apply = FindApplyButton(graphicsPanel.transform);
+
+        if (graphicsDefaultSelectable == null && resolution != null)
+        {
+            graphicsDefaultSelectable = resolution;
+        }
+
+        WireVerticalNavigation(resolution, displayMode, fpsCap, vSync, apply);
+        DropdownGamepadSupport.EnsureOn(resolution);
+        DropdownGamepadSupport.EnsureOn(displayMode);
+        DropdownGamepadSupport.EnsureOn(fpsCap);
+
+        Button graphicsTab = transform.Find("Tabs/Graphics")?.GetComponent<Button>();
+        if (graphicsTab != null && resolution != null)
+        {
+            SetExplicitDown(graphicsTab, resolution);
+
+            Navigation resolutionNavigation = resolution.navigation;
+            resolutionNavigation.selectOnUp = graphicsTab;
+            resolution.navigation = resolutionNavigation;
+        }
+    }
+
+    private static Button FindApplyButton(Transform graphicsRoot)
+    {
+        Button[] buttons = graphicsRoot.GetComponentsInChildren<Button>(true);
+        foreach (Button button in buttons)
+        {
+            if (button != null && button.gameObject.name == "ApplyButton")
+            {
+                return button;
+            }
+        }
+
+        return null;
+    }
+
+    private static void WireVerticalNavigation(params Selectable[] chain)
+    {
+        Selectable previous = null;
+        foreach (Selectable current in chain)
+        {
+            if (current == null)
+            {
+                continue;
+            }
+
+            Navigation navigation = current.navigation;
+            navigation.mode = Navigation.Mode.Explicit;
+            navigation.selectOnUp = previous;
+            navigation.selectOnDown = null;
+            current.navigation = navigation;
+
+            if (previous != null)
+            {
+                Navigation previousNavigation = previous.navigation;
+                previousNavigation.selectOnDown = current;
+                previous.navigation = previousNavigation;
+            }
+
+            previous = current;
+        }
+    }
+
+    private static void SetExplicitDown(Selectable selectable, Selectable down)
+    {
+        if (selectable == null || down == null)
+        {
+            return;
+        }
+
+        Navigation navigation = selectable.navigation;
+        navigation.mode = Navigation.Mode.Explicit;
+        navigation.selectOnDown = down;
+        selectable.navigation = navigation;
     }
 }

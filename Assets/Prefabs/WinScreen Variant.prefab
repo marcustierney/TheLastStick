@@ -74,6 +74,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -141
       objectReference: {fileID: 0}
+    - target: {fileID: 3847291056382749561, guid: 1203bdd494393974d8a9165a11bbfee3, type: 3}
+      propertyPath: isWinScreen
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7670346355077028604, guid: 1203bdd494393974d8a9165a11bbfee3, type: 3}
       propertyPath: m_Name
       value: WinScreen Variant

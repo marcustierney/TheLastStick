@@ -11,6 +11,14 @@ public class FPSCapDropdown : MonoBehaviour
     int[] fpsOptions = { 30, 60, 120, 144, -1 };
     int pendingFPS = 60;
 
+    void Awake()
+    {
+        if (dropdown != null)
+        {
+            DropdownGamepadSupport.EnsureOn(dropdown);
+        }
+    }
+
     void Start()
     {
         dropdown.ClearOptions();

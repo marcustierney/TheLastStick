@@ -1155,7 +1155,7 @@ MonoBehaviour:
   soundPanel: {fileID: 6042234214876972642}
   controlsPanel: {fileID: 8957095951284262334}
   accessPanel: {fileID: 4258588480112125417}
-  graphicsDefaultSelectable: {fileID: 0}
+  graphicsDefaultSelectable: {fileID: 6989504660573445999}
   soundDefaultSelectable: {fileID: 0}
   controlsDefaultSelectable: {fileID: 0}
   accessDefaultSelectable: {fileID: 0}
