@@ -218,28 +218,23 @@ public class BossTwoController : MonoBehaviour, IHittable
 
     private void Die()
     {
-        isDead = true;
         StopWalkSound();
-        Debug.Log("Boss dead");
-        UpdateHealth playerHealth = UnityEngine.Object.FindAnyObjectByType<UpdateHealth>();
-        LevelRunStats.Instance?.FinishSpeedrun();
-        LevelRunStats.Instance?.EmitLevelCompleted(playerHealth, SceneManager.GetActiveScene().name);
+        Debug.Log("killed");
+        UpdateHealth playerHealth = player != null ? player.GetComponent<UpdateHealth>() : null;
+        if (playerHealth == null && player != null)
+        {
+            playerHealth = player.GetComponentInChildren<UpdateHealth>();
+        }
+
+        LevelRunStats.Instance?.EmitLevelCompleted(playerHealth, null);
         GameAnalytics.FlushIfReady();
-
-        Time.timeScale = 0f;
-
-        if (hud != null)
-        {
-            hud.SetActive(false);
-        }
-
-        if (winScreen != null)
-        {
-            winScreen.SetActive(true);
-        }
-
+        PlayerPrefs.SetInt("CurrentLevel", 3);
+        PlayerPrefs.Save();
+        SceneTransition.SetPendingNextScene("LevelThree", 3f);
+        SceneManager.LoadScene("LoadingScreen");
         Destroy(gameObject);
     }
+
 
     private void OnCollisionStay2D(Collision2D collision)
     {
