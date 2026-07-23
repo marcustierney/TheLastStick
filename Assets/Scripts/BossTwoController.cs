@@ -325,7 +325,6 @@ public class BossTwoController : MonoBehaviour, IHittable
         source.loop = loop;
         source.spatialBlend = 0f;
         source.volume = volume;
-        source.ignoreListenerPause = true;
         source.dopplerLevel = 0f;
         source.rolloffMode = AudioRolloffMode.Linear;
         source.minDistance = 1f;
