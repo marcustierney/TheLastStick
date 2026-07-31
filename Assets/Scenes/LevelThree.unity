@@ -118,54 +118,6 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
---- !u!1 &216826760
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 216826762}
-  - component: {fileID: 216826761}
-  m_Layer: 0
-  m_Name: HitboxManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &216826761
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 216826760}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d12a0e09195c4264e9fbe1e9a676fc1b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HitboxVisualizationManager
-  persistAcrossScenes: 1
-  useSavedState: 1
-  showHitboxes: 0
-  hitboxColor: {r: 1, g: 0, b: 0, a: 1}
---- !u!4 &216826762
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 216826760}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_NavMeshData: {fileID: 0}
 --- !u!1 &39202
 GameObject:
@@ -2714,6 +2666,54 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &216826760
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 216826762}
+  - component: {fileID: 216826761}
+  m_Layer: 0
+  m_Name: HitboxManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &216826761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 216826760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d12a0e09195c4264e9fbe1e9a676fc1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitboxVisualizationManager
+  persistAcrossScenes: 1
+  useSavedState: 1
+  showHitboxes: 0
+  hitboxColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!4 &216826762
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 216826760}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &217739725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10231,11 +10231,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2383484267340609958, guid: 7a99470ad4dc848c3a56bf7b52160394, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -20.65
+      value: -14
       objectReference: {fileID: 0}
     - target: {fileID: 2383484267340609958, guid: 7a99470ad4dc848c3a56bf7b52160394, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -35.2
+      value: -34.4
       objectReference: {fileID: 0}
     - target: {fileID: 2383484267340609958, guid: 7a99470ad4dc848c3a56bf7b52160394, type: 3}
       propertyPath: m_LocalPosition.z
@@ -24138,3 +24138,4 @@ SceneRoots:
   - {fileID: 1499597313}
   - {fileID: 8930005499068553406}
   - {fileID: 170864328}
+  - {fileID: 216826762}

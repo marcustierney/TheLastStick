@@ -35,9 +35,6 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: isSwarm
-    m_EventTreshold: 0
-  - m_ConditionMode: 1
     m_ConditionEvent: isDying
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
@@ -453,7 +450,7 @@ AnimatorStateMachine:
     m_Position: {x: 730, y: 420, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -7936759429361969115}
-    m_Position: {x: 420, y: 480, z: 0}
+    m_Position: {x: -150, y: 460, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7507082196170828342}
     m_Position: {x: 290, y: 340, z: 0}
