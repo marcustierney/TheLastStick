@@ -27,9 +27,9 @@ public class DoorTrigger : MonoBehaviour
     {
         if (other.CompareTag("BossDoor"))
         {
-            if (SceneManager.GetActiveScene().name == "LevelOne")
+            if (SceneManager.GetActiveScene().name == "InsideDojo")
             {
-                LevelRunStats.Instance?.EmitLevelCompleted(FindPlayerHealth(), "LevelOne");
+                LevelRunStats.Instance?.EmitLevelCompleted(FindPlayerHealth(), "InsideDojo");
                 GameAnalytics.FlushIfReady();
                 SceneManager.LoadScene("TransitionBossOne");
             }
