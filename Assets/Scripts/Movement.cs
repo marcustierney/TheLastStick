@@ -32,6 +32,7 @@ public class Movement : MonoBehaviour
     private List<Collider2D> ignoredEnemyColliders = new List<Collider2D>(); // Colliders ignored during dash
     private List<Collider2D> ignoredIFrameColliders = new List<Collider2D>(); // Colliders ignored during I-frames (e.g. after taking damage)
     private bool isJumping = false; 
+    private bool jumpConsumedUntilLanding;
     private bool shiftHold = false;
     private bool isCrouching = false;
     private bool isCrouchWalking = false;
@@ -226,6 +227,8 @@ public class Movement : MonoBehaviour
         {
             cameraController.OnPlayerLanded(Mathf.Abs(previousVelocityY));
         }
+        if (!wasGrounded && areGrounded)
+            jumpConsumedUntilLanding = false;
         wasGrounded = areGrounded;
         if (animator != null)
         {
@@ -496,7 +499,7 @@ public class Movement : MonoBehaviour
 
     private bool CanPerformJump()
     {
-        if (!CanMoveHorizontally || isDashing || !CanJump || isJumping || knockbackTimer > 0f)
+        if (!CanMoveHorizontally || isDashing || !CanJump || isJumping || jumpConsumedUntilLanding || knockbackTimer > 0f)
             return false;
 
         if (jumpBufferRemaining <= 0f)
@@ -519,6 +522,7 @@ public class Movement : MonoBehaviour
         coyoteTimeRemaining = 0f;
         hasLeftGroundSinceJump = false;
         jumpBufferedDuringDash = false;
+        jumpConsumedUntilLanding = true;
         StartCoroutine(JumpWithDelay());
     }
 
@@ -675,6 +679,7 @@ public class Movement : MonoBehaviour
 
     public void SwordJump()
     {
+        jumpConsumedUntilLanding = true;
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpHeight);
         PlayJumpSound();
     }
