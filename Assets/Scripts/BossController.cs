@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class BossController : MonoBehaviour, IHittable
 {
+    private const string PlayerHasBeatenBoss1Key = "PlayerHasBeatenBoss1";
     private static readonly Collider2D[] slamOverlapResults = new Collider2D[12];
     private const string HasSwordAnimatorParam = "HasSword";
 
@@ -327,6 +328,7 @@ public class BossController : MonoBehaviour, IHittable
 
         LevelRunStats.Instance?.EmitLevelCompleted(playerHealth, null);
         GameAnalytics.FlushIfReady();
+        PlayerPrefs.SetInt(PlayerHasBeatenBoss1Key, 1);
         PlayerPrefs.SetInt("CurrentLevel", 2);
         PlayerPrefs.Save();
         SceneTransition.SetPendingNextScene("LevelTwo", 3f);

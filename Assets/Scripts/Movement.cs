@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Movement : MonoBehaviour
 {
+    private const string PlayerHasBeatenBoss1Key = "PlayerHasBeatenBoss1";
     private InputSystem_Actions inputActions;
     private bool areGrounded = false; 
     private bool isWalking = false;  
@@ -33,6 +34,8 @@ public class Movement : MonoBehaviour
     private List<Collider2D> ignoredIFrameColliders = new List<Collider2D>(); // Colliders ignored during I-frames (e.g. after taking damage)
     private bool isJumping = false; 
     private bool jumpConsumedUntilLanding;
+    private int jumpsUsedSinceLanding;
+    private bool playerHasBeatenBoss1;
     private bool shiftHold = false;
     private bool isCrouching = false;
     private bool isCrouchWalking = false;
@@ -228,7 +231,10 @@ public class Movement : MonoBehaviour
             cameraController.OnPlayerLanded(Mathf.Abs(previousVelocityY));
         }
         if (!wasGrounded && areGrounded)
+        {
             jumpConsumedUntilLanding = false;
+            jumpsUsedSinceLanding = 0;
+        }
         wasGrounded = areGrounded;
         if (animator != null)
         {
@@ -345,6 +351,7 @@ public class Movement : MonoBehaviour
         if (playerCollider == null)
             playerCollider = GetComponent<Collider2D>();
         animator = GetComponent<Animator>();
+        playerHasBeatenBoss1 = PlayerPrefs.GetInt(PlayerHasBeatenBoss1Key, 0) == 1;
         baseSpeed = speed;
         baseRunSpeed = runSpeed;
 
@@ -499,7 +506,7 @@ public class Movement : MonoBehaviour
 
     private bool CanPerformJump()
     {
-        if (!CanMoveHorizontally || isDashing || !CanJump || isJumping || jumpConsumedUntilLanding || knockbackTimer > 0f)
+        if (!CanMoveHorizontally || isDashing || !CanJump || isJumping || knockbackTimer > 0f)
             return false;
 
         if (jumpBufferRemaining <= 0f)
@@ -509,7 +516,13 @@ public class Movement : MonoBehaviour
             && rb != null
             && rb.linearVelocity.y <= maxCoyoteRiseVelocity;
 
-        return areGrounded || coyoteValid;
+        if (areGrounded || coyoteValid)
+            return jumpsUsedSinceLanding == 0;
+
+        if (playerHasBeatenBoss1)
+            return jumpsUsedSinceLanding == 1;
+
+        return false;
     }
 
     private void TryExecuteJump()
@@ -523,6 +536,7 @@ public class Movement : MonoBehaviour
         hasLeftGroundSinceJump = false;
         jumpBufferedDuringDash = false;
         jumpConsumedUntilLanding = true;
+        jumpsUsedSinceLanding++;
         StartCoroutine(JumpWithDelay());
     }
 

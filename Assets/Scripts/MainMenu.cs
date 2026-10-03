@@ -133,6 +133,7 @@ public class MainMenu : MonoBehaviour
         GameAnalytics.FlushIfReady();
         SceneTransition.SetPendingNextScene("Tutorial", 4f);
         PlayerPrefs.SetInt("CurrentLevel", 0);
+        PlayerPrefs.SetInt("PlayerHasBeatenBoss1", 0);
         PlayerPrefs.Save();
         BeginLoadingScreenTransition();
     }
