@@ -9542,6 +9542,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShopKeeper
       objectReference: {fileID: 0}
+    - target: {fileID: 6784754059684877468, guid: 41724dd4486a74b448e855f26af32144, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6856564689369838202, guid: 41724dd4486a74b448e855f26af32144, type: 3}
       propertyPath: m_SizeDelta.x
       value: 141.1895
@@ -9560,7 +9564,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7583252946141991276, guid: 41724dd4486a74b448e855f26af32144, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8232100289843277869, guid: 41724dd4486a74b448e855f26af32144, type: 3}
       propertyPath: m_LocalPosition.x
